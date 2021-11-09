@@ -25,3 +25,30 @@ ______
 * **Aaric:** Front-End *(MainView, PlayerView)*
 
 * **Henry:** Front-End *(BoardView, InfoBox, ActionBox)*
+
+
+## 1. Plan:
+
+### Plan Assignment (Due 11/8)
+* Everyone write 6 use cases in BACKLOG.md
+
+* Example game variations- Jordan
+
+* Team contract- Jordan
+
+* Wireframe: Aaric
+
+* API: Will
+
+* API Examples: Will
+
+**Design:**
+
+* CRC cards: Henry, Aaric
+
+* Test Plan: Henry
+
+* Example data: Casey
+
+* Implementation Plan: Casey
+
