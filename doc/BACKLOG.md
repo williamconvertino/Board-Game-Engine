@@ -88,3 +88,20 @@ Will Convertino
      If several players wish to buy houses or hotels but there are not enough left in the Bank, they will be auctioned
      If a player lands on the Auction space in Monopoly: The Mega Edition (more on that below)
      If you’re playing the house rule ‘Forced Auction’, then any time you land on an unowned property an auction begins immediately – you can’t buy one outright.
+
+Aaric Han
+
+1. Make game board class
+   1. The GameBoard class will store the GameBoard that is displayed. It will hold display all the cards and allow for certain squares to be clicked on.
+2. Make left panel class
+   1. The left panel will contain buttons which allow players to view other player's properties and money.
+3. Make right panel class
+   1. The right panel class will contain options a player can choose from on their turn or display "waiting for turn" in a multiplayer.
+4. Make bottom panel class
+   1. The bottom panel will contain a list of your own property cards and money values. The properties can be clicked on to show more details.
+5. Make top panel class
+   1. The top panel class has game settings for load and save. It also has options for pause and play.
+6. Make Error popup class
+   1. The error popup class will take in a string of what the error is and display it as a popup.
+7. Make Card zoom popup class
+   1. The card zoom popup class will handle displaying detailed descriptions of the cards.
