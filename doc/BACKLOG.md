@@ -129,6 +129,7 @@ Will Convertino
     Player cannot play the game anymore and is prompted
 
 Casey Goldstein
+
 20. User imports configuration file with insufficient information
 Error message pops up stating the particular data missing from file
 User has opportunity to select from folder of trusted, usable config files
