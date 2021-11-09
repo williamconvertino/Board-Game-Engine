@@ -67,7 +67,7 @@ Will Convertino
     The player rolls the dice and moves to the square in the same manner as above. When they land on the square, it calls execute. In the GoToJail square, the execute method calls the goToJail method in the PlayerManager. This moves the player to the jail square, and sets their inJail value to true. Then, their turn is ended automatically.
 
 
-11. Player trade with another player (Front-end-ish)
+11. Player trade with another player (Front-end-ish) Henry
     Trade button -> initiateTrade
     -> Panel pops up where you can offer stuff
     Display all the items in inventory
