@@ -1,9 +1,16 @@
 package model.turn_manager;
 
 import java.util.*;
+import model.data.collectables.Collectable;
+import model.data.game_data.GameData;
+import model.data.game_data.Player;
 
 /**
+ * This class contains the functions for modifying the state of the game.
  * 
+ * @author William Convertino
+ * 
+ * @since 0.0.1
  */
 public abstract class GameFunctionManager {
 
@@ -16,7 +23,7 @@ public abstract class GameFunctionManager {
     /**
      * 
      */
-    private void gameData;
+    private GameData gameData;
 
 
 
@@ -47,8 +54,6 @@ public abstract class GameFunctionManager {
      * @param player 
      * @param collectable
      */
-    public void givePlayerCollectable(Player player, Collectable collectable) {
-        // TODO implement here
-    }
+    public abstract void givePlayerCollectable(Player player, Collectable collectable);
 
 }

@@ -1,6 +1,8 @@
 package model.turn_manager;
 
 import java.util.*;
+import model.data.game_data.Player;
+import model.data.tiles.Tile;
 
 /**
  * This class manages the current turn and keeps track of all turn-based data.
@@ -46,12 +48,6 @@ public abstract class TurnManager {
      * 
      */
     private int currentRoll;
-
-
-
-
-
-
 
 
 

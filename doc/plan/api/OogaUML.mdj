@@ -3227,6 +3227,7 @@
 													}
 												}
 											],
+											"documentation": "A class to store the data of the current game. This includes players and all their associated info, as well as the board and its state.\n\n@author William Convertino\n\n@since 0.0.1",
 											"attributes": [
 												{
 													"_type": "UMLAttribute",
@@ -3659,6 +3660,7 @@
 															}
 														}
 													],
+													"documentation": "A data structure that stores a list of executable cards.\n\n@author William Convertino\n\n@since 0.0.1",
 													"attributes": [
 														{
 															"_type": "UMLAttribute",
@@ -3667,6 +3669,7 @@
 																"$ref": "AAAAAAF9AlSnPNULZAY="
 															},
 															"name": "cards",
+															"visibility": "private",
 															"type": "List<Card>"
 														}
 													],
@@ -3746,6 +3749,7 @@
 																"$ref": "AAAAAAF9AlIizrqYVrM="
 															},
 															"name": "baseRent",
+															"visibility": "private",
 															"type": "int"
 														},
 														{
@@ -3755,6 +3759,7 @@
 																"$ref": "AAAAAAF9AlIizrqYVrM="
 															},
 															"name": "houseCost",
+															"visibility": "private",
 															"type": "int"
 														},
 														{
@@ -3764,6 +3769,7 @@
 																"$ref": "AAAAAAF9AlIizrqYVrM="
 															},
 															"name": "numHouses",
+															"visibility": "private",
 															"type": "int"
 														},
 														{
@@ -3773,6 +3779,7 @@
 																"$ref": "AAAAAAF9AlIizrqYVrM="
 															},
 															"name": "owner",
+															"visibility": "private",
 															"type": {
 																"$ref": "AAAAAAF9AhI2ahse6io="
 															}
@@ -3784,6 +3791,7 @@
 																"$ref": "AAAAAAF9AlIizrqYVrM="
 															},
 															"name": "propertySet",
+															"visibility": "private",
 															"type": "List<Property>"
 														},
 														{
@@ -3793,6 +3801,7 @@
 																"$ref": "AAAAAAF9AlIizrqYVrM="
 															},
 															"name": "morgageValue",
+															"visibility": "private",
 															"type": "int"
 														},
 														{
@@ -3802,6 +3811,7 @@
 																"$ref": "AAAAAAF9AlIizrqYVrM="
 															},
 															"name": "isMorgaged",
+															"visibility": "private",
 															"type": "boolean"
 														}
 													],
@@ -3898,6 +3908,7 @@
 												"$ref": "AAAAAAF9ApVIWHgWsaU="
 											},
 											"name": "Collectable",
+											"documentation": "A general class that represents any item that can be put in the player's inventory and traded with other players.\n\n@author William Convertino\n\n@since 0.0.1",
 											"isAbstract": true
 										}
 									]
@@ -3932,6 +3943,7 @@
 													}
 												}
 											],
+											"documentation": "This class represents a tile corresponding to a property card. When a player lands on it, they may buy it if it is unowned, or pay rent for it if it is owned by another player.",
 											"attributes": [
 												{
 													"_type": "UMLAttribute",
@@ -3940,6 +3952,7 @@
 														"$ref": "AAAAAAF9AlNK68ca9iY="
 													},
 													"name": "property",
+													"visibility": "private",
 													"type": {
 														"$ref": "AAAAAAF9AlIizrqYVrM="
 													}
@@ -3969,6 +3982,7 @@
 													}
 												}
 											],
+											"documentation": "This class represents a tile that corresponds to a specific deck of cards. When a player lands on this tile, they draw a card from the deck and execute that card.\n\n@author William Convertino\n\n@since 0.0.1",
 											"attributes": [
 												{
 													"_type": "UMLAttribute",
@@ -3977,6 +3991,7 @@
 														"$ref": "AAAAAAF9AlNjqMkQZSU="
 													},
 													"name": "deck",
+													"visibility": "private",
 													"type": "Deck"
 												}
 											],
@@ -3989,6 +4004,7 @@
 												"$ref": "AAAAAAF9Apd1e32c/Tk="
 											},
 											"name": "Tile",
+											"documentation": "This class represents a tile on the board. A player can pass through or land on a tile when moving, which is reflected by the executePassThrough and executeLandOn methods.\n\n@author William Convertino\n\n@since 0.0.1",
 											"operations": [
 												{
 													"_type": "UMLOperation",
@@ -4229,6 +4245,7 @@
 												"$ref": "AAAAAAF9Agpw+BTZi/8="
 											},
 											"name": "myDisplayManager",
+											"visibility": "private",
 											"type": {
 												"$ref": "AAAAAAF9Agz7phU7PAA="
 											}
@@ -4240,6 +4257,7 @@
 												"$ref": "AAAAAAF9Agpw+BTZi/8="
 											},
 											"name": "myTurnManager",
+											"visibility": "private",
 											"type": {
 												"$ref": "AAAAAAF9ALdqvBSIPBQ="
 											}
@@ -4692,6 +4710,7 @@
 											}
 										}
 									],
+									"documentation": "This class contains the functions for modifying the state of the game.\n\n@author William Convertino\n\n@since 0.0.1",
 									"attributes": [
 										{
 											"_type": "UMLAttribute",
@@ -4908,6 +4927,7 @@
 												"$ref": "AAAAAAF9AmCpgTb/hFE="
 											},
 											"name": "playerOneOffer",
+											"visibility": "private",
 											"type": "List<Collectable>"
 										},
 										{
@@ -4917,6 +4937,7 @@
 												"$ref": "AAAAAAF9AmCpgTb/hFE="
 											},
 											"name": "playerTwoOffer",
+											"visibility": "private",
 											"type": "List<Collectable>"
 										},
 										{
@@ -4926,6 +4947,7 @@
 												"$ref": "AAAAAAF9AmCpgTb/hFE="
 											},
 											"name": "playerOne",
+											"visibility": "private",
 											"type": {
 												"$ref": "AAAAAAF9AhI2ahse6io="
 											}
@@ -4937,6 +4959,7 @@
 												"$ref": "AAAAAAF9AmCpgTb/hFE="
 											},
 											"name": "playerTwo",
+											"visibility": "private",
 											"type": {
 												"$ref": "AAAAAAF9AhI2ahse6io="
 											}
@@ -5067,6 +5090,7 @@
 								"$ref": "AAAAAAF9ApYwpXwYtS4="
 							},
 							"name": "Display",
+							"documentation": "This class displays JavaFX elements to the screen.\n\n@author William Convertino\n\n@since 0.0.1",
 							"operations": [
 								{
 									"_type": "UMLOperation",
@@ -5087,6 +5111,7 @@
 								"$ref": "AAAAAAF9ApYwpXwYtS4="
 							},
 							"name": "ButtonInitializer",
+							"documentation": "This class creates the buttons for the game and send them to the DisplayManager",
 							"operations": [
 								{
 									"_type": "UMLOperation",
@@ -5187,6 +5212,7 @@
 									}
 								}
 							],
+							"documentation": "This class manages the display elements of the program.\n\n@author William Convertino\n\n@since 0.0.1",
 							"operations": [
 								{
 									"_type": "UMLOperation",
@@ -5202,7 +5228,8 @@
 											"_parent": {
 												"$ref": "AAAAAAF9Ag+wWxcpNAc="
 											},
-											"name": "Player player"
+											"name": "player",
+											"type": "Player"
 										}
 									],
 									"isAbstract": true
@@ -5753,7 +5780,7 @@
 											"top": 78,
 											"width": 220.009765625,
 											"height": 13,
-											"text": "+myDisplayManager: DisplayManager",
+											"text": "-myDisplayManager: DisplayManager",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5770,7 +5797,7 @@
 											"top": 93,
 											"width": 220.009765625,
 											"height": 13,
-											"text": "+myTurnManager: TurnManager",
+											"text": "-myTurnManager: TurnManager",
 											"horizontalAlignment": 0
 										}
 									],
@@ -5945,7 +5972,7 @@
 											"font": "Arial;13;3",
 											"left": 533,
 											"top": 63,
-											"width": 181.7080078125,
+											"width": 185.31982421875,
 											"height": 13,
 											"text": "DisplayManager"
 										},
@@ -5980,7 +6007,7 @@
 									"font": "Arial;13;0",
 									"left": 528,
 									"top": 56,
-									"width": 191.7080078125,
+									"width": 195.31982421875,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF9Agz7pxU/M9E="
@@ -6007,7 +6034,7 @@
 									"font": "Arial;13;0",
 									"left": 528,
 									"top": 81,
-									"width": 191.7080078125,
+									"width": 195.31982421875,
 									"height": 10
 								},
 								{
@@ -6032,16 +6059,16 @@
 											"font": "Arial;13;2",
 											"left": 533,
 											"top": 96,
-											"width": 181.7080078125,
+											"width": 185.31982421875,
 											"height": 13,
-											"text": "+setActivePlayer(Player player)",
+											"text": "+setActivePlayer(player: Player)",
 											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 528,
 									"top": 91,
-									"width": 191.7080078125,
+									"width": 195.31982421875,
 									"height": 23
 								},
 								{
@@ -6081,7 +6108,7 @@
 							"containerChangeable": true,
 							"left": 528,
 							"top": 56,
-							"width": 191.7080078125,
+							"width": 195.31982421875,
 							"height": 58,
 							"nameCompartment": {
 								"$ref": "AAAAAAF9Agz7pxU+2B8="
@@ -9019,7 +9046,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 775,
+									"left": 777,
 									"top": 67,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -9040,7 +9067,7 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 776,
+									"left": 778,
 									"top": 52,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -9061,7 +9088,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 774,
+									"left": 776,
 									"top": 96,
 									"height": 13,
 									"alpha": -1.5707963267948966,
@@ -9082,7 +9109,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 746,
+									"left": 749,
 									"top": 66,
 									"height": 13,
 									"alpha": 0.5235987755982988,
@@ -9103,7 +9130,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 749,
+									"left": 752,
 									"top": 53,
 									"height": 13,
 									"alpha": 0.7853981633974483,
@@ -9124,7 +9151,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 741,
+									"left": 744,
 									"top": 94,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -9231,7 +9258,7 @@
 								"$ref": "AAAAAAF9Agz7phU9CiA="
 							},
 							"lineStyle": 1,
-							"points": "720:87;831:90",
+							"points": "723:87;831:90",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAF9AknF+ZQdjSU="
@@ -9827,7 +9854,7 @@
 											"top": 622,
 											"width": 166.5625,
 											"height": 13,
-											"text": "+baseRent: int",
+											"text": "-baseRent: int",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9844,7 +9871,7 @@
 											"top": 637,
 											"width": 166.5625,
 											"height": 13,
-											"text": "+houseCost: int",
+											"text": "-houseCost: int",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9861,7 +9888,7 @@
 											"top": 652,
 											"width": 166.5625,
 											"height": 13,
-											"text": "+numHouses: int",
+											"text": "-numHouses: int",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9878,7 +9905,7 @@
 											"top": 667,
 											"width": 166.5625,
 											"height": 13,
-											"text": "+owner: Player",
+											"text": "-owner: Player",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9895,7 +9922,7 @@
 											"top": 682,
 											"width": 166.5625,
 											"height": 13,
-											"text": "+propertySet: List<Property>",
+											"text": "-propertySet: List<Property>",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9912,7 +9939,7 @@
 											"top": 697,
 											"width": 166.5625,
 											"height": 13,
-											"text": "+morgageValue: int",
+											"text": "-morgageValue: int",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9929,7 +9956,7 @@
 											"top": 712,
 											"width": 166.5625,
 											"height": 13,
-											"text": "+isMorgaged: boolean",
+											"text": "-isMorgaged: boolean",
 											"horizontalAlignment": 0
 										}
 									],
@@ -10594,7 +10621,7 @@
 											"top": 526,
 											"width": 139.8134765625,
 											"height": 13,
-											"text": "+property: Property",
+											"text": "-property: Property",
 											"horizontalAlignment": 0
 										}
 									],
@@ -10786,7 +10813,7 @@
 											"top": 526,
 											"width": 71.8935546875,
 											"height": 13,
-											"text": "+deck: Deck",
+											"text": "-deck: Deck",
 											"horizontalAlignment": 0
 										}
 									],
@@ -11167,7 +11194,7 @@
 											"top": 478,
 											"width": 110.1953125,
 											"height": 13,
-											"text": "+cards: List<Card>",
+											"text": "-cards: List<Card>",
 											"horizontalAlignment": 0
 										}
 									],
@@ -11239,7 +11266,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -976,
+									"left": -992,
 									"top": -256,
 									"width": 10,
 									"height": 10
@@ -11255,7 +11282,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -976,
+									"left": -992,
 									"top": -256,
 									"width": 10,
 									"height": 10
@@ -13012,7 +13039,7 @@
 											"top": 614,
 											"width": 237.3642578125,
 											"height": 13,
-											"text": "+playerOneOffer: List<Collectable>",
+											"text": "-playerOneOffer: List<Collectable>",
 											"horizontalAlignment": 0
 										},
 										{
@@ -13029,7 +13056,7 @@
 											"top": 629,
 											"width": 237.3642578125,
 											"height": 13,
-											"text": "+playerTwoOffer: List<Collectable>",
+											"text": "-playerTwoOffer: List<Collectable>",
 											"horizontalAlignment": 0
 										},
 										{
@@ -13046,7 +13073,7 @@
 											"top": 644,
 											"width": 237.3642578125,
 											"height": 13,
-											"text": "+playerOne: Player",
+											"text": "-playerOne: Player",
 											"horizontalAlignment": 0
 										},
 										{
@@ -13063,7 +13090,7 @@
 											"top": 659,
 											"width": 237.3642578125,
 											"height": 13,
-											"text": "+playerTwo: Player",
+											"text": "-playerTwo: Player",
 											"horizontalAlignment": 0
 										}
 									],

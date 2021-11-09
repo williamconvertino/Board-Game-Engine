@@ -1,6 +1,8 @@
 package model.game_manager;
 
+import display.DisplayManager;
 import java.util.*;
+import model.turn_manager.TurnManager;
 
 /**
  * This class initializes and manages the game.
@@ -20,36 +22,21 @@ public abstract class GameManager {
     /**
      * 
      */
-    public DisplayManager myDisplayManager;
+    private DisplayManager myDisplayManager;
 
     /**
      * 
      */
-    public TurnManager myTurnManager;
-
-
-
-
-
-
-
-
+    private TurnManager myTurnManager;
 
     /**
      * 
      */
-    public void Operation1() {
-        // TODO implement here
-    }
+    protected abstract void initializeButtons();
 
     /**
      * 
      */
-    private abstract void initializeButtons();
-
-    /**
-     * 
-     */
-    private abstract void initializeGameData();
+    protected abstract void initializeGameData();
 
 }

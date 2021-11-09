@@ -1,6 +1,8 @@
 package model.trade_manager;
 
 import java.util.*;
+import model.data.collectables.Collectable;
+import model.data.game_data.Player;
 
 /**
  * This class manages the trade interaction between two players. It has methods that allow both players to offer collectable items and money, and methods to either accept or refuse a deal.
@@ -20,22 +22,22 @@ public abstract class TradeManager {
     /**
      * 
      */
-    public List<Collectable> playerOneOffer;
+    private List<Collectable> playerOneOffer;
 
     /**
      * 
      */
-    public List<Collectable> playerTwoOffer;
+    private List<Collectable> playerTwoOffer;
 
     /**
      * 
      */
-    public Player playerOne;
+    private Player playerOne;
 
     /**
      * 
      */
-    public Player playerTwo;
+    private Player playerTwo;
 
 
     /**
@@ -45,9 +47,9 @@ public abstract class TradeManager {
     public abstract void initTrade(Player p1, Player p2);
 
     /**
-     * @param Collectable
+     * @param c
      */
-    public abstract void toggleTrade(void Collectable);
+    public abstract void toggleTrade(Collectable c);
 
     /**
      * @param player 

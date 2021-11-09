@@ -1,9 +1,15 @@
 package model.data.tiles;
 
 import java.util.*;
+import model.data.game_data.Player;
+import model.turn_manager.GameFunctionManager;
 
 /**
+ * This class represents a tile on the board. A player can pass through or land on a tile when moving, which is reflected by the executePassThrough and executeLandOn methods.
  * 
+ * @author William Convertino
+ * 
+ * @since 0.0.1
  */
 public abstract class Tile {
 
