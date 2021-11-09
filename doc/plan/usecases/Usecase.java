@@ -1,6 +1,8 @@
 import model.data.collectables.Collectable;
+import model.data.collectables.properties.Property;
 import model.data.game_data.GameData;
 import model.data.game_data.Player;
+import model.data.tiles.PropertyTile;
 import model.data.tiles.Tile;
 import model.die.Die;
 import model.game_manager.GameManager;
@@ -69,9 +71,32 @@ class Usecases {
       activePlayer.setStatus(false);
     }
     myTurnManager.endTurn(activePlayer);
-
-
   }
 
+  //If a player lands on a space:
+  void landsOnSpace () {
+    Tile myTile = myGameData.getTiles().get(activePlayer.getLocation());
+    myTile.executeLandOn(activePlayer, myGameFunctionManager);
+  }
+
+  //An example implementation of a property tile:
+  void examplePropertyFile() {
+
+    PropertyTile myPropertyTile = new PropertyTile() {
+      @Override
+      public void executePassThrough(Player player, GameFunctionManager functionManager) {
+
+      }
+
+      @Override
+      public void executeLandOn(Player player, GameFunctionManager functionManager) {
+        if (property.getOwner() != player) {
+          player.addMoney(-1 * property.getRent());
+          property.getOwner().addMoney(property.getRent());
+        }
+      }
+    }
+
+  }
 
 }

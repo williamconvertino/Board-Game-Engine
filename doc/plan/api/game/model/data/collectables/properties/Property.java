@@ -75,6 +75,11 @@ public abstract class Property extends Collectable {
     public abstract void setOwner(Player player);
 
     /**
+     *
+     */
+    public abstract Player getOwner();
+
+    /**
      * @return
      */
     public abstract boolean isMonopoly();

@@ -19,7 +19,7 @@ public abstract class PropertyTile extends Tile {
     /**
      * 
      */
-    private Property property;
+    protected Property property;
 
     /**
      * @param player 
