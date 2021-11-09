@@ -1,6 +1,7 @@
 ## Use Cases
 
 Henry Huynh
+Jordan Castleman
 
 Use Cases
 
@@ -80,7 +81,7 @@ Will Convertino
     Refuse
     Refuse offer popup appears (with one button “OK”)
 
-12.  Bank auctions off
+12. Bank auctions off
      Auction preconditions
      f you land on an unowned property, and you decide you don’t want to buy it (or you don’t want to pay full price)
      If you land on an unowned property and can’t afford to pay the full price for it
@@ -89,19 +90,57 @@ Will Convertino
      If a player lands on the Auction space in Monopoly: The Mega Edition (more on that below)
      If you’re playing the house rule ‘Forced Auction’, then any time you land on an unowned property an auction begins immediately – you can’t buy one outright.
 
+13. Player mortgages property
+    Player rolls dice and moves to the corresponding location and completes the action associated with that location as necessary.  
+    Player chooses to mortgage a property by clicking on a property they own and clicking mortgage property.
+    Property turns over and the player gets the mortgage amount.
+
+14. Player exits the game
+    The player at any point can exit the game by closing the window or hitting the exit game button located within settings.
+
+15. Player lands on another’s monopoly (no buildings)
+    Player 1 buys all properties in one monopoly.
+    Player 2’s turn begins.  They roll the dice and land on Player 1’s monopoly.
+    Player 2 pays double the rent of that property to player 1.
+
+16. Player rolls doubles three times in a row
+    Player rolls doubles three times in a row.
+    Before any other actions can be completed, the player’s piece is immediately transported to jail.
+    A “Jail” banner is posted across the window.
+    Player’s turn ends.
+
+17. Player lands on Chance and gets the “Move to Go, collect 200” card
+    Player begins their turn and rolls the dice, moving to one of the Chance locations.
+    Player draws a “Move to Go, collect 200” card and is immediately transported to Go.
+    Player collects 200.
+    Alternative variation: Player collects double the payout.
+
+18. Player loses the game by landing on another monopoly
+    Player begins their turn and rolls the dice, moving to another player’s monopoly.
+    Player has to pay X but has a balance of less than X, therefore the player pays as much as he can.
+    Players turn ends and a “You lose” banner appears.
+    Player cannot play the game anymore and is prompted to exit.
+
+19. Player wins the game via another landing on their monopoly
+    Player 1 begins their turn and rolls the dice, moving to player 2’s monopoly.
+    Player 1 cannot pay player 2 the required amount; therefore, player 2 wins.
+    Player 1 pays player 2 as much as they can and the balance is updated accordingly.
+    Players turn ends and a “You win” banner appears on player 1’s window.
+    Player cannot play the game anymore and is prompte
+
 Aaric Han
 
 1. Make game board class
-   1. The GameBoard class will store the GameBoard that is displayed. It will hold display all the cards and allow for certain squares to be clicked on.
+    1. The GameBoard class will store the GameBoard that is displayed. It will hold display all the cards and allow for certain squares to be clicked on.
 2. Make left panel class
-   1. The left panel will contain buttons which allow players to view other player's properties and money.
+    1. The left panel will contain buttons which allow players to view other player's properties and money.
 3. Make right panel class
-   1. The right panel class will contain options a player can choose from on their turn or display "waiting for turn" in a multiplayer.
+    1. The right panel class will contain options a player can choose from on their turn or display "waiting for turn" in a multiplayer.
 4. Make bottom panel class
-   1. The bottom panel will contain a list of your own property cards and money values. The properties can be clicked on to show more details.
+    1. The bottom panel will contain a list of your own property cards and money values. The properties can be clicked on to show more details.
 5. Make top panel class
-   1. The top panel class has game settings for load and save. It also has options for pause and play.
+    1. The top panel class has game settings for load and save. It also has options for pause and play.
 6. Make Error popup class
-   1. The error popup class will take in a string of what the error is and display it as a popup.
+    1. The error popup class will take in a string of what the error is and display it as a popup.
 7. Make Card zoom popup class
-   1. The card zoom popup class will handle displaying detailed descriptions of the cards.
+    1. The card zoom popup class will handle displaying detailed descriptions of the cards.
