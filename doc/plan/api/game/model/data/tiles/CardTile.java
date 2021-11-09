@@ -1,9 +1,16 @@
 package model.data.tiles;
 
 import java.util.*;
+import model.data.collectables.cards.Deck;
+import model.data.game_data.Player;
+import model.turn_manager.GameFunctionManager;
 
 /**
+ * This class represents a tile that corresponds to a specific deck of cards. When a player lands on this tile, they draw a card from the deck and execute that card.
  * 
+ * @author William Convertino
+ * 
+ * @since 0.0.1
  */
 public abstract class CardTile extends Tile {
 
@@ -16,7 +23,7 @@ public abstract class CardTile extends Tile {
     /**
      * 
      */
-    public Deck deck;
+    private Deck deck;
 
     /**
      * @param player 

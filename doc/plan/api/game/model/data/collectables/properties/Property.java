@@ -1,6 +1,8 @@
 package model.data.collectables.properties;
 
 import java.util.*;
+import model.data.collectables.Collectable;
+import model.data.game_data.Player;
 
 /**
  * This class keeps track of the data associated with any given property.
@@ -20,37 +22,37 @@ public abstract class Property extends Collectable {
     /**
      * 
      */
-    public int baseRent;
+    private int baseRent;
 
     /**
      * 
      */
-    public int houseCost;
+    private int houseCost;
 
     /**
      * 
      */
-    public int numHouses;
+    private int numHouses;
 
     /**
      * 
      */
-    public Player owner;
+    private Player owner;
 
     /**
      * 
      */
-    public List<Property> propertySet;
+    private List<Property> propertySet;
 
     /**
      * 
      */
-    public int morgageValue;
+    private int morgageValue;
 
     /**
      * 
      */
-    public boolean isMorgaged;
+    private boolean isMorgaged;
 
     /**
      * 

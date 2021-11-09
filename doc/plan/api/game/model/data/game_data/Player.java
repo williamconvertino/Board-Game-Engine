@@ -1,6 +1,8 @@
 package model.data.game_data;
 
 import java.util.*;
+import model.data.collectables.Collectable;
+import model.data.collectables.properties.Property;
 
 /**
  * 

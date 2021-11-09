@@ -1,9 +1,14 @@
 package display;
 
 import java.util.*;
+import model.data.game_data.Player;
 
 /**
+ * This class manages the display elements of the program.
  * 
+ * @author William Convertino
+ * 
+ * @since 0.0.1
  */
 public abstract class DisplayManager {
 
@@ -17,8 +22,8 @@ public abstract class DisplayManager {
 
 
     /**
-     * @param Player player
+     * @param player
      */
-    public abstract void setActivePlayer(void Player player);
+    public abstract void setActivePlayer(Player player);
 
 }
