@@ -126,21 +126,53 @@ Will Convertino
     Player 1 cannot pay player 2 the required amount; therefore, player 2 wins.
     Player 1 pays player 2 as much as they can and the balance is updated accordingly.
     Players turn ends and a “You win” banner appears on player 1’s window.
-    Player cannot play the game anymore and is prompte
+    Player cannot play the game anymore and is prompted
+
+Casey Goldstein
+20. User imports configuration file with insufficient information
+Error message pops up stating the particular data missing from file
+User has opportunity to select from folder of trusted, usable config files
+
+21. User tries to start game without loading in configuration file
+Error message pops up starting that a configure file was not included.
+User has choice to load file, or continue with default board/settings
+
+22. User imports JSON with incorrect format
+Error message pops up stating that there are typos/erros in JSON file
+Will highlight specific portions of JSON file, asking user to change
+
+23. User hits ‘Save Game’
+Board is converted into 2D array to be written into JSON file
+All player assets are converted to a string array and passed into JSON file
+Properties and their respective owners (and with/without house/hotels) are converted to string array and passed into JSON file
+File Dialog pops up asking User where to keep JSON file
+
+24. Game Starts (with Pseudo Code):
+GameManager will call startTurn(GameData.getNextPlayer())
+Sets myActivePlayer in GameManager to GameData.getCurrentPlayer()
+In GameManager.startTurn(), GameManager will call DisplayManager.setActivePlayer(myActivePlayer)
+Then GameManager.startTurn() will call PlayerManager.startTurn()
+In PlayerManager.startTurn(), will first call checkCircumstances() that sees if GameData.getCurrentPlayer is in jail.
+
+25. Player tries to end turn without rolling dice:
+Error message pops up, saying that player cannot end turn without rolling dice
+Brings Roll Dice button to center of screen for Player to click
+No other event handling will be accessible until Player clicks
+
 
 Aaric Han
 
-1. Make game board class
+26. Make game board class
     1. The GameBoard class will store the GameBoard that is displayed. It will hold display all the cards and allow for certain squares to be clicked on.
-2. Make left panel class
+27. Make left panel class
     1. The left panel will contain buttons which allow players to view other player's properties and money.
-3. Make right panel class
+28. Make right panel class
     1. The right panel class will contain options a player can choose from on their turn or display "waiting for turn" in a multiplayer.
-4. Make bottom panel class
+29. Make bottom panel class
     1. The bottom panel will contain a list of your own property cards and money values. The properties can be clicked on to show more details.
-5. Make top panel class
+30. Make top panel class
     1. The top panel class has game settings for load and save. It also has options for pause and play.
-6. Make Error popup class
+31. Make Error popup class
     1. The error popup class will take in a string of what the error is and display it as a popup.
-7. Make Card zoom popup class
+32. Make Card zoom popup class
     1. The card zoom popup class will handle displaying detailed descriptions of the cards.
