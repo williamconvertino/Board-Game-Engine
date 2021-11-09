@@ -1,0 +1,90 @@
+## Use Cases
+
+Henry Huynh
+
+Use Cases
+
+Buy House (Frontend)
+Preconditions
+1. It is the player’s turn.
+2. The player has not rolled the dice.
+3. The player has monopoly on one or more color groups.
+4. The even development rule must be followed
+
+When a player has all the tradable cells in a color group, this player is said to have monopoly on the color group. A player may build house(s) in the property cells in the color groups the player has monopoly on by pressing the Buy House button before he or she rolls the dice. The price of the house is determined by the cell. After buying the house(s), the status of the player is updated and displayed on the game board. The visual indicator of a house should pop up on whatever tile the house(s) has been purchased on.
+
+When the Buy House button is clicked, the Buy House dialog shows up. The player selects the monopoly color group and the number of houses from that dialog. After clicking on OK in the dialog box, the player pays the fee, and the houses are created. All the property cells in the selected color group have the same number of houses.
+
+Alternative Flows: Nothing happens if the player does not have enough money
+
+Changes the board game variation to Monopoly Skyscraper in the settings
+Preconditions
+Must have not started the game yet
+Must be in the settings screen
+
+The settings screen should be available to be accessed through the start menu. From there, the user should be able to click from one of the buttons to change the board game variation. There should be some visual indicator that informs the user that the mode has been changed successfully.
+
+Sell House (Frontend)
+Preconditions
+It is the player’s turn.
+The player has not rolled the dice.
+An even development rule must be followed
+
+A player has the ability to sell to the bank for half price that it was bought at when they click on a house. When the user clicks on the house a popup or some frame should appear with an option to sell the house
+
+
+Move character (Front-end aspect)
+Preconditions
+The player must have rolled a dice
+
+The screen should put a highlighter/pointer on the token being moved, and follow its movement. We could additionally have a counter that is displayed indicating the total steps to be moved and decrement from it each time the player moves once. We could have the token move up vertically to show its moving. Or instead of tokens, which might be hard to animate, we could just use a pointer with different colors for different players.
+
+
+5. Land on tile (Front-end aspect)
+
+When a player lands on the tile, a popup/frame on the side of the board window should appear indicating the information on the tile. This is because it would be difficult to display all the information
+
+
+6. User clicks on tile
+   The user should be able to click on a tile to examine the details of it further. This might be a necessary detail as it will be difficult for the user to read the details of the whole board. Generally, the user should be able to click on objects to be able to acquire more information of the game state.
+
+
+7. User rolls dice (Front-end aspect)
+   Replace the button to roll the dice after the button has been clicked with a greyed out label/button that does nothing when clicked
+
+Makes use of ButtonManager/ButtonInitalizer class
+
+
+Will Convertino
+
+8. User starts turn in jail
+   The PlayerManager starts the turn, sees that the player is in jail, and signals the display to show the bail screen. If the player tries to roll, the PlayerManager checks to see if there are doubles. If there are, the player moves forward that many spaces and they are marked as no longer in jail. Otherwise, the roll is saved, and the bail screen is once again prompted. If the player presses the end turn button, and they haven’t rolled 3 times during bail, end the turn. Otherwise, if they try to end the turn, tell them that they must pay bail first. If they do not have enough money to pay bail, they can refuse to pay and will be eliminated from the game.
+9. User rolls dice (Backend)
+   Use the event handler in the roll die button to call the method roll() in the PlayerManager. It will check to make sure they are able to roll (ei havent already rolled), and if not it will call getRoll from the Die class. Then, if they are not in jail, the PlayerManager will call its own method movePlayerFD(p,roll). This will call the executePassThrough(p,this) method on each of the tiles it passes through, and then executeLandOn(p,this) in the tile it lands on. This will allow the tiles to execute their functions on the player using the methods in PlayerManager.
+
+10. Player lands on GoToJail square
+    The player rolls the dice and moves to the square in the same manner as above. When they land on the square, it calls execute. In the GoToJail square, the execute method calls the goToJail method in the PlayerManager. This moves the player to the jail square, and sets their inJail value to true. Then, their turn is ended automatically.
+
+
+11. Player trade with another player (Front-end-ish)
+    Trade button -> initiateTrade
+    -> Panel pops up where you can offer stuff
+    Display all the items in inventory
+    Collectible (Property, get out of jail free card)
+    Textfield w/ money amt
+    Another popup happens with error if they don’t have that amount of money.
+    Offer
+    -> Another panel for other player to accept
+    Accept
+    Accept offer popup appears (with one button “OK”)
+    Refuse
+    Refuse offer popup appears (with one button “OK”)
+
+12.  Bank auctions off
+     Auction preconditions
+     f you land on an unowned property, and you decide you don’t want to buy it (or you don’t want to pay full price)
+     If you land on an unowned property and can’t afford to pay the full price for it
+     A player goes bankrupt to the Bank. When the money is owed to the Bank (and not to another player) all of their properties are auctioned in turn (providing two or more players are still in the game)
+     If several players wish to buy houses or hotels but there are not enough left in the Bank, they will be auctioned
+     If a player lands on the Auction space in Monopoly: The Mega Edition (more on that below)
+     If you’re playing the house rule ‘Forced Auction’, then any time you land on an unowned property an auction begins immediately – you can’t buy one outright.
