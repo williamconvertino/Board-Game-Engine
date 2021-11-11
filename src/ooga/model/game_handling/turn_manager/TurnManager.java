@@ -11,7 +11,7 @@ import ooga.model.game_handling.DataFunctions;
  * 
  * @since 0.0.1
  */
-public class TurnManager {
+public abstract class TurnManager {
 
 
     private int numRolls;

@@ -2,8 +2,10 @@ package ooga.model.data.board;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.data.game_data.Player;
-import model.data.tiles.Tile;
+//import model.data.game_data.Player;
+//import model.data.tiles.Tile;
+import ooga.model.data.player.Player;
+import ooga.model.data.tiles.Tile;
 
 public abstract class Board {
 
@@ -26,11 +28,11 @@ public abstract class Board {
 
     while (tiles_moved < distance-1) {
       p.setLocation((p.getLocation() + 1) % myTiles.size());
-      myTiles.get(p.getLocation()).executePassThrough(player);
+      myTiles.get(p.getLocation()).executePassThrough(p);
       tiles_moved++;
     }
 
-    myTiles.get(p.getLocation()).executeLandOn(player);
+    myTiles.get(p.getLocation()).executeLandOn(p);
   }
 
 }
