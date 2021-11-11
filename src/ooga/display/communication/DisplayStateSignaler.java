@@ -31,7 +31,7 @@ public class DisplayStateSignaler {
   }
 
   public void signalDisplay (States s) {
-    myDisplayManager.signalState(s);
+//    myDisplayManager.signalState(s);
   }
 
 }
