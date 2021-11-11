@@ -1,6 +1,7 @@
 package ooga.display;
 
 import ooga.display.communication.DisplayStateSignaler;
+import ooga.display.communication.EventManager;
 import ooga.model.data.player.Player;
 
 /**
@@ -15,17 +16,10 @@ public abstract class DisplayManager {
     /**
      * Default constructor
      */
-    public DisplayManager() {
+    public DisplayManager(EventManager events) {
     }
 
 
-
-
-    /**
-     * @param player
-     */
-    public abstract void setActivePlayer(Player player);
-
-    public abstract void signalState(DisplayStateSignaler.states s);
+    public abstract void signalState(DisplayStateSignaler.States s);
 
 }

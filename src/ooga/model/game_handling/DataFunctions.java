@@ -13,7 +13,7 @@ import ooga.model.die.Die;
  * 
  * @since 0.0.1
  */
-public class ActionHandler {
+public class DataFunctions {
 
 
     private GameData gameData;
@@ -23,7 +23,7 @@ public class ActionHandler {
     /**
      * Default constructor
      */
-    public ActionHandler(GameData gameData, Die die, Method endTurn) {
+    public DataFunctions(GameData gameData, Die die, Method endTurn) {
         this.gameData = gameData;
         this.endTurn = endTurn;
         this.myDie = die;
