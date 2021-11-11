@@ -1,5 +1,6 @@
 package ooga.display;
 
+import ooga.display.communication.DisplayStateSignaler;
 import ooga.model.data.player.Player;
 
 /**
@@ -24,5 +25,7 @@ public abstract class DisplayManager {
      * @param player
      */
     public abstract void setActivePlayer(Player player);
+
+    public abstract void signalState(DisplayStateSignaler.states s);
 
 }

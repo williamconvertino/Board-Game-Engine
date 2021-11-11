@@ -2,7 +2,7 @@ package ooga.model.game_handling.turn_manager;
 
 import ooga.model.data.player.Player;
 import ooga.model.data.tiles.Tile;
-import ooga.model.game_handling.GameFunctions;
+import ooga.model.game_handling.ActionHandler;
 
 /**
  * This class manages the current turn and keeps track of all turn-based data.
@@ -11,7 +11,20 @@ import ooga.model.game_handling.GameFunctions;
  * 
  * @since 0.0.1
  */
-public abstract class TurnManager {
+public class TurnManager {
+
+
+    private int numRolls;
+
+    private Player activePlayer;
+
+    private int maxRolls;
+
+    private Tile selectedTile;
+
+    private ActionHandler actionHandler;
+
+    private int currentRoll;
 
     /**
      * Default constructor
@@ -19,42 +32,18 @@ public abstract class TurnManager {
     public TurnManager() {
     }
 
-    /**
-     * 
-     */
-    private Player activePlayer;
 
-    /**
-     * 
-     */
-    private int numRolls;
 
-    /**
-     * 
-     */
-    private int maxRolls;
 
-    /**
-     * 
-     */
-    private Tile selectedTile;
-
-    /**
-     * 
-     */
-    private GameFunctions gameFunctions;
-
-    /**
-     * 
-     */
-    private int currentRoll;
 
 
 
     /**
      * @param player
      */
-    public abstract void startTurn(Player player);
+    public void startTurn(Player player) {
+
+    }
 
     /**
      * @param player

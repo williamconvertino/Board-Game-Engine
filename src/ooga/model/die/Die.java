@@ -1,4 +1,4 @@
-package ooga.model.game_handling.die;
+package ooga.model.die;
 
 public abstract class Die {
 

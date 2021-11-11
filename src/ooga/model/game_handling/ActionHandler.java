@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import ooga.model.data.collectables.Collectable;
 import ooga.model.data.GameData;
 import ooga.model.data.player.Player;
-import ooga.model.game_handling.die.Die;
+import ooga.model.die.Die;
 
 /**
  * This class modifies the player and game state variables.
@@ -13,7 +13,7 @@ import ooga.model.game_handling.die.Die;
  * 
  * @since 0.0.1
  */
-public class GameFunctions {
+public class ActionHandler {
 
 
     private GameData gameData;
@@ -23,7 +23,7 @@ public class GameFunctions {
     /**
      * Default constructor
      */
-    public GameFunctions(GameData gameData, Die die, Method endTurn) {
+    public ActionHandler(GameData gameData, Die die, Method endTurn) {
         this.gameData = gameData;
         this.endTurn = endTurn;
         this.myDie = die;

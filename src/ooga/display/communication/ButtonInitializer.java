@@ -1,5 +1,6 @@
-package ooga.display;
+package ooga.display.communication;
 
+import ooga.display.DisplayManager;
 import ooga.model.game_handling.turn_manager.TurnManager;
 
 /**
