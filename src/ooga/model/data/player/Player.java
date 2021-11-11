@@ -23,7 +23,7 @@ public class Player {
     /**
      * 
      */
-    private List<Collectable> inventory;
+    private List<Collectable> myCollectables;
 
     /**
      * 
@@ -102,6 +102,10 @@ public class Player {
      */
     public void setStatus(boolean status) {
 
+    }
+
+    public void addCollectable(Collectable c) {
+        myCollectables.add(c);
     }
 
 }

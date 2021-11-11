@@ -4,9 +4,10 @@ import java.lang.reflect.Method;
 import ooga.model.data.collectables.Collectable;
 import ooga.model.data.GameData;
 import ooga.model.data.player.Player;
+import ooga.model.game_handling.die.Die;
 
 /**
- * This class contains the functions for modifying the state of the game.
+ * This class modifies the player and game state variables.
  * 
  * @author William Convertino
  * 
@@ -17,14 +18,15 @@ public class GameFunctions {
 
     private GameData gameData;
     private Method endTurn;
-
+    private Die myDie;
 
     /**
      * Default constructor
      */
-    public GameFunctions(GameData gameData, Method endTurn) {
+    public GameFunctions(GameData gameData, Die die, Method endTurn) {
         this.gameData = gameData;
         this.endTurn = endTurn;
+        this.myDie = die;
     }
 
 
@@ -41,6 +43,8 @@ public class GameFunctions {
      */
     public void rollDie(Player player) {
 
+        myDie.roll();
+
     }
 
     /**
@@ -48,7 +52,7 @@ public class GameFunctions {
      * @param amount
      */
     public void addMoney(Player player, int amount) {
-
+        player.addMoney(amount);
     }
 
     /**
@@ -64,7 +68,7 @@ public class GameFunctions {
      * @param collectable
      */
     public void givePlayerCollectable(Player player, Collectable collectable) {
-
+        player.addCollectable(collectable);
     }
 
 }

@@ -22,12 +22,11 @@ public abstract class Tile {
      * @param player 
      * @param functionManager
      */
-    public abstract void executePassThrough(Player player, GameFunctions functionManager);
+    public abstract void executePassThrough(Player player);
 
     /**
-     * @param player 
-     * @param functionManager
+     * @param player
      */
-    public abstract void executeLandOn(Player player, GameFunctions functionManager);
+    public abstract void executeLandOn(Player player);
 
 }
