@@ -1,8 +1,8 @@
-package model.data.tiles;
+package ooga.model.data.tiles;
 
-import model.data.collectables.Deck;
-import model.data.game_data.Player;
-import model.turn_manager.GameFunctionManager;
+import ooga.model.data.collectables.Deck;
+import ooga.model.data.game_data.Player;
+import ooga.model.turn_manager.GameFunctionManager;
 
 /**
  * This class represents a tile that corresponds to a specific deck of cards. When a player lands on this tile, they draw a card from the deck and execute that card.

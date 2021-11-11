@@ -1,6 +1,7 @@
-package model.data.collectables.cards;
+package model.data.collectables;
 
 import java.util.*;
+import model.data.collectables.cards.Card;
 
 /**
  * A data structure that stores a list of executable cards.

@@ -1,28 +1,22 @@
-package model.data.tiles;
+package ooga.model.data.tiles;
 
-import model.data.collectables.Deck;
-import model.data.game_data.Player;
-import model.turn_manager.GameFunctionManager;
+import ooga.model.data.game_data.Player;
+import ooga.model.turn_manager.GameFunctionManager;
 
 /**
- * This class represents a tile that corresponds to a specific deck of cards. When a player lands on this tile, they draw a card from the deck and execute that card.
+ * This class represents a tile on the board. A player can pass through or land on a tile when moving, which is reflected by the executePassThrough and executeLandOn methods.
  * 
  * @author William Convertino
  * 
  * @since 0.0.1
  */
-public abstract class CardTile extends Tile {
+public abstract class Tile {
 
     /**
      * Default constructor
      */
-    public CardTile() {
+    public Tile() {
     }
-
-    /**
-     * 
-     */
-    private Deck deck;
 
     /**
      * @param player 
