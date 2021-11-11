@@ -1,7 +1,8 @@
 package ooga.model.game_handling.turn_manager;
 
-import ooga.model.data.game_data.Player;
+import ooga.model.data.player.Player;
 import ooga.model.data.tiles.Tile;
+import ooga.model.game_handling.GameFunctions;
 
 /**
  * This class manages the current turn and keeps track of all turn-based data.
@@ -41,7 +42,7 @@ public abstract class TurnManager {
     /**
      * 
      */
-    private GameFunctionManager gameFunctionManager;
+    private GameFunctions gameFunctions;
 
     /**
      * 

@@ -1,6 +1,6 @@
 package ooga.display;
 
-import ooga.model.data.game_data.Player;
+import ooga.model.data.player.Player;
 
 /**
  * This class manages the display elements of the program.

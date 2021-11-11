@@ -1,6 +1,7 @@
-package ooga.model.data.game_data;
+package ooga.model.data;
 
 import java.util.List;
+import ooga.model.data.player.Player;
 import ooga.model.data.tiles.Tile;
 
 /**

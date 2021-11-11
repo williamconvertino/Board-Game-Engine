@@ -2,7 +2,7 @@ package ooga.model.game_handling.trade_manager;
 
 import java.util.List;
 import ooga.model.data.collectables.Collectable;
-import ooga.model.data.game_data.Player;
+import ooga.model.data.player.Player;
 
 /**
  * This class manages the trade interaction between two players. It has methods that allow both players to offer collectable items and money, and methods to either accept or refuse a deal.

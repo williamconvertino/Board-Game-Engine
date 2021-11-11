@@ -2,7 +2,7 @@ package ooga.model.data.collectables.properties;
 
 import java.util.List;
 import ooga.model.data.collectables.Collectable;
-import ooga.model.data.game_data.Player;
+import ooga.model.data.player.Player;
 
 /**
  * This class keeps track of the data associated with any given property.

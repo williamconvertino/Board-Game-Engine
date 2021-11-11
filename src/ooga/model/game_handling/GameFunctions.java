@@ -1,8 +1,8 @@
-package ooga.model.game_handling.turn_manager;
+package ooga.model.game_handling;
 
 import ooga.model.data.collectables.Collectable;
-import ooga.model.data.game_data.GameData;
-import ooga.model.data.game_data.Player;
+import ooga.model.data.GameData;
+import ooga.model.data.player.Player;
 
 /**
  * This class contains the functions for modifying the state of the game.
@@ -11,12 +11,12 @@ import ooga.model.data.game_data.Player;
  * 
  * @since 0.0.1
  */
-public abstract class GameFunctionManager {
+public abstract class GameFunctions {
 
     /**
      * Default constructor
      */
-    public GameFunctionManager() {
+    public GameFunctions() {
     }
 
     /**
