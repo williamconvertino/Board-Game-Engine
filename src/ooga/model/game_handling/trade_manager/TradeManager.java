@@ -1,4 +1,4 @@
-package ooga.model.trade_manager;
+package ooga.model.game_handling.trade_manager;
 
 import java.util.List;
 import ooga.model.data.collectables.Collectable;

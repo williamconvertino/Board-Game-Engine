@@ -1,4 +1,4 @@
-package ooga.model.turn_manager;
+package ooga.model.game_handling.turn_manager;
 
 import ooga.model.data.game_data.Player;
 import ooga.model.data.tiles.Tile;

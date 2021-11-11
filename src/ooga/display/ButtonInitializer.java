@@ -1,11 +1,11 @@
 package ooga.display;
 
-import ooga.model.turn_manager.TurnManager;
+import ooga.model.game_handling.turn_manager.TurnManager;
 
 /**
  * This class creates the buttons for the game and send them to the DisplayManager
  */
-public abstract class ButtonInitializer {
+public class ButtonInitializer {
 
     /**
      * Default constructor
@@ -17,6 +17,10 @@ public abstract class ButtonInitializer {
      * @param displayManager 
      * @param turnManager
      */
-    public abstract void initializeButtons(DisplayManager displayManager, TurnManager turnManager);
+    public void initializeButtons(DisplayManager displayManager, TurnManager turnManager) {
+
+        
+
+    }
 
 }

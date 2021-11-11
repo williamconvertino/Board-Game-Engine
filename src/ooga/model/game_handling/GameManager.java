@@ -1,7 +1,7 @@
-package ooga.model.game_manager;
+package ooga.model.game_handling;
 
 import ooga.display.DisplayManager;
-import ooga.model.turn_manager.TurnManager;
+import ooga.model.game_handling.turn_manager.TurnManager;
 
 /**
  * This class initializes and manages the game.
@@ -10,7 +10,7 @@ import ooga.model.turn_manager.TurnManager;
  * 
  * @since 0.0.1
  */
-public abstract class GameManager {
+public class GameManager {
 
     /**
      * Default constructor
@@ -31,11 +31,17 @@ public abstract class GameManager {
     /**
      * 
      */
-    protected abstract void initializeButtons();
+    protected  void initializeButtons() {
+
+
+
+    }
 
     /**
      * 
      */
-    protected abstract void initializeGameData();
+    private void initializeGameData() {
+
+    }
 
 }
