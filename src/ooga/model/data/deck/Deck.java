@@ -1,4 +1,4 @@
-package ooga.model.data.collectables;
+package ooga.model.data.deck;
 
 import java.util.List;
 import ooga.model.data.collectables.cards.Card;
@@ -10,7 +10,7 @@ import ooga.model.data.collectables.cards.Card;
  * 
  * @since 0.0.1
  */
-public abstract class Deck {
+public class Deck {
 
     /**
      * Default constructor
@@ -27,11 +27,15 @@ public abstract class Deck {
     /**
      * 
      */
-    public abstract void shuffle();
+    public void shuffle() {
+
+    }
 
     /**
      * @return
      */
-    public abstract Card drawCard();
+    public Card drawCard() {
+        return null;
+    }
 
 }

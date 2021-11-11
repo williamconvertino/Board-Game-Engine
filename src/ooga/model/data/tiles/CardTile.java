@@ -1,6 +1,6 @@
 package ooga.model.data.tiles;
 
-import ooga.model.data.collectables.Deck;
+import ooga.model.data.deck.Deck;
 import ooga.model.data.player.Player;
 import ooga.model.game_handling.GameFunctions;
 

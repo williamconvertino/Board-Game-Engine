@@ -1,5 +1,6 @@
 package ooga.model.game_handling;
 
+import java.lang.reflect.Method;
 import ooga.model.data.collectables.Collectable;
 import ooga.model.data.GameData;
 import ooga.model.data.player.Player;
@@ -11,48 +12,59 @@ import ooga.model.data.player.Player;
  * 
  * @since 0.0.1
  */
-public abstract class GameFunctions {
+public class GameFunctions {
+
+
+    private GameData gameData;
+    private Method endTurn;
+
 
     /**
      * Default constructor
      */
-    public GameFunctions() {
+    public GameFunctions(GameData gameData, Method endTurn) {
+        this.gameData = gameData;
+        this.endTurn = endTurn;
     }
-
-    /**
-     * 
-     */
-    private GameData gameData;
-
 
 
     /**
      * @param player 
      * @param location
      */
-    public abstract void movePlayerTo(Player player, int location);
+    public void movePlayerTo(Player player, int location) {
+        player.setLocation(location);
+    }
 
     /**
      * @param player
      */
-    public abstract void rollDie(Player player);
+    public void rollDie(Player player) {
+
+    }
 
     /**
      * @param player 
      * @param amount
      */
-    public abstract void addMoney(Player player, int amount);
+    public void addMoney(Player player, int amount) {
+
+    }
 
     /**
      * @param player 
      * @param amount
      */
-    public abstract void movePlayerFd(Player player, int amount);
+    public void movePlayerFd(Player player, int amount) {
+
+    }
 
     /**
      * @param player 
      * @param collectable
      */
-    public abstract void givePlayerCollectable(Player player, Collectable collectable);
+    public void givePlayerCollectable(Player player, Collectable collectable) {
+
+    }
 
 }

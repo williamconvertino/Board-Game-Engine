@@ -7,7 +7,7 @@ import ooga.model.data.collectables.properties.Property;
 /**
  * 
  */
-public abstract class Player {
+public class Player {
 
     /**
      * Default constructor
@@ -44,46 +44,64 @@ public abstract class Player {
     /**
      * @param amount
      */
-    public abstract void addMoney(int amount);
+    public void addMoney(int amount) {
+
+    }
 
     /**
      * @return
      */
-    public abstract int getMoney();
+    public int getMoney() {
+        return 0;
+    }
 
     /**
      * @return
      */
-    public abstract List<Collectable> getCollectables();
+    public List<Collectable> getCollectables() {
+        return null;
+    }
 
     /**
      * @return
      */
-    public abstract List<Property> getProperties();
+    public List<Property> getProperties() {
+        return null;
+    }
 
     /**
      * @return
      */
-    public abstract int getLocation();
+    public int getLocation() {
+        return 0;
+    }
 
     /**
      * @param location
      */
-    public abstract void setLocation(int location);
+    public void setLocation(int location) {
+
+    }
 
     /**
      * @param property
      */
-    public abstract void giveProperty(Property property);
+    public void giveProperty(Property property) {
+
+    }
 
     /**
      * @return
      */
-    public abstract boolean isInJail();
+    public boolean isInJail() {
+        return false;
+    }
 
     /**
      * @param status
      */
-    public abstract void setStatus(boolean status);
+    public void setStatus(boolean status) {
+
+    }
 
 }
