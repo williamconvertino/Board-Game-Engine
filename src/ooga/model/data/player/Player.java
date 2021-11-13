@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import ooga.model.data.cards.Card;
 import ooga.model.data.properties.Property;
+import ooga.util.ImmutTool;
 
 /**
  * A class to keep track of a single player's data.
@@ -34,7 +35,6 @@ public class Player {
 
     //A list of the player's cards.
     private List<Card> myCards;
-
 
     /**
      * Constructs a new Player with the given name.
@@ -85,6 +85,15 @@ public class Player {
      */
     public int getLocation() {
         return location;
+    }
+
+    /**
+     *  Returns a list of the player's properties.
+     *
+     * @return a list of the player's properties.
+     */
+    public List<Property> getProperties() {
+        return ImmutTool.getImmutableList(myProperties);
     }
 
 }
