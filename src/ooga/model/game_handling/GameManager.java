@@ -12,36 +12,12 @@ import ooga.model.game_handling.turn_manager.TurnManager;
  */
 public class GameManager {
 
-    /**
-     * Default constructor
-     */
     public GameManager() {
     }
 
-    /**
-     * 
-     */
     private DisplayManager myDisplayManager;
 
-    /**
-     * 
-     */
     private TurnManager myTurnManager;
 
-    /**
-     * 
-     */
-    protected  void initializeButtons() {
-
-
-
-    }
-
-    /**
-     * 
-     */
-    private void initializeGameData() {
-
-    }
 
 }

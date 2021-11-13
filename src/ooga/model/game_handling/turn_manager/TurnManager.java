@@ -1,7 +1,11 @@
 package ooga.model.game_handling.turn_manager;
 
+import ooga.display.communication.ExceptionHandler;
+import ooga.exceptions.MaxRollsReachedException;
+import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
 import ooga.model.data.tiles.Tile;
+import ooga.model.die.Die;
 import ooga.model.game_handling.FunctionExecutor;
 
 /**
@@ -11,73 +15,70 @@ import ooga.model.game_handling.FunctionExecutor;
  * 
  * @since 0.0.1
  */
-public abstract class TurnManager {
+public class TurnManager {
 
-
-    private int numRolls;
-
-    private Player activePlayer;
-
-    private int maxRolls;
+    private GameData gameData;
 
     private Tile selectedTile;
 
+    private int maxRolls;
+
     private FunctionExecutor functionExecutor;
 
-    private int currentRoll;
+    private ExceptionHandler exceptionHandler;
+
+    private Die myDie;
+
+    private boolean commandActive;
 
     /**
      * Default constructor
      */
-    public TurnManager() {
-    }
-
-
-
-
-
-
-
-    /**
-     * @param player
-     */
-    public void startTurn(Player player) {
-
+    public TurnManager(GameData gameData, ExceptionHandler exceptionHandler) {
+        this.gameData = gameData;
+        this.maxRolls = 1;
+        this.exceptionHandler = exceptionHandler;
+        this.commandActive = true;
     }
 
     /**
-     * @param player
+     * Starts the next turn.
      */
-    public abstract void endTurn(Player player);
+    public void startTurn() {
+        this.selectedTile = null;
+        gameData.resetTurnData();
+        gameData.setNextPlayer();
+        commandActive = false;
+    }
 
     /**
-     * 
+     * Makes the player roll the dice, and move accordingly. If they roll doubles, they are allowed to roll an additional time.
+     * If they roll 3 times, they are sent to jail.
      */
-    public abstract void postBail();
+    public void roll() {
 
-    /**
-     * 
-     */
-    public abstract void buyProperty();
+        //Check to see if the player has already rolled the max # of times, if so throw an error.
+        if (gameData.getNumRolls() >= maxRolls) {
+            exceptionHandler.showException(new MaxRollsReachedException());
+            return;
+        }
 
-    /**
-     * 
-     */
-    public abstract void buyHouse();
+        //Roll the die.
+        int myRoll = myDie.roll();
+        gameData.addRoll();
 
-    /**
-     * @param tile
-     */
-    public abstract void selectTile(Tile tile);
+        //If the roll is the third of the turn, send the player to jail.
+        if (gameData.getNumRolls() > 3) {
+            //TODO: Go to jail.
+            return;
+        }
 
-    /**
-     * 
-     */
-    public abstract void roll();
+        //If the roll is a double, increase the maximum number of rolls by one.
+        if (myDie.lastRollDouble()) {
+            maxRolls++;
+        }
+        functionExecutor.movePlayerFd(gameData.getCurrentPlayer(), myRoll);
+    }
 
-    /**
-     * @param otherPlayer
-     */
-    public abstract void initiateTrade(Player otherPlayer);
 
 }
