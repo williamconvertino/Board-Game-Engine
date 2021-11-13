@@ -2,6 +2,8 @@ package ooga.model.data.properties;
 
 import java.util.ArrayList;
 import java.util.List;
+import ooga.exceptions.MaxHousesReachedException;
+import ooga.exceptions.NoHousesToSellException;
 import ooga.model.data.player.Player;
 
 /**
@@ -117,4 +119,29 @@ public class Property {
         return rentCost[numHouses];
     }
 
+    /**
+     * Buys a new house on this property.
+     *
+     * @throws MaxHousesReachedException if the maximum number of houses has already been reached.
+     */
+    public void buyHouse() throws MaxHousesReachedException {
+        if (numHouses < maxHouses) {
+            numHouses++;
+        } else {
+            throw new MaxHousesReachedException();
+        }
+    }
+
+    /**
+     * Sells a house on this property.
+     *
+     * @throws NoHousesToSellException if there are no houses on the property.
+     */
+    public void sellHouse() throws NoHousesToSellException {
+        if (numHouses == 0) {
+            throw new NoHousesToSellException();
+        } else {
+            numHouses--;
+        }
+    }
 }
