@@ -38,4 +38,22 @@ public class Card {
 
     }
 
+    /**
+     * Returns the name of the card.
+     *
+     * @return the name of the card.
+     */
+    public String getName() {
+        return myName;
+    }
+
+    /**
+     * Returns the description of the card.
+     *
+     * @return the description of the card.
+     */
+    public String getDescription() {
+        return myDescription;
+    }
+
 }
