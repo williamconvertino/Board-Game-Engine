@@ -1,35 +1,60 @@
 package ooga.model.data.tiles;
 
-import ooga.model.data.properties.Property;
+import ooga.display.communication.DisplayStateSignaler;
 import ooga.model.data.player.Player;
-import ooga.model.game_handling.FunctionExecutor;
+import ooga.model.data.properties.Property;
 
 /**
- * This class represents a tile corresponding to a property card. When a player lands on it, they may buy it if it is unowned, or pay rent for it if it is owned by another player.
+ * This class represents a tile corresponding to a property card. When a player lands on it,
+ * they must pay rent for it if it is owned by another player. If the property is unowned, they
+ * may buy it.
+ *
+ *
+ *
  */
 public abstract class PropertyTile extends Tile {
 
+    //The property that this tile represents.
+    private Property myProperty;
+
     /**
-     * Default constructor
+     * Constructs a new tile with the specified name.
+     *
+     * @param myName the name of the tile.
      */
-    public PropertyTile() {
+    public PropertyTile(String myName) {
+        super(myName);
     }
 
     /**
-     * 
+     * Constructs a new tile with the specified name and property.
+     *
+     * @param myName the name of the tile.
      */
-    protected Property property;
+    public PropertyTile(String myName, Property myProperty) {
+        super(myName);
+        this.myProperty = myProperty;
+    }
 
     /**
-     * @param player 
-     * @param functionManager
+     * Does nothing when a player passes through the tile.
+     *
+     * @param player the player who is passing through the tile.
      */
-    public abstract void executePassThrough(Player player, FunctionExecutor functionManager);
+    @Override
+    public void executePassThrough(Player player) {
+        //Do Nothing.
+    }
 
     /**
-     * @param player 
-     * @param functionManager
+     * Selects the current property.
+     *
+     * @param player the player who landed on the tile.
      */
-    public abstract void executeLandOn(Player player, FunctionExecutor functionManager);
+    @Override
+    public void executeLandOn(Player player) {
+        //TODO:
+    }
+
 
 }
