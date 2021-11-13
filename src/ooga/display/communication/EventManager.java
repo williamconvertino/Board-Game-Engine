@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javafx.event.EventHandler;
 //import model.turn_manager.GameFunctionManager;
+import model.turn_manager.GameFunctionManager;
 import ooga.display.DisplayManager;
 import ooga.model.game_handling.turn_manager.TurnManager;
 
@@ -26,17 +27,17 @@ public class EventManager {
 
     Map<EVENT_NAMES, EventHandler> myEvents;
 
-//    /**
-//     * Default constructor
-//     */
-//    public EventManager(GameFunctionManager functions) {
-//        myEvents = new HashMap<>();
-//        initializeDefaultHandlers(functions);
-//    }
-//
-//    private void initializeDefaultHandlers(GameFunctionManager functions) {
-//
-//    }
+    /**
+     * Default constructor
+     */
+    public EventManager(GameFunctionManager functions) {
+        myEvents = new HashMap<>();
+        initializeDefaultHandlers(functions);
+    }
+
+    private void initializeDefaultHandlers(GameFunctionManager functions) {
+
+    }
 
     public Map<EVENT_NAMES, EventHandler> getMyEvents() {
         return myEvents;
