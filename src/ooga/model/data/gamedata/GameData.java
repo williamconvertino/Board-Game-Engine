@@ -1,6 +1,6 @@
 package ooga.model.data.gamedata;
 
-import ooga.model.data.board.Board;
+import ooga.model.data.board.BoardManager;
 import ooga.model.data.player.Player;
 import ooga.model.data.player.PlayerManager;
 
@@ -14,7 +14,7 @@ import ooga.model.data.player.PlayerManager;
 public abstract class GameData {
 
     //The current game board.
-    private Board myBoard;
+    private BoardManager myBoardManager;
 
     //A structure to keep track of the players in the game.
     private PlayerManager myPlayers;

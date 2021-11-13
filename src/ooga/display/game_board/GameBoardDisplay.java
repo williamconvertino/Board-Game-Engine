@@ -8,7 +8,7 @@ import ooga.display.Display;
 import ooga.display.DisplayManager;
 
 /**
- * This class displays all elements of the Game Board
+ * This class displays all elements of the Game BoardManager
  *
  * @author Aaric Han
  */

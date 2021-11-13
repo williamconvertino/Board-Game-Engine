@@ -2,7 +2,7 @@ package ooga.model.game_handling.turn_manager;
 
 import ooga.model.data.player.Player;
 import ooga.model.data.tiles.Tile;
-import ooga.model.game_handling.DataFunctions;
+import ooga.model.game_handling.FunctionExecutor;
 
 /**
  * This class manages the current turn and keeps track of all turn-based data.
@@ -22,7 +22,7 @@ public abstract class TurnManager {
 
     private Tile selectedTile;
 
-    private DataFunctions dataFunctions;
+    private FunctionExecutor functionExecutor;
 
     private int currentRoll;
 

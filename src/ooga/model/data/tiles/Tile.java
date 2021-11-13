@@ -19,7 +19,7 @@ public abstract class Tile {
 
     /**
      * @param player 
-     * @param functionManager
+     * @param
      */
     public abstract void executePassThrough(Player player);
 
@@ -27,5 +27,7 @@ public abstract class Tile {
      * @param player
      */
     public abstract void executeLandOn(Player player);
+
+    public abstract String getName();
 
 }
