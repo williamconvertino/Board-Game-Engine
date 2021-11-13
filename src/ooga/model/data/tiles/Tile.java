@@ -3,7 +3,7 @@ package ooga.model.data.tiles;
 import ooga.model.data.player.Player;
 
 /**
- * This class represents a tile on the board.A player can pass through or land on a tile when moving,
+ * This class represents a tile on the board_manager.A player can pass through or land on a tile when moving,
  * which is reflected by the executePassThrough and executeLandOn methods.
  * 
  * @author William Convertino
@@ -12,15 +12,15 @@ import ooga.model.data.player.Player;
  */
 public abstract class Tile {
 
-    private String name;
+    private String myName;
 
     /**
      * Constructs a new tile with the specified name.
      *
-     * @param name the name of the tile.
+     * @param myName the name of the tile.
      */
-    public Tile(String name) {
-        this.name = name;
+    public Tile(String myName) {
+        this.myName = myName;
     }
 
     /**

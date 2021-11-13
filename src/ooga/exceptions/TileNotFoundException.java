@@ -1,7 +1,7 @@
 package ooga.exceptions;
 
 /**
- * An error to throw if a tile name was specified but not found in the board.
+ * An error to throw if a tile name was specified but not found in the board_manager.
  *
  * @author William Convertino
  *

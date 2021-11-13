@@ -1,6 +1,6 @@
 package ooga.model.data.tiles;
 
-import ooga.model.data.tradeable.properties.Property;
+import ooga.model.data.properties.Property;
 import ooga.model.data.player.Player;
 import ooga.model.game_handling.FunctionExecutor;
 

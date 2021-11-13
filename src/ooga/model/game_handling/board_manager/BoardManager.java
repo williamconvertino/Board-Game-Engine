@@ -1,4 +1,4 @@
-package ooga.model.data.board;
+package ooga.model.game_handling.board_manager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,9 +14,9 @@ public abstract class BoardManager {
   }
 
   /**
-   * Returns a list of all the board's tiles.
+   * Returns a list of all the board_manager's tiles.
    *
-   * @return a list of all the board's tiles.
+   * @return a list of all the board_manager's tiles.
    */
   public abstract List<Tile> getTiles();
 

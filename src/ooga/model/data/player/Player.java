@@ -1,8 +1,8 @@
 package ooga.model.data.player;
 
 import java.util.List;
-import ooga.model.data.tradeable.cards.Card;
-import ooga.model.data.tradeable.properties.Property;
+import ooga.model.data.cards.Card;
+import ooga.model.data.properties.Property;
 
 /**
  * A class to keep track of a single player's data.
@@ -25,7 +25,7 @@ public class Player {
     //Keeps track of the player's cash balance.
     private int balance;
 
-    //Keeps track of the player's location on the board.
+    //Keeps track of the player's location on the board_manager.
     private int location;
 
     //A list of the player's properties.

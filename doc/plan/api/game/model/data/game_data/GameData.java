@@ -4,7 +4,7 @@ import java.util.*;
 import model.data.tiles.Tile;
 
 /**
- * A class to store the data of the current game. This includes players and all their associated info, as well as the board and its state.
+ * A class to store the data of the current game. This includes players and all their associated info, as well as the board_manager and its state.
  * 
  * @author William Convertino
  * 

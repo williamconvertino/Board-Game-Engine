@@ -1,4 +1,4 @@
-package ooga.model.data.board;
+package ooga.model.game_handling.board_manager;
 
 import java.util.List;
 import ooga.exceptions.TileNotFoundException;
@@ -16,7 +16,7 @@ import ooga.util.ImmutTool;
  */
 public class OriginalBoardManager extends BoardManager {
 
-  //A list of the board's tiles.
+  //A list of the board_manager's tiles.
   private List<Tile> myTiles;
 
   /**
@@ -130,7 +130,7 @@ public class OriginalBoardManager extends BoardManager {
     while (!myTiles.get(index).getName().equals(tileName)) {
       index = (index + 1) % myTiles.size();
 
-      //If the whole board has been checked, throw an error.
+      //If the whole board_manager has been checked, throw an error.
       if (index == p.getLocation()) {
         throw new TileNotFoundException(tileName);
       }

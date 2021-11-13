@@ -1,5 +1,7 @@
-package ooga.model.data.tradeable.cards;
+package ooga.model.data.cards;
 
+
+import ooga.model.data.player.Player;
 
 /**
  * A class to represent any non-property card and its action.
@@ -15,6 +17,6 @@ public abstract class Card {
     /**
      * 
      */
-    public abstract void execute();
+    public abstract void execute(Player player);
 
 }

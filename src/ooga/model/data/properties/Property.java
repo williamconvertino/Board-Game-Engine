@@ -1,4 +1,4 @@
-package ooga.model.data.tradeable.properties;
+package ooga.model.data.properties;
 
 import java.util.List;
 import ooga.model.data.player.Player;

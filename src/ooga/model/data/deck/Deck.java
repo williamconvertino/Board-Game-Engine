@@ -1,7 +1,7 @@
 package ooga.model.data.deck;
 
 import java.util.List;
-import ooga.model.data.tradeable.cards.Card;
+import ooga.model.data.cards.Card;
 
 /**
  * A data structure that stores a list of executable cards.
@@ -36,6 +36,10 @@ public class Deck {
      */
     public Card drawCard() {
         return null;
+    }
+
+    public boolean isEmpty(){
+        return true;
     }
 
 }

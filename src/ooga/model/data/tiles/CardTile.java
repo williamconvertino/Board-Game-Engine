@@ -2,7 +2,6 @@ package ooga.model.data.tiles;
 
 import ooga.model.data.deck.Deck;
 import ooga.model.data.player.Player;
-import ooga.model.game_handling.FunctionExecutor;
 
 /**
  * This class represents a tile that corresponds to a specific deck of cards. When a player lands on this tile, they draw a card from the deck and execute that card.
@@ -11,29 +10,49 @@ import ooga.model.game_handling.FunctionExecutor;
  * 
  * @since 0.0.1
  */
-public abstract class CardTile extends Tile {
+public class CardTile extends Tile {
+
+    private Deck myDeck;
 
     /**
-     * Default constructor
+     * Constructs a new tile with the specified name.
+     *
+     * @param myName the name of the tile.
      */
-    public CardTile() {
+    public CardTile(String myName) {
+        super(myName);
+    }
+
+    public CardTile(String myName, Deck myDeck) {
+        this(myName);
+        this.myDeck = myDeck;
     }
 
     /**
-     * 
+     * Does nothing when a player passes through the tile.
+     *
+     * @param player the player who is passing through the tile.
      */
-    private Deck deck;
+    @Override
+    public void executePassThrough(Player player) {
+        //Do nothing.
+    }
 
     /**
-     * @param player 
-     * @param functionManager
+     * Has a player draw and execute a card from the deck.
+     *
+     * @param player the player who landed on the tile.
      */
-    public abstract void executePassThrough(Player player, FunctionExecutor functionManager);
+    @Override
+    public void executeLandOn(Player player) {
+        if (myDeck.isEmpty()) {
+            return;
+        }
+        myDeck.drawCard().execute(player);
+    }
 
-    /**
-     * @param player 
-     * @param functionManager
-     */
-    public abstract void executeLandOn(Player player, FunctionExecutor functionManager);
-
+    @Override
+    public String getName() {
+        return null;
+    }
 }
