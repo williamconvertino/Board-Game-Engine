@@ -1,5 +1,6 @@
 package ooga.model.data.player;
 
+import java.util.ArrayList;
 import java.util.List;
 import ooga.model.data.cards.Card;
 import ooga.model.data.properties.Property;
@@ -42,6 +43,12 @@ public class Player {
      */
     public Player(String name) {
         this.name = name;
+        this.isActive = true;
+        this.isInJail = false;
+        this.location = 0;
+        this.balance = 0;
+        this.myProperties = new ArrayList<>();
+        this.myCards = new ArrayList<>();
     }
 
     /**
@@ -51,6 +58,15 @@ public class Player {
      */
     public boolean isActive() {
         return isActive;
+    }
+
+    /**
+     * Sets the player's active state to the specified state.
+     *
+     * @param isActive states whether the player should be active or not.
+     */
+    public void setActiveStatus(boolean isActive) {
+        this.isActive = isActive;
     }
 
     /**

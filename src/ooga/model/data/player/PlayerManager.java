@@ -49,7 +49,7 @@ public abstract class PlayerManager {
    * @return true if there still active players in the game, false otherwise.
    */
   protected boolean existsRemainingPlayers() {
-    return (getActivePlayers().size() != 0);
+    return (getActivePlayers().size() > 0);
   }
 
 

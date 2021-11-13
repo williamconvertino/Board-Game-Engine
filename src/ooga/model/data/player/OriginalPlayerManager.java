@@ -45,12 +45,13 @@ public class OriginalPlayerManager extends PlayerManager {
 
     //Search for the next active player in the player list.
     while (!myPlayers.get(nextPlayerIndex).isActive()) {
-      nextPlayerIndex = (nextPlayerIndex++) % myPlayers.size();
+      nextPlayerIndex = (nextPlayerIndex + 1) % myPlayers.size();
     }
 
     //Return that player and set the next player.
     Player nextPlayer = myPlayers.get(nextPlayerIndex);
-    nextPlayerIndex ++;
+    nextPlayerIndex = (nextPlayerIndex + 1) % myPlayers.size();
+
     return nextPlayer;
   }
 
@@ -68,8 +69,7 @@ public class OriginalPlayerManager extends PlayerManager {
    */
   @Override
   public List<Player> getActivePlayers() {
-    List<Player> activePlayers = new ArrayList<>();
-    Collections.copy(myPlayers, activePlayers);
+    List<Player> activePlayers = new ArrayList<>(myPlayers);
     activePlayers.removeIf(e->!e.isActive());
     return activePlayers;
   }
