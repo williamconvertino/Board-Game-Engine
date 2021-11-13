@@ -50,9 +50,4 @@ public class CardTile extends Tile {
         }
         myDeck.drawCard().execute(player);
     }
-
-    @Override
-    public String getName() {
-        return null;
-    }
 }

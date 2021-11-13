@@ -42,6 +42,8 @@ public abstract class Tile {
      *
      * @return the name of the tile.
      */
-    public abstract String getName();
+    public String getName() {
+        return myName;
+    }
 
 }
