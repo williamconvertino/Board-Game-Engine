@@ -11,15 +11,27 @@ import ooga.model.data.player.PlayerManager;
  * 
  * @since 0.0.1
  */
-public abstract class GameData {
+public class GameData {
 
     //The current game board_manager.
-    private BoardManager myBoardManager;
+    private BoardManager myBoard;
 
     //A structure to keep track of the players in the game.
     private PlayerManager myPlayers;
 
     //The player whose turn it currently is.
     private Player currentPlayer;
+
+    /**
+     * Constructs a new GameData with the specified board and players.
+     *
+     * @param myPlayers
+     * @param myBoard
+     */
+    public GameData(PlayerManager myPlayers, BoardManager myBoard) {
+        this.myPlayers = myPlayers;
+        this.myBoard = myBoard;
+    }
+
 
 }
