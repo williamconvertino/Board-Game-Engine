@@ -1,6 +1,7 @@
 package ooga.model.data;
 
 import java.util.List;
+import ooga.model.data.board.Board;
 import ooga.model.data.player.Player;
 import ooga.model.data.tiles.Tile;
 
@@ -14,15 +15,9 @@ import ooga.model.data.tiles.Tile;
 public abstract class GameData {
 
     /**
-     * Default constructor
-     */
-    public GameData() {
-    }
-
-    /**
      * 
      */
-    private List<Tile> board;
+    private Board myBoard;
 
     /**
      * 

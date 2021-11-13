@@ -9,26 +9,21 @@ import ooga.model.data.collectables.properties.Property;
  */
 public class Player {
 
+    private int money;
+
+    private boolean isActive;
+
     /**
      * Default constructor
      */
     public Player() {
     }
 
-    /**
-     * 
-     */
-    private int money;
 
     /**
      * 
      */
     private List<Collectable> myCollectables;
-
-    /**
-     * 
-     */
-    private boolean alive;
 
     /**
      * 
@@ -97,11 +92,12 @@ public class Player {
         return false;
     }
 
-    /**
-     * @param status
-     */
-    public void setStatus(boolean status) {
+    public void setIsActive(boolean isActive) {
 
+    }
+
+    public boolean isActive() {
+        return isActive;
     }
 
     public void addCollectable(Collectable c) {

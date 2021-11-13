@@ -1,9 +1,12 @@
 package ooga;
 
 
+import java.beans.EventHandler;
+import java.util.HashMap;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import ooga.display.DisplayManager;
+import ooga.display.communication.DisplayStateSignaler.States;
 
 /**
  * Feel free to completely change this code or delete it entirely. 
@@ -18,6 +21,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        DisplayManager myDisplayManager = new DisplayManager(stage);
+        DisplayManager myDisplayManager = new DisplayManager(stage,  new HashMap< States, EventHandler >());
     }
 }
