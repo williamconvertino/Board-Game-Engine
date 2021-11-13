@@ -9,7 +9,6 @@ class CardTest {
 
   @Test
   void testConstructor() {
-
     Card myCard = new Card("name","description", new ArrayList<Method>());
 
     assertEquals("name", myCard.getName());

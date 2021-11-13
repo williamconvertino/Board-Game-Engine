@@ -36,13 +36,15 @@ public class Deck {
      * @return a random card from the deck.
      */
     public Card drawCard() {
+        if (isEmpty()) {
+            return null;
+        }
         return availableCards.pop();
     }
 
     //Resets the deck so that it contains each of the cards in myCardList, then shuffles.
     private void resetDeck() {
-        List<Card> myCards = new ArrayList<>();
-        Collections.copy(myCardList, myCards);
+        List<Card> myCards = new ArrayList<>(myCardList);
         Collections.shuffle(myCards);
         availableCards = new LinkedList<>(myCards);
     }
@@ -57,6 +59,15 @@ public class Deck {
             resetDeck();
         }
         return availableCards.isEmpty();
+    }
+
+    /**
+     * Return the name of this deck.
+     *
+     * @return the name of this deck.
+     */
+    public String getName() {
+        return myName;
     }
 
 }
