@@ -3,6 +3,7 @@ package ooga.model.data;
 import java.util.List;
 import ooga.model.data.board.Board;
 import ooga.model.data.player.Player;
+import ooga.model.data.player.PlayerManager;
 import ooga.model.data.tiles.Tile;
 
 /**
@@ -14,26 +15,13 @@ import ooga.model.data.tiles.Tile;
  */
 public abstract class GameData {
 
-    /**
-     * 
-     */
+    //The current game board.
     private Board myBoard;
 
-    /**
-     * 
-     */
-    private List<Player> playerList;
+    //A structure to keep track of the players in the game.
+    private PlayerManager myPlayers;
 
-
-
-    /**
-     * @return
-     */
-    public abstract Player getNextPlayer();
-
-    /**
-     * @return
-     */
-    public abstract List<Tile> getTiles();
+    //The player whose turn it currently is.
+    private Player currentPlayer;
 
 }

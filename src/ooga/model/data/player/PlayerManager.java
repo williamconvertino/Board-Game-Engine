@@ -11,14 +11,14 @@ import ooga.exceptions.NoRemainingPlayersException;
  *
  * @since 0.0.1
  */
-public abstract class PlayerOrder {
+public abstract class PlayerManager {
 
   /**
-   * Constructs a new PlayerOrder with the specified players.
+   * Constructs a new PlayerManager with the specified players.
    *
    * @param myPlayers a list of the players in the game.
    */
-  public PlayerOrder(List<Player> myPlayers) {
+  public PlayerManager(List<Player> myPlayers) {
 
   }
 

@@ -7,14 +7,14 @@ import ooga.exceptions.NoRemainingPlayersException;
 import ooga.util.ImmutTool;
 
 /**
- * An implementation of the PlayerOrder class that has players take their turns in a fixed loop. In this
+ * An implementation of the PlayerManager class that has players take their turns in a fixed loop. In this
  * loop, each player takes one turn and then must wait for every other player to go.
  *
  * @author William Convertino
  *
  * @since 0.0.1
  */
-public class OriginalPlayerOrder extends PlayerOrder {
+public class OriginalPlayerManager extends PlayerManager {
 
   //Keeps track of all the players in the game.
   private List<Player> myPlayers;
@@ -23,9 +23,9 @@ public class OriginalPlayerOrder extends PlayerOrder {
   private int nextPlayerIndex;
 
   /**
-   * @see PlayerOrder#PlayerOrder(List)
+   * @see PlayerManager#PlayerManager(List)
    */
-  public OriginalPlayerOrder(List<Player> myPlayers) {
+  public OriginalPlayerManager(List<Player> myPlayers) {
     super(myPlayers);
     this.myPlayers = myPlayers;
     Collections.shuffle(myPlayers);
@@ -33,7 +33,7 @@ public class OriginalPlayerOrder extends PlayerOrder {
   }
 
   /**
-   * @see PlayerOrder#getNextPlayer()
+   * @see PlayerManager#getNextPlayer()
    */
   @Override
   public Player getNextPlayer() throws NoRemainingPlayersException {
@@ -55,7 +55,7 @@ public class OriginalPlayerOrder extends PlayerOrder {
   }
 
   /**
-   * @see PlayerOrder#getPlayers()
+   * @see PlayerManager#getPlayers()
    */
   @Override
   public List<Player> getPlayers() {
@@ -64,7 +64,7 @@ public class OriginalPlayerOrder extends PlayerOrder {
 
 
   /**
-   * @see PlayerOrder#getActivePlayers()
+   * @see PlayerManager#getActivePlayers()
    */
   @Override
   public List<Player> getActivePlayers() {
