@@ -1,107 +1,74 @@
 package ooga.model.data.player;
 
 import java.util.List;
-import ooga.model.data.collectables.Collectable;
-import ooga.model.data.collectables.properties.Property;
+import ooga.model.data.tradeable.cards.Card;
+import ooga.model.data.tradeable.properties.Property;
 
 /**
- * 
+ * A class to keep track of a single player's data.
+ *
+ * @author William Convertino
+ *
+ * @since 0.0.1
  */
 public class Player {
 
-    private int money;
+    //The name of the player.
+    private String name;
 
+    //Keeps track of whether the player is actively in the game.
     private boolean isActive;
 
-    /**
-     * Default constructor
-     */
-    public Player() {
-    }
+    //Keeps track of whether the player is in jail or not.
+    private boolean isInJail;
 
+    //Keeps track of the player's cash balance.
+    private int balance;
 
-    /**
-     * 
-     */
-    private List<Collectable> myCollectables;
-
-    /**
-     * 
-     */
-    private List<Property> properties;
-
-    /**
-     * 
-     */
+    //Keeps track of the player's location on the board.
     private int location;
 
+    //A list of the player's properties.
+    private List<Property> myProperties;
+
+    //A list of the player's cards.
+    private List<Card> myCards;
+
 
     /**
-     * @param amount
+     * Constructs a new Player with the given name.
+     *
+     * @param name the player's name.
      */
-    public void addMoney(int amount) {
-
-    }
-
-    /**
-     * @return
-     */
-    public int getMoney() {
-        return 0;
-    }
-
-    /**
-     * @return
-     */
-    public List<Collectable> getCollectables() {
-        return null;
+    public Player(String name) {
+        this.name = name;
     }
 
     /**
-     * @return
+     * States whether the player is actively in the game or not.
+     *
+     * @return true if the player is active, false otherwise.
      */
-    public List<Property> getProperties() {
-        return null;
-    }
-
-    /**
-     * @return
-     */
-    public int getLocation() {
-        return 0;
-    }
-
-    /**
-     * @param location
-     */
-    public void setLocation(int location) {
-
-    }
-
-    /**
-     * @param property
-     */
-    public void giveProperty(Property property) {
-
-    }
-
-    /**
-     * @return
-     */
-    public boolean isInJail() {
-        return false;
-    }
-
-    public void setIsActive(boolean isActive) {
-
-    }
-
     public boolean isActive() {
         return isActive;
     }
 
-    public void addCollectable(Collectable c) {
-        myCollectables.add(c);
+    /**
+     * Sets the player's location to the number specified.
+     *
+     * @param location the location at which the player should be set.
+     */
+    public void setLocation(int location) {
+        this.location = location;
+    }
+
+    /**
+     * Returns the player's current location.
+     *
+     * @return the player's current location.
+     */
+    public int getLocation() {
+        return location;
     }
 
 }

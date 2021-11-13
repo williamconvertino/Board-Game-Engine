@@ -1,7 +1,7 @@
 package ooga.model.game_handling.trade_manager;
 
 import java.util.List;
-import ooga.model.data.collectables.Collectable;
+import ooga.model.data.tradeable.Collectable;
 import ooga.model.data.player.Player;
 
 /**

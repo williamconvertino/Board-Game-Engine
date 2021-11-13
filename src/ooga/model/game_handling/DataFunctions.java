@@ -1,8 +1,8 @@
 package ooga.model.game_handling;
 
 import java.lang.reflect.Method;
-import ooga.model.data.collectables.Collectable;
-import ooga.model.data.GameData;
+import ooga.model.data.tradeable.Collectable;
+import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
 import ooga.model.die.Die;
 

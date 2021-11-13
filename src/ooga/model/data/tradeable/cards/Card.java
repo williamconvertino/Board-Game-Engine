@@ -1,11 +1,10 @@
-package ooga.model.data.collectables.cards;
+package ooga.model.data.tradeable.cards;
 
-import ooga.model.data.collectables.Collectable;
 
 /**
  * A class to represent any non-property card and its action.
  */
-public abstract class Card extends Collectable {
+public abstract class Card {
 
     /**
      * Default constructor

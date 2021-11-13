@@ -1,7 +1,6 @@
-package ooga.model.data.collectables.properties;
+package ooga.model.data.tradeable.properties;
 
 import java.util.List;
-import ooga.model.data.collectables.Collectable;
 import ooga.model.data.player.Player;
 
 /**
@@ -11,7 +10,7 @@ import ooga.model.data.player.Player;
  * 
  * @since 0.0.1
  */
-public abstract class Property extends Collectable {
+public abstract class Property {
 
     /**
      * Default constructor

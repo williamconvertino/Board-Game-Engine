@@ -1,10 +1,8 @@
-package ooga.model.data;
+package ooga.model.data.gamedata;
 
-import java.util.List;
 import ooga.model.data.board.Board;
 import ooga.model.data.player.Player;
 import ooga.model.data.player.PlayerManager;
-import ooga.model.data.tiles.Tile;
 
 /**
  * A class to store the data of the current game. This includes players and all their associated info, as well as the board and its state.

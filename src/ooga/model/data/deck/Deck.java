@@ -1,7 +1,7 @@
 package ooga.model.data.deck;
 
 import java.util.List;
-import ooga.model.data.collectables.cards.Card;
+import ooga.model.data.tradeable.cards.Card;
 
 /**
  * A data structure that stores a list of executable cards.
