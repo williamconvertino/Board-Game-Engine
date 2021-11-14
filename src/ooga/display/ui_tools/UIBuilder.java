@@ -1,4 +1,4 @@
-package ooga.display.ui;
+package ooga.display.ui_tools;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -6,6 +6,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import ooga.display.Display;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +17,13 @@ import java.util.function.Consumer;
 /**
  * UI building tools for the display
  *
- * @author Henry huynh
+ * @author Henry Huynh
  */
 
 public class UIBuilder {
+
+    private static final String LANGUAGE_PACKAGE = Display.class.getPackageName() + ".resources.";
+    private ResourceBundle langResource;
 
     /**
      * UI builder holds helper methods that create UI components
@@ -135,4 +140,32 @@ public class UIBuilder {
         label.setId(id);
         return label;
     }
+
+    /**
+     * @param id reference to find alert
+     * @param header the error category
+     * @param message the error message
+     * @return error alert
+     */
+    public Alert makeErrorAlert(String header, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+        return alert;
+    }
+
+    /**
+     * @param id reference to find alert
+     * @param header the confirmation category
+     * @param message the confirmation message
+     * @return confirmation alert
+     */
+    public Alert makeConfirmationAlert(String header, String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+        return alert;
+    }
+
+
 }
