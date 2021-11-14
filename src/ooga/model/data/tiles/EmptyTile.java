@@ -22,13 +22,6 @@ public class EmptyTile extends Tile {
   }
 
   /**
-   * Constructs a new EmptyTile with the name "Empty."
-   */
-  public EmptyTile() {
-    super("Empty");
-  }
-
-  /**
    * Does nothing when a player passes through the tile.
    *
    * @param player the player who is passing through the tile.
