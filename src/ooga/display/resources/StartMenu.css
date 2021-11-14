@@ -3,17 +3,14 @@
 }*/
 
 .root {
-    -fx-font-family: "Segoe UI Bold";
+    -fx-font-family: "Rockwell";
     /* define variables to avoid duplicating values */
-    text_color: violet;
+    text_color: #F8CE87;
+    -fx-background-color: #A23434;
 }
 
-/*.stack-pane {
-    -fx-alignment: baseline-center;
-    -fx-hgap: 20px;
-    -fx-vgap: 10px;
-    -fx-padding: 0 0 0 10px;
-}*/
+
+
 
 .choice-box {
     -fx-border-style: solid;
@@ -44,7 +41,7 @@
     -fx-border-color: lightgrey;
 }
 .label {
-    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-font-size: 100;
     -fx-text-fill: text_color;
     -fx-alignment: center;
     -fx-min-width: 10px;
@@ -56,6 +53,8 @@
     -fx-background-color: floralwhite;
     -fx-min-width: 200px;
 }
+
+
 
 .bg-1 {
     -fx-background-color: #ffd0fe;
