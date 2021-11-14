@@ -3,7 +3,7 @@ package ooga.display;
 import java.beans.EventHandler;
 import java.util.Map;
 import javafx.stage.Stage;
-import ooga.display.communication.DisplayStateSignaler.States;
+import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.EventManager;
 import ooga.display.game_board.GameBoardDisplay;
 import ooga.model.data.player.Player;
@@ -20,7 +20,7 @@ public class DisplayManager {
   /**
    * Default constructor
    */
-  public DisplayManager(Stage stage, Map<States, EventHandler> eventMap) {
+  public DisplayManager(Stage stage, Map<State, EventHandler> eventMap) {
     currDisplay = new GameBoardDisplay(stage, this);
     displayElement();
   }

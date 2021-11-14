@@ -1,6 +1,9 @@
 package ooga.model.game_handling;
 
 import java.lang.reflect.Method;
+import ooga.display.communication.DisplayComm;
+import ooga.display.communication.ExceptionHandler;
+import ooga.exceptions.TileNotFoundException;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
 import ooga.model.die.Die;
@@ -23,13 +26,16 @@ public class FunctionExecutor {
     //The die to use when rolling.
     private Die myDie;
 
+    private DisplayComm displayComm;
+
     /**
      * Constructs a new FunctionExecutor with the specified GameData, die, and endTurn method.
      */
-    public FunctionExecutor(GameData gameData, Die die, Method endTurn) {
+    public FunctionExecutor(GameData gameData, Die die, Method endTurn, DisplayComm displayComm) {
         this.gameData = gameData;
         this.endTurn = endTurn;
         this.myDie = die;
+        this.displayComm = displayComm;
     }
 
 
@@ -39,8 +45,26 @@ public class FunctionExecutor {
      * @param player the player to move.
      * @param location the location at which the player should be moved.
      */
-    public void movePlayerTo(Player player, int location) {
-        //gameData.getBoard().movePlayerTo(player, location);
+    public void movePlayerToIndex(Player player, int location) {
+        gameData.getBoard().movePlayerToIndex(player, location, false);
+    }
+
+    public void movePlayerToTile(Player player, String tileName) throws TileNotFoundException {
+        try {
+            gameData.getBoard().movePlayerToTile(player, tileName, false);
+        } catch (Exception e) {
+            displayComm.showException(e);
+            throw e;
+        }
+    }
+
+    public void advancePlayerToTile(Player player, String tileName) throws TileNotFoundException {
+        try {
+            gameData.getBoard().movePlayerToTile(player, tileName, true);
+        } catch (Exception e) {
+            displayComm.showException(e);
+            throw e;
+        }
     }
 
     /**
@@ -49,6 +73,10 @@ public class FunctionExecutor {
      * @param player
      */
     public void movePlayerFd(Player player, int amount) {
+
+    }
+
+    public void movePlayerBk(Player player, int amount) {
 
     }
 
@@ -67,6 +95,22 @@ public class FunctionExecutor {
      */
     public void addMoney(Player player, int amount) {
         //player.addMoney(amount);
+    }
+
+    public void loseMoney(Player player, int amount) {
+
+    }
+
+    public void goToJail() {
+
+    }
+
+    public void givePlayerCard(Player player, String cardName) {
+
+    }
+
+    public void transferMoney(Player donor, Player acceptor) {
+
     }
 
 

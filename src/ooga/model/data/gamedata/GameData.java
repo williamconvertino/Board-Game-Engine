@@ -42,6 +42,15 @@ public class GameData {
     }
 
     /**
+     * Returns the current board.
+     *
+     * @return the current board.
+     */
+    public BoardManager getBoard() {
+        return myBoard;
+    }
+
+    /**
      * Switches the current player to the next player in the order.
      *
      * @throws NoRemainingPlayersException if no players remain in the game.
@@ -95,6 +104,5 @@ public class GameData {
     public int getPreviousRoll() {
         return previousRoll;
     }
-
 
 }

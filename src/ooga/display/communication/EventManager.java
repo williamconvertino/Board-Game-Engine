@@ -3,10 +3,7 @@ package ooga.display.communication;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.event.EventHandler;
-//import model.turn_manager.GameFunctionManager;
-import model.turn_manager.GameFunctionManager;
-import ooga.display.DisplayManager;
-import ooga.model.game_handling.turn_manager.TurnManager;
+import ooga.model.game_handling.FunctionExecutor;
 
 /**
  * This class creates the buttons for the game and send them to the DisplayManager
@@ -30,12 +27,12 @@ public class EventManager {
     /**
      * Default constructor
      */
-    public EventManager(GameFunctionManager functions) {
+    public EventManager(FunctionExecutor functions) {
         myEvents = new HashMap<>();
         initializeDefaultHandlers(functions);
     }
 
-    private void initializeDefaultHandlers(GameFunctionManager functions) {
+    private void initializeDefaultHandlers(FunctionExecutor functions) {
 
     }
 

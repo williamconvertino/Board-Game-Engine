@@ -6,7 +6,7 @@ public class DisplayStateSignaler {
 
   DisplayManager myDisplayManager;
 
-  public enum States {
+  public enum State {
 
     //Display prompts.
     START_TURN,
@@ -30,7 +30,7 @@ public class DisplayStateSignaler {
     myDisplayManager = displayManager;
   }
 
-  public void signalDisplay (States s) {
+  public void signalDisplay (State s) {
 //    myDisplayManager.signalState(s);
   }
 
