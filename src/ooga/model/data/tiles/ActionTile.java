@@ -24,11 +24,11 @@ public class ActionTile extends Tile {
   }
 
   /**
-   * Constructs a new ActionTile with the specified name, pass-through actions, and land-on actions.
+   * Constructs a new ActionTile with the specified name, pass-through commands, and land-on commands.
    *
    * @param myName the name of the tile.
-   * @param myPassThroughActions a list of actions to execute when the tile is passed through.
-   * @param myLandOnActions a list of actions to execute when the tile is landed on.
+   * @param myPassThroughActions a list of commands to execute when the tile is passed through.
+   * @param myLandOnActions a list of commands to execute when the tile is landed on.
    */
   public ActionTile(String myName, List<Method> myPassThroughActions, List<Method> myLandOnActions) {
     this(myName);

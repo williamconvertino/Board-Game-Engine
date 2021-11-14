@@ -6,7 +6,7 @@ import java.util.List;
 import ooga.model.data.player.Player;
 
 /**
- * A class to represent the game's action cards.
+ * A class to represent the game's commands cards.
  *
  * @author William Convertino
  *

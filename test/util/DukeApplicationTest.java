@@ -165,28 +165,28 @@ public class DukeApplicationTest extends ApplicationTest {
     }
 
     /**
-     * Run given view method as a JFX action, allowing you to add/remove components from the Scene or Stage.
+     * Run given view method as a JFX commands, allowing you to add/remove components from the Scene or Stage.
      */
     protected void runAsJFXAction (Runnable action) {
-        // fire event using given action on the given node
+        // fire event using given commands on the given node
         Platform.runLater(action);
         // make it "later" so the requested event has time to run
         WaitForAsyncUtils.waitForFxEvents();
     }
 
 
-    // HACKs: needed to get simulating a UI action working :(
+    // HACKs: needed to get simulating a UI commands working :(
     private void simulateAction (Node n, Runnable action) {
         // simulate robot motion, not strictly necessary but helps show what test is being run
         moveTo(n);
-        // fire event using given action on the given node
+        // fire event using given commands on the given node
         runAsJFXAction(action);
     }
 
     private void simulateAction (double x, double y, Runnable action) {
         // simulate robot motion, not strictly necessary but helps show what test is being run
         moveTo(x, y);
-        // fire event using given action on the given node
+        // fire event using given commands on the given node
         runAsJFXAction(action);
     }
 }
