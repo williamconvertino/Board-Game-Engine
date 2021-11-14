@@ -3,6 +3,7 @@ package ooga.model.game_handling.commands;
 import java.util.ArrayList;
 import java.util.List;
 import ooga.display.communication.DisplayComm;
+import ooga.exceptions.InvalidFileFormatException;
 import ooga.model.data.player.Player;
 
 /**
@@ -54,7 +55,7 @@ public class ActionSequence {
         command.execute(p);
       }
     } catch (Exception e) {
-      displayComm.showException(e);
+      displayComm.showException(new InvalidFileFormatException());
     }
 
   }
