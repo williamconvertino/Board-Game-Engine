@@ -1,18 +1,23 @@
 package ooga.model.data.tiles;
 
-import java.lang.reflect.Method;
-import java.util.List;
-import javax.swing.Action;
 import ooga.model.data.player.Player;
+import ooga.model.game_handling.commands.ActionSequence;
 
 /**
+ *  An implementation of the Tile class that executes an ActionSequence
+ *  when passed through, and an ActionSequence when landed on.
  *
+ * @author William Convertino
+ *
+ * @since 0.0.1
  */
 public class ActionTile extends Tile {
 
-  private List<Method> myPassThroughActions;
+  //The action sequence to execute when the player passes through this tile.
+  private ActionSequence myPassThroughActions;
 
-  private List<Method> myLandOnActions;
+  //The action sequence to execute when the player lands on this tile.
+  private ActionSequence myLandOnActions;
 
   /**
    * Constructs a new tile with the specified name.
@@ -30,19 +35,25 @@ public class ActionTile extends Tile {
    * @param myPassThroughActions a list of commands to execute when the tile is passed through.
    * @param myLandOnActions a list of commands to execute when the tile is landed on.
    */
-  public ActionTile(String myName, List<Method> myPassThroughActions, List<Method> myLandOnActions) {
+  public ActionTile(String myName, ActionSequence myPassThroughActions, ActionSequence myLandOnActions) {
     this(myName);
     this.myPassThroughActions = myPassThroughActions;
     this.myLandOnActions = myLandOnActions;
   }
 
+  /**
+   * @see Tile#executePassThrough(Player)
+   */
   @Override
   public void executePassThrough(Player player) {
-
+    myPassThroughActions.execute(player);
   }
 
+  /**
+   * @see Tile#executeLandOn(Player) 
+   */
   @Override
   public void executeLandOn(Player player) {
-
+    myLandOnActions.execute(player);
   }
 }
