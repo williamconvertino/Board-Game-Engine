@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import ooga.model.data.cards.Card;
+import ooga.model.game_handling.commands.ActionSequence;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,11 +18,11 @@ class DeckTest {
 
   @BeforeEach
   void resetCards() {
-    List<Method> methodList = new ArrayList<>();
+    ActionSequence mySequence = new ActionSequence();
     cardList = new ArrayList<Card>();
-    c1 = new Card("1", "first", methodList);
-    c2 = new Card("2", "second", methodList);
-    c3 = new Card("3", "third", methodList);
+    c1 = new Card("1", "first", mySequence);
+    c2 = new Card("2", "second", mySequence);
+    c3 = new Card("3", "third", mySequence);
     cardList.add(c1);
     cardList.add(c2);
     cardList.add(c3);

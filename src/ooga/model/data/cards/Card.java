@@ -1,9 +1,8 @@
 package ooga.model.data.cards;
 
 
-import java.lang.reflect.Method;
-import java.util.List;
 import ooga.model.data.player.Player;
+import ooga.model.game_handling.commands.ActionSequence;
 
 /**
  * A class to represent the game's commands cards.
@@ -20,13 +19,13 @@ public class Card {
     //A description of the card.
     private String myDescription;
 
-    //A list of commands to execute. //TODO: Make the command list functional.
-    private List<Method> commandList;
+    //An action sequence to execute.
+    private ActionSequence myActionSequence;
 
-    public Card(String myName, String myDescription, List<Method> commandList) {
+    public Card(String myName, String myDescription, ActionSequence actionSequence) {
         this.myName = myName;
         this.myDescription = myDescription;
-        this.commandList = commandList;
+        this.myActionSequence = actionSequence;
     }
 
     /**
