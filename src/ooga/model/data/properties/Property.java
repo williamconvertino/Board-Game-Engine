@@ -71,36 +71,74 @@ public class Property {
     }
 
 
+    /**
+     * Returns the player's name.
+     *
+     * @return the player's name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the cost of the property.
+     *
+     * @return the cost of the property.
+     */
     public int getCost() {
         return cost;
     }
 
+    /**
+     * Return the number of houses on the property.
+     *
+     * @return the number of houses on the property.
+     */
     public int getNumHouses() {
         return numHouses;
     }
 
+    /**
+     * Returns the cost of buying a house.
+     *
+     * @return the cost of buying a house.
+     */
     public int getHouseCost() {
         return houseCost;
     }
 
+    /**
+     * return the properties current owner.
+     *
+     * @return the properties current owner.
+     */
     public Player getOwner() {
         return owner;
     }
 
+    /**
+     * Sets the owner of the property to the specified player.
+     *
+     * @param owner the player to set as the owener of this property.
+     */
     public void setOwner(Player owner) {
         this.owner = owner;
     }
 
-
-
+    /**
+     * Returns the mortgage value of this property.
+     *
+     * @return the amount of money received for mortgaging this property.
+     */
     public int getMortgageValue() {
         return mortgageValue;
     }
 
+    /**
+     * States whether or not this property is a part of a monopoly.
+     *
+     * @return true if this property is part of a monopoly, and false otherwise.
+     */
     public boolean isMonopoly() {
         if (owner == NULL_OWNER) {
             return false;
