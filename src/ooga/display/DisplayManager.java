@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.EventManager;
 import ooga.display.game_board.GameBoardDisplay;
+import ooga.display.start.OptionsMenu;
 import ooga.display.start.StartMenu;
 import ooga.model.data.player.Player;
 
@@ -36,11 +37,15 @@ public class DisplayManager {
     languageResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
     allDisplays.add(new StartMenu(myStage, this, languageResource));
     allDisplays.add(new GameBoardDisplay(myStage, this));
-    currDisplay = allDisplays.get(1);
+    allDisplays.add(new OptionsMenu(myStage, this, languageResource));
+    currDisplay = allDisplays.get(0);
+    myStage.setScene(currDisplay.getScene());
     //displayElement();
   }
 
   public void startGame() {
+    currDisplay = allDisplays.get(0);
+    myStage.setScene(currDisplay.getScene());
   }
 
   private void displayElement() {
@@ -48,10 +53,20 @@ public class DisplayManager {
   }
 
   public void goOptions() {
+    currDisplay = allDisplays.get(2);
+    myStage.setScene(currDisplay.getScene());
   }
 
   public void goStartMenu() {
     currDisplay = allDisplays.get(0);
     myStage.setScene(currDisplay.getScene());
+  }
+
+  public void changePlayerCount() {
+
+  }
+
+  public void changeTheme(String e) {
+
   }
 }

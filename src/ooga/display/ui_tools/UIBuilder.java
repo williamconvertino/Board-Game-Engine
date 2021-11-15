@@ -110,7 +110,7 @@ public class UIBuilder {
 //        options.setValue(langResource.getString(choices.get(0)));
         options.valueProperty()
                 .addListener((o, oldValue, newValue) -> response.accept(lang.get(newValue)));
-        options.setId(id);
+        options.setId(id.replaceAll(" ", ""));
         return makeHolderBox(id, options);
     }
 

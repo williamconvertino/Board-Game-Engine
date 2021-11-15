@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class OptionsMenu {
+public class OptionsMenu extends Display {
     private BorderPane startMenu;
     private Stage myStage;
     private DisplayManager myDisplayManager;
@@ -22,7 +22,7 @@ public class OptionsMenu {
     private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
     private static final String DEFAULT_STYLE = STYLE_PACKAGE + "StartMenu.css";
 
-    public OptionsMenu (Stage stage, DisplayManager displayManager, ResourceBundle langResource, ) {
+    public OptionsMenu (Stage stage, DisplayManager displayManager, ResourceBundle langResource) {
         myBuilder = new UIBuilder(langResource);
         myStage = stage;
         myDisplayManager = displayManager;
@@ -39,7 +39,7 @@ public class OptionsMenu {
         VBox result = new VBox();
         List<String> placeHolder = new ArrayList<>();
         List<String> placeHolder2 = new ArrayList<>();
-        result.getChildren().add(myBuilder.makeCombo("Number of Players", placeHolder, e -> myDisplayManager.changePlayerCount()));
+        result.getChildren().add(myBuilder.makeCombo("NumberofPlayers", placeHolder, e -> myDisplayManager.changePlayerCount()));
         result.getChildren().add(myBuilder.makeCombo("Theme", placeHolder2, e -> myDisplayManager.changeTheme(e)));
         return result;
     }

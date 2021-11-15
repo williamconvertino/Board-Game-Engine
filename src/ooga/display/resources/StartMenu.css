@@ -41,7 +41,7 @@
     -fx-border-color: lightgrey;
 }
 .label {
-    -fx-font-size: 100;
+    -fx-font-size: 20;
     -fx-text-fill: text_color;
     -fx-alignment: center;
     -fx-min-width: 10px;
