@@ -31,13 +31,11 @@ public class FunctionExecutor {
     /**
      * Constructs a new FunctionExecutor with the specified GameData, die, and endTurn method.
      */
-    public FunctionExecutor(GameData gameData, Die die, Method endTurn, DisplayComm displayComm) {
+    public FunctionExecutor(GameData gameData, Die die, DisplayComm displayComm) {
         this.gameData = gameData;
-        this.endTurn = endTurn;
         this.myDie = die;
         this.displayComm = displayComm;
     }
-
 
     /**
      * Moves the player to the specified location.
