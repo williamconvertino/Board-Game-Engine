@@ -3,13 +3,14 @@ package ooga.model.data.properties;
 import java.util.ArrayList;
 import java.util.List;
 import ooga.exceptions.MaxHousesReachedException;
+import ooga.exceptions.MortgageException;
 import ooga.exceptions.NoHousesToSellException;
 import ooga.model.data.player.Player;
 
 /**
  * This class keeps track of the data associated with any given property.
  * 
- * @author William Convertino
+ * @author William Convertino, Jordan Castleman
  * 
  * @since 0.0.1
  */
@@ -47,6 +48,9 @@ public class Property {
     //The amount of money received for mortgaging this property.
     private int mortgageValue;
 
+    //Whether this property is mortgaged or not.
+    private boolean isMortgaged;
+
     /**
      * Constructs a new property with the specified data.
      *
@@ -68,6 +72,7 @@ public class Property {
         this.mortgageValue = mortgageValue;
         this.owner = NULL_OWNER;
         this.numHouses = 0;
+        this.isMortgaged = false;
     }
 
 
@@ -134,6 +139,36 @@ public class Property {
         return mortgageValue;
     }
 
+    public double getUnmortgageValue() {
+        return mortgageValue * 1.1;
+    }
+
+    /**
+     * Mortgages this property.
+     * @throws MortgageException
+     */
+    public void mortgageProperty() throws MortgageException {
+        if (!isMortgaged) {
+            isMortgaged = true;
+        }
+        else {
+            throw new MortgageException();
+        }
+    }
+
+    /**
+     * Unmortgages this property.
+     * @throws MortgageException
+     */
+    public void unmortgageProperty() throws MortgageException {
+        if (isMortgaged) {
+            isMortgaged = false;
+        }
+        else {
+            throw new MortgageException();
+        }
+    }
+
     /**
      * States whether or not this property is a part of a monopoly.
      *
@@ -156,7 +191,10 @@ public class Property {
      * @return the rent cost for this property.
      */
     public int getRentCost() {
-        if (numHouses == 0 && isMonopoly()) {
+        if (isMortgaged) {
+            return 0;
+        }
+        else if (numHouses == 0 && isMonopoly()) {
             return (2 * rentCost[0]);
         }
         return rentCost[numHouses];
