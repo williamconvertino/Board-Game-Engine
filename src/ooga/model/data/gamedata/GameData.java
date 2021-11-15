@@ -1,6 +1,7 @@
 package ooga.model.data.gamedata;
 
 import ooga.exceptions.NoRemainingPlayersException;
+import ooga.model.data.deck.DeckManager;
 import ooga.model.die.Die;
 import ooga.model.game_handling.board_manager.BoardManager;
 import ooga.model.data.player.Player;
@@ -18,8 +19,11 @@ public class GameData {
     //The current game board_manager.
     private BoardManager myBoard;
 
-    //A structure to keep track of the players in the game.
+    //A class to keep track of the players in the game.
     private PlayerManager myPlayers;
+
+    //A class to keep track of the active decks in the game.
+    private DeckManager myDecks;
 
     //The player whose turn it currently is.
     private Player currentPlayer;
@@ -120,4 +124,12 @@ public class GameData {
         return myDie;
     }
 
+    /**
+     * Returns the game's active decks.
+     *
+     * @return the game's active decks.
+     */
+    public DeckManager getDecks() {
+        return myDecks;
+    }
 }
