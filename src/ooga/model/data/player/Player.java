@@ -132,6 +132,7 @@ public class Player {
      */
     public void giveProperty(Property property) {
         myProperties.add(property);
+        property.setOwner(this);
     }
 
     /**
@@ -141,6 +142,7 @@ public class Player {
      */
     public void removeProperty(Property property) {
         myProperties.remove(property);
+        property.setOwner(Property.NULL_OWNER);
     }
 
     /**

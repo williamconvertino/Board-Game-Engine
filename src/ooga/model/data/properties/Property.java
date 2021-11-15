@@ -53,17 +53,16 @@ public class Property {
      * @param name the name of the property.
      * @param cost the cost of the property.
      * @param rentCost an array of the rent cost of this property for each house built.
-     * @param maxHouses the maximum number of houses that can be built on this property.
      * @param houseCost the cost of buying one house.
      * @param setMemberNames the names of the other members in this property's set.
      * @param mortgageValue the value of mortgaging this property.
      */
-    public Property(String name, int cost, int[] rentCost, int maxHouses,
+    public Property(String name, int cost, int[] rentCost,
         int houseCost, List<String> setMemberNames, int mortgageValue) {
         this.name = name;
         this.cost = cost;
         this.rentCost = rentCost;
-        this.maxHouses = maxHouses;
+        this.maxHouses = rentCost.length - 1;
         this.houseCost = houseCost;
         this.setMemberNames = setMemberNames;
         this.mortgageValue = mortgageValue;
@@ -91,6 +90,12 @@ public class Property {
     public Player getOwner() {
         return owner;
     }
+
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
+
+
 
     public int getMortgageValue() {
         return mortgageValue;
