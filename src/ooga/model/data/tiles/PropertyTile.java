@@ -3,6 +3,7 @@ package ooga.model.data.tiles;
 import ooga.display.communication.DisplayStateSignaler;
 import ooga.model.data.player.Player;
 import ooga.model.data.properties.Property;
+import ooga.model.game_handling.commands.ActionSequence;
 
 /**
  * This class represents a tile corresponding to a property card. When a player lands on it,
@@ -17,6 +18,9 @@ public abstract class PropertyTile extends Tile {
     //The property that this tile represents.
     private Property myProperty;
 
+    //The action sequence to execute when this tile has been landed on.
+    ActionSequence landOnPropertySequence;
+
     /**
      * Constructs a new tile with the specified name.
      *
@@ -29,11 +33,14 @@ public abstract class PropertyTile extends Tile {
     /**
      * Constructs a new tile with the specified name and property.
      *
-     * @param myName the name of the tile.
+     * @param name the name of the tile.
+     * @param property the property associated with this tile.
+     * @param landOnPropertySequence the action sequence to execute when this tile has been landed on.
      */
-    public PropertyTile(String myName, Property myProperty) {
-        super(myName);
-        this.myProperty = myProperty;
+    public PropertyTile(String name, Property property, ActionSequence landOnPropertySequence) {
+        this(name);
+        this.myProperty = property;
+        this.landOnPropertySequence = landOnPropertySequence;
     }
 
     /**
@@ -53,7 +60,7 @@ public abstract class PropertyTile extends Tile {
      */
     @Override
     public void executeLandOn(Player player) {
-        //TODO:
+        landOnPropertySequence.execute(player);
     }
 
 
