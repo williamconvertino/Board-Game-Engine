@@ -49,6 +49,7 @@ public class GameHandlingTest {
     p3 = new Player("p3");
     p4 = new Player("p4");
 
+    Tile t0;
     Tile t1;
     Tile t2;
     Tile t3;
@@ -74,6 +75,7 @@ public class GameHandlingTest {
 
     myPlayers = new OriginalPlayerManager(playerlist);
 
+    t0 = new EmptyTile("t0");
     t1 = new EmptyTile("t1");
     t2 = new EmptyTile("t2");
     t3 = new EmptyTile("t3");
@@ -91,6 +93,7 @@ public class GameHandlingTest {
 
     ArrayList<Tile> tileList = new ArrayList<Tile>();
 
+    tileList.add(t0);
     tileList.add(t1);
     tileList.add(t2);
     tileList.add(t3);
