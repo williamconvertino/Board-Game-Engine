@@ -16,7 +16,7 @@ import ooga.util.ImmutTool;
 public class Player {
 
     //The name of the player.
-    private String name;
+    private String myName;
 
     //Keeps track of whether the player is actively in the game.
     private boolean isActive;
@@ -42,13 +42,22 @@ public class Player {
      * @param name the player's name.
      */
     public Player(String name) {
-        this.name = name;
+        this.myName = name;
         this.isActive = true;
         this.isInJail = false;
         this.location = 0;
         this.balance = 0;
         this.myProperties = new ArrayList<>();
         this.myCards = new ArrayList<>();
+    }
+
+    /**
+     * Returns the player's name.
+     *
+     * @return the player's name.
+     */
+    public String getName() {
+        return myName;
     }
 
     /**
@@ -67,6 +76,24 @@ public class Player {
      */
     public void setActiveStatus(boolean isActive) {
         this.isActive = isActive;
+    }
+
+    /**
+     * States whether or not the player is in jail.
+     *
+     * @return true if the player is in jail, and false otherwise.
+     */
+    public boolean isInJail() {
+        return isInJail;
+    }
+
+    /**
+     * Sets the player's jail status.
+     *
+     * @param inJail the value to which the player's jail status should be set.
+     */
+    public void setJailStatus(boolean inJail) {
+        this.isInJail = inJail;
     }
 
     /**
@@ -94,6 +121,53 @@ public class Player {
      */
     public List<Property> getProperties() {
         return ImmutTool.getImmutableList(myProperties);
+    }
+
+
+
+    /**
+     * Adds the specified property to the player's properties.
+     *
+     * @param property the property to give.
+     */
+    public void giveProperty(Property property) {
+        myProperties.add(property);
+    }
+
+    /**
+     * Removes the specified property from the player's properties.
+     *
+     * @param property the property to remove.
+     */
+    public void removeProperty(Property property) {
+        myProperties.remove(property);
+    }
+
+    /**
+     *  Returns a list of the player's cards.
+     *
+     * @return a list of the player's cards.
+     */
+    public List<Card> getCards() {
+        return ImmutTool.getImmutableList(myCards);
+    }
+
+    /**
+     * Adds the specified card to the player's cards.
+     *
+     * @param card the card to give.
+     */
+    public void giveCard(Card card) {
+        myCards.add(card);
+    }
+
+    /**
+     * Removes the specified card from the player's cards.
+     *
+     * @param card the card to remove.
+     */
+    public void removeCard(Card card) {
+        myCards.remove(card);
     }
 
 }
