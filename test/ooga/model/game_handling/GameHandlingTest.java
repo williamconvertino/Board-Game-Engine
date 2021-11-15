@@ -1,8 +1,11 @@
 package ooga.model.game_handling;
 
-import java.lang.reflect.Method;
+
 import java.util.ArrayList;
+import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayComm;
+import ooga.display.communication.DisplayStateSignaler;
+import ooga.display.communication.ExceptionHandler;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.OriginalPlayerManager;
 import ooga.model.data.player.Player;
@@ -16,7 +19,7 @@ import ooga.model.game_handling.board_manager.BoardManager;
 import ooga.model.game_handling.board_manager.OriginalBoardManager;
 import ooga.model.game_handling.turn_manager.TurnManager;
 import org.junit.jupiter.api.BeforeEach;
-import static org.junit.jupiter.api.Assertions.*;
+
 
 public class GameHandlingTest {
 
@@ -61,8 +64,6 @@ public class GameHandlingTest {
     Tile t13;
     Tile t14;
 
-
-
     Property prop1;
 
     ArrayList<Player> playerlist = new ArrayList<>();
@@ -87,7 +88,6 @@ public class GameHandlingTest {
     t12 = new EmptyTile("t12");
     t13 = new EmptyTile("t13");
     t14 = new EmptyTile("t14");
-
 
     ArrayList<Tile> tileList = new ArrayList<Tile>();
 
@@ -114,6 +114,5 @@ public class GameHandlingTest {
     myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
 
   }
-
 
 }
