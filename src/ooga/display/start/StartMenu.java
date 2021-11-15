@@ -19,6 +19,8 @@ public class StartMenu extends Display {
     private Stage myStage;
     private DisplayManager myDisplayManager;
     private UIBuilder myBuilder;
+    private Scene scene;
+
     private static final String DEFAULT_RESOURCE_PACKAGE = Display.class.getPackageName() + ".resources.";
     private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
     private static final String DEFAULT_STYLE = STYLE_PACKAGE + "StartMenu.css";
@@ -44,9 +46,18 @@ public class StartMenu extends Display {
     }
 
     private void makeScene() {
-        Scene scene = new Scene(startMenu, 800, 600);
+        scene = new Scene(startMenu, 800, 600);
         scene.getStylesheets().add(DEFAULT_STYLE);
         myStage.setScene(scene);
         myStage.show();
+    }
+
+    /**
+     * Get the scene
+     * @return scene
+     */
+    @Override
+    public Scene getScene() {
+        return scene;
     }
 }

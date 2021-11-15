@@ -1,5 +1,6 @@
 package ooga.display;
 
+import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -21,5 +22,10 @@ public class Display {
    */
   public Display() {
     languageResource = ResourceBundle.getBundle(RESOURCE_DIRECTORY + "English");
+  }
+
+
+  public Scene getScene() {
+    return null;
   }
 }

@@ -1,6 +1,7 @@
 package ooga.display;
 
 import java.beans.EventHandler;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -16,6 +17,7 @@ import ooga.model.data.player.Player;
  *
  * @author William Convertino
  * @author Henry Huynh
+ * @author Aaric Han
  * @since 0.0.1
  */
 public class DisplayManager {
@@ -24,14 +26,17 @@ public class DisplayManager {
   private Display currDisplay;
   private static final String DEFAULT_RESOURCE_PACKAGE =
           Display.class.getPackageName() + ".resources.";
+  private Stage myStage;
+  private ArrayList<Display> allDisplays = new ArrayList<>();
   /**
    * Default constructor
    */
   public DisplayManager(Stage stage, Map<State, EventHandler> eventMap) {
+    myStage = stage;
     languageResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
-    currDisplay = new StartMenu(stage, this, languageResource);
-    //currDisplay = new GameBoardDisplay(stage, this);
-    
+    allDisplays.add(new StartMenu(myStage, this, languageResource));
+    allDisplays.add(new GameBoardDisplay(myStage, this));
+    currDisplay = allDisplays.get(1);
     //displayElement();
   }
 
@@ -43,5 +48,10 @@ public class DisplayManager {
   }
 
   public void goOptions() {
+  }
+
+  public void goStartMenu() {
+    currDisplay = allDisplays.get(0);
+    myStage.setScene(currDisplay.getScene());
   }
 }
