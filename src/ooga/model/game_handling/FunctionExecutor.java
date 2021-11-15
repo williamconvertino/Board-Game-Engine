@@ -102,6 +102,8 @@ public class FunctionExecutor {
 
     /**
      * Rolls the die and returns the result.
+     *
+     * @return the result of the roll.
      */
     public int rollDie() {
         return(myDie.roll());
@@ -114,7 +116,7 @@ public class FunctionExecutor {
      * @param amount the amount of money that player should receive.
      */
     public void addMoney(Player player, int amount) {
-        //player.addMoney(amount);
+        player.addMoney(amount);
     }
 
     /**
@@ -126,6 +128,10 @@ public class FunctionExecutor {
      * @return the amount of debt the player takes on after this loss of money.
      */
     public int loseMoney(Player player, int amount) {
+        player.addMoney(-1 * amount);
+        if (player.getBalance() < 0) {
+            return (-1 * player.getBalance());
+        }
         return 0;
     }
 
@@ -136,6 +142,11 @@ public class FunctionExecutor {
      */
     public void goToJail(Player player) {
         player.setJailStatus(true);
+        try {
+            gameData.getBoard().movePlayerToTile(player, "Jail", false);
+        } catch (TileNotFoundException e) {
+            displayComm.showException(e);
+        }
     }
 
     /**
