@@ -85,7 +85,10 @@ public abstract class BoardManager {
   }
 
   /**
+   * States whether or not the board has a tile with the specified name.
    *
+   * @param tileName the name of the desired tile.
+   * @return true if the board contains the tile, false if not.
    */
   protected boolean hasTile(String tileName) {
     List<Tile> sortedTiles = new ArrayList<>();
