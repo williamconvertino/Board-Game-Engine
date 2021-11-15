@@ -7,11 +7,12 @@ import ooga.model.game_handling.commands.ActionSequence;
 
 /**
  * This class represents a tile corresponding to a property card. When a player lands on it,
- * they must pay rent for it if it is owned by another player. If the property is unowned, they
- * may buy it.
+ * they execute the landOnProperty sequence, which either makes them pay rent or allows them to
+ * purchase the property.
  *
+ * @author William Convertino
  *
- *
+ * @since 0.0.1
  */
 public abstract class PropertyTile extends Tile {
 
