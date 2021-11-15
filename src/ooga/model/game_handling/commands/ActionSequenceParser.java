@@ -8,21 +8,42 @@ import java.util.function.Supplier;
 import ooga.exceptions.InvalidFileFormatException;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
+import ooga.model.data.properties.Property;
 import ooga.model.game_handling.FunctionExecutor;
 
 /**
- * A utility
+ * A utility that can convert string lines into executable commands.
  *
+ * @author William Convertino
+ *
+ * @since 0.0.1
  */
 public class ActionSequenceParser {
 
-  FunctionExecutor functions;
-  ResourceBundle commandDoc;
-  ResourceBundle argumentsDoc;
-  ResourceBundle multistepArgumentsDoc;
+  //The FunctionExecutor that houses the commands to be run.
+  private FunctionExecutor functions;
 
+  //The current game's gamedata.
+  private GameData gameData;
+
+  //The ResourceBundle containing the command methods and their keywords.
+  private ResourceBundle commandDoc;
+
+  //The ResourceBundle containing the argument generation methods and their keywords.
+  private ResourceBundle argumentsDoc;
+
+  //The ResourceBundle containing the multi-step argument generation methods and their keywords.
+  private ResourceBundle multistepArgumentsDoc;
+
+  /**
+   * Constructs a new ActionSequenceParser.
+   *
+   * @param functions the functions with which this class can run.
+   * @param gameData a reference to the game's data.
+   */
   public ActionSequenceParser (FunctionExecutor functions, GameData gameData) {
     this.functions = functions;
+    this.gameData = gameData;
     this.commandDoc = ResourceBundle.getBundle("commands");
     this.argumentsDoc = ResourceBundle.getBundle("arguments");
     this.multistepArgumentsDoc = ResourceBundle.getBundle("multistep_arguments");
@@ -65,6 +86,7 @@ public class ActionSequenceParser {
           //as that method's argument.
           Method argumentGenerator = getClass().getMethod(multistepArgumentsDoc.getString(element));
           i+=1;
+
           Object arg = rawValue(elements[i]);
 
           //Add the supplier to the list.
@@ -116,6 +138,8 @@ public class ActionSequenceParser {
     }
   }
 
+  //private void
+
   private Object rawValue(String s) {
     try {
       int val = Integer.parseInt(s);
@@ -125,5 +149,18 @@ public class ActionSequenceParser {
     }
   }
 
+
+  private Supplier getNumHouses(Player p) {
+    return new Supplier() {
+      @Override
+      public Object get() {
+        int num = 0;
+        for (Property p: gameData.getCurrentPlayer().getProperties()) {
+          num += p.getNumHouses();
+        }
+        return num;
+      }
+    };
+  }
 
 }
