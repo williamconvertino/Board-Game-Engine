@@ -44,7 +44,7 @@ public class DisplayManager {
   }
 
   public void startGame() {
-    currDisplay = allDisplays.get(0);
+    currDisplay = allDisplays.get(1);
     myStage.setScene(currDisplay.getScene());
   }
 

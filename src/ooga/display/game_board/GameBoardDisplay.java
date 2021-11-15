@@ -41,8 +41,6 @@ public class GameBoardDisplay extends Display {
 
   private void makeScene() {
     scene = new Scene(theGameBoard, 800, 600);
-    myStage.setScene(scene);
-    myStage.show();
   }
   /**
    * Return theGameBoard borderpane
