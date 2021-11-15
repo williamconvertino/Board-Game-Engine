@@ -25,10 +25,10 @@ public class Player {
     private boolean isInJail;
 
     //Keeps track of the player's cash balance.
-    private int balance;
+    private int myBalance;
 
     //Keeps track of the player's location on the board_manager.
-    private int location;
+    private int myLocation;
 
     //A list of the player's properties.
     private List<Property> myProperties;
@@ -45,8 +45,8 @@ public class Player {
         this.myName = name;
         this.isActive = true;
         this.isInJail = false;
-        this.location = 0;
-        this.balance = 0;
+        this.myLocation = 0;
+        this.myBalance = 0;
         this.myProperties = new ArrayList<>();
         this.myCards = new ArrayList<>();
     }
@@ -102,7 +102,7 @@ public class Player {
      * @param location the location at which the player should be set.
      */
     public void setLocation(int location) {
-        this.location = location;
+        this.myLocation = location;
     }
 
     /**
@@ -111,7 +111,7 @@ public class Player {
      * @return the player's current location.
      */
     public int getLocation() {
-        return location;
+        return myLocation;
     }
 
     /**
@@ -170,6 +170,24 @@ public class Player {
      */
     public void removeCard(Card card) {
         myCards.remove(card);
+    }
+
+    /**
+     * Adds the specified amount of money to this player's balance.
+     *
+     * @param amount the amount of money to add.
+     */
+    public void addMoney(int amount) {
+        myBalance += amount;
+    }
+
+    /**
+     * Returns the player's balance.
+     *
+     * @return the balance of this player.
+     */
+    public int getBalance() {
+        return myBalance;
     }
 
 }

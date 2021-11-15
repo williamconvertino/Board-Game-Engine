@@ -82,4 +82,35 @@ public class FunctionExecutorTest extends GameHandlingTest {
     assertEquals(1, p1.getLocation());
   }
 
+  @Test
+  void testRollDie() {
+    for (int i = 0; i < 50; i++) {
+      int roll = myFunctionExecutor.rollDie();
+      assertTrue(roll >= 2 && roll <= 12);
+    }
+  }
+
+  @Test
+  void testMoneyCommands() {
+    assertEquals(0, p1.getBalance());
+    myFunctionExecutor.addMoney(p1,10);
+    assertEquals(10, p1.getBalance());
+    myFunctionExecutor.loseMoney(p1, 10);
+    assertEquals(0, p1.getBalance());
+  }
+
+  @Test
+  void testGoToJail() {
+    assertNotEquals(10, p1.getLocation());
+    assertFalse(p1.isInJail());
+    myFunctionExecutor.goToJail(p1);
+    assertEquals(10, p1.getLocation());
+    assertTrue(p1.isInJail());
+  }
+
+  @Test
+  void testGivePlayerCard() {
+
+  }
+
 }

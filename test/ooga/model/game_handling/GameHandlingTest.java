@@ -85,7 +85,7 @@ public class GameHandlingTest {
     t7 = new EmptyTile("t7");
     t8 = new EmptyTile("t8");
     t9 = new EmptyTile("t9");
-    t10 = new EmptyTile("t10");
+    t10 = new EmptyTile("Jail");
     t11 = new EmptyTile("t11");
     t12 = new EmptyTile("t12");
     t13 = new EmptyTile("t13");
