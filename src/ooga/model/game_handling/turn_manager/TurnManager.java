@@ -1,16 +1,13 @@
 package ooga.model.game_handling.turn_manager;
 
 import ooga.display.communication.DisplayComm;
-import ooga.display.communication.ExceptionHandler;
 import ooga.exceptions.MaxRollsReachedException;
 import ooga.model.data.gamedata.GameData;
-import ooga.model.data.player.Player;
 import ooga.model.data.tiles.Tile;
-import ooga.model.die.Die;
 import ooga.model.game_handling.FunctionExecutor;
 
 /**
- * This class manages the current turn and keeps track of all turn-based data.
+ * This class manages the actions that a player can do on their turn.
  * 
  * @author William Convertino
  * 
@@ -18,16 +15,22 @@ import ooga.model.game_handling.FunctionExecutor;
  */
 public class TurnManager {
 
+    //The current game data.
     private GameData gameData;
 
+    //The tile that the player has selected.
     private Tile selectedTile;
 
+    //The maximum number of rolls that a player can roll this turn.
     private int maxRolls;
 
+    //The class that executes the functions.
     private FunctionExecutor functionExecutor;
 
+    //The display communication class.
     private DisplayComm displayComm;
 
+    //WIP
     private boolean commandActive;
 
     /**
@@ -78,6 +81,5 @@ public class TurnManager {
         }
         functionExecutor.movePlayerFd(gameData.getCurrentPlayer(), myRoll);
     }
-
 
 }
