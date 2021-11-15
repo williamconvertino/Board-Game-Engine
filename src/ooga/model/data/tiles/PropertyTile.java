@@ -1,6 +1,5 @@
 package ooga.model.data.tiles;
 
-import ooga.display.communication.DisplayStateSignaler;
 import ooga.model.data.player.Player;
 import ooga.model.data.properties.Property;
 import ooga.model.game_handling.commands.ActionSequence;

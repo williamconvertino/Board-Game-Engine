@@ -1,12 +1,16 @@
 package ooga.model.game_handling;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import ooga.display.communication.DisplayComm;
+import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.OriginalPlayerManager;
 import ooga.model.data.player.Player;
 import ooga.model.data.player.PlayerManager;
 import ooga.model.data.properties.Property;
 import ooga.model.data.tiles.EmptyTile;
 import ooga.model.data.tiles.Tile;
+import ooga.model.die.OriginalDice;
 import ooga.model.game_handling.board_manager.BoardManager;
 import ooga.model.game_handling.board_manager.OriginalBoardManager;
 import ooga.model.game_handling.turn_manager.TurnManager;
@@ -16,15 +20,17 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GameHandlingTest {
 
 
-  Player p1;
-  Player p2;
-  Player p3;
-  Player p4;
+  public Player p1;
+  public Player p2;
+  public Player p3;
+  public Player p4;
 
-  PlayerManager myPlayers;
-  BoardManager myBoard;
+  public PlayerManager myPlayers;
+  public BoardManager myBoard;
 
-  TurnManager myTurnManager;
+  public TurnManager myTurnManager;
+
+  public GameData myGameData;
 
   @BeforeEach
   void initGamestate() {
@@ -33,9 +39,22 @@ public class GameHandlingTest {
     p3 = new Player("p3");
     p4 = new Player("p4");
 
-    Tile t1 ;
-    Tile t2 ;
-    Tile t3 ;
+    Tile t1;
+    Tile t2;
+    Tile t3;
+    Tile t4;
+    Tile t5;
+    Tile t6;
+    Tile t7;
+    Tile t8;
+    Tile t9;
+    Tile t10;
+    Tile t11;
+    Tile t12;
+    Tile t13;
+    Tile t14;
+
+
 
     Property prop1;
 
@@ -50,14 +69,41 @@ public class GameHandlingTest {
     t1 = new EmptyTile("t1");
     t2 = new EmptyTile("t2");
     t3 = new EmptyTile("t3");
+    t4 = new EmptyTile("t4");
+    t5 = new EmptyTile("t5");
+    t6 = new EmptyTile("t6");
+    t7 = new EmptyTile("t7");
+    t8 = new EmptyTile("t8");
+    t9 = new EmptyTile("t9");
+    t10 = new EmptyTile("t10");
+    t11 = new EmptyTile("t11");
+    t12 = new EmptyTile("t12");
+    t13 = new EmptyTile("t13");
+    t14 = new EmptyTile("t14");
+
 
     ArrayList<Tile> tileList = new ArrayList<Tile>();
 
     tileList.add(t1);
     tileList.add(t2);
     tileList.add(t3);
+    tileList.add(t4);
+    tileList.add(t5);
+    tileList.add(t6);
+    tileList.add(t7);
+    tileList.add(t8);
+    tileList.add(t9);
+    tileList.add(t10);
+    tileList.add(t11);
+    tileList.add(t12);
+    tileList.add(t13);
+    tileList.add(t14);
 
     myBoard = new OriginalBoardManager(tileList);
+
+    myGameData = new GameData(myPlayers, myBoard, new OriginalDice());
+
+    //myTurnManager = new TurnManager(myGameData, new FunctionExecutor(myGameData, new OriginalDice(), , ), new DisplayComm());
 
   }
 

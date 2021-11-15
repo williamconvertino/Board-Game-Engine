@@ -7,6 +7,7 @@ import ooga.model.data.player.Player;
 import ooga.model.data.player.PlayerManager;
 import ooga.model.data.tiles.EmptyTile;
 import ooga.model.data.tiles.Tile;
+import ooga.model.die.OriginalDice;
 import ooga.model.game_handling.board_manager.BoardManager;
 import ooga.model.game_handling.board_manager.OriginalBoardManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,7 +46,7 @@ public class GameDataTest {
     myTiles.add(t3);
 
     boardManager = new OriginalBoardManager(myTiles);
-    gameData = new GameData(playerManager, boardManager);
+    gameData = new GameData(playerManager, boardManager, new OriginalDice());
   }
 
 
@@ -73,7 +74,7 @@ public class GameDataTest {
     List<Player> myList = new ArrayList<>();
     myList.add(p1);
     PlayerManager pm = new OriginalPlayerManager(myList);
-    GameData gameData = new GameData(pm, boardManager);
+    GameData gameData = new GameData(pm, boardManager, new OriginalDice());
     gameData.setNextPlayer();
     assertEquals(p1, gameData.getCurrentPlayer());
   }

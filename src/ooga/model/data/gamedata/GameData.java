@@ -1,6 +1,7 @@
 package ooga.model.data.gamedata;
 
 import ooga.exceptions.NoRemainingPlayersException;
+import ooga.model.die.Die;
 import ooga.model.game_handling.board_manager.BoardManager;
 import ooga.model.data.player.Player;
 import ooga.model.data.player.PlayerManager;
@@ -29,15 +30,20 @@ public class GameData {
     //The previous roll of this turn.
     private int previousRoll;
 
+    //The die being used to generate player rolls.
+    private Die myDie;
+
     /**
-     * Constructs a new GameData with the specified board and players.
+     * Constructs a new GameData with the specified board, players, and die.
      *
-     * @param myPlayers
-     * @param myBoard
+     * @param players the players in the game.
+     * @param board the board on which the game is played.
+     * @param die the die with which the game is played.
      */
-    public GameData(PlayerManager myPlayers, BoardManager myBoard) {
-        this.myPlayers = myPlayers;
-        this.myBoard = myBoard;
+    public GameData(PlayerManager players, BoardManager board, Die die) {
+        this.myPlayers = players;
+        this.myBoard = board;
+        this.myDie = die;
         resetTurnData();
     }
 
@@ -103,6 +109,15 @@ public class GameData {
      */
     public int getPreviousRoll() {
         return previousRoll;
+    }
+
+    /**
+     * Returns the current die state.
+     *
+     * @return the current die state.
+     */
+    public Die getDie() {
+        return myDie;
     }
 
 }

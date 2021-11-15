@@ -1,5 +1,6 @@
 package ooga.model.game_handling.turn_manager;
 
+import ooga.display.communication.DisplayComm;
 import ooga.display.communication.ExceptionHandler;
 import ooga.exceptions.MaxRollsReachedException;
 import ooga.model.data.gamedata.GameData;
@@ -25,19 +26,18 @@ public class TurnManager {
 
     private FunctionExecutor functionExecutor;
 
-    private ExceptionHandler exceptionHandler;
-
-    private Die myDie;
+    private DisplayComm displayComm;
 
     private boolean commandActive;
 
     /**
      * Default constructor
      */
-    public TurnManager(GameData gameData, ExceptionHandler exceptionHandler) {
+    public TurnManager(GameData gameData, FunctionExecutor functionExecutor, DisplayComm displayComm) {
         this.gameData = gameData;
+        this.functionExecutor = functionExecutor;
+        this.displayComm = displayComm;
         this.maxRolls = 1;
-        this.exceptionHandler = exceptionHandler;
         this.commandActive = true;
     }
 
@@ -48,7 +48,6 @@ public class TurnManager {
         this.selectedTile = null;
         gameData.resetTurnData();
         gameData.setNextPlayer();
-        commandActive = false;
     }
 
     /**
@@ -59,12 +58,12 @@ public class TurnManager {
 
         //Check to see if the player has already rolled the max # of times, if so throw an error.
         if (gameData.getNumRolls() >= maxRolls) {
-            exceptionHandler.showException(new MaxRollsReachedException());
+            displayComm.showException(new MaxRollsReachedException());
             return;
         }
 
         //Roll the die.
-        int myRoll = myDie.roll();
+        int myRoll = gameData.getDie().roll();
         gameData.addRoll();
 
         //If the roll is the third of the turn, send the player to jail.
@@ -74,7 +73,7 @@ public class TurnManager {
         }
 
         //If the roll is a double, increase the maximum number of rolls by one.
-        if (myDie.lastRollDouble()) {
+        if (gameData.getDie().lastRollDouble()) {
             maxRolls++;
         }
         functionExecutor.movePlayerFd(gameData.getCurrentPlayer(), myRoll);
