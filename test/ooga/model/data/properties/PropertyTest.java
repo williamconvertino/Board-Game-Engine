@@ -67,7 +67,13 @@ public class PropertyTest {
     }
 
     assertEquals(6, p.getRentCost());
-
+    
+    try {
+      p.mortgageProperty();
+    }
+    catch (Exception e) {
+    }
+    assertEquals(0, p.getRentCost());
   }
 
   @Test
