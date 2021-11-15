@@ -95,6 +95,7 @@ public class OriginalBoardManager extends BoardManager {
     if (index < 0) {
       index = myTiles.size() - 1;
     }
+    p.setLocation(index);
     myTiles.get(index).executeLandOn(p);
   }
 
