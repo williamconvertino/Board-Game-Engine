@@ -10,6 +10,7 @@ import ooga.model.data.player.PlayerManager;
 import ooga.model.data.properties.Property;
 import ooga.model.data.tiles.EmptyTile;
 import ooga.model.data.tiles.Tile;
+import ooga.model.die.Die;
 import ooga.model.die.OriginalDice;
 import ooga.model.game_handling.board_manager.BoardManager;
 import ooga.model.game_handling.board_manager.OriginalBoardManager;
@@ -31,6 +32,12 @@ public class GameHandlingTest {
   public TurnManager myTurnManager;
 
   public GameData myGameData;
+
+  public FunctionExecutor myFunctionExecutor;
+
+  public DisplayComm myDisplayComm;
+
+  public Die myDie;
 
   @BeforeEach
   void initGamestate() {
@@ -100,10 +107,11 @@ public class GameHandlingTest {
     tileList.add(t14);
 
     myBoard = new OriginalBoardManager(tileList);
-
-    myGameData = new GameData(myPlayers, myBoard, new OriginalDice());
-
-    //myTurnManager = new TurnManager(myGameData, new FunctionExecutor(myGameData, new OriginalDice(), , ), new DisplayComm());
+    myDie = new OriginalDice();
+    myGameData = new GameData(myPlayers, myBoard, myDie);
+    myDisplayComm = new DisplayComm();
+    myFunctionExecutor = new FunctionExecutor(myGameData, myDie, myDisplayComm);
+    myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
 
   }
 
