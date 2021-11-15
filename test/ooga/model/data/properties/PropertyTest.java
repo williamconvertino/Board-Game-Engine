@@ -29,6 +29,20 @@ public class PropertyTest {
 
     assertEquals(0, p.getNumHouses());
     try {
+      p.mortgageProperty();
+    } catch (Exception e) {
+    }
+    try {
+      p.buyHouse();
+    } catch (Exception e) {
+      assertTrue(true);
+    }
+    try {
+      p.unmortgageProperty();
+    } catch (Exception e) {
+
+    }
+    try {
       p.buyHouse();
     } catch (Exception e) {
       assertTrue(false);
@@ -67,7 +81,7 @@ public class PropertyTest {
     }
 
     assertEquals(6, p.getRentCost());
-    
+
     try {
       p.mortgageProperty();
     }

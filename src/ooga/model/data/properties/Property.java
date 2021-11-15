@@ -204,12 +204,18 @@ public class Property {
      * Buys a new house on this property.
      *
      * @throws MaxHousesReachedException if the maximum number of houses has already been reached.
+     * @throws MortgageException if the house is mortgaged and therefore cannot build houses.
      */
-    public void buyHouse() throws MaxHousesReachedException {
-        if (numHouses < maxHouses) {
-            numHouses++;
-        } else {
-            throw new MaxHousesReachedException();
+    public void buyHouse() throws MaxHousesReachedException, MortgageException {
+        if (!isMortgaged) {
+            if (numHouses < maxHouses) {
+                numHouses++;
+            } else {
+                throw new MaxHousesReachedException();
+            }
+        }
+        else {
+            throw new MortgageException();
         }
     }
 
@@ -217,12 +223,18 @@ public class Property {
      * Sells a house on this property.
      *
      * @throws NoHousesToSellException if there are no houses on the property.
+     * @throws MortgageException if the house is mortgaged and therefore cannot sell houses.
      */
-    public void sellHouse() throws NoHousesToSellException {
-        if (numHouses == 0) {
-            throw new NoHousesToSellException();
-        } else {
-            numHouses--;
+    public void sellHouse() throws NoHousesToSellException, MortgageException {
+        if (!isMortgaged) {
+            if (numHouses == 0) {
+                throw new NoHousesToSellException();
+            } else {
+                numHouses--;
+            }
+        }
+        else {
+            throw new MortgageException();
         }
     }
 }
