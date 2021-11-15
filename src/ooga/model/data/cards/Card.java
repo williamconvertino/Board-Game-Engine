@@ -34,7 +34,7 @@ public class Card {
      * @param player the player who is executing the card.
      */
     public void execute(Player player) {
-
+        myActionSequence.execute(player);
     }
 
     /**
