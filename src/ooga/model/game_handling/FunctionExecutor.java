@@ -71,11 +71,11 @@ public class FunctionExecutor {
      * @param player
      */
     public void movePlayerFd(Player player, int amount) {
-
+        gameData.getBoard().movePlayerFd(player, amount);
     }
 
     public void movePlayerBk(Player player, int amount) {
-
+        gameData.getBoard().movePlayerBk(player, amount);
     }
 
     /**

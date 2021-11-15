@@ -4,15 +4,24 @@ import ooga.display.communication.DisplayStateSignaler.State;
 
 public class DisplayComm {
 
-  DisplayStateSignaler displayStateSignaler;
-  ExceptionHandler myExceptionHandler;
+  private DisplayStateSignaler myDisplayStateSignaler;
+  private ExceptionHandler myExceptionHandler;
+
+  public DisplayComm(DisplayStateSignaler stateSignaler, ExceptionHandler exceptionHandler) {
+    this.myDisplayStateSignaler = stateSignaler;
+    this.myExceptionHandler = exceptionHandler;
+  }
+
+  public DisplayComm() {
+
+  }
 
   public void showException(Exception e) {
-    myExceptionHandler.showException(e);
+    //myExceptionHandler.showException(e);
   }
 
   public void setDisplayStateSignaler(State state) {
-    displayStateSignaler.signalDisplay(state);
+    //myDisplayStateSignaler.signalDisplay(state);
   }
 
 }

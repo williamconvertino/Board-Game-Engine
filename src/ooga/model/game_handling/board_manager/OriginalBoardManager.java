@@ -22,11 +22,11 @@ public class OriginalBoardManager extends BoardManager {
   /**
    * Constructs a new OriginalBoardManager with the specified tiles.
    *
-   * @param myTiles
+   * @param tiles
    */
-  public OriginalBoardManager(List<Tile> myTiles) {
-    super(myTiles);
-    myTiles = myTiles;
+  public OriginalBoardManager(List<Tile> tiles) {
+    super(tiles);
+    myTiles = tiles;
   }
 
   /**

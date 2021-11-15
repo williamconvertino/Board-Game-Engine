@@ -36,8 +36,17 @@ public class TurnManagerTest extends GameHandlingTest {
     assertEquals(1, myGameData.getNumRolls());
 
     int location2 = currentPlayer.getLocation();
-    System.out.println(location2);
     assertNotEquals(location1, location2);
+
+    if (myDie.lastRollDouble()) {
+      myTurnManager.roll();
+      assertNotEquals(location2, currentPlayer.getLocation());
+    } else {
+      myTurnManager.roll();
+      assertEquals(location2, currentPlayer.getLocation());
+    }
+
+
 
   }
 
