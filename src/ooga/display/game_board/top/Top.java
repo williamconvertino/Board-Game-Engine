@@ -5,12 +5,13 @@ import javafx.scene.layout.HBox;
 import ooga.display.DisplayManager;
 import ooga.display.game_board.GameBoardDisplay;
 
+/**
+ * This is the top display element of the game display
+ *
+ * @author Aaric Han
+ */
+
 public class Top {
-  /**
-   * This is the top display element of the game display
-   *
-   * @author Aaric Han
-   */
 
   private HBox topComponent;
   private GameBoardDisplay myGameBoardDisplay;
