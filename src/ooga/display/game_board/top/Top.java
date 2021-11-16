@@ -34,7 +34,6 @@ public class Top {
     topComponent = new HBox();
     makeGoHomeButton();
     makeRotateButton();
-
   }
 
   private void makeGoHomeButton() {
