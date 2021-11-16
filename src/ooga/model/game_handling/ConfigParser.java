@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
@@ -64,8 +65,9 @@ public class ConfigParser {
     int propertyHouseCost = Integer.parseInt(propertyProperties.getProperty("HouseCost"));
     ArrayList<String> propertyNeighbors = new ArrayList(Arrays.asList(propertyProperties.getProperty("Neighbors").split(",")));
     int propertyMortgageCost = Integer.parseInt(propertyProperties.getProperty("Mortgage"));
+    String propertyColor = propertyProperties.getProperty("Color").toLowerCase(Locale.ROOT);
 
-    return new Property (propertyName,propertyCost,propertyRentCosts,propertyHouseCost,propertyNeighbors,propertyMortgageCost);
+    return new Property (propertyName,propertyCost,propertyRentCosts,propertyHouseCost,propertyNeighbors,propertyMortgageCost,propertyColor);
   }
 
   public ArrayList<Property> parseProperties(String propertyFolderPath) throws IOException {

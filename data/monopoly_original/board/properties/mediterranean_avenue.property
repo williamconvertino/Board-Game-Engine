@@ -1,7 +1,8 @@
 Name=Mediterranean Avenue
 Cost=60
-RentCost=0,10,30,90,160,250
+RentCost=2,10,30,90,160,250
 MaxHouses=4
 HouseCost=50
 Neighbors=Baltic Avenue
 Mortgage=30
+Color=brown
