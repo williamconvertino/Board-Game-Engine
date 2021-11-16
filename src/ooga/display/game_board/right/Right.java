@@ -42,9 +42,9 @@ public class Right {
     rightComponent.getChildren().add(rollDiceButton);
   }
 
+  //FIXME: Hook up thru backend later
   private void rollDice() {
-    // TODO: Add event handler to roll dice
-    System.out.println("Dice Roll Button clicked");
+    myGameBoardDisplay.rollDice();
   }
 
   /**

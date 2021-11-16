@@ -12,6 +12,7 @@ import ooga.display.game_board.left.Left;
 import ooga.display.game_board.right.Right;
 import ooga.display.game_board.top.Top;
 
+import java.util.Random;
 import java.util.ResourceBundle;
 
 /**
@@ -71,6 +72,15 @@ public class GameBoardDisplay extends Display {
    */
   public BorderPane getTheGameBoard() {
     return theGameBoard;
+  }
+
+
+  //FIXME: Hook up thru backend later
+  public void rollDice() {
+    Random myRandom = new Random();
+    int r1 = myRandom.nextInt(6) + 1;
+    int r2 = myRandom.nextInt(6) + 1;
+    theBoard.movePiece(0, r1 + r2);
   }
 
   /**
