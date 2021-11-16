@@ -1,21 +1,12 @@
 package ooga.model.game_handling;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Properties;
-import java.util.ResourceBundle;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-import ooga.display.Display;
-import ooga.display.DisplayManager;
-import ooga.display.ui_tools.UIBuilder;
 import ooga.model.data.properties.Property;
 import java.io.File;
 import java.io.IOException;
@@ -30,13 +21,12 @@ import java.io.IOException;
 
 public class ConfigParser {
 
-
-
   private static final String DEFAULT_DATA_PACKAGE = "data/";
   private String[] propertyAttributes;
 
+
   public ConfigParser(){
-    propertyAttributes = new String[] {"Name","Cost","RentCost","MaxHouses","Neighbors","Mortgage"};
+    propertyAttributes = new String[] {"Name","Cost","RentCost","MaxHouses","Neighbors","Mortgage,Color"};
   }
 
   private Properties convertToPropertiesObject (File propertiesFile){
