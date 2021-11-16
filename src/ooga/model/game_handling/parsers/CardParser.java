@@ -2,10 +2,7 @@ package ooga.model.game_handling.parsers;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
 import java.util.Properties;
-import javax.swing.Action;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.model.data.properties.Property;
 import java.io.File;
@@ -20,7 +17,7 @@ import ooga.model.game_handling.commands.ActionSequenceParser;
  * @since 0.0.1
  */
 
-public class CardParser extends Parser {
+public class CardParser extends FolderParser {
 
   private ActionSequenceParser myActionSequenceParser;
 
@@ -32,7 +29,7 @@ public class CardParser extends Parser {
   }
 
   /**
-   * Accesses the property folder, and calls to create Property object for each file.
+   * Accesses a specific card folder (e.g Chance), and calls to create Card object for each file.
    *
    * @param cardFolderPath
    * @return ArrayList of all Monopoly Properties
@@ -48,7 +45,7 @@ public class CardParser extends Parser {
   }
 
   /**
-   * Takes .property file and creates Property object, throwing errors if missing information.
+   * Takes .card file and creates Card object, throwing errors if missing information.
    *
    * @param propertyFile
    * @return
@@ -63,7 +60,10 @@ public class CardParser extends Parser {
     ActionSequence actions = new ActionSequence();
     String[] actionSequenceText = tryProperty(cardProperties,"ActionSequence").split(",");
     for (String action: actionSequenceText){
+      action = action.substring(1,-1);
+      System.out.println(action);
     }
+
 
     return null;
   }

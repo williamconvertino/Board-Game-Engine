@@ -17,7 +17,7 @@ import java.io.File;
  * @since 0.0.1
  */
 
-public class PropertyParser extends Parser {
+public class PropertyParser extends FolderParser {
 
   /**
    * Creates PropertyParser
