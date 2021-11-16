@@ -17,6 +17,7 @@ import ooga.model.game_handling.commands.ActionSequenceParser;
  * @since 0.0.1
  */
 
+@Deprecated
 public class CardParser extends FolderParser {
 
   private ActionSequenceParser myActionSequenceParser;
