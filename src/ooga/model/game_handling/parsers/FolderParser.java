@@ -9,10 +9,18 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import ooga.exceptions.AttributeNotFoundException;
 
-public abstract class Parser {
+/**
+ * Abstract Parser class used by PropertyParser and CardParser to parse multiple files in folder
+ *
+ * @author Casey Goldstein
+ *
+ * @since 0.0.1
+ */
+public abstract class FolderParser {
 
   protected static final String DEFAULT_DATA_PACKAGE = "data/";
 
+  //returns list of files in a given folder
   protected File[] getFileList(String folderPath){
     File fileFolder = new File(DEFAULT_DATA_PACKAGE + folderPath);
     return fileFolder.listFiles();
