@@ -54,7 +54,9 @@ public class GameInitializer {
   public void initialize(){
     try{
       propertyList = myPropertyParser.parseProperties(PROPERTIES_FOLDER_PATH);
-      System.out.println("Test");
+      for (Property property: propertyList){
+        System.out.println(property);
+      }
     }
     catch (AttributeNotFoundException e) {
       Alert errorAlert = new Alert(AlertType.ERROR);
