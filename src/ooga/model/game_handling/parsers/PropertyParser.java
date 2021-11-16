@@ -1,16 +1,13 @@
 package ooga.model.game_handling.parsers;
 
-import java.io.FileReader;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Properties;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.model.data.properties.Property;
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Parser class responsible for converting all Monopoly properties.
