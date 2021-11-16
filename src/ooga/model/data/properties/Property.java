@@ -116,6 +116,14 @@ public class Property {
         return houseCost;
     }
 
+
+    /**
+     * Returns the color of the property
+     *
+     * @return property color
+     */
+    public String getColor(){ return color; }
+
     /**
      * return the properties current owner.
      *
@@ -172,6 +180,7 @@ public class Property {
             throw new MortgageException();
         }
     }
+
 
     /**
      * States whether or not this property is a part of a monopoly.
