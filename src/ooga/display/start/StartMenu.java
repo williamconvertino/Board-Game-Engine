@@ -23,7 +23,7 @@ public class StartMenu extends Display {
 
     private static final String DEFAULT_RESOURCE_PACKAGE = Display.class.getPackageName() + ".resources.";
     private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
-    private static final String DEFAULT_STYLE = STYLE_PACKAGE + "styles.css";
+    private static final String DEFAULT_STYLE = STYLE_PACKAGE + "mainmenu.css";
 
     public StartMenu (Stage stage, DisplayManager displayManager, ResourceBundle langResource) {
         myBuilder = new UIBuilder(langResource);
