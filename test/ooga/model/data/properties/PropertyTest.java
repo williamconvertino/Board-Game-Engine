@@ -12,7 +12,7 @@ public class PropertyTest {
   @Test
   void testConstructorAndSetGet() {
 
-    Property p = new Property("name", 1, new int[]{2,4,6}, 3, new LinkedList<>(), 5);
+    Property p = new Property("name", 1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
 
     assertEquals("name", p.getName());
     assertEquals(1, p.getCost());
@@ -25,7 +25,7 @@ public class PropertyTest {
   @Test
   void testHouses() {
 
-    Property p = new Property("name", 1, new int[]{2,4,6}, 3, new LinkedList<>(), 5);
+    Property p = new Property("name", 1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
 
     assertEquals(0, p.getNumHouses());
     try {
@@ -65,7 +65,7 @@ public class PropertyTest {
   @Test
   void testRent() {
 
-    Property p = new Property("name", 1, new int[]{2,4,6}, 3, new LinkedList<>(), 5);
+    Property p = new Property("name", 1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
 
     assertEquals(2, p.getRentCost());
     try {
@@ -99,8 +99,8 @@ public class PropertyTest {
     set1.add("p2");
     set1.add("p1");
 
-    Property p1 = new Property("p1", 1, new int[]{2,4,6}, 3, set1, 5);
-    Property p2 = new Property("p2", 1, new int[]{2,4,6}, 3, set2, 5);
+    Property p1 = new Property("p1", 1, new int[]{2,4,6}, 3, set1, 5,"red");
+    Property p2 = new Property("p2", 1, new int[]{2,4,6}, 3, set2, 5,"red");
 
     assertFalse(p1.isMonopoly());
     assertFalse(p2.isMonopoly());

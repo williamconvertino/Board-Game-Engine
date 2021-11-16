@@ -51,6 +51,9 @@ public class Property {
     //Whether this property is mortgaged or not.
     private boolean isMortgaged;
 
+    //Color of property.
+    private String color;
+
     /**
      * Constructs a new property with the specified data.
      *
@@ -62,7 +65,7 @@ public class Property {
      * @param mortgageValue the value of mortgaging this property.
      */
     public Property(String name, int cost, int[] rentCost,
-        int houseCost, List<String> setMemberNames, int mortgageValue) {
+        int houseCost, List<String> setMemberNames, int mortgageValue, String color) {
         this.name = name;
         this.cost = cost;
         this.rentCost = rentCost;
@@ -73,6 +76,7 @@ public class Property {
         this.owner = NULL_OWNER;
         this.numHouses = 0;
         this.isMortgaged = false;
+        this.color = color;
     }
 
 

@@ -5,3 +5,4 @@ MaxHouses=4
 HouseCost=100
 Neighbors=Tennessee Avenue, New York Avenue
 Mortgage=90
+Color=orange

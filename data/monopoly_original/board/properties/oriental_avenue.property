@@ -5,3 +5,4 @@ MaxHouses=4
 HouseCost=50
 Neighbors=Vermont Avenue, Connecticut Avenue
 Mortgage=50
+Color=lightblue
