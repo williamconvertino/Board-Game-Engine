@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Properties;
+import javax.swing.Action;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.model.data.properties.Property;
 import java.io.File;
+import ooga.model.game_handling.commands.ActionSequence;
+import ooga.model.game_handling.commands.ActionSequenceParser;
 
 /**
  * Parser class responsible for converting all Monopoly cards.
@@ -19,11 +22,13 @@ import java.io.File;
 
 public class CardParser extends Parser {
 
+  private ActionSequenceParser myActionSequenceParser;
+
   /**
    * Creates CardParser
    */
   public CardParser(){
-
+    //ActionSequenceParser myActionSequenceParser = new ActionSequenceParser();
   }
 
   /**
@@ -33,7 +38,7 @@ public class CardParser extends Parser {
    * @return ArrayList of all Monopoly Properties
    * @throws AttributeNotFoundException
    */
-  public ArrayList<Property> parseProperties(String cardFolderPath) throws AttributeNotFoundException {
+  public ArrayList<Property> parseCards(String cardFolderPath) throws AttributeNotFoundException {
     ArrayList<Property> result = new ArrayList<>();
     File [] filesList = getFileList(cardFolderPath);
     for (File file : filesList) {
@@ -54,8 +59,13 @@ public class CardParser extends Parser {
     Properties cardProperties = convertToPropertiesObject(propertyFile);
 
     String cardName = tryProperty(cardProperties,"Name");
+    String cardDescription = tryProperty(cardProperties,"Description");
+    ActionSequence actions = new ActionSequence();
+    String[] actionSequenceText = tryProperty(cardProperties,"ActionSequence").split(",");
+    for (String action: actionSequenceText){
+    }
 
-    return new Property (propertyName,propertyCost,propertyRentCosts,propertyHouseCost,propertyNeighbors,propertyMortgageCost,propertyColor);
+    return null;
   }
 
 

@@ -12,6 +12,7 @@ import ooga.display.game_board.GameBoardDisplay;
 import ooga.display.start.OptionsMenu;
 import ooga.display.start.StartMenu;
 import ooga.model.data.player.Player;
+import ooga.model.game_handling.GameInitializer;
 
 /**
  * This class manages the display elements of the program.
@@ -29,11 +30,13 @@ public class DisplayManager {
           Display.class.getPackageName() + ".resources.";
   private Stage myStage;
   private ArrayList<Display> allDisplays = new ArrayList<>();
+  private GameInitializer myInitializer;
   /**
    * Default constructor
    */
   public DisplayManager(Stage stage, Map<State, EventHandler> eventMap) {
     myStage = stage;
+    myInitializer = new GameInitializer();
     languageResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
     allDisplays.add(new StartMenu(myStage, this, languageResource));
     allDisplays.add(new GameBoardDisplay(myStage, this, languageResource));
@@ -46,6 +49,7 @@ public class DisplayManager {
   public void startGame() {
     currDisplay = allDisplays.get(1);
     myStage.setScene(currDisplay.getScene());
+    myInitializer.initialize();
   }
 
   private void displayElement() {
