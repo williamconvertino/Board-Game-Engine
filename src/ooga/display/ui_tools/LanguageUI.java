@@ -6,9 +6,16 @@ import ooga.display.DisplayManager;
 import java.util.List;
 import java.util.ResourceBundle;
 
+
+/**
+ * This class creates a language change box.
+ * Made it as a class as we need to create one in the options menu & game display
+ *
+ * @author Henry Huynh
+ */
 public class LanguageUI extends VBox {
 
-    private final String LANGUAGE = "language";
+    private final String LANGUAGE = "ChangeLanguage";
 
     /**
      * Creates initial popup where user chooses language

@@ -132,7 +132,7 @@ public class UIBuilder {
     /**
      * Creates label using id
      *
-     * @param id reference to find Label
+     * @param id reference to find Label and what to call it
      * @return appropriate label using id
      */
     public Node makeLabel(String id) {
@@ -155,7 +155,7 @@ public class UIBuilder {
     }
 
     /**
-     * @param id reference to find alert
+     *
      * @param header the confirmation category
      * @param message the confirmation message
      * @return confirmation alert
@@ -167,5 +167,25 @@ public class UIBuilder {
         return alert;
     }
 
+
+    /**
+     * @param id reference to find tab Pane
+     * @return tab Pane
+     */
+    public TabPane makeTabPane(String id) {
+        TabPane tabPane = new TabPane();
+        tabPane.setId(id);
+        return tabPane;
+    }
+
+    /**
+     * @param id reference to find tab and what to name it
+     * @return tab
+     */
+    public Tab makeTab(String id) {
+        Tab tab = new Tab(langResource.getString(id));
+        tab.setId(id);
+        return tab;
+    }
 
 }
