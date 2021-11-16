@@ -11,8 +11,8 @@ import ooga.model.data.player.OriginalPlayerManager;
 import ooga.model.data.player.Player;
 import ooga.model.data.player.PlayerManager;
 import ooga.model.data.properties.Property;
-import ooga.model.data.tiles.EmptyTile;
-import ooga.model.data.tiles.Tile;
+import ooga.model.data.tilemodels.EmptyTileModel;
+import ooga.model.data.tilemodels.TileModel;
 import ooga.model.die.Die;
 import ooga.model.die.OriginalDice;
 import ooga.model.game_handling.board_manager.BoardManager;
@@ -49,21 +49,21 @@ public class GameHandlingTest {
     p3 = new Player("p3");
     p4 = new Player("p4");
 
-    Tile t0;
-    Tile t1;
-    Tile t2;
-    Tile t3;
-    Tile t4;
-    Tile t5;
-    Tile t6;
-    Tile t7;
-    Tile t8;
-    Tile t9;
-    Tile t10;
-    Tile t11;
-    Tile t12;
-    Tile t13;
-    Tile t14;
+    TileModel t0;
+    TileModel t1;
+    TileModel t2;
+    TileModel t3;
+    TileModel t4;
+    TileModel t5;
+    TileModel t6;
+    TileModel t7;
+    TileModel t8;
+    TileModel t9;
+    TileModel t10;
+    TileModel t11;
+    TileModel t12;
+    TileModel t13;
+    TileModel t14;
 
     Property prop1;
 
@@ -75,23 +75,23 @@ public class GameHandlingTest {
 
     myPlayers = new OriginalPlayerManager(playerlist);
 
-    t0 = new EmptyTile("t0");
-    t1 = new EmptyTile("t1");
-    t2 = new EmptyTile("t2");
-    t3 = new EmptyTile("t3");
-    t4 = new EmptyTile("t4");
-    t5 = new EmptyTile("t5");
-    t6 = new EmptyTile("t6");
-    t7 = new EmptyTile("t7");
-    t8 = new EmptyTile("t8");
-    t9 = new EmptyTile("t9");
-    t10 = new EmptyTile("Jail");
-    t11 = new EmptyTile("t11");
-    t12 = new EmptyTile("t12");
-    t13 = new EmptyTile("t13");
-    t14 = new EmptyTile("t14");
+    t0 = new EmptyTileModel("t0");
+    t1 = new EmptyTileModel("t1");
+    t2 = new EmptyTileModel("t2");
+    t3 = new EmptyTileModel("t3");
+    t4 = new EmptyTileModel("t4");
+    t5 = new EmptyTileModel("t5");
+    t6 = new EmptyTileModel("t6");
+    t7 = new EmptyTileModel("t7");
+    t8 = new EmptyTileModel("t8");
+    t9 = new EmptyTileModel("t9");
+    t10 = new EmptyTileModel("Jail");
+    t11 = new EmptyTileModel("t11");
+    t12 = new EmptyTileModel("t12");
+    t13 = new EmptyTileModel("t13");
+    t14 = new EmptyTileModel("t14");
 
-    ArrayList<Tile> tileList = new ArrayList<Tile>();
+    ArrayList<TileModel> tileList = new ArrayList<TileModel>();
 
     tileList.add(t0);
     tileList.add(t1);
