@@ -1,4 +1,4 @@
-package ooga.model.data.tiles;
+package ooga.model.data.tilemodels;
 
 import ooga.model.data.player.Player;
 import ooga.model.data.properties.Property;
@@ -13,7 +13,7 @@ import ooga.model.game_handling.commands.ActionSequence;
  *
  * @since 0.0.1
  */
-public abstract class PropertyTile extends Tile {
+public abstract class PropertyTileModel extends TileModel {
 
     //The property that this tile represents.
     private Property myProperty;
@@ -26,7 +26,7 @@ public abstract class PropertyTile extends Tile {
      *
      * @param myName the name of the tile.
      */
-    public PropertyTile(String myName) {
+    public PropertyTileModel(String myName) {
         super(myName);
     }
 
@@ -37,7 +37,7 @@ public abstract class PropertyTile extends Tile {
      * @param property the property associated with this tile.
      * @param landOnPropertySequence the action sequence to execute when this tile has been landed on.
      */
-    public PropertyTile(String name, Property property, ActionSequence landOnPropertySequence) {
+    public PropertyTileModel(String name, Property property, ActionSequence landOnPropertySequence) {
         this(name);
         this.myProperty = property;
         this.landOnPropertySequence = landOnPropertySequence;
