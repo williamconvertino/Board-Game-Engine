@@ -1,5 +1,6 @@
 package ooga.display.game_board.right;
 
+import java.util.ArrayList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -40,11 +41,15 @@ public class Right {
 
     rightComponent.getChildren().add(playerLabel);
     rightComponent.getChildren().add(rollDiceButton);
+    rightComponent.getChildren().add(new Label(""));
   }
 
   //FIXME: Hook up thru backend later
   private void rollDice() {
-    myGameBoardDisplay.rollDice();
+    ArrayList<Integer> returned_rolls = myGameBoardDisplay.rollDice();
+    Label rolled_vals = (Label) rightComponent.getChildren().get(2);
+    rolled_vals.setText(returned_rolls.get(0).toString() + " " + returned_rolls.get(1).toString());
+    rightComponent.getChildren().set(2, rolled_vals);
   }
 
   /**

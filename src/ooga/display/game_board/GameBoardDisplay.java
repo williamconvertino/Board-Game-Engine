@@ -1,5 +1,6 @@
 package ooga.display.game_board;
 
+import java.util.ArrayList;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -76,11 +77,15 @@ public class GameBoardDisplay extends Display {
 
 
   //FIXME: Hook up thru backend later
-  public void rollDice() {
+  public ArrayList<Integer> rollDice() {
     Random myRandom = new Random();
     int r1 = myRandom.nextInt(6) + 1;
     int r2 = myRandom.nextInt(6) + 1;
     theBoard.movePiece(0, r1 + r2);
+    ArrayList<Integer> returned_rolls = new ArrayList<>();
+    returned_rolls.add(r1);
+    returned_rolls.add(r2);
+    return returned_rolls;
   }
 
   /**
