@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import ooga.display.Display;
 import ooga.display.DisplayManager;
+import ooga.display.game_board.bottom.Bottom;
 import ooga.display.game_board.left.Left;
 import ooga.display.game_board.right.Right;
 import ooga.display.game_board.top.Top;
@@ -23,7 +24,7 @@ public class GameBoardDisplay extends Display {
   private Top theTop;
   private Right theRight;
   private Left theLeft;
-  //private Bottom theBottom;
+  private Bottom theBottom;
 
   private Stage myStage;
   private DisplayManager myDisplayManager;
@@ -41,10 +42,11 @@ public class GameBoardDisplay extends Display {
     theTop = new Top(this, myDisplayManager);
     theRight = new Right(this, myDisplayManager);
     theLeft = new Left(this, myDisplayManager, myLanguage);
+    theBottom = new Bottom(this, myDisplayManager, myLanguage);
 
     theGameBoard = new BorderPane();
     theGameBoard.setCenter(new HBox());
-    theGameBoard.setBottom(new HBox());
+    theGameBoard.setBottom(theBottom.getComponent());
     theGameBoard.setRight(theRight.getComponent());
     theGameBoard.setLeft(theLeft.getComponent());
     theGameBoard.setTop(theTop.getTopComponent());

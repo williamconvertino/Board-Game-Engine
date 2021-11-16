@@ -47,7 +47,7 @@ public class Left {
         Tab tab3 = myUIBuilder.makeTab("Player3Info");
         tab3.setContent(myUIBuilder.makeLabel("ShowPlayer3Items"));
         Tab tab4 = myUIBuilder.makeTab("Player4Info");
-        tab3.setContent(myUIBuilder.makeLabel("ShowPlayer4Items"));
+        tab4.setContent(myUIBuilder.makeLabel("ShowPlayer4Items"));
         tab1.setClosable(false);
         tab2.setClosable(false);
         tab3.setClosable(false);
