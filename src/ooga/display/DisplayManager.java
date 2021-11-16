@@ -69,4 +69,7 @@ public class DisplayManager {
   public void changeTheme(String e) {
 
   }
+
+  public void rotateBoard() {
+  }
 }

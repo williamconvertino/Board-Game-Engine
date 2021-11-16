@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import ooga.display.Display;
 import ooga.display.DisplayManager;
+import ooga.display.game_board.board.Board;
 import ooga.display.game_board.bottom.Bottom;
 import ooga.display.game_board.left.Left;
 import ooga.display.game_board.right.Right;
@@ -17,10 +18,16 @@ import java.util.ResourceBundle;
  * This class displays all elements of the Game BoardManager
  *
  * @author Aaric Han
+ * @author Henry Huynh
  */
 public class GameBoardDisplay extends Display {
 
+  private static final String DEFAULT_RESOURCE_PACKAGE = Display.class.getPackageName() + ".resources.";
+  private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
+  private static final String DEFAULT_STYLE = STYLE_PACKAGE + "gameboard.css";
+
   private BorderPane theGameBoard;
+  private Board theBoard;
   private Top theTop;
   private Right theRight;
   private Left theLeft;
@@ -39,22 +46,25 @@ public class GameBoardDisplay extends Display {
     myLanguage = language;
     myStage = stage;
     myDisplayManager = displayManager;
-    theTop = new Top(this, myDisplayManager);
-    theRight = new Right(this, myDisplayManager);
+    theTop = new Top(this, myDisplayManager, myLanguage);
+    theRight = new Right(this, myDisplayManager, myLanguage);
     theLeft = new Left(this, myDisplayManager, myLanguage);
     theBottom = new Bottom(this, myDisplayManager, myLanguage);
+    theBoard = new Board(this, myDisplayManager, myLanguage);
 
     theGameBoard = new BorderPane();
-    theGameBoard.setCenter(new HBox());
+    theGameBoard.setCenter(theBoard.getComponent());
     theGameBoard.setBottom(theBottom.getComponent());
     theGameBoard.setRight(theRight.getComponent());
     theGameBoard.setLeft(theLeft.getComponent());
     theGameBoard.setTop(theTop.getTopComponent());
+
     makeScene();
   }
 
   private void makeScene() {
     scene = new Scene(theGameBoard, 800, 600);
+    scene.getStylesheets().add(DEFAULT_STYLE);
   }
   /**
    * Return theGameBoard borderpane

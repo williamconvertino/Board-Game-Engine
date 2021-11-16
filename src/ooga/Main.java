@@ -21,6 +21,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        DisplayManager myDisplayManager = new DisplayManager(stage,  new HashMap<State, EventHandler >());
+        DisplayManager myDisplayManager = new DisplayManager(stage, new HashMap<State, EventHandler>());
     }
 }

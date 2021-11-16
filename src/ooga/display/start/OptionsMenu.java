@@ -23,7 +23,7 @@ public class OptionsMenu extends Display {
     private LanguageUI myLanguageUI;
     private static final String DEFAULT_RESOURCE_PACKAGE = Display.class.getPackageName() + ".resources.";
     private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
-    private static final String DEFAULT_STYLE = STYLE_PACKAGE + "styles.css";
+    private static final String DEFAULT_STYLE = STYLE_PACKAGE + "mainmenu.css";
     private Scene scene;
 
     public OptionsMenu (Stage stage, DisplayManager displayManager, ResourceBundle langResource) {
