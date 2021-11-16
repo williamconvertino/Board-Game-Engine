@@ -3,7 +3,7 @@ package ooga.model.game_handling.board_manager;
 import java.util.List;
 import ooga.exceptions.TileNotFoundException;
 import ooga.model.data.player.Player;
-import ooga.model.data.tiles.Tile;
+import ooga.model.data.tilemodels.TileModel;
 import ooga.util.ImmutTool;
 
 /**
@@ -17,14 +17,14 @@ import ooga.util.ImmutTool;
 public class OriginalBoardManager extends BoardManager {
 
   //A list of the board_manager's tiles.
-  private List<Tile> myTiles;
+  private List<TileModel> myTiles;
 
   /**
    * Constructs a new OriginalBoardManager with the specified tiles.
    *
    * @param tiles
    */
-  public OriginalBoardManager(List<Tile> tiles) {
+  public OriginalBoardManager(List<TileModel> tiles) {
     super(tiles);
     myTiles = tiles;
   }
@@ -33,7 +33,7 @@ public class OriginalBoardManager extends BoardManager {
    * @see BoardManager#getTiles()
    */
   @Override
-  public List<Tile> getTiles() {
+  public List<TileModel> getTiles() {
     return ImmutTool.getImmutableList(myTiles);
   }
 
@@ -41,7 +41,7 @@ public class OriginalBoardManager extends BoardManager {
    * @see BoardManager#getTileAtIndex(int)
    */
   @Override
-  public Tile getTileAtIndex(int index) {
+  public TileModel getTileAtIndex(int index) {
     return getTileAtIndex(index);
   }
 

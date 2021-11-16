@@ -3,7 +3,7 @@ package ooga.model.game_handling.turn_manager;
 import ooga.display.communication.DisplayComm;
 import ooga.exceptions.MaxRollsReachedException;
 import ooga.model.data.gamedata.GameData;
-import ooga.model.data.tiles.Tile;
+import ooga.model.data.tilemodels.TileModel;
 import ooga.model.game_handling.FunctionExecutor;
 
 /**
@@ -19,7 +19,7 @@ public class TurnManager {
     private GameData gameData;
 
     //The tile that the player has selected.
-    private Tile selectedTile;
+    private TileModel selectedTile;
 
     //The maximum number of rolls that a player can roll this turn.
     private int maxRolls;

@@ -5,8 +5,8 @@ import java.util.List;
 import ooga.model.data.player.OriginalPlayerManager;
 import ooga.model.data.player.Player;
 import ooga.model.data.player.PlayerManager;
-import ooga.model.data.tiles.EmptyTile;
-import ooga.model.data.tiles.Tile;
+import ooga.model.data.tilemodels.EmptyTileModel;
+import ooga.model.data.tilemodels.TileModel;
 import ooga.model.die.OriginalDice;
 import ooga.model.game_handling.board_manager.BoardManager;
 import ooga.model.game_handling.board_manager.OriginalBoardManager;
@@ -21,10 +21,10 @@ public class GameDataTest {
   Player p2 = new Player("p2");
   Player p3 = new Player("p3");
 
-  List<Tile> myTiles;
-  Tile t1 = new EmptyTile("t1");
-  Tile t2 = new EmptyTile("t2");
-  Tile t3 = new EmptyTile("t3");
+  List<TileModel> myTiles;
+  TileModel t1 = new EmptyTileModel("t1");
+  TileModel t2 = new EmptyTileModel("t2");
+  TileModel t3 = new EmptyTileModel("t3");
 
 
   PlayerManager playerManager;

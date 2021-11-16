@@ -36,7 +36,7 @@ public class ConfigParser {
    * Accesses the property folder, and calls to create Property object for each file.
    *
    * @param propertyFolderPath
-   * @return
+   * @return ArrayList of all Monopoly Properties
    * @throws AttributeNotFoundException
    */
   public ArrayList<Property> parseProperties(String propertyFolderPath) throws AttributeNotFoundException {
