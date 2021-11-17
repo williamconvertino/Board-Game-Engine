@@ -67,6 +67,8 @@ public class Right {
     Label rolled_vals = (Label) rightComponent.getChildren().get(2);
     rolled_vals.setText(myRoll[0] + " " + myRoll[1]);
     rightComponent.getChildren().set(2, rolled_vals);
+    myGameBoardDisplay.updatePlayerLocation();
+    //eventMap.get(START_TURN).handle(null);
   }
 
   /**
