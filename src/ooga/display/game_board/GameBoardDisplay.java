@@ -1,8 +1,8 @@
 package ooga.display.game_board;
 
-import java.beans.EventHandler;
 import java.util.ArrayList;
 import java.util.Map;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import ooga.display.Display;
 import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayStateSignaler.State;
+import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.game_board.board.Board;
 import ooga.display.game_board.bottom.Bottom;
 import ooga.display.game_board.left.Left;
@@ -18,6 +19,7 @@ import ooga.display.game_board.top.Top;
 
 import java.util.Random;
 import java.util.ResourceBundle;
+import ooga.model.data.gamedata.GameData;
 
 /**
  * This class displays all elements of the Game BoardManager
@@ -47,12 +49,13 @@ public class GameBoardDisplay extends Display {
    * This constructor makes theGameBoard borderpane with all
    * elements top, left, right, bottom, and center
    */
-  public GameBoardDisplay(Stage stage, DisplayManager displayManager, ResourceBundle language, Map<State, EventHandler> eventMap) {
+  public GameBoardDisplay(Stage stage, DisplayManager displayManager, ResourceBundle language,
+      Map<EVENT_NAMES, EventHandler> eventMap, GameData gameData) {
     myLanguage = language;
     myStage = stage;
     myDisplayManager = displayManager;
     theTop = new Top(this, myDisplayManager, myLanguage);
-    theRight = new Right(this, myDisplayManager, myLanguage, eventMap);
+    theRight = new Right(this, myDisplayManager, myLanguage, eventMap, gameData);
     theLeft = new Left(this, myDisplayManager, myLanguage);
     theBottom = new Bottom(this, myDisplayManager, myLanguage);
     theBoard = new Board(this, myDisplayManager, myLanguage);
