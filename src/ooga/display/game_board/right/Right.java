@@ -1,10 +1,13 @@
 package ooga.display.game_board.right;
 
+import java.beans.EventHandler;
 import java.util.ArrayList;
+import java.util.Map;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import ooga.display.DisplayManager;
+import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.game_board.GameBoardDisplay;
 import ooga.display.ui_tools.UIBuilder;
 
@@ -25,7 +28,7 @@ public class Right {
   /**
    * The constructor for the top display element
    */
-  public Right(GameBoardDisplay gameBoardDisplay, DisplayManager displayManager, ResourceBundle language) {
+  public Right(GameBoardDisplay gameBoardDisplay, DisplayManager displayManager, ResourceBundle language, Map<State, EventHandler> eventMap) {
     myLanguage = language;
     myBuilder = new UIBuilder(myLanguage);
     myGameBoardDisplay = gameBoardDisplay;
