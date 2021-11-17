@@ -39,7 +39,7 @@ public class DisplayManager {
     myInitializer = new GameInitializer();
     languageResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
     allDisplays.add(new StartMenu(myStage, this, languageResource));
-    allDisplays.add(new GameBoardDisplay(myStage, this, languageResource));
+    allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, eventMap));
     allDisplays.add(new OptionsMenu(myStage, this, languageResource));
     currDisplay = allDisplays.get(0);
     myStage.setScene(currDisplay.getScene());
