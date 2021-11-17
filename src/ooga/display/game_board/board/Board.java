@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 import ooga.display.DisplayManager;
 import ooga.display.game_board.GameBoardDisplay;
 import ooga.display.ui_tools.UIBuilder;
+import ooga.model.data.gamedata.GameData;
 
 /**
  * Makes a game board
@@ -37,11 +38,12 @@ public class Board {
   private ArrayList<Integer> allPlayerLocation = new ArrayList<>();
 
   private VBox boardComponent;
+  private GameData gameData;
 
   /**
    * Constructor for the game board
    */
-  public Board(GameBoardDisplay gameBoardDisplay, DisplayManager displayManager, ResourceBundle language) {
+  public Board(GameBoardDisplay gameBoardDisplay, DisplayManager displayManager, ResourceBundle language, GameData gameData) {
     myLanguage = language;
     myBuilder = new UIBuilder(myLanguage);
     myGameBoardDisplay = gameBoardDisplay;
@@ -49,6 +51,7 @@ public class Board {
     boardComponent = new VBox();
     createBoard();
     startPieces();
+    this.gameData = gameData;
   }
 
 
@@ -105,11 +108,17 @@ public class Board {
     allCirclePieces.get(allPlayerLocation.get(0)).setFill(Color.BLACK);
   }
 
-  public void movePiece(int playerNum, int rolledNum) {
-    int playerPos = allPlayerLocation.get(playerNum);
-    allCirclePieces.get(playerPos).setFill(Color.WHITE);
-    allPlayerLocation.set(playerNum, (rolledNum+playerPos)%BOARD_LENGTH);
-    playerPos = allPlayerLocation.get(playerNum);
+//  public void movePiece(int playerNum, int rolledNum) {
+//    int playerPos = allPlayerLocation.get(playerNum);
+//    allCirclePieces.get(playerPos).setFill(Color.WHITE);
+//    allPlayerLocation.set(playerNum, (rolledNum+playerPos)%BOARD_LENGTH);
+//    playerPos = allPlayerLocation.get(playerNum);
+//    allCirclePieces.get(playerPos).setFill(Color.BLACK);
+//  }
+
+  public void updateLocation() {
+    int playerPos = gameData.getCurrentPlayer().getLocation();
+    //allCirclePieces.get(playerPos).setFill(Color.WHITE);
     allCirclePieces.get(playerPos).setFill(Color.BLACK);
   }
 

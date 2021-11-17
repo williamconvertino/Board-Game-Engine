@@ -35,6 +35,7 @@ public class EventManager {
 
     private void initializeDefaultHandlers(TurnManager turnManager) {
         myEvents.put(ROLL, e->turnManager.roll());
+        myEvents.put(START_TURN, e->turnManager.startTurn());
     }
 
     public Map<EVENT_NAMES, EventHandler> getMyEvents() {

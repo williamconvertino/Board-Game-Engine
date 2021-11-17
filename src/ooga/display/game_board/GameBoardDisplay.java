@@ -1,6 +1,7 @@
 package ooga.display.game_board;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -20,6 +21,8 @@ import ooga.display.game_board.top.Top;
 import java.util.Random;
 import java.util.ResourceBundle;
 import ooga.model.data.gamedata.GameData;
+import ooga.model.data.player.Player;
+import ooga.model.data.tilemodels.TileModel;
 
 /**
  * This class displays all elements of the Game BoardManager
@@ -58,7 +61,7 @@ public class GameBoardDisplay extends Display {
     theRight = new Right(this, myDisplayManager, myLanguage, eventMap, gameData);
     theLeft = new Left(this, myDisplayManager, myLanguage);
     theBottom = new Bottom(this, myDisplayManager, myLanguage);
-    theBoard = new Board(this, myDisplayManager, myLanguage);
+    theBoard = new Board(this, myDisplayManager, myLanguage, gameData);
 
     theGameBoard = new BorderPane();
     theGameBoard.setCenter(theBoard.getComponent());
@@ -68,6 +71,16 @@ public class GameBoardDisplay extends Display {
     theGameBoard.setTop(theTop.getTopComponent());
 
     makeScene();
+
+
+
+    //List<TileModel> myTiles = gameData.getBoard().getTiles();
+    //myTiles.get(0).getName();
+
+    //List<Player> myPlayers = gameData.getPlayers();
+
+    //gameData.getCurrentPlayer().getLocation();
+    //gameData.getCurrentPlayer().getBalance();
   }
 
   private void makeScene() {
@@ -87,11 +100,15 @@ public class GameBoardDisplay extends Display {
     Random myRandom = new Random();
     int r1 = myRandom.nextInt(6) + 1;
     int r2 = myRandom.nextInt(6) + 1;
-    theBoard.movePiece(0, r1 + r2);
+    //theBoard.movePiece(0, r1 + r2);
     ArrayList<Integer> returned_rolls = new ArrayList<>();
     returned_rolls.add(r1);
     returned_rolls.add(r2);
     return returned_rolls;
+  }
+
+  public void updatePlayerLocation() {
+    theBoard.updateLocation();
   }
 
   /**
