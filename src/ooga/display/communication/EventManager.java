@@ -4,13 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 import javafx.event.EventHandler;
 import ooga.model.game_handling.FunctionExecutor;
-
+import ooga.model.game_handling.turn_manager.TurnManager;
+import static ooga.display.communication.EventManager.EVENT_NAMES.*;
 /**
  * This class creates the buttons for the game and send them to the DisplayManager
  */
 public class EventManager {
 
-    enum EVENT_NAMES {
+    public enum EVENT_NAMES {
         START_TURN,
         END_TURN,
         ROLL,
@@ -27,13 +28,13 @@ public class EventManager {
     /**
      * Default constructor
      */
-    public EventManager(FunctionExecutor functions) {
+    public EventManager(TurnManager turnManager) {
         myEvents = new HashMap<>();
-        initializeDefaultHandlers(functions);
+        initializeDefaultHandlers(turnManager);
     }
 
-    private void initializeDefaultHandlers(FunctionExecutor functions) {
-
+    private void initializeDefaultHandlers(TurnManager turnManager) {
+        myEvents.put(ROLL, e->turnManager.roll());
     }
 
     public Map<EVENT_NAMES, EventHandler> getMyEvents() {

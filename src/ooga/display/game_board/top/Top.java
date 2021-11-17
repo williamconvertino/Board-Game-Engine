@@ -23,6 +23,7 @@ public class Top {
   private ResourceBundle myLanguage;
   private UIBuilder myBuilder;
 
+
   /**
    * The constructor for the top display element
    */

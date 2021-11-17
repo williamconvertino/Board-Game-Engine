@@ -1,16 +1,18 @@
 package ooga.display;
 
-import java.beans.EventHandler;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.EventManager;
+import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.game_board.GameBoardDisplay;
 import ooga.display.start.OptionsMenu;
 import ooga.display.start.StartMenu;
+import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
 import ooga.model.game_handling.GameInitializer;
 
@@ -34,12 +36,12 @@ public class DisplayManager {
   /**
    * Default constructor
    */
-  public DisplayManager(Stage stage, Map<State, EventHandler> eventMap) {
+  public DisplayManager(Stage stage, Map<EVENT_NAMES, EventHandler> eventMap, GameData gameData) {
     myStage = stage;
     myInitializer = new GameInitializer();
     languageResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
     allDisplays.add(new StartMenu(myStage, this, languageResource));
-    allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, eventMap));
+    allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, eventMap, gameData));
     allDisplays.add(new OptionsMenu(myStage, this, languageResource));
     currDisplay = allDisplays.get(0);
     myStage.setScene(currDisplay.getScene());
