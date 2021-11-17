@@ -1,4 +1,4 @@
-package ooga.model.data.tiles;
+package ooga.model.data.tilemodels;
 
 import ooga.model.data.player.Player;
 import ooga.model.game_handling.commands.ActionSequence;
@@ -11,7 +11,7 @@ import ooga.model.game_handling.commands.ActionSequence;
  *
  * @since 0.0.1
  */
-public class ActionTile extends Tile {
+public class ActionTileModel extends TileModel {
 
   //The action sequence to execute when the player passes through this tile.
   private ActionSequence myPassThroughActions;
@@ -24,7 +24,7 @@ public class ActionTile extends Tile {
    *
    * @param myName the name of the tile.
    */
-  public ActionTile(String myName) {
+  public ActionTileModel(String myName) {
     super(myName);
   }
 
@@ -35,14 +35,14 @@ public class ActionTile extends Tile {
    * @param myPassThroughActions a list of commands to execute when the tile is passed through.
    * @param myLandOnActions a list of commands to execute when the tile is landed on.
    */
-  public ActionTile(String myName, ActionSequence myPassThroughActions, ActionSequence myLandOnActions) {
+  public ActionTileModel(String myName, ActionSequence myPassThroughActions, ActionSequence myLandOnActions) {
     this(myName);
     this.myPassThroughActions = myPassThroughActions;
     this.myLandOnActions = myLandOnActions;
   }
 
   /**
-   * @see Tile#executePassThrough(Player)
+   * @see TileModel#executePassThrough(Player)
    */
   @Override
   public void executePassThrough(Player player) {
@@ -50,7 +50,7 @@ public class ActionTile extends Tile {
   }
 
   /**
-   * @see Tile#executeLandOn(Player) 
+   * @see TileModel#executeLandOn(Player)
    */
   @Override
   public void executeLandOn(Player player) {

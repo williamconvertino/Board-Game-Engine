@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.List;
 import ooga.exceptions.TileNotFoundException;
 import ooga.model.data.player.Player;
-import ooga.model.data.tiles.Tile;
+import ooga.model.data.tilemodels.TileModel;
 
 public abstract class BoardManager {
 
-  public BoardManager(List<Tile> myTiles) {
+  public BoardManager(List<TileModel> myTiles) {
 
   }
 
@@ -18,7 +18,7 @@ public abstract class BoardManager {
    *
    * @return a list of all the board_manager's tiles.
    */
-  public abstract List<Tile> getTiles();
+  public abstract List<TileModel> getTiles();
 
   /**
    * Returns the tile at the specified index.
@@ -26,7 +26,7 @@ public abstract class BoardManager {
    * @param index the index of the desired tile.
    * @return the tile at the specified index.
    */
-  public abstract Tile getTileAtIndex(int index);
+  public abstract TileModel getTileAtIndex(int index);
 
   /**
    * Moves a player forward the specified number of spaces.
@@ -79,7 +79,7 @@ public abstract class BoardManager {
    * @param p the player to use as a starting point.
    * @param tileName the name of the tile to find.
    */
-  public Tile findNextClosestTile(Player p, String tileName) throws TileNotFoundException {
+  public TileModel findNextClosestTile(Player p, String tileName) throws TileNotFoundException {
     int index = findNextClosestTileIndex(p,tileName);
     return getTileAtIndex(index);
   }
@@ -91,7 +91,7 @@ public abstract class BoardManager {
    * @return true if the board contains the tile, false if not.
    */
   protected boolean hasTile(String tileName) {
-    List<Tile> sortedTiles = new ArrayList<>();
+    List<TileModel> sortedTiles = new ArrayList<>();
     Collections.copy(getTiles(), sortedTiles);
     sortedTiles.removeIf(e->!e.getName().equals(tileName));
     return (sortedTiles.size() != 0);

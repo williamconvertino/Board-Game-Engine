@@ -1,4 +1,4 @@
-package ooga.model.data.tiles;
+package ooga.model.data.tilemodels;
 
 import ooga.model.data.deck.Deck;
 import ooga.model.data.player.Player;
@@ -10,7 +10,7 @@ import ooga.model.data.player.Player;
  * 
  * @since 0.0.1
  */
-public class CardTile extends Tile {
+public class CardTileModel extends TileModel {
 
     private Deck myDeck;
 
@@ -19,11 +19,11 @@ public class CardTile extends Tile {
      *
      * @param myName the name of the tile.
      */
-    public CardTile(String myName) {
+    public CardTileModel(String myName) {
         super(myName);
     }
 
-    public CardTile(String myName, Deck myDeck) {
+    public CardTileModel(String myName, Deck myDeck) {
         this(myName);
         this.myDeck = myDeck;
     }

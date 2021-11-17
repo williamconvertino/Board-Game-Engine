@@ -1,0 +1,81 @@
+/*.label {
+    -fx-padding: 0px;
+}*/
+
+.root {
+    -fx-font-family: "Rockwell";
+    /* define variables to avoid duplicating values */
+    text_color: #F8CE87;
+    -fx-background-color: #A23434;
+}
+
+
+
+
+.choice-box {
+    -fx-border-style: solid;
+    -fx-padding: 5px;
+    -fx-spacing: 2px;
+}
+
+.list-cell, /* items in combo-box */
+.check-box,
+.toggle-button,
+.radio-button {
+    -fx-text-fill: text_color;
+}
+
+.button-box {
+    -fx-alignment: center;
+    -fx-spacing: 8px;
+}
+
+.button {
+    -fx-text-fill: text_color;
+    -fx-background-color: floralwhite;
+    -fx-padding: 10px;
+    -fx-border-color: lightgrey;
+}
+
+.text-area {
+    -fx-border-color: lightgrey;
+}
+.label {
+    -fx-font-size: 20;
+    -fx-text-fill: text_color;
+    -fx-alignment: center;
+    -fx-min-width: 10px;
+    -fx-padding: 10px;
+}
+
+.text-field {
+    -fx-text-fill: text_color;
+    -fx-background-color: floralwhite;
+    -fx-min-width: 200px;
+}
+
+
+
+.bg-1 {
+    -fx-background-color: #ffd0fe;
+}
+
+.bg-2 {
+    -fx-background-color: #ffc3cb;
+}
+
+.bg-3 {
+    -fx-background-color: #ffefc8;
+}
+
+.bg-4 {
+    -fx-background-color: #ceffc6;
+}
+
+.bg-5 {
+    -fx-background-color: #befaff;
+}
+
+.bg-6 {
+    -fx-background-color: #c4c4ff;
+}

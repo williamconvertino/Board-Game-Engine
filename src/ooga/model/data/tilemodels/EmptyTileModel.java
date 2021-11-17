@@ -1,4 +1,4 @@
-package ooga.model.data.tiles;
+package ooga.model.data.tilemodels;
 
 import ooga.model.data.player.Player;
 
@@ -10,14 +10,14 @@ import ooga.model.data.player.Player;
  *
  * @since 0.0.1
  */
-public class EmptyTile extends Tile {
+public class EmptyTileModel extends TileModel {
 
   /**
    * Constructs a new tile with the specified name.
    *
    * @param myName the name of the tile.
    */
-  public EmptyTile(String myName) {
+  public EmptyTileModel(String myName) {
     super(myName);
   }
 

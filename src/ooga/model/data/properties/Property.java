@@ -3,13 +3,14 @@ package ooga.model.data.properties;
 import java.util.ArrayList;
 import java.util.List;
 import ooga.exceptions.MaxHousesReachedException;
+import ooga.exceptions.MortgageException;
 import ooga.exceptions.NoHousesToSellException;
 import ooga.model.data.player.Player;
 
 /**
  * This class keeps track of the data associated with any given property.
  * 
- * @author William Convertino
+ * @author William Convertino, Jordan Castleman
  * 
  * @since 0.0.1
  */
@@ -47,6 +48,12 @@ public class Property {
     //The amount of money received for mortgaging this property.
     private int mortgageValue;
 
+    //Whether this property is mortgaged or not.
+    private boolean isMortgaged;
+
+    //Color of property.
+    private String color;
+
     /**
      * Constructs a new property with the specified data.
      *
@@ -58,7 +65,7 @@ public class Property {
      * @param mortgageValue the value of mortgaging this property.
      */
     public Property(String name, int cost, int[] rentCost,
-        int houseCost, List<String> setMemberNames, int mortgageValue) {
+        int houseCost, List<String> setMemberNames, int mortgageValue, String color) {
         this.name = name;
         this.cost = cost;
         this.rentCost = rentCost;
@@ -68,6 +75,8 @@ public class Property {
         this.mortgageValue = mortgageValue;
         this.owner = NULL_OWNER;
         this.numHouses = 0;
+        this.isMortgaged = false;
+        this.color = color;
     }
 
 
@@ -107,6 +116,14 @@ public class Property {
         return houseCost;
     }
 
+
+    /**
+     * Returns the color of the property
+     *
+     * @return property color
+     */
+    public String getColor(){ return color; }
+
     /**
      * return the properties current owner.
      *
@@ -134,6 +151,37 @@ public class Property {
         return mortgageValue;
     }
 
+    public double getUnmortgageValue() {
+        return mortgageValue * 1.1;
+    }
+
+    /**
+     * Mortgages this property.
+     * @throws MortgageException
+     */
+    public void mortgageProperty() throws MortgageException {
+        if (!isMortgaged) {
+            isMortgaged = true;
+        }
+        else {
+            throw new MortgageException();
+        }
+    }
+
+    /**
+     * Unmortgages this property.
+     * @throws MortgageException
+     */
+    public void unmortgageProperty() throws MortgageException {
+        if (isMortgaged) {
+            isMortgaged = false;
+        }
+        else {
+            throw new MortgageException();
+        }
+    }
+
+
     /**
      * States whether or not this property is a part of a monopoly.
      *
@@ -156,7 +204,10 @@ public class Property {
      * @return the rent cost for this property.
      */
     public int getRentCost() {
-        if (numHouses == 0 && isMonopoly()) {
+        if (isMortgaged) {
+            return 0;
+        }
+        else if (numHouses == 0 && isMonopoly()) {
             return (2 * rentCost[0]);
         }
         return rentCost[numHouses];
@@ -166,12 +217,18 @@ public class Property {
      * Buys a new house on this property.
      *
      * @throws MaxHousesReachedException if the maximum number of houses has already been reached.
+     * @throws MortgageException if the house is mortgaged and therefore cannot build houses.
      */
-    public void buyHouse() throws MaxHousesReachedException {
-        if (numHouses < maxHouses) {
-            numHouses++;
-        } else {
-            throw new MaxHousesReachedException();
+    public void buyHouse() throws MaxHousesReachedException, MortgageException {
+        if (!isMortgaged) {
+            if (numHouses < maxHouses) {
+                numHouses++;
+            } else {
+                throw new MaxHousesReachedException();
+            }
+        }
+        else {
+            throw new MortgageException();
         }
     }
 
@@ -179,12 +236,23 @@ public class Property {
      * Sells a house on this property.
      *
      * @throws NoHousesToSellException if there are no houses on the property.
+     * @throws MortgageException if the house is mortgaged and therefore cannot sell houses.
      */
-    public void sellHouse() throws NoHousesToSellException {
-        if (numHouses == 0) {
-            throw new NoHousesToSellException();
-        } else {
-            numHouses--;
+    public void sellHouse() throws NoHousesToSellException, MortgageException {
+        if (!isMortgaged) {
+            if (numHouses == 0) {
+                throw new NoHousesToSellException();
+            } else {
+                numHouses--;
+            }
         }
+        else {
+            throw new MortgageException();
+        }
+    }
+
+    @Override
+    public String toString(){
+        return this.getName();
     }
 }

@@ -1,4 +1,4 @@
-package ooga.model.data.tiles;
+package ooga.model.data.tilemodels;
 
 import ooga.model.data.player.Player;
 
@@ -10,7 +10,7 @@ import ooga.model.data.player.Player;
  * 
  * @since 0.0.1
  */
-public abstract class Tile {
+public abstract class TileModel {
 
     private String myName;
 
@@ -19,7 +19,7 @@ public abstract class Tile {
      *
      * @param myName the name of the tile.
      */
-    public Tile(String myName) {
+    public TileModel(String myName) {
         this.myName = myName;
     }
 
