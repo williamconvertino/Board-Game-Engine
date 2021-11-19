@@ -125,4 +125,5 @@ public class GameBoardDisplay extends Display {
   public Scene getScene() {
     return scene;
   }
+
 }

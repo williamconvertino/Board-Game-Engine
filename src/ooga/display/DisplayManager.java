@@ -33,15 +33,20 @@ public class DisplayManager {
   private Stage myStage;
   private ArrayList<Display> allDisplays = new ArrayList<>();
   private GameInitializer myInitializer;
+  private GameData myGameData;
+  private Map<EVENT_NAMES, EventHandler> myEventMap;
+
+
   /**
    * Default constructor
    */
   public DisplayManager(Stage stage, Map<EVENT_NAMES, EventHandler> eventMap, GameData gameData) {
     myStage = stage;
+    myGameData = gameData;
+    myEventMap = eventMap;
     myInitializer = new GameInitializer();
     languageResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
     allDisplays.add(new StartMenu(myStage, this, languageResource));
-    allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, eventMap, gameData));
     allDisplays.add(new OptionsMenu(myStage, this, languageResource));
     currDisplay = allDisplays.get(0);
     myStage.setScene(currDisplay.getScene());
@@ -49,7 +54,8 @@ public class DisplayManager {
   }
 
   public void startGame() {
-    currDisplay = allDisplays.get(1);
+    allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData));
+    currDisplay = allDisplays.get(2);
     myStage.setScene(currDisplay.getScene());
     myInitializer.initialize();
   }
@@ -59,7 +65,7 @@ public class DisplayManager {
   }
 
   public void goOptions() {
-    currDisplay = allDisplays.get(2);
+    currDisplay = allDisplays.get(1);
     myStage.setScene(currDisplay.getScene());
   }
 
