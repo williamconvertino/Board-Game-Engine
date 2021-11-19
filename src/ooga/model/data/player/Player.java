@@ -36,6 +36,8 @@ public class Player {
     //A list of the player's cards.
     private List<Card> myCards;
 
+    //Default starting money
+    private static final int DEFAULT_MONEY = 1500;
     /**
      * Constructs a new Player with the given name.
      *
@@ -46,7 +48,7 @@ public class Player {
         this.isActive = true;
         this.isInJail = false;
         this.myLocation = 0;
-        this.myBalance = 0;
+        this.myBalance = DEFAULT_MONEY;
         this.myProperties = new ArrayList<>();
         this.myCards = new ArrayList<>();
     }

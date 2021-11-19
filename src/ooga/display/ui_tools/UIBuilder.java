@@ -132,17 +132,15 @@ public class UIBuilder {
     /**
      * Creates label using id
      *
-     * @param id reference to find Label and what to call it
+     * @param id name for label
      * @return appropriate label using id
      */
     public Node makeLabel(String id) {
-        Label label = new Label(langResource.getString(id));
-        label.setId(id);
-        return label;
+        return new Label(id);
     }
 
     /**
-     * @param id reference to find alert
+     *
      * @param header the error category
      * @param message the error message
      * @return error alert
