@@ -11,7 +11,6 @@ public class TurnManagerTest extends GameHandlingTest {
 
   @Test
   void testStartTurn() {
-    assertEquals(null, myGameData.getCurrentPlayer());
 
     myTurnManager.endTurn();
     assertNotEquals(null, myGameData.getCurrentPlayer());

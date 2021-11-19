@@ -136,6 +136,11 @@ public class GameData {
         return myDecks;
     }
 
+    /**
+     * Returns a list of all the players in the game.
+     *
+     * @return a list of all the players in the game.
+     */
     public List<Player> getPlayers() {
         return myPlayers.getPlayers();
     }

@@ -22,7 +22,7 @@ public class EventManager {
         POST_BAIL,
     }
 
-    Map<EVENT_NAMES, EventHandler> myEvents;
+    Map<EVENT_NAMES, TMEvent> myEvents;
 
     /**
      * Default constructor
@@ -33,11 +33,11 @@ public class EventManager {
     }
 
     private void initializeDefaultHandlers(TurnManager turnManager) {
-        myEvents.put(ROLL, e->turnManager.roll());
-        myEvents.put(END_TURN, e->turnManager.endTurn());
+        myEvents.put(ROLL, e ->turnManager.roll());
+        myEvents.put(END_TURN, e ->turnManager.endTurn());
     }
 
-    public Map<EVENT_NAMES, EventHandler> getMyEvents() {
+    public Map<EVENT_NAMES, TMEvent> getMyEvents() {
         return myEvents;
     }
 }
