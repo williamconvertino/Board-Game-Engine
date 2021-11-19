@@ -22,6 +22,7 @@ public class DisplayStateSignaler {
     POST_BAIL,
     BUY_PROPERTY,
     MORTGAGE_PROPERTY,
+    UNMORTGAGE_PROPERTY,
     BUY_HOUSE
 
   }
