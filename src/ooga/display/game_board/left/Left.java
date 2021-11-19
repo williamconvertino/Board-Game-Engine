@@ -23,6 +23,10 @@ import java.util.ResourceBundle;
 public class Left {
 
 
+    private static final String BALANCE = "Balance";
+    private static final String PROPERTIES = "Properties";
+    private static final String CARDS = "Cards";
+    private static final String NONE = "None";
     private GameBoardDisplay myGameBoardDisplay;
     private DisplayManager myDisplayManager;
     private VBox leftComponent;
@@ -31,7 +35,8 @@ public class Left {
     private GameData myGameData;
     private Map<EventManager.EVENT_NAMES, EventHandler> myEventMap;
     private static final String PLAYER = "Player";
-    private static final String INFO = "Info";
+    private static final String LOCATION = "Location";
+
     /**
      * The constructor for the left display element
      */
@@ -62,27 +67,43 @@ public class Left {
 //        tab3.setClosable(false);
 //        tab4.setClosable(false);
         TabPane tabPane = myUIBuilder.makeTabPane("tabPane");
-        tabPane.getTabs().addAll(makePlayerTab(1), makePlayerTab(2), makePlayerTab(3),
-                makePlayerTab(4));
+        tabPane.getTabs().addAll(makePlayerTab(0), makePlayerTab(1), makePlayerTab(2),
+                makePlayerTab(3));
         leftComponent.getChildren().add(tabPane);
 
     }
 
     /**
-     * @param playerNumber 1-indexed player number
+     * @param playerIndex 0 - indexed player number
      * @return Tab for the specified player
      */
-    private Tab makePlayerTab(int playerNumber) {
+    private Tab makePlayerTab(int playerIndex) {
 
-        Tab tab1 = myUIBuilder.makeTab(PLAYER + playerNumber + INFO);
+        Tab tab1 = myUIBuilder.makeTab(myGameData.getPlayers().get(playerIndex).getName());
         VBox result = new VBox();
-        result.getChildren().addAll(myUIBuilder.makeLabel(myGameData.getPlayers().get(playerNumber - 1).getName()),
-                myUIBuilder.makeLabel(String.valueOf(myGameData.getPlayers().get(playerNumber - 1).getLocation())),
-                myUIBuilder.makeLabel(String.valueOf(myGameData.getPlayers().get(playerNumber - 1).getBalance())),
-                myUIBuilder.makeLabel(String.valueOf(myGameData.getPlayers().get(playerNumber - 1).getProperties())));
+        result.getChildren().addAll(
+                myUIBuilder.makeLabel(PLAYER + (playerIndex + 1)),
+                new Label(String.valueOf(myGameData.getPlayers().get(playerIndex).getLocation())),
+                myUIBuilder.makeLabel(BALANCE),
+                new Label(String.valueOf(myGameData.getPlayers().get(playerIndex).getBalance())),
+                myUIBuilder.makeLabel(PROPERTIES),
+                makePlayerTabProperties(playerIndex),
+                myUIBuilder.makeLabel(CARDS),
+                makePlayerTabCards(playerIndex)
+        );
         tab1.setContent(result);
         tab1.setClosable(false);
         return tab1;
+    }
+
+    public Label makePlayerTabProperties(int playerIndex) {
+        if (myGameData.getPlayers().get(playerIndex).getProperties().size() == 0) return (Label) myUIBuilder.makeLabel(NONE);
+        return (Label) myUIBuilder.makeLabel(String.valueOf(myGameData.getPlayers().get(playerIndex).getProperties()));
+    }
+
+    public Label makePlayerTabCards(int playerIndex) {
+        if (myGameData.getPlayers().get(playerIndex).getCards().size() == 0) return (Label) myUIBuilder.makeLabel(NONE);
+        return (Label) myUIBuilder.makeLabel(String.valueOf(myGameData.getPlayers().get(playerIndex).getCards()));
     }
     /**
      * Returns the left component VBox

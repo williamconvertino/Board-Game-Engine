@@ -136,7 +136,7 @@ public class UIBuilder {
      * @return appropriate label using id
      */
     public Node makeLabel(String id) {
-        return new Label(id);
+        return new Label(langResource.getString(id));
     }
 
     /**
@@ -181,7 +181,7 @@ public class UIBuilder {
      * @return tab
      */
     public Tab makeTab(String id) {
-        Tab tab = new Tab(langResource.getString(id));
+        Tab tab = new Tab(id);
         tab.setId(id);
         return tab;
     }

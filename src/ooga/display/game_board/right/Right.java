@@ -45,12 +45,12 @@ public class Right {
     myDisplayManager = displayManager;
     rightComponent = new VBox();
     this.eventMap = eventMap;
-    makeRightComponent();
     this.gameData = gameData;
+    makeRightComponent();
   }
 
   private void makeRightComponent() {
-    Label playerLabel = new Label("Player 1");
+    Label playerLabel = new Label(gameData.getCurrentPlayer().getName());
     Button rollDiceButton = new Button("Roll Dice");
     rollDiceButton.setOnAction(e -> rollDice());
 
@@ -59,7 +59,6 @@ public class Right {
     rightComponent.getChildren().add(new Label(""));
   }
 
-  //FIXME: Hook up thru backend later
   private void rollDice() {
     eventMap.get(ROLL).handle(null);
     int[] myRoll = gameData.getDie().diceResult();
@@ -68,6 +67,7 @@ public class Right {
     rolled_vals.setText(myRoll[0] + " " + myRoll[1]);
     rightComponent.getChildren().set(2, rolled_vals);
     myGameBoardDisplay.updatePlayerLocation();
+    myGameBoardDisplay.updateInfo();
     eventMap.get(START_TURN).handle(null);
   }
 
