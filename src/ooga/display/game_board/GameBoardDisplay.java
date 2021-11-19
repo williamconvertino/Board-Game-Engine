@@ -1,5 +1,6 @@
 package ooga.display.game_board;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import ooga.display.Display;
 import ooga.display.DisplayManager;
@@ -109,6 +111,10 @@ public class GameBoardDisplay extends Display {
 
   public void updatePlayerLocation() {
     theBoard.updateLocation();
+  }
+
+  public ArrayList<Circle> getAllCirclePieces() {
+    return theBoard.getAllCirclePieces();
   }
 
   /**

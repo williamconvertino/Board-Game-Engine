@@ -34,6 +34,7 @@ public class Board {
   private final int BOARD_SIZE = 11;
   private final int BOARD_LENGTH = BOARD_SIZE*2 + (BOARD_SIZE - 2)*2;
 
+  //FIXME: change to list
   private ArrayList<Circle> allCirclePieces = new ArrayList<>();
   private ArrayList<Integer> allPlayerLocation = new ArrayList<>();
 
@@ -117,14 +118,20 @@ public class Board {
 //  }
 
   public void updateLocation() {
-    int playerPos = gameData.getCurrentPlayer().getLocation();
     //allCirclePieces.get(playerPos).setFill(Color.WHITE);
+
+    int playerPos = gameData.getCurrentPlayer().getLocation();
+
     allCirclePieces.get(playerPos).setFill(Color.BLACK);
   }
 
 
   public VBox getComponent() {
     return boardComponent;
+  }
+
+  public ArrayList<Circle> getAllCirclePieces() {
+    return allCirclePieces;
   }
 
 

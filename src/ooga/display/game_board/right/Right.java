@@ -9,6 +9,7 @@ import java.util.Map;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.EventManager;
@@ -60,15 +61,18 @@ public class Right {
 
   //FIXME: Hook up thru backend later
   private void rollDice() {
+    int playerPos = gameData.getCurrentPlayer().getLocation();
+    myGameBoardDisplay.getAllCirclePieces().get(playerPos).setFill(Color.WHITE);
     eventMap.get(ROLL).handle(null);
     //ArrayList<Integer> returned_rolls = myGameBoardDisplay.rollDice();
+
     int[] myRoll = gameData.getDie().diceResult();
     System.out.println(myRoll);
     Label rolled_vals = (Label) rightComponent.getChildren().get(2);
     rolled_vals.setText(myRoll[0] + " " + myRoll[1]);
     rightComponent.getChildren().set(2, rolled_vals);
     myGameBoardDisplay.updatePlayerLocation();
-    //eventMap.get(START_TURN).handle(null);
+    eventMap.get(START_TURN).handle(null);
   }
 
   /**
