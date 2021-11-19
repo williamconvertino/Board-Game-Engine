@@ -2,7 +2,9 @@ package ooga.model.game_handling.turn_manager;
 
 import ooga.display.communication.DisplayComm;
 import ooga.display.communication.DisplayStateSignaler.State;
+import ooga.exceptions.InsufficientBalanceException;
 import ooga.exceptions.MaxRollsReachedException;
+import ooga.exceptions.PropertyOwnedException;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.properties.Property;
 import ooga.model.data.tilemodels.PropertyTileModel;
@@ -117,6 +119,20 @@ public class TurnManager {
             }
         }
 
+    }
+
+
+    public void buyProperty(Property property) {
+        if (property.getOwner() != Property.NULL_OWNER) {
+            displayComm.showException(new PropertyOwnedException(property.getOwner().getName()));
+            return;
+        }
+        if (property.getCost() > gameData.getCurrentPlayer().getBalance()) {
+            displayComm.showException(new InsufficientBalanceException());
+            return;
+        }
+        gameData.getCurrentPlayer().addMoney(-1 * property.getCost());
+        gameData.getCurrentPlayer().giveProperty(property);
     }
 
 
