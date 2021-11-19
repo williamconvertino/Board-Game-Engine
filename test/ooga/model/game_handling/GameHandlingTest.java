@@ -82,7 +82,7 @@ public class GameHandlingTest {
     t2 = new EmptyTileModel("t2");
     t3 = new EmptyTileModel("t3");
     t4 = new EmptyTileModel("t4");
-    Property property1 = new Property("Property 1", 100, new int[]{5},10, new ArrayList<>(), 60, "blue" );
+    Property property1 = new Property("Property 1", 100, new int[]{5,20,40},10, new ArrayList<>(), 60, "blue" );
     t5 = new PropertyTileModel("prop1", property1, new ActionSequence());
     t6 = new EmptyTileModel("t6");
     t7 = new EmptyTileModel("t7");
