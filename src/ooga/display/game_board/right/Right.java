@@ -61,11 +61,7 @@ public class Right {
 
   //FIXME: Hook up thru backend later
   private void rollDice() {
-    int playerPos = gameData.getCurrentPlayer().getLocation();
-    myGameBoardDisplay.getAllCirclePieces().get(playerPos).setFill(Color.WHITE);
     eventMap.get(ROLL).handle(null);
-    //ArrayList<Integer> returned_rolls = myGameBoardDisplay.rollDice();
-
     int[] myRoll = gameData.getDie().diceResult();
     System.out.println(myRoll);
     Label rolled_vals = (Label) rightComponent.getChildren().get(2);

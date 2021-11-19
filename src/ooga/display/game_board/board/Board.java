@@ -50,9 +50,9 @@ public class Board {
     myGameBoardDisplay = gameBoardDisplay;
     myDisplayManager = displayManager;
     boardComponent = new VBox();
+    this.gameData = gameData;
     createBoard();
     startPieces();
-    this.gameData = gameData;
   }
 
 
@@ -61,43 +61,53 @@ public class Board {
     GridPane gameBoard = new GridPane();
     gameBoard.setPrefSize(500, 500);
 
+    int gameBoardTileCount = gameData.getBoard().getTiles().size();
+
     for (int i = 0; i < BOARD_SIZE; i++) {
+      if (gameBoardTileCount <= 0) {
+        break;
+      }
       Rectangle tile = new Rectangle(50, 50);
       tile.setFill(Color.WHITE);
       tile.setStroke(Color.BLACK);
 
-      Circle piece = new Circle(20, Color.WHITE);
-      allCirclePieces.add(piece);
-      gameBoard.add(new StackPane(tile, piece), i, 0);
+      gameBoard.add(new StackPane(tile), i, 0);
+      gameBoardTileCount--;
     }
     for (int j = 1; j < BOARD_SIZE-1; j++) {
+      if (gameBoardTileCount <= 0) {
+        break;
+      }
       Rectangle tile = new Rectangle(50, 50);
       tile.setFill(Color.WHITE);
       tile.setStroke(Color.BLACK);
-
-      Circle piece = new Circle(20, Color.WHITE);
-      allCirclePieces.add(piece);
-      gameBoard.add(new StackPane(tile, piece), BOARD_SIZE-1, j);
+      gameBoard.add(new StackPane(tile), BOARD_SIZE-1, j);
+      gameBoardTileCount--;
     }
     for (int k = BOARD_SIZE-1; k >= 0; k--) {
+      if (gameBoardTileCount <= 0) {
+        break;
+      }
       Rectangle tile = new Rectangle(50, 50);
       tile.setFill(Color.WHITE);
       tile.setStroke(Color.BLACK);
 
-      Circle piece = new Circle(20, Color.WHITE);
-      allCirclePieces.add(piece);
-      gameBoard.add(new StackPane(tile, piece), k, BOARD_SIZE-1);
+      gameBoard.add(new StackPane(tile), k, BOARD_SIZE-1);
+      gameBoardTileCount--;
     }
     for (int m = BOARD_SIZE-2; m > 0; m--) {
+      if (gameBoardTileCount <= 0) {
+        break;
+      }
       Rectangle tile = new Rectangle(50, 50);
       tile.setFill(Color.WHITE);
       tile.setStroke(Color.BLACK);
 
-      Circle piece = new Circle(20, Color.WHITE);
-      allCirclePieces.add(piece);
-      gameBoard.add(new StackPane(tile, piece), 0, m);
+      gameBoard.add(new StackPane(tile), 0, m);
+      gameBoardTileCount--;
     }
     boardComponent.getChildren().add(gameBoard);
+
   }
 
   public void drawMove(Circle circle) {
@@ -105,24 +115,37 @@ public class Board {
   }
 
   private void startPieces() {
-    allPlayerLocation.add(0);
-    allCirclePieces.get(allPlayerLocation.get(0)).setFill(Color.BLACK);
+    GridPane board = (GridPane) boardComponent.getChildren().get(0);
+    StackPane stackPane = (StackPane) board.getChildren().get(0);
+    for(int i = 0; i < gameData.getPlayers().size(); i++) {
+      if(i == 0) {
+        allCirclePieces.add(new Circle(20, Color.BLACK));
+        stackPane.getChildren().add(allCirclePieces.get(i));
+      }
+      else if(i == 1) {
+        allCirclePieces.add(new Circle(20, Color.RED));
+        stackPane.getChildren().add(allCirclePieces.get(i));
+      }
+      else if(i == 2) {
+        allCirclePieces.add(new Circle(20, Color.GREEN));
+        stackPane.getChildren().add(allCirclePieces.get(i));
+      }
+      else if(i == 3) {
+        allCirclePieces.add(new Circle(20, Color.BLUE));
+        stackPane.getChildren().add(allCirclePieces.get(i));
+      }
+
+    }
   }
 
-//  public void movePiece(int playerNum, int rolledNum) {
-//    int playerPos = allPlayerLocation.get(playerNum);
-//    allCirclePieces.get(playerPos).setFill(Color.WHITE);
-//    allPlayerLocation.set(playerNum, (rolledNum+playerPos)%BOARD_LENGTH);
-//    playerPos = allPlayerLocation.get(playerNum);
-//    allCirclePieces.get(playerPos).setFill(Color.BLACK);
-//  }
-
   public void updateLocation() {
-    //allCirclePieces.get(playerPos).setFill(Color.WHITE);
+    GridPane board = (GridPane) boardComponent.getChildren().get(0);
 
     int playerPos = gameData.getCurrentPlayer().getLocation();
+    int currPlayer = gameData.getPlayers().indexOf(gameData.getCurrentPlayer());
+    StackPane stackPane = (StackPane) board.getChildren().get(playerPos);
+    stackPane.getChildren().add(allCirclePieces.get(currPlayer));
 
-    allCirclePieces.get(playerPos).setFill(Color.BLACK);
   }
 
 
