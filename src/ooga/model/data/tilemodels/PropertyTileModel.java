@@ -63,5 +63,9 @@ public abstract class PropertyTileModel extends TileModel {
         landOnPropertySequence.execute(player);
     }
 
+    public Property getProperty() {
+        return myProperty;
+    }
+
 
 }

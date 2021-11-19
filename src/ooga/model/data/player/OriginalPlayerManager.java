@@ -51,6 +51,7 @@ public class OriginalPlayerManager extends PlayerManager {
     //Return that player and set the next player.
     Player nextPlayer = myPlayers.get(nextPlayerIndex);
     nextPlayerIndex = (nextPlayerIndex + 1) % myPlayers.size();
+    //System.out.println(nextPlayerIndex);
 
     return nextPlayer;
   }
