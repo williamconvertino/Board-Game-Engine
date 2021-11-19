@@ -16,6 +16,8 @@ import java.util.ResourceBundle;
 public class LanguageUI extends VBox {
 
     private final String LANGUAGE = "ChangeLanguage";
+    private ResourceBundle myLangResource;
+    private List<String> myLanguages;
 
     /**
      * Creates initial popup where user chooses language
@@ -25,6 +27,8 @@ public class LanguageUI extends VBox {
      * @param languages    List of available languages
      */
     public LanguageUI(DisplayManager displayManager, ResourceBundle langResource, List<String> languages) {
+        myLangResource = langResource;
+        myLanguages = languages;
         UIBuilder builder = new UIBuilder(langResource);
         this.getChildren().add(
                 builder.makeCombo(LANGUAGE, languages, e -> changeLanguage(displayManager, e))
@@ -38,6 +42,11 @@ public class LanguageUI extends VBox {
      * @param language   is user chosen language
      */
     private void changeLanguage(DisplayManager displayManager, String language) {
-
+        UIBuilder builder = new UIBuilder(myLangResource);
+        this.getChildren().clear();
+        this.getChildren().add(
+                builder.makeCombo(LANGUAGE, myLanguages, e -> changeLanguage(displayManager, e))
+        );
+        displayManager.changeLanguage(language);
     }
 }

@@ -24,6 +24,7 @@ public class OptionsMenu extends Display {
     private static final String DEFAULT_RESOURCE_PACKAGE = Display.class.getPackageName() + ".resources.";
     private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
     private static final String DEFAULT_STYLE = STYLE_PACKAGE + "mainmenu.css";
+    private static final List<String> LANGUAGES_LIST = List.of("English", "Spanish", "French");
     private Scene scene;
 
     public OptionsMenu (Stage stage, DisplayManager displayManager, ResourceBundle langResource) {
@@ -48,8 +49,7 @@ public class OptionsMenu extends Display {
         result.getChildren().add(myBuilder.makeCombo("NumberofPlayers", placeHolder, e ->
                 myDisplayManager.changePlayerCount()));
         result.getChildren().add(myBuilder.makeCombo("Theme", placeHolder2, e -> myDisplayManager.changeTheme(e)));
-        myLanguageUI = new LanguageUI(myDisplayManager, myLangResource, placeHolder3); // Needs to be able to change the
-        // language everywhere, not just optionsMenu
+        myLanguageUI = new LanguageUI(myDisplayManager, myLangResource, LANGUAGES_LIST);
         result.getChildren().add(myLanguageUI);
         result.getChildren().add(myBuilder.makeButton("GotoHome", e -> myDisplayManager.goStartMenu()));
         return result;
