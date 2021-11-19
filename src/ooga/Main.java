@@ -82,13 +82,13 @@ public class Main extends Application {
 
         Property prop1;
 
-        ArrayList<Player> playerlist = new ArrayList<>();
-        playerlist.add(p1);
-        playerlist.add(p2);
-        playerlist.add(p3);
-        playerlist.add(p4);
+        ArrayList<Player> playerList = new ArrayList<>();
+        playerList.add(p1);
+        playerList.add(p2);
+        playerList.add(p3);
+        playerList.add(p4);
 
-        myPlayers = new OriginalPlayerManager(playerlist);
+        myPlayers = new OriginalPlayerManager(playerList);
 
         t0 = new EmptyTileModel("t0");
         t1 = new EmptyTileModel("t1");

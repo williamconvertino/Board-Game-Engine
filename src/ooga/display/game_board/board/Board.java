@@ -140,7 +140,6 @@ public class Board {
 
   public void updateLocation() {
     GridPane board = (GridPane) boardComponent.getChildren().get(0);
-
     int playerPos = gameData.getCurrentPlayer().getLocation();
     int currPlayer = gameData.getPlayers().indexOf(gameData.getCurrentPlayer());
     StackPane stackPane = (StackPane) board.getChildren().get(playerPos);
