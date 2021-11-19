@@ -49,6 +49,7 @@ public class GameData {
         this.myPlayers = players;
         this.myBoard = board;
         this.myDie = die;
+        setNextPlayer();
         resetTurnData();
     }
 
@@ -67,6 +68,7 @@ public class GameData {
      * @throws NoRemainingPlayersException if no players remain in the game.
      */
     public void setNextPlayer() {
+        System.out.println("oi");
         try {
             this.currentPlayer = myPlayers.getNextPlayer();
         } catch (NoRemainingPlayersException e) {
@@ -89,21 +91,6 @@ public class GameData {
      */
     public Player getCurrentPlayer() {
         return currentPlayer;
-    }
-
-    /**
-     * Returns the next player.
-     *
-     * @return the next player.
-     */
-    public Player getNextPlayer() {
-        Player nextP = null;
-        try {
-             nextP = myPlayers.getNextPlayer();
-        } catch (NoRemainingPlayersException e) {
-            e.printStackTrace();
-        }
-        return nextP;
     }
 
     /**

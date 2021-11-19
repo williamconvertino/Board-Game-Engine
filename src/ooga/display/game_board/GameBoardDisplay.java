@@ -127,7 +127,7 @@ public class GameBoardDisplay extends Display {
   public void updateRightInfo() {
     VBox rightComp = theRight.getComponent();
     Label playerLabel = (Label) rightComp.getChildren().get(0);
-    playerLabel.setText(myGameData.getNextPlayer().getName());
+    playerLabel.setText(myGameData.getCurrentPlayer().getName());
   }
 
   public void updatePlayerLocation() {

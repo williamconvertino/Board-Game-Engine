@@ -128,6 +128,6 @@ public class Main extends Application {
         myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
         EventManager eh = new EventManager(myTurnManager);
         DisplayManager dm = new DisplayManager(stage, eh.getMyEvents(), myGameData);
-        myTurnManager.endTurn();
+        //myTurnManager.endTurn();
     }
 }
