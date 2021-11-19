@@ -3,7 +3,11 @@ package ooga.model.game_handling.turn_manager;
 import ooga.display.communication.DisplayComm;
 import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.exceptions.InsufficientBalanceException;
+import ooga.exceptions.MaxHousesReachedException;
 import ooga.exceptions.MaxRollsReachedException;
+import ooga.exceptions.MortgageException;
+import ooga.exceptions.PropertyNotMonopolyException;
+import ooga.exceptions.PropertyNotOwnedException;
 import ooga.exceptions.PropertyOwnedException;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.properties.Property;
@@ -121,7 +125,11 @@ public class TurnManager {
 
     }
 
-
+    /**
+     * Makes the current player buy the specified property.
+     *
+     * @param property the property to buy.
+     */
     public void buyProperty(Property property) {
         if (property.getOwner() != Property.NULL_OWNER) {
             displayComm.showException(new PropertyOwnedException(property.getOwner().getName()));
@@ -133,6 +141,32 @@ public class TurnManager {
         }
         gameData.getCurrentPlayer().addMoney(-1 * property.getCost());
         gameData.getCurrentPlayer().giveProperty(property);
+    }
+
+    /**
+     * Makes the current player buy a house on the selected property.
+     *
+     * @param property
+     */
+    public void buyHouse(Property property) {
+        if (!gameData.getCurrentPlayer().getProperties().contains(property)) {
+            displayComm.showException(new PropertyNotOwnedException());
+            return;
+        }
+        if (!property.isMonopoly()) {
+            displayComm.showException(new PropertyNotMonopolyException());
+            return;
+        }
+        if (property.getHouseCost() > gameData.getCurrentPlayer().getBalance()) {
+            displayComm.showException(new InsufficientBalanceException());
+            return;
+        }
+        try {
+          property.buyHouse();
+          gameData.getCurrentPlayer().addMoney(-1 * property.getHouseCost());
+        } catch (Exception e) {
+            displayComm.showException(e);
+        }
     }
 
 
