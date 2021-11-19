@@ -61,7 +61,7 @@ public class GameBoardDisplay extends Display {
     myDisplayManager = displayManager;
     theTop = new Top(this, myDisplayManager, myLanguage);
     theRight = new Right(this, myDisplayManager, myLanguage, eventMap, gameData);
-    theLeft = new Left(this, myDisplayManager, myLanguage);
+    theLeft = new Left(this, myDisplayManager, myLanguage, eventMap, gameData);
     theBottom = new Bottom(this, myDisplayManager, myLanguage);
     theBoard = new Board(this, myDisplayManager, myLanguage, gameData);
 
