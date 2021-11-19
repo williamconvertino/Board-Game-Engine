@@ -34,9 +34,8 @@ public class TradeManager {
      * @param receivingAmount- the amount of money the offerer is proposing to get from the receiver.
      * @param offeringProperties- the properties the offerer is proposing to give to the receiver.
      * @param receivingProperties- the properties the offerer is proposing to get from the receiver.
-     * @throws TradeException- thrown if an invalid trade is offer which would occur when the offerer or receiver does not have sufficient funds or properties to satisfy the proposed trade.
      */
-    public void proposeTrade(Player offering, Player receiving, int offeringAmount, int receivingAmount, List<Property> offeringProperties, List<Property> receivingProperties) throws TradeException {
+    public Trade proposeTrade(Player offering, Player receiving, int offeringAmount, int receivingAmount, List<Property> offeringProperties, List<Property> receivingProperties) {
         Trade proposedTrade = new Trade(offering, receiving, offeringAmount, receivingAmount, offeringProperties, receivingProperties);
         if (proposedTrade.isValidated()) {
             trade = proposedTrade;
@@ -44,6 +43,7 @@ public class TradeManager {
         else {
             trade = null;
         }
+        return trade;
     }
 
     /**
