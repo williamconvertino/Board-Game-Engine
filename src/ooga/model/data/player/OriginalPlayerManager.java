@@ -28,7 +28,7 @@ public class OriginalPlayerManager extends PlayerManager {
   public OriginalPlayerManager(List<Player> myPlayers) {
     super(myPlayers);
     this.myPlayers = myPlayers;
-    //Collections.shuffle(myPlayers);
+    Collections.shuffle(myPlayers);
     nextPlayerIndex = 0;
   }
 
