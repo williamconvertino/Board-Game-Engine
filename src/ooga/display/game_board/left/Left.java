@@ -8,6 +8,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import ooga.display.DisplayManager;
 import ooga.display.communication.EventManager;
+import ooga.display.communication.TMEvent;
 import ooga.display.game_board.GameBoardDisplay;
 import ooga.display.ui_tools.UIBuilder;
 import ooga.model.data.gamedata.GameData;
@@ -33,14 +34,14 @@ public class Left {
     private UIBuilder myUIBuilder;
     private ResourceBundle myLangResource;
     private GameData myGameData;
-    private Map<EventManager.EVENT_NAMES, EventHandler> myEventMap;
+    private Map<EventManager.EVENT_NAMES, TMEvent> myEventMap;
     private static final String PLAYER = "Player";
     private static final String LOCATION = "Location";
 
     /**
      * The constructor for the left display element
      */
-    public Left(GameBoardDisplay gameBoardDisplay, DisplayManager displayManager, ResourceBundle language, Map<EventManager.EVENT_NAMES, EventHandler> eventMap,  GameData gameData) {
+    public Left(GameBoardDisplay gameBoardDisplay, DisplayManager displayManager, ResourceBundle language, Map<EventManager.EVENT_NAMES, TMEvent> eventMap,  GameData gameData) {
         myGameData = gameData;
         myEventMap = eventMap;
         myGameBoardDisplay = gameBoardDisplay;

@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.EventManager;
 import ooga.display.communication.EventManager.EVENT_NAMES;
+import ooga.display.communication.TMEvent;
 import ooga.display.game_board.GameBoardDisplay;
 import ooga.display.start.OptionsMenu;
 import ooga.display.start.StartMenu;
@@ -34,13 +35,13 @@ public class DisplayManager {
   private ArrayList<Display> allDisplays = new ArrayList<>();
   private GameInitializer myInitializer;
   private GameData myGameData;
-  private Map<EVENT_NAMES, EventHandler> myEventMap;
+  private Map<EVENT_NAMES, TMEvent> myEventMap;
 
 
   /**
    * Default constructor
    */
-  public DisplayManager(Stage stage, Map<EVENT_NAMES, EventHandler> eventMap, GameData gameData) {
+  public DisplayManager(Stage stage, Map<EVENT_NAMES, TMEvent> eventMap, GameData gameData) {
     myStage = stage;
     myGameData = gameData;
     myEventMap = eventMap;

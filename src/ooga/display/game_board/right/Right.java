@@ -14,6 +14,7 @@ import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.EventManager;
 import ooga.display.communication.EventManager.EVENT_NAMES;
+import ooga.display.communication.TMEvent;
 import ooga.display.game_board.GameBoardDisplay;
 import ooga.display.ui_tools.UIBuilder;
 import static ooga.display.communication.EventManager.EVENT_NAMES.*;
@@ -33,12 +34,12 @@ public class Right {
   private VBox rightComponent;
   private ResourceBundle myLanguage;
   private UIBuilder myBuilder;
-  private Map<EVENT_NAMES, EventHandler> eventMap;
+  private Map<EVENT_NAMES, TMEvent> eventMap;
   private GameData gameData;
   /**
    * The constructor for the top display element
    */
-  public Right(GameBoardDisplay gameBoardDisplay, DisplayManager displayManager, ResourceBundle language, Map<EVENT_NAMES, EventHandler> eventMap, GameData gameData) {
+  public Right(GameBoardDisplay gameBoardDisplay, DisplayManager displayManager, ResourceBundle language, Map<EVENT_NAMES, TMEvent> eventMap, GameData gameData) {
     myLanguage = language;
     myBuilder = new UIBuilder(myLanguage);
     myGameBoardDisplay = gameBoardDisplay;
@@ -60,7 +61,7 @@ public class Right {
   }
 
   private void rollDice() {
-    eventMap.get(ROLL).handle(null);
+    eventMap.get(ROLL).execute();
     int[] myRoll = gameData.getDie().diceResult();
     //System.out.println(myRoll);
     Label rolled_vals = (Label) rightComponent.getChildren().get(2);
@@ -68,7 +69,7 @@ public class Right {
     rightComponent.getChildren().set(2, rolled_vals);
     myGameBoardDisplay.updatePlayerLocation();
     myGameBoardDisplay.updateInfo();
-    eventMap.get(END_TURN).handle(null);
+    eventMap.get(END_TURN).execute();
   }
 
   /**

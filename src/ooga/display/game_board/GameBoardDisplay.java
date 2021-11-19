@@ -18,6 +18,7 @@ import ooga.display.Display;
 import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.EventManager.EVENT_NAMES;
+import ooga.display.communication.TMEvent;
 import ooga.display.game_board.board.Board;
 import ooga.display.game_board.bottom.Bottom;
 import ooga.display.game_board.left.Left;
@@ -63,7 +64,7 @@ public class GameBoardDisplay extends Display {
    * elements top, left, right, bottom, and center
    */
   public GameBoardDisplay(Stage stage, DisplayManager displayManager, ResourceBundle language,
-      Map<EVENT_NAMES, EventHandler> eventMap, GameData gameData) {
+      Map<EVENT_NAMES, TMEvent> eventMap, GameData gameData) {
     myUIBuilder = new UIBuilder(language);
     myLanguage = language;
     myStage = stage;
