@@ -9,6 +9,7 @@ import java.util.Map;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.EventManager;
@@ -44,12 +45,12 @@ public class Right {
     myDisplayManager = displayManager;
     rightComponent = new VBox();
     this.eventMap = eventMap;
-    makeRightComponent();
     this.gameData = gameData;
+    makeRightComponent();
   }
 
   private void makeRightComponent() {
-    Label playerLabel = new Label("Player 1");
+    Label playerLabel = new Label(gameData.getCurrentPlayer().getName());
     Button rollDiceButton = new Button("Roll Dice");
     rollDiceButton.setOnAction(e -> rollDice());
 
@@ -58,17 +59,16 @@ public class Right {
     rightComponent.getChildren().add(new Label(""));
   }
 
-  //FIXME: Hook up thru backend later
   private void rollDice() {
     eventMap.get(ROLL).handle(null);
-    //ArrayList<Integer> returned_rolls = myGameBoardDisplay.rollDice();
     int[] myRoll = gameData.getDie().diceResult();
     System.out.println(myRoll);
     Label rolled_vals = (Label) rightComponent.getChildren().get(2);
     rolled_vals.setText(myRoll[0] + " " + myRoll[1]);
     rightComponent.getChildren().set(2, rolled_vals);
     myGameBoardDisplay.updatePlayerLocation();
-    //eventMap.get(START_TURN).handle(null);
+    myGameBoardDisplay.updateInfo();
+    eventMap.get(START_TURN).handle(null);
   }
 
   /**

@@ -92,6 +92,21 @@ public class GameData {
     }
 
     /**
+     * Returns the next player.
+     *
+     * @return the next player.
+     */
+    public Player getNextPlayer() {
+        Player nextP = null;
+        try {
+             nextP = myPlayers.getNextPlayer();
+        } catch (NoRemainingPlayersException e) {
+            e.printStackTrace();
+        }
+        return nextP;
+    }
+
+    /**
      * Returns the number of rolls this turn.
      *
      * @return the number of rolls this turn.
