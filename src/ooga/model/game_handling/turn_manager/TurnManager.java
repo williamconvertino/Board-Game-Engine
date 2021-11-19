@@ -1,8 +1,13 @@
 package ooga.model.game_handling.turn_manager;
 
 import ooga.display.communication.DisplayComm;
+import ooga.display.communication.DisplayStateSignaler.State;
+import ooga.exceptions.InsufficientBalanceException;
 import ooga.exceptions.MaxRollsReachedException;
+import ooga.exceptions.PropertyOwnedException;
 import ooga.model.data.gamedata.GameData;
+import ooga.model.data.properties.Property;
+import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
 import ooga.model.game_handling.FunctionExecutor;
 
@@ -47,10 +52,11 @@ public class TurnManager {
     /**
      * Starts the next turn.
      */
-    public void startTurn() {
+    public void endTurn() {
         this.selectedTile = null;
         gameData.resetTurnData();
         gameData.setNextPlayer();
+        displayComm.signalDisplay(State.START_TURN);
     }
 
     /**
@@ -71,7 +77,8 @@ public class TurnManager {
 
         //If the roll is the third of the turn, send the player to jail.
         if (gameData.getNumRolls() > 3) {
-            //TODO: Go to jail.
+            functionExecutor.goToJail(gameData.getCurrentPlayer());
+            endTurn();
             return;
         }
 
@@ -81,5 +88,52 @@ public class TurnManager {
         }
         functionExecutor.movePlayerFd(gameData.getCurrentPlayer(), myRoll);
     }
+
+    /**
+     * Sets the currently selected tile to the specified tile, and signals
+     * the display to show the property buttons.
+     *
+     * @param tile the tile to select.
+     */
+    public void setSelectedTile(TileModel tile) {
+        this.selectedTile = tile;
+        displayComm.signalTile(tile);
+        if (!(tile instanceof PropertyTileModel)) {
+            return;
+        }
+
+        Property selectedProperty = ((PropertyTileModel)tile).getProperty();
+
+        if (selectedProperty.getOwner() == Property.NULL_OWNER) { //TODO: check that the player is on the tile.
+            displayComm.signalDisplay(State.BUY_PROPERTY);
+            return;
+        }
+
+        if (gameData.getCurrentPlayer().getProperties().contains(selectedProperty)) {
+            if (selectedProperty.isMortgaged()) {
+                displayComm.signalDisplay(State.UNMORTGAGE_PROPERTY);
+            } else if (selectedProperty.isMonopoly()) {
+                displayComm.signalDisplay(State.BUY_HOUSE);
+            } else {
+                displayComm.signalDisplay(State.MORTGAGE_PROPERTY);
+            }
+        }
+
+    }
+
+
+    public void buyProperty(Property property) {
+        if (property.getOwner() != Property.NULL_OWNER) {
+            displayComm.showException(new PropertyOwnedException(property.getOwner().getName()));
+            return;
+        }
+        if (property.getCost() > gameData.getCurrentPlayer().getBalance()) {
+            displayComm.showException(new InsufficientBalanceException());
+            return;
+        }
+        gameData.getCurrentPlayer().addMoney(-1 * property.getCost());
+        gameData.getCurrentPlayer().giveProperty(property);
+    }
+
 
 }

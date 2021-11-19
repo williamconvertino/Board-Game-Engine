@@ -1,15 +1,11 @@
 package ooga;
 
 
-import java.beans.EventHandler;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayComm;
-import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.EventManager;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.OriginalPlayerManager;
@@ -132,6 +128,6 @@ public class Main extends Application {
         myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
         EventManager eh = new EventManager(myTurnManager);
         DisplayManager dm = new DisplayManager(stage, eh.getMyEvents(), myGameData);
-        myTurnManager.startTurn();
+        //myTurnManager.endTurn();
     }
 }

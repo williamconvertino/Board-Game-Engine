@@ -3,7 +3,7 @@ package ooga.display.communication;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.event.EventHandler;
-import ooga.model.game_handling.FunctionExecutor;
+import ooga.model.data.tilemodels.TileModel;
 import ooga.model.game_handling.turn_manager.TurnManager;
 import static ooga.display.communication.EventManager.EVENT_NAMES.*;
 /**
@@ -21,9 +21,10 @@ public class EventManager {
         BUY_HOUSE,
         SELL_HOUSE,
         POST_BAIL,
+        SELECT_TILE
     }
 
-    Map<EVENT_NAMES, EventHandler> myEvents;
+    Map<EVENT_NAMES, TMEvent> myEvents;
 
     /**
      * Default constructor
@@ -34,11 +35,12 @@ public class EventManager {
     }
 
     private void initializeDefaultHandlers(TurnManager turnManager) {
-        myEvents.put(ROLL, e->turnManager.roll());
-        myEvents.put(START_TURN, e->turnManager.startTurn());
+        myEvents.put(ROLL, e ->turnManager.roll());
+        myEvents.put(END_TURN, e ->turnManager.endTurn());
+        myEvents.put(SELECT_TILE, e->turnManager.setSelectedTile((TileModel)e[0]));
     }
 
-    public Map<EVENT_NAMES, EventHandler> getMyEvents() {
+    public Map<EVENT_NAMES, TMEvent> getMyEvents() {
         return myEvents;
     }
 }

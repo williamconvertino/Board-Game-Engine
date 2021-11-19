@@ -1,6 +1,7 @@
 package ooga.display.communication;
 
 import ooga.display.communication.DisplayStateSignaler.State;
+import ooga.model.data.tilemodels.TileModel;
 
 public class DisplayComm {
 
@@ -20,8 +21,12 @@ public class DisplayComm {
     //myExceptionHandler.showException(e);
   }
 
-  public void setDisplayStateSignaler(State state) {
+  public void signalDisplay(State state) {
     //myDisplayStateSignaler.signalDisplay(state);
+  }
+
+  public void signalTile(TileModel tile) {
+
   }
 
 }

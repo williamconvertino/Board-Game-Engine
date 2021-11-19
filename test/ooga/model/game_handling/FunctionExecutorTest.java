@@ -92,11 +92,11 @@ public class FunctionExecutorTest extends GameHandlingTest {
 
   @Test
   void testMoneyCommands() {
-    assertEquals(0, p1.getBalance());
+    assertEquals(1500, p1.getBalance());
     myFunctionExecutor.addMoney(p1,10);
-    assertEquals(10, p1.getBalance());
+    assertEquals(1510, p1.getBalance());
     myFunctionExecutor.loseMoney(p1, 10);
-    assertEquals(0, p1.getBalance());
+    assertEquals(1500, p1.getBalance());
   }
 
   @Test

@@ -251,6 +251,10 @@ public class Property {
         }
     }
 
+    public boolean isMortgaged() {
+        return isMortgaged;
+    }
+
     @Override
     public String toString(){
         return this.getName();
