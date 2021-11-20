@@ -98,6 +98,19 @@ public class TurnManagerTest extends GameHandlingTest {
     assertTrue(p.getProperties().contains(myProp));
     assertEquals(1,myProp.getNumHouses());
     assertEquals(1390, p.getBalance());
+  }
+
+  @Test
+  void sellHouseTest() {
+    Player p = myGameData.getCurrentPlayer();
+    TileModel tile = myBoard.getTileAtIndex(5);
+    Property myProp = ((PropertyTileModel)tile).getProperty();
+    myTurnManager.setSelectedTile(tile);
+    myTurnManager.buyProperty(myProp);
+    myTurnManager.buyHouse(myProp);
+    assertEquals(1, myProp.getNumHouses());
+    myTurnManager.sellHouse(myProp);
+    assertEquals(0, myProp.getNumHouses());
 
   }
 
