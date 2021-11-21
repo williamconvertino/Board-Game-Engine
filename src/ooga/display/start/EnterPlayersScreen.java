@@ -2,7 +2,6 @@ package ooga.display.start;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -10,41 +9,56 @@ import ooga.display.Display;
 import ooga.display.DisplayManager;
 import ooga.display.ui_tools.LanguageUI;
 import ooga.display.ui_tools.UIBuilder;
+import ooga.model.data.gamedata.GameData;
 
-import java.util.ArrayList;
+import java.awt.*;
 import java.util.List;
 import java.util.ResourceBundle;
 
+
+
 public class EnterPlayersScreen extends Display {
-    private BorderPane startMenu;
+    private BorderPane playerMenu;
     private Stage myStage;
     private DisplayManager myDisplayManager;
     private UIBuilder myBuilder;
     private ResourceBundle myLangResource;
     private LanguageUI myLanguageUI;
+    private VBox myTextAreaVBox;
     private static final String DEFAULT_RESOURCE_PACKAGE = Display.class.getPackageName() + ".resources.";
     private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
     private static final String DEFAULT_STYLE = STYLE_PACKAGE + "mainmenu.css";
+    private static final String ENTER_NAME = "EnterPlayerName";
+    private GameData myGameData;
     private Scene scene;
 
-    public EnterPlayersScreen (Stage stage, DisplayManager displayManager, ResourceBundle langResource) {
+    public EnterPlayersScreen (Stage stage, DisplayManager displayManager, ResourceBundle langResource, GameData gameData) {
+        myGameData = gameData;
         myLangResource = langResource;
         myBuilder = new UIBuilder(langResource);
         myStage = stage;
         myDisplayManager = displayManager;
-        startMenu = new BorderPane();
-        startMenu.setTop(myBuilder.makeLabel("EnterPlayerNames"));
-        startMenu.setLeft(makeTextAreas());
+        playerMenu = new BorderPane();
+        playerMenu.setTop(myBuilder.makeLabel("EnterPlayerNames"));
+        playerMenu.setLeft(makeTextAreas());
+        playerMenu.setRight(myBuilder.makeButton("Continue", e -> myDisplayManager.startGame()));
         makeScene();
     }
 
     private Node makeTextAreas() {
-        TextArea area = new TextArea("Enter Player Name");
+        myTextAreaVBox = new VBox();
+        for (int i = 0; i < myGameData.getPlayers().size(); i++) {
+            myTextAreaVBox.getChildren().add(myBuilder.makeTextArea(ENTER_NAME));
+        }
+        return myTextAreaVBox;
     }
 
+    public List<Node> getTextAreaInfo() {
+        return myTextAreaVBox.getChildren();
+    }
 
     private void makeScene() {
-        scene = new Scene(startMenu, 800, 600);
+        scene = new Scene(playerMenu, 800, 600);
         scene.getStylesheets().add(DEFAULT_STYLE);
     }
 
