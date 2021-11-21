@@ -34,7 +34,6 @@ public class Top {
     myDisplayManager = displayManager;
     topComponent = new HBox();
     makeGoHomeButton();
-    makeRotateButton();
   }
 
   private void makeGoHomeButton() {
@@ -42,11 +41,6 @@ public class Top {
     homeButton.setText("Home");
     homeButton.setOnAction(e -> pressedHomeButton());
     topComponent.getChildren().add(homeButton);
-  }
-
-  private void makeRotateButton() {
-    Button rotateButton =  myBuilder.makeButton("Rotate", e -> pressedRotateButton());
-    topComponent.getChildren().add(rotateButton);
   }
 
   private void pressedHomeButton() {
