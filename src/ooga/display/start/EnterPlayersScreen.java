@@ -41,8 +41,15 @@ public class EnterPlayersScreen extends Display {
         playerMenu = new BorderPane();
         playerMenu.setTop(myBuilder.makeLabel("EnterPlayerNames"));
         playerMenu.setLeft(makeTextAreas());
-        playerMenu.setRight(myBuilder.makeButton("Continue", e -> myDisplayManager.startGame()));
+        playerMenu.setRight(makeRight());
         makeScene();
+    }
+
+    private Node makeRight() {
+        VBox result = new VBox();
+        result.getChildren().add(myBuilder.makeButton("Continue", e -> myDisplayManager.startGame()));
+        result.getChildren().add(myBuilder.makeButton("GotoHome", e -> myDisplayManager.goStartMenu()));
+        return result;
     }
 
     private Node makeTextAreas() {

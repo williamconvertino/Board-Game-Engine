@@ -83,16 +83,9 @@ public class DisplayManager {
     int index = 0;
     for (Node node : myEnterPlayerScreen.getTextAreaInfo()) {
       TextArea textArea = (TextArea) node;
-      System.out.println(textArea.getText()); // text
-      System.out.println(playerList.get(index).getName()); // player name before change
       playerList.get(index).setName(textArea.getText());
-      System.out.println(playerList.get(index).getName()); // player name after change
       index++;
     }
-  }
-
-  private void displayElement() {
-
   }
 
   public void goOptions() {
