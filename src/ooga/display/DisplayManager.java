@@ -1,6 +1,7 @@
 package ooga.display;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -36,6 +37,7 @@ public class DisplayManager {
   private GameInitializer myInitializer;
   private GameData myGameData;
   private Map<EVENT_NAMES, TMEvent> myEventMap;
+
 
 
   /**
@@ -84,5 +86,14 @@ public class DisplayManager {
   }
 
   public void rotateBoard() {
+  }
+
+  public void changeLanguage(String language) {
+    languageResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
+    allDisplays.clear();
+    allDisplays.add(new StartMenu(myStage, this, languageResource));
+    allDisplays.add(new OptionsMenu(myStage, this, languageResource));
+    currDisplay = allDisplays.get(1);
+    myStage.setScene(currDisplay.getScene());
   }
 }
