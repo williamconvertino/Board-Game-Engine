@@ -1,21 +1,17 @@
 package ooga.display.game_board.board;
 
 import java.awt.Canvas;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javafx.scene.Parent;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Arc;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import ooga.display.DisplayManager;
 import ooga.display.game_board.GameBoardDisplay;
 import ooga.display.ui_tools.UIBuilder;
@@ -32,6 +28,7 @@ public class Board {
   private static final double RECT_HEIGHT = 70;
   private static final double PREF_WIDTH_BOARD = 600;
   private static final double PREF_HEIGHT_BOARD = 600;
+  private static final int RADIUS = 10;
   private GameBoardDisplay myGameBoardDisplay;
   private DisplayManager myDisplayManager;
   private Canvas centerComponent;
@@ -41,7 +38,7 @@ public class Board {
   private final int BOARD_LENGTH = BOARD_SIZE*2 + (BOARD_SIZE - 2)*2;
 
   //FIXME: change to list
-  private ArrayList<Circle> allCirclePieces = new ArrayList<>();
+  private ArrayList<Circle> allCirclePieces = new ArrayList<Circle>();
   private ArrayList<Integer> allPlayerLocation = new ArrayList<>();
 
   private VBox boardComponent;
@@ -163,21 +160,26 @@ public class Board {
     GridPane board = (GridPane) boardComponent.getChildren().get(0);
     StackPane stackPane = (StackPane) board.getChildren().get(0);
     for(int i = 0; i < gameData.getPlayers().size(); i++) {
+
       if(i == 0) {
-        allCirclePieces.add(new Circle(0, Color.BLACK));
+        allCirclePieces.add(new Circle(RADIUS, Color.BLACK));
         stackPane.getChildren().add(allCirclePieces.get(i));
+        StackPane.setAlignment(allCirclePieces.get(i), Pos.TOP_LEFT);
       }
       else if(i == 1) {
-        allCirclePieces.add(new Circle(20, Color.RED));
+        allCirclePieces.add(new Circle(RADIUS, Color.RED));
         stackPane.getChildren().add(allCirclePieces.get(i));
+        StackPane.setAlignment(allCirclePieces.get(i), Pos.TOP_RIGHT);
       }
       else if(i == 2) {
-        allCirclePieces.add(new Circle(20, Color.GREEN));
+        allCirclePieces.add(new Circle(RADIUS, Color.GREEN));
         stackPane.getChildren().add(allCirclePieces.get(i));
+        StackPane.setAlignment(allCirclePieces.get(i), Pos.BOTTOM_RIGHT);
       }
       else if(i == 3) {
-        allCirclePieces.add(new Circle(20, Color.BLUE));
+        allCirclePieces.add(new Circle(RADIUS, Color.BLUE));
         stackPane.getChildren().add(allCirclePieces.get(i));
+        StackPane.setAlignment(allCirclePieces.get(i), Pos.BOTTOM_LEFT);
       }
 
     }
