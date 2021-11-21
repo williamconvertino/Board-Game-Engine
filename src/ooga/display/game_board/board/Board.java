@@ -69,13 +69,13 @@ public class Board {
 
     int gameBoardTileCount = gameData.getBoard().getTiles().size();
 
+    // Top left corner
     Rectangle square0 = new Rectangle(RECT_HEIGHT, RECT_HEIGHT);
     square0.setFill(Color.WHITE);
     square0.setStroke(Color.BLACK);
-
-
     gameBoard.add(new StackPane(square0), 0, 0);
 
+    // Top
     for (int i = 1; i < BOARD_SIZE - 1; i++) {
       if (gameBoardTileCount <= 0) {
         break;
@@ -92,18 +92,18 @@ public class Board {
       gameBoardTileCount--;
     }
 
+    // Top Right corner
     Rectangle square1 = new Rectangle(RECT_HEIGHT, RECT_HEIGHT);
     square1.setFill(Color.WHITE);
     square1.setStroke(Color.BLACK);
-
     gameBoard.add(new StackPane(square1), BOARD_SIZE - 1, 0);
 
-
+    // Right
     for (int j = 1; j < BOARD_SIZE-1; j++) {
       if (gameBoardTileCount <= 0) {
         break;
       }
-      Rectangle tile = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
+      Rectangle tile = new Rectangle(RECT_HEIGHT, RECT_WIDTH);
       tile.setFill(Color.WHITE);
       tile.setStroke(Color.BLACK);
       StackPane stackPane = new StackPane();
@@ -113,13 +113,13 @@ public class Board {
       gameBoardTileCount--;
     }
 
-
+    // Bottom right corner
     Rectangle square2 = new Rectangle(RECT_HEIGHT, RECT_HEIGHT);
     square2.setFill(Color.WHITE);
     square2.setStroke(Color.BLACK);
-
     gameBoard.add(new StackPane(square2), BOARD_SIZE - 1, BOARD_SIZE-1);
 
+    // Bottom
     for (int k = BOARD_SIZE-2; k >= 0; k--) {
       if (gameBoardTileCount <= 0) {
         break;
@@ -136,17 +136,18 @@ public class Board {
       gameBoardTileCount--;
     }
 
+    // Bottom left corner
     Rectangle square3 = new Rectangle(RECT_HEIGHT, RECT_HEIGHT);
     square3.setFill(Color.WHITE);
     square3.setStroke(Color.BLACK);
-
     gameBoard.add(new StackPane(square3), 0, BOARD_SIZE-1);
 
+    // Left
     for (int m = BOARD_SIZE-2; m > 0; m--) {
       if (gameBoardTileCount <= 0) {
         break;
       }
-      Rectangle tile = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
+      Rectangle tile = new Rectangle(RECT_HEIGHT, RECT_WIDTH);
       tile.setFill(Color.WHITE);
       tile.setStroke(Color.BLACK);
       StackPane stackPane = new StackPane();
@@ -155,8 +156,8 @@ public class Board {
       gameBoard.add(stackPane, 0, m);
       gameBoardTileCount--;
     }
-    boardComponent.getChildren().add(gameBoard);
 
+    boardComponent.getChildren().add(gameBoard);
   }
 
   private void startPieces() {
