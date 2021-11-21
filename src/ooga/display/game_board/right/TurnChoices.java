@@ -35,6 +35,7 @@ public class TurnChoices {
     myGameBoardDisplay = gameBoardDisplay;
     myTurnChoices = new VBox();
     buyProperty();
+    endTurn();
   }
 
   /**
@@ -43,6 +44,14 @@ public class TurnChoices {
   private void buyProperty() {
     myTurnChoices = new VBox();
     myTurnChoices.getChildren().add(myBuilder.makeButton("BuyProperty", e->myEventMap.get(EVENT_NAMES.BUY_PROPERTY).execute(myGameData.getBoard().getTileAtIndex(myGameData.getCurrentPlayer().getLocation()))));
+  }
+
+  /**
+   * Make end turn button
+   */
+  private void endTurn() {
+    //FIXME: Will can u check this
+    myTurnChoices.getChildren().add(myBuilder.makeButton("EndTurn", e->myEventMap.get(EVENT_NAMES.END_TURN).execute()));
     myGameBoardDisplay.updateLeftInfo();
   }
 
