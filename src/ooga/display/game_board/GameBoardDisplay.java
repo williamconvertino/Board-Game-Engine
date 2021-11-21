@@ -73,16 +73,6 @@ public class GameBoardDisplay extends Display {
     theGameBoard.setTop(theTop.getTopComponent());
 
     makeScene();
-
-
-
-    //List<TileModel> myTiles = gameData.getBoard().getTiles();
-    //myTiles.get(0).getName();
-
-    //List<Player> myPlayers = gameData.getPlayers();
-
-    //gameData.getCurrentPlayer().getLocation();
-    //gameData.getCurrentPlayer().getBalance();
   }
 
   private void makeScene() {
