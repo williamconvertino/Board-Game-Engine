@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -163,7 +164,7 @@ public class Board {
     StackPane stackPane = (StackPane) board.getChildren().get(0);
     for(int i = 0; i < gameData.getPlayers().size(); i++) {
       if(i == 0) {
-        allCirclePieces.add(new Circle(20, Color.BLACK));
+        allCirclePieces.add(new Circle(0, Color.BLACK));
         stackPane.getChildren().add(allCirclePieces.get(i));
       }
       else if(i == 1) {
