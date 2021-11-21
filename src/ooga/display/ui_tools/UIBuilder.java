@@ -189,6 +189,7 @@ public class UIBuilder {
     public TextArea makeTextArea(String id) {
         TextArea text = new TextArea(id);
         text.setId(id);
+        return text;
     }
 
 }

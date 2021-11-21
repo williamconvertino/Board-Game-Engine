@@ -40,6 +40,7 @@ public class EnterPlayersScreen extends Display {
 
     private Node makeTextAreas() {
         TextArea area = new TextArea("Enter Player Name");
+        return area;
     }
 
 

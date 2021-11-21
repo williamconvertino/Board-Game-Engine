@@ -68,7 +68,6 @@ public class GameData {
      * @throws NoRemainingPlayersException if no players remain in the game.
      */
     public void setNextPlayer() {
-        System.out.println("oi");
         try {
             this.currentPlayer = myPlayers.getNextPlayer();
         } catch (NoRemainingPlayersException e) {
