@@ -55,16 +55,14 @@ public class DisplayManager {
     languageResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
     allDisplays.add(new StartMenu(myStage, this, languageResource));
     allDisplays.add(new OptionsMenu(myStage, this, languageResource));
-
-    allDisplays.add(
-            myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource, gameData)
-    );
     currDisplay = allDisplays.get(0);
     myStage.setScene(currDisplay.getScene());
     //displayElement();
   }
 
   public void goPlayerScreen() {
+    myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource, myGameData);
+    allDisplays.add(myEnterPlayerScreen);
     currDisplay = allDisplays.get(2);
     myStage.setScene(currDisplay.getScene());
     myInitializer.initialize();
