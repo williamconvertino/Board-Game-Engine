@@ -39,8 +39,8 @@ public class EventManager {
 
         myEvents.put(ROLL, e ->turnManager.roll());
         myEvents.put(END_TURN, e ->turnManager.endTurn());
-        myEvents.put(SELECT_TILE, e->turnManager.setSelectedTile((TileModel) e[0]));
-        myEvents.put(BUY_PROPERTY, e -> turnManager.buyProperty((Property) e[0]));
+        myEvents.put(SELECT_TILE, e->turnManager.setSelectedTile((TileModel)e[0]));
+        myEvents.put(BUY_PROPERTY, e->turnManager.buyProperty((Property) e[0]));
     }
 
     public Map<EVENT_NAMES, TMEvent> getMyEvents() {

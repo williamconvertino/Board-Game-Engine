@@ -45,6 +45,7 @@ public class Right {
     myGameBoardDisplay = gameBoardDisplay;
     myDisplayManager = displayManager;
     rightComponent = new VBox();
+    rightComponent.setPrefWidth(200);
     this.eventMap = eventMap;
     this.gameData = gameData;
     makeRightComponent();
@@ -58,6 +59,7 @@ public class Right {
     rightComponent.getChildren().add(playerLabel);
     rightComponent.getChildren().add(rollDiceButton);
     rightComponent.getChildren().add(new Label(""));
+    rightComponent.getChildren().add(new VBox());
   }
 
   private void rollDice() {
@@ -67,8 +69,19 @@ public class Right {
     rolled_vals.setText(myRoll[0] + " " + myRoll[1]);
     rightComponent.getChildren().set(2, rolled_vals);
     myGameBoardDisplay.updatePlayerLocation();
-    myGameBoardDisplay.updateInfo();
+    myGameBoardDisplay.updateLeftInfo();
     eventMap.get(END_TURN).execute();
+    myGameBoardDisplay.updateRightInfo();
+  }
+
+  /**
+   * Update the right component
+   */
+  public void updateInfo() {
+    Label playerLabel = (Label) rightComponent.getChildren().get(0);
+    playerLabel.setText(gameData.getCurrentPlayer().getName());
+    TurnChoices playerChoices = new TurnChoices(myGameBoardDisplay, myLanguage, myBuilder, eventMap, gameData);
+    rightComponent.getChildren().set(3, playerChoices.getMyTurnChoices());
   }
 
   /**

@@ -1,5 +1,7 @@
 package ooga.display.start;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -29,6 +31,7 @@ public class EnterPlayersScreen extends Display {
     private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
     private static final String DEFAULT_STYLE = STYLE_PACKAGE + "mainmenu.css";
     private static final String ENTER_NAME = "EnterPlayerName";
+    private static final String PLAYER_NAME = "PlayerNameLabel";
     private GameData myGameData;
     private Scene scene;
 
@@ -55,13 +58,19 @@ public class EnterPlayersScreen extends Display {
     private Node makeTextAreas() {
         myTextAreaVBox = new VBox();
         for (int i = 0; i < myGameData.getPlayers().size(); i++) {
-            myTextAreaVBox.getChildren().add(myBuilder.makeTextArea(ENTER_NAME));
+            myTextAreaVBox.getChildren().add(myBuilder.makeLabel(PLAYER_NAME));
+            myTextAreaVBox.getChildren().add(myBuilder.makeTextField(ENTER_NAME));
         }
         return myTextAreaVBox;
     }
 
     public List<Node> getTextAreaInfo() {
-        return myTextAreaVBox.getChildren();
+        List<Node> textAreaList = new ArrayList<>();
+        textAreaList.add(myTextAreaVBox.getChildren().get(1));
+        textAreaList.add(myTextAreaVBox.getChildren().get(3));
+        textAreaList.add(myTextAreaVBox.getChildren().get(5));
+        textAreaList.add(myTextAreaVBox.getChildren().get(7));
+        return textAreaList;
     }
 
     private void makeScene() {

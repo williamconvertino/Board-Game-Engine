@@ -97,12 +97,6 @@ public class GameBoardDisplay extends Display {
     return theGameBoard;
   }
 
-  public void updateInfo() {
-    updateLeftInfo();
-    updateRightInfo();
-  }
-
-
   public void updateLeftInfo() {
     int currPlayer = myGameData.getPlayers().indexOf(myGameData.getCurrentPlayer());
     VBox leftComp = theLeft.getComponent();
@@ -116,9 +110,7 @@ public class GameBoardDisplay extends Display {
   }
 
   public void updateRightInfo() {
-    VBox rightComp = theRight.getComponent();
-    Label playerLabel = (Label) rightComp.getChildren().get(0);
-    playerLabel.setText(myGameData.getCurrentPlayer().getName());
+    theRight.updateInfo();
   }
 
   public void updatePlayerLocation() {
