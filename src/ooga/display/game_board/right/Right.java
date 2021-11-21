@@ -63,7 +63,6 @@ public class Right {
   private void rollDice() {
     eventMap.get(ROLL).execute();
     int[] myRoll = gameData.getDie().diceResult();
-    //System.out.println(myRoll);
     Label rolled_vals = (Label) rightComponent.getChildren().get(2);
     rolled_vals.setText(myRoll[0] + " " + myRoll[1]);
     rightComponent.getChildren().set(2, rolled_vals);
