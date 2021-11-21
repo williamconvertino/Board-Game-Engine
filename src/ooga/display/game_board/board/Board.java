@@ -144,7 +144,6 @@ public class Board {
     int currPlayer = gameData.getPlayers().indexOf(gameData.getCurrentPlayer());
     StackPane stackPane = (StackPane) board.getChildren().get(playerPos);
     stackPane.getChildren().add(allCirclePieces.get(currPlayer));
-
   }
 
 
