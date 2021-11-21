@@ -75,6 +75,32 @@ public class Main extends Application {
         TileModel t12;
         TileModel t13;
         TileModel t14;
+        TileModel t15;
+        TileModel t16;
+        TileModel t17;
+        TileModel t18;
+        TileModel t19;
+        TileModel t20;
+        TileModel t21;
+        TileModel t22;
+        TileModel t23;
+        TileModel t24;
+        TileModel t25;
+        TileModel t26;
+        TileModel t27;
+        TileModel t28;
+        TileModel t29;
+        TileModel t30;
+        TileModel t31;
+        TileModel t32;
+        TileModel t33;
+        TileModel t34;
+        TileModel t35;
+        TileModel t36;
+        TileModel t37;
+        TileModel t38;
+        TileModel t39;
+
 
         Property prop1;
 
@@ -86,7 +112,7 @@ public class Main extends Application {
 
         myPlayers = new OriginalPlayerManager(playerList);
 
-        t0 = new EmptyTileModel("t0");
+        t0 = new EmptyTileModel("Go");
         t1 = new EmptyTileModel("t1");
         t2 = new EmptyTileModel("t2");
         t3 = new EmptyTileModel("t3");
@@ -101,6 +127,32 @@ public class Main extends Application {
         t12 = new EmptyTileModel("t12");
         t13 = new EmptyTileModel("t13");
         t14 = new EmptyTileModel("t14");
+        t15 = new EmptyTileModel("t15");
+        t16 = new EmptyTileModel("t16");
+        t17 = new EmptyTileModel("t17");
+        t18 = new EmptyTileModel("t18");
+        t19 = new EmptyTileModel("t19");
+        t20 = new EmptyTileModel("Free Parking");
+        t21 = new EmptyTileModel("t21");
+        t22 = new EmptyTileModel("t22");
+        t23 = new EmptyTileModel("t23");
+        t24 = new EmptyTileModel("t24");
+        t25 = new EmptyTileModel("t25");
+        t26 = new EmptyTileModel("t26");
+        t27 = new EmptyTileModel("t27");
+        t28 = new EmptyTileModel("t28");
+        t29 = new EmptyTileModel("t29");
+        t30 = new EmptyTileModel("Go to Jail");
+        t31 = new EmptyTileModel("t31");
+        t32 = new EmptyTileModel("t32");
+        t33 = new EmptyTileModel("t33");
+        t34 = new EmptyTileModel("t34");
+        t35 = new EmptyTileModel("t35");
+        t36 = new EmptyTileModel("t36");
+        t37 = new EmptyTileModel("t37");
+        t38 = new EmptyTileModel("t38");
+        t39 = new EmptyTileModel("t39");
+
 
         ArrayList<TileModel> tileList = new ArrayList<TileModel>();
 
@@ -119,6 +171,32 @@ public class Main extends Application {
         tileList.add(t12);
         tileList.add(t13);
         tileList.add(t14);
+        tileList.add(t15);
+        tileList.add(t16);
+        tileList.add(t17);
+        tileList.add(t18);
+        tileList.add(t19);
+        tileList.add(t20);
+        tileList.add(t21);
+        tileList.add(t22);
+        tileList.add(t23);
+        tileList.add(t24);
+        tileList.add(t25);
+        tileList.add(t26);
+        tileList.add(t27);
+        tileList.add(t28);
+        tileList.add(t29);
+        tileList.add(t30);
+        tileList.add(t31);
+        tileList.add(t32);
+        tileList.add(t33);
+        tileList.add(t34);
+        tileList.add(t35);
+        tileList.add(t36);
+        tileList.add(t37);
+        tileList.add(t38);
+        tileList.add(t39);
+
 
         myBoard = new OriginalBoardManager(tileList);
         myDie = new OriginalDice();
