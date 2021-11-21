@@ -40,7 +40,7 @@ public class StartMenu extends Display {
      */
     private Node navigationPanel() {
         VBox result = new VBox();
-        result.getChildren().add(myBuilder.makeButton("Start", e -> myDisplayManager.startGame()));
+        result.getChildren().add(myBuilder.makeButton("Start", e -> myDisplayManager.goPlayerScreen()));
         result.getChildren().add(myBuilder.makeButton("Options", e -> myDisplayManager.goOptions()));
         return result;
     }

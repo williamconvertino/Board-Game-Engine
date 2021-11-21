@@ -192,4 +192,7 @@ public class Player {
         return myBalance;
     }
 
+    public void setName(String text) {
+        myName = text;
+    }
 }

@@ -6,12 +6,15 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.EventManager;
 import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
 import ooga.display.game_board.GameBoardDisplay;
+import ooga.display.start.EnterPlayersScreen;
 import ooga.display.start.OptionsMenu;
 import ooga.display.start.StartMenu;
 import ooga.model.data.gamedata.GameData;
@@ -37,6 +40,7 @@ public class DisplayManager {
   private GameInitializer myInitializer;
   private GameData myGameData;
   private Map<EVENT_NAMES, TMEvent> myEventMap;
+  private EnterPlayersScreen myEnterPlayerScreen;
 
 
 
@@ -56,15 +60,30 @@ public class DisplayManager {
     //displayElement();
   }
 
-  public void startGame() {
-    allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData));
+  public void goPlayerScreen() {
+    myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource, myGameData);
+    allDisplays.add(myEnterPlayerScreen);
     currDisplay = allDisplays.get(2);
     myStage.setScene(currDisplay.getScene());
     myInitializer.initialize();
   }
 
-  private void displayElement() {
+  public void startGame() {
+    setPlayerNames();
+    allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData));
+    currDisplay = allDisplays.get(3);
+    myStage.setScene(currDisplay.getScene());
+    myInitializer.initialize();
+  }
 
+  private void setPlayerNames() {
+    List<Player> playerList = myGameData.getPlayers();
+    int index = 0;
+    for (Node node : myEnterPlayerScreen.getTextAreaInfo()) {
+      TextArea textArea = (TextArea) node;
+      playerList.get(index).setName(textArea.getText());
+      index++;
+    }
   }
 
   public void goOptions() {

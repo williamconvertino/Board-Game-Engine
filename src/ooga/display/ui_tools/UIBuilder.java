@@ -186,10 +186,8 @@ public class UIBuilder {
         return tab;
     }
 
-    public TextArea makeTextArea(String id) {
-        TextArea text = new TextArea(id);
-        text.setId(id);
-        return text;
+    public Node makeTextArea(String id) {
+        return new TextArea(langResource.getString(id));
     }
 
 }
