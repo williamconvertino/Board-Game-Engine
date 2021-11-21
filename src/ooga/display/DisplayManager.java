@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.EventManager;
@@ -80,7 +81,7 @@ public class DisplayManager {
     List<Player> playerList = myGameData.getPlayers();
     int index = 0;
     for (Node node : myEnterPlayerScreen.getTextAreaInfo()) {
-      TextArea textArea = (TextArea) node;
+      TextField textArea = (TextField) node;
       playerList.get(index).setName(textArea.getText());
       index++;
     }

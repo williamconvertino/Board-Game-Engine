@@ -83,15 +83,15 @@ public class Left {
         Tab tab1 = myUIBuilder.makeTab(myGameData.getPlayers().get(playerIndex).getName());
         VBox result = new VBox();
         result.getChildren().addAll(
-                myUIBuilder.makeLabel(LOCATION),
-                myUIBuilder.makeLabel(PLAYER + (playerIndex + 1)),
-                new Label(String.valueOf(myGameData.getPlayers().get(playerIndex).getLocation())),
-                myUIBuilder.makeLabel(BALANCE),
-                new Label(String.valueOf(myGameData.getPlayers().get(playerIndex).getBalance())),
-                myUIBuilder.makeLabel(PROPERTIES),
-                makePlayerTabProperties(playerIndex),
-                myUIBuilder.makeLabel(CARDS),
-                makePlayerTabCards(playerIndex)
+            myUIBuilder.makeLabel(PLAYER + (playerIndex + 1)),
+            myUIBuilder.makeLabel(LOCATION),
+            new Label(String.valueOf(myGameData.getPlayers().get(playerIndex).getLocation())),
+            myUIBuilder.makeLabel(BALANCE),
+            new Label(String.valueOf(myGameData.getPlayers().get(playerIndex).getBalance())),
+            myUIBuilder.makeLabel(PROPERTIES),
+            makePlayerTabProperties(playerIndex),
+            myUIBuilder.makeLabel(CARDS),
+            makePlayerTabCards(playerIndex)
         );
         tab1.setContent(result);
         tab1.setClosable(false);
