@@ -63,8 +63,13 @@ public class TradeManager {
     /**
      * Method to refuse a trade that resets the current trade to null.
      */
-    public void refuseTrade() {
-        trade = null;
+    public void refuseTrade() throws TradeException {
+        if (trade == null) {
+            throw new TradeException();
+        }
+        else {
+            trade = null;
+        }
     }
 
     /**

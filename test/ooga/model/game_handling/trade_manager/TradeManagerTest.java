@@ -98,6 +98,35 @@ public class TradeManagerTest {
         assertTrue(player2.getProperties().contains(p3));
         assertFalse(player1.getProperties().contains(p3));
         assertFalse(player2.getProperties().contains(p2));
+        //proposed trade reset correctly
+        assertEquals(tradeManager.getTrade(), null);
     }
-    
+
+    @Test
+    void testRefuseTradeWithProposedTrade() {
+        int offeringAmount = 500;
+        int receivingAmount = 0;
+        List<Property> offeringProperties = new LinkedList<Property>();
+        List<Property> receivingProperties = new LinkedList<Property>();
+        offeringProperties.add(p3);
+        receivingProperties.add(p2);
+        tradeManager.proposeTrade(player1, player2, offeringAmount, receivingAmount, offeringProperties, receivingProperties);
+        try {
+            tradeManager.refuseTrade();
+        }
+        catch (Exception e) {
+        }
+        assertEquals(tradeManager.getTrade(), null);
+    }
+
+    @Test
+    void testRefuseTradeWithNoProposedTrade() {
+        try {
+            tradeManager.refuseTrade();
+        }
+        catch (Exception e) {
+            assertTrue(true);
+        }
+        assertEquals(tradeManager.getTrade(), null);
+    }
 }
