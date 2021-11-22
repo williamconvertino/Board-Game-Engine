@@ -186,4 +186,21 @@ public class UIBuilder {
         return tab;
     }
 
+    /**
+     * @param id reference to find tab and what to name it
+     * @return textArea
+     */
+    public Node makeTextArea(String id) {
+        return new TextArea(langResource.getString(id));
+    }
+
+    /**
+     * @param id reference to find tab and what to name it
+     * @return textField
+     */
+    public Node makeTextField(String id) {
+        return new TextField(langResource.getString(id));
+    }
+
+
 }

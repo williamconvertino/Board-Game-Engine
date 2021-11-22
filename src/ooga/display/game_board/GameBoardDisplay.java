@@ -84,16 +84,6 @@ public class GameBoardDisplay extends Display {
     theGameBoard.setTop(theTop.getTopComponent());
 
     makeScene();
-
-
-
-    //List<TileModel> myTiles = gameData.getBoard().getTiles();
-    //myTiles.get(0).getName();
-
-    //List<Player> myPlayers = gameData.getPlayers();
-
-    //gameData.getCurrentPlayer().getLocation();
-    //gameData.getCurrentPlayer().getBalance();
   }
 
   private void makeScene() {
@@ -107,28 +97,20 @@ public class GameBoardDisplay extends Display {
     return theGameBoard;
   }
 
-  public void updateInfo() {
-    updateLeftInfo();
-    updateRightInfo();
-  }
-
-
   public void updateLeftInfo() {
     int currPlayer = myGameData.getPlayers().indexOf(myGameData.getCurrentPlayer());
     VBox leftComp = theLeft.getComponent();
     TabPane tabPane = (TabPane) leftComp.getChildren().get(0);
     Tab currTab = tabPane.getTabs().get(currPlayer);
     VBox tempTabVBox = (VBox) currTab.getContent();
-    tempTabVBox.getChildren().set(1, new Label(String.valueOf(myGameData.getPlayers().get(currPlayer).getLocation())));
-    tempTabVBox.getChildren().set(3, new Label(String.valueOf(myGameData.getPlayers().get(currPlayer).getBalance())));
-    tempTabVBox.getChildren().set(5, theLeft.makePlayerTabProperties(currPlayer));
-    tempTabVBox.getChildren().set(7, theLeft.makePlayerTabCards(currPlayer));
+    tempTabVBox.getChildren().set(2, new Label(String.valueOf(myGameData.getPlayers().get(currPlayer).getLocation())));
+    tempTabVBox.getChildren().set(4, new Label(String.valueOf(myGameData.getPlayers().get(currPlayer).getBalance())));
+    tempTabVBox.getChildren().set(6, theLeft.makePlayerTabProperties(currPlayer));
+    tempTabVBox.getChildren().set(8, theLeft.makePlayerTabCards(currPlayer));
   }
 
   public void updateRightInfo() {
-    VBox rightComp = theRight.getComponent();
-    Label playerLabel = (Label) rightComp.getChildren().get(0);
-    playerLabel.setText(myGameData.getCurrentPlayer().getName());
+    theRight.updateInfo();
   }
 
   public void updatePlayerLocation() {

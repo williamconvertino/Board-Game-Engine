@@ -48,8 +48,6 @@ public class TurnManagerTest extends GameHandlingTest {
       assertEquals(location2, currentPlayer.getLocation());
     }
 
-
-
   }
 
   @Test
@@ -76,6 +74,44 @@ public class TurnManagerTest extends GameHandlingTest {
     myTurnManager.setSelectedTile(myTile);
     myTurnManager.buyProperty(myProp);
     assertFalse(p.getProperties().contains(myProp));
+  }
+
+  @Test
+  void buyHouseTest() {
+
+    Player p = myGameData.getCurrentPlayer();
+    TileModel tile = myBoard.getTileAtIndex(5);
+    Property myProp = ((PropertyTileModel)tile).getProperty();
+
+    myTurnManager.setSelectedTile(tile);
+    assertFalse(p.getProperties().contains(myProp));
+    assertEquals(0,myProp.getNumHouses());
+    assertEquals(1500, p.getBalance());
+    myTurnManager.buyHouse(myProp);
+    assertFalse(p.getProperties().contains(myProp));
+    assertEquals(0,myProp.getNumHouses());
+    assertEquals(1500, p.getBalance());
+
+    myTurnManager.buyProperty(myProp);
+    myTurnManager.buyHouse(myProp);
+
+    assertTrue(p.getProperties().contains(myProp));
+    assertEquals(1,myProp.getNumHouses());
+    assertEquals(1390, p.getBalance());
+  }
+
+  @Test
+  void sellHouseTest() {
+    Player p = myGameData.getCurrentPlayer();
+    TileModel tile = myBoard.getTileAtIndex(5);
+    Property myProp = ((PropertyTileModel)tile).getProperty();
+    myTurnManager.setSelectedTile(tile);
+    myTurnManager.buyProperty(myProp);
+    myTurnManager.buyHouse(myProp);
+    assertEquals(1, myProp.getNumHouses());
+    myTurnManager.sellHouse(myProp);
+    assertEquals(0, myProp.getNumHouses());
+
   }
 
 }

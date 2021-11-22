@@ -1,19 +1,17 @@
 package ooga.display.game_board.board;
 
 import java.awt.Canvas;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javafx.scene.Parent;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import ooga.display.DisplayManager;
 import ooga.display.game_board.GameBoardDisplay;
 import ooga.display.ui_tools.UIBuilder;
@@ -26,6 +24,11 @@ import ooga.model.data.gamedata.GameData;
  * @author Henry Huynh
  */
 public class Board {
+  private static final double RECT_WIDTH = 50;
+  private static final double RECT_HEIGHT = 70;
+  private static final double PREF_WIDTH_BOARD = 600;
+  private static final double PREF_HEIGHT_BOARD = 600;
+  private static final int RADIUS = 10;
   private GameBoardDisplay myGameBoardDisplay;
   private DisplayManager myDisplayManager;
   private Canvas centerComponent;
@@ -35,7 +38,7 @@ public class Board {
   private final int BOARD_LENGTH = BOARD_SIZE*2 + (BOARD_SIZE - 2)*2;
 
   //FIXME: change to list
-  private ArrayList<Circle> allCirclePieces = new ArrayList<>();
+  private ArrayList<Circle> allCirclePieces = new ArrayList<Circle>();
   private ArrayList<Integer> allPlayerLocation = new ArrayList<>();
 
   private VBox boardComponent;
@@ -59,80 +62,125 @@ public class Board {
   public void createBoard() {
 
     GridPane gameBoard = new GridPane();
-    gameBoard.setPrefSize(500, 500);
+    gameBoard.setPrefSize(PREF_WIDTH_BOARD, PREF_HEIGHT_BOARD);
 
     int gameBoardTileCount = gameData.getBoard().getTiles().size();
 
-    for (int i = 0; i < BOARD_SIZE; i++) {
+    // Top left corner
+    Rectangle square0 = new Rectangle(RECT_HEIGHT, RECT_HEIGHT);
+    square0.setFill(Color.WHITE);
+    square0.setStroke(Color.BLACK);
+    gameBoard.add(new StackPane(square0), 0, 0);
+
+    // Top
+    for (int i = 1; i < BOARD_SIZE - 1; i++) {
       if (gameBoardTileCount <= 0) {
         break;
       }
-      Rectangle tile = new Rectangle(50, 50);
+      Rectangle tile = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
       tile.setFill(Color.WHITE);
       tile.setStroke(Color.BLACK);
 
-      gameBoard.add(new StackPane(tile), i, 0);
+
+      StackPane stackPane = new StackPane();
+      Label name = new Label(gameData.getBoard().getTileAtIndex(i).getName());
+      stackPane.getChildren().addAll(tile, name);
+      gameBoard.add(stackPane, i, 0);
       gameBoardTileCount--;
     }
+
+    // Top Right corner
+    Rectangle square1 = new Rectangle(RECT_HEIGHT, RECT_HEIGHT);
+    square1.setFill(Color.WHITE);
+    square1.setStroke(Color.BLACK);
+    gameBoard.add(new StackPane(square1), BOARD_SIZE - 1, 0);
+
+    // Right
     for (int j = 1; j < BOARD_SIZE-1; j++) {
       if (gameBoardTileCount <= 0) {
         break;
       }
-      Rectangle tile = new Rectangle(50, 50);
+      Rectangle tile = new Rectangle(RECT_HEIGHT, RECT_WIDTH);
       tile.setFill(Color.WHITE);
       tile.setStroke(Color.BLACK);
-      gameBoard.add(new StackPane(tile), BOARD_SIZE-1, j);
+      StackPane stackPane = new StackPane();
+      Label name = new Label();
+      stackPane.getChildren().addAll(tile, name);
+      gameBoard.add(stackPane, BOARD_SIZE-1, j);
       gameBoardTileCount--;
     }
-    for (int k = BOARD_SIZE-1; k >= 0; k--) {
+
+    // Bottom right corner
+    Rectangle square2 = new Rectangle(RECT_HEIGHT, RECT_HEIGHT);
+    square2.setFill(Color.WHITE);
+    square2.setStroke(Color.BLACK);
+    gameBoard.add(new StackPane(square2), BOARD_SIZE - 1, BOARD_SIZE-1);
+
+    // Bottom
+    for (int k = BOARD_SIZE-2; k >= 0; k--) {
       if (gameBoardTileCount <= 0) {
         break;
       }
-      Rectangle tile = new Rectangle(50, 50);
+      Rectangle tile = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
       tile.setFill(Color.WHITE);
       tile.setStroke(Color.BLACK);
 
-      gameBoard.add(new StackPane(tile), k, BOARD_SIZE-1);
+      StackPane stackPane = new StackPane();
+      Label name = new Label();
+      stackPane.getChildren().addAll(tile, name);
+
+      gameBoard.add(stackPane, k, BOARD_SIZE-1);
       gameBoardTileCount--;
     }
+
+    // Bottom left corner
+    Rectangle square3 = new Rectangle(RECT_HEIGHT, RECT_HEIGHT);
+    square3.setFill(Color.WHITE);
+    square3.setStroke(Color.BLACK);
+    gameBoard.add(new StackPane(square3), 0, BOARD_SIZE-1);
+
+    // Left
     for (int m = BOARD_SIZE-2; m > 0; m--) {
       if (gameBoardTileCount <= 0) {
         break;
       }
-      Rectangle tile = new Rectangle(50, 50);
+      Rectangle tile = new Rectangle(RECT_HEIGHT, RECT_WIDTH);
       tile.setFill(Color.WHITE);
       tile.setStroke(Color.BLACK);
-
-      gameBoard.add(new StackPane(tile), 0, m);
+      StackPane stackPane = new StackPane();
+      Label name = new Label();
+      stackPane.getChildren().addAll(tile, name);
+      gameBoard.add(stackPane, 0, m);
       gameBoardTileCount--;
     }
+
     boardComponent.getChildren().add(gameBoard);
-
-  }
-
-  public void drawMove(Circle circle) {
-    circle.setFill(Color.BLACK);
   }
 
   private void startPieces() {
     GridPane board = (GridPane) boardComponent.getChildren().get(0);
     StackPane stackPane = (StackPane) board.getChildren().get(0);
     for(int i = 0; i < gameData.getPlayers().size(); i++) {
+
       if(i == 0) {
-        allCirclePieces.add(new Circle(20, Color.BLACK));
+        allCirclePieces.add(new Circle(RADIUS, Color.BLACK));
         stackPane.getChildren().add(allCirclePieces.get(i));
+        StackPane.setAlignment(allCirclePieces.get(i), Pos.TOP_LEFT);
       }
       else if(i == 1) {
-        allCirclePieces.add(new Circle(20, Color.RED));
+        allCirclePieces.add(new Circle(RADIUS, Color.RED));
         stackPane.getChildren().add(allCirclePieces.get(i));
+        StackPane.setAlignment(allCirclePieces.get(i), Pos.TOP_RIGHT);
       }
       else if(i == 2) {
-        allCirclePieces.add(new Circle(20, Color.GREEN));
+        allCirclePieces.add(new Circle(RADIUS, Color.GREEN));
         stackPane.getChildren().add(allCirclePieces.get(i));
+        StackPane.setAlignment(allCirclePieces.get(i), Pos.BOTTOM_RIGHT);
       }
       else if(i == 3) {
-        allCirclePieces.add(new Circle(20, Color.BLUE));
+        allCirclePieces.add(new Circle(RADIUS, Color.BLUE));
         stackPane.getChildren().add(allCirclePieces.get(i));
+        StackPane.setAlignment(allCirclePieces.get(i), Pos.BOTTOM_LEFT);
       }
 
     }
@@ -140,12 +188,10 @@ public class Board {
 
   public void updateLocation() {
     GridPane board = (GridPane) boardComponent.getChildren().get(0);
-
     int playerPos = gameData.getCurrentPlayer().getLocation();
     int currPlayer = gameData.getPlayers().indexOf(gameData.getCurrentPlayer());
     StackPane stackPane = (StackPane) board.getChildren().get(playerPos);
     stackPane.getChildren().add(allCirclePieces.get(currPlayer));
-
   }
 
 

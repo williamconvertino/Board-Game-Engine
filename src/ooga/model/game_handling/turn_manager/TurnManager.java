@@ -3,7 +3,12 @@ package ooga.model.game_handling.turn_manager;
 import ooga.display.communication.DisplayComm;
 import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.exceptions.InsufficientBalanceException;
+import ooga.exceptions.MaxHousesReachedException;
 import ooga.exceptions.MaxRollsReachedException;
+import ooga.exceptions.MortgageException;
+import ooga.exceptions.NoHousesToSellException;
+import ooga.exceptions.PropertyNotMonopolyException;
+import ooga.exceptions.PropertyNotOwnedException;
 import ooga.exceptions.PropertyOwnedException;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.properties.Property;
@@ -19,6 +24,9 @@ import ooga.model.game_handling.FunctionExecutor;
  * @since 0.0.1
  */
 public class TurnManager {
+
+    /**The maximum number of rolls allowed before a player goes to jail.**/
+    public static final int GLOBAL_MAX_ROLLS = 3;
 
     //The current game data.
     private GameData gameData;
@@ -76,7 +84,7 @@ public class TurnManager {
         gameData.addRoll();
 
         //If the roll is the third of the turn, send the player to jail.
-        if (gameData.getNumRolls() > 3) {
+        if (gameData.getNumRolls() > GLOBAL_MAX_ROLLS) {
             functionExecutor.goToJail(gameData.getCurrentPlayer());
             endTurn();
             return;
@@ -121,7 +129,11 @@ public class TurnManager {
 
     }
 
-
+    /**
+     * Makes the current player buy the specified property.
+     *
+     * @param property the property to buy.
+     */
     public void buyProperty(Property property) {
         if (property.getOwner() != Property.NULL_OWNER) {
             displayComm.showException(new PropertyOwnedException(property.getOwner().getName()));
@@ -133,6 +145,50 @@ public class TurnManager {
         }
         gameData.getCurrentPlayer().addMoney(-1 * property.getCost());
         gameData.getCurrentPlayer().giveProperty(property);
+    }
+
+    /**
+     * Makes the current player buy a house on the selected property.
+     *
+     * @param property
+     */
+    public void buyHouse(Property property) {
+        if (!gameData.getCurrentPlayer().getProperties().contains(property)) {
+            displayComm.showException(new PropertyNotOwnedException());
+            return;
+        }
+        if (!property.isMonopoly()) {
+            displayComm.showException(new PropertyNotMonopolyException());
+            return;
+        }
+        if (property.getHouseCost() > gameData.getCurrentPlayer().getBalance()) {
+            displayComm.showException(new InsufficientBalanceException());
+            return;
+        }
+        try {
+          property.buyHouse();
+          gameData.getCurrentPlayer().addMoney(-1 * property.getHouseCost());
+        } catch (Exception e) {
+            displayComm.showException(e);
+        }
+    }
+
+    /**
+     * Makes the current player sell a house on the selected property.
+     *
+     * @param property the property on which the houses should be sold.
+     */
+    public void sellHouse(Property property) {
+        if (!gameData.getCurrentPlayer().getProperties().contains(property)) {
+            displayComm.showException(new PropertyNotOwnedException());
+            return;
+        }
+        try {
+            property.sellHouse();
+            gameData.getCurrentPlayer().addMoney(property.getHouseCost() / 2);
+        } catch (Exception e) {
+            displayComm.showException(e);
+        }
     }
 
 

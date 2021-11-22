@@ -46,7 +46,7 @@ public class Trade {
      * @param amount- the amount of money @param player must have to be able to complete the trade
      * @return- a boolean representing whether the player has sufficient funding to complete the trade.
      */
-    public boolean validateBalance(Player player, int amount) {
+    private boolean validateBalance(Player player, int amount) {
         return (player.getBalance() > amount);
     }
 
@@ -56,7 +56,7 @@ public class Trade {
      * @param properties- the properties @param player must have to be able to complete the trade
      * @return- a boolean representing whether the player has sufficient properties to complete the trade.
      */
-    public boolean validateProperties(Player player, List<Property> properties) {
+    private boolean validateProperties(Player player, List<Property> properties) {
         for (Property property: properties) {
             if (!player.getProperties().contains(property)) {
                 return false;
