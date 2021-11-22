@@ -7,5 +7,5 @@ package ooga.exceptions;
  *
  * @since 0.0.1
  */
-public class MortgageException extends Exception {
+public class TradeException extends Exception {
 }
