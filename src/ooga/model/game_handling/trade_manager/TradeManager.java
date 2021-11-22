@@ -35,7 +35,7 @@ public class TradeManager {
      * @param offeringProperties- the properties the offerer is proposing to give to the receiver.
      * @param receivingProperties- the properties the offerer is proposing to get from the receiver.
      */
-    public Trade proposeTrade(Player offering, Player receiving, int offeringAmount, int receivingAmount, List<Property> offeringProperties, List<Property> receivingProperties) {
+    public void proposeTrade(Player offering, Player receiving, int offeringAmount, int receivingAmount, List<Property> offeringProperties, List<Property> receivingProperties) {
         Trade proposedTrade = new Trade(offering, receiving, offeringAmount, receivingAmount, offeringProperties, receivingProperties);
         if (proposedTrade.isValidated()) {
             trade = proposedTrade;
@@ -43,7 +43,6 @@ public class TradeManager {
         else {
             trade = null;
         }
-        return trade;
     }
 
     /**
@@ -71,7 +70,7 @@ public class TradeManager {
     /**
      * Method to transfer money between the offerer and receiver as specified in the trade.
      */
-    public void transferFunds() {
+    private void transferFunds() {
         //send money to receiver
         trade.getOfferer().addMoney(trade.getProposedOfferedBalance() * -1);
         trade.getReceiver().addMoney(trade.getProposedOfferedBalance());
@@ -83,7 +82,7 @@ public class TradeManager {
     /**
      * Method to transfer properties between the offerer and receiver as specified in the trade.
      */
-    public void transferProperties() {
+    private void transferProperties() {
         List<Property> toReceiver = trade.getProposedOfferedProperties();
         for (Property property: toReceiver) {
             trade.getOfferer().removeProperty(property);
