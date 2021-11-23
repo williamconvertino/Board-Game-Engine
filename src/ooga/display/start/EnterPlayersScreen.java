@@ -57,9 +57,9 @@ public class EnterPlayersScreen extends Display {
 
     private Node makeTextAreas() {
         myTextAreaVBox = new VBox();
-        for (int i = 0; i < myGameData.getPlayers().size(); i++) {
+        for (int i = 1; i < myGameData.getPlayers().size() + 1; i++) {
             myTextAreaVBox.getChildren().add(myBuilder.makeLabel(PLAYER_NAME));
-            myTextAreaVBox.getChildren().add(myBuilder.makeTextField(ENTER_NAME));
+            myTextAreaVBox.getChildren().add(myBuilder.makeTextField(String.format("%s%d", ENTER_NAME, i)));
         }
         return myTextAreaVBox;
     }

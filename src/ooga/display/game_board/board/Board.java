@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 import ooga.display.DisplayManager;
 import ooga.display.game_board.GameBoardDisplay;
 import ooga.display.ui_tools.UIBuilder;
@@ -35,6 +36,7 @@ public class Board {
   private ResourceBundle myLanguage;
   private UIBuilder myBuilder;
   private final int BOARD_SIZE = 11;
+  private final int SIDE_LENGTH = 9;
   private final int BOARD_LENGTH = BOARD_SIZE*2 + (BOARD_SIZE - 2)*2;
 
   //FIXME: change to list
@@ -58,103 +60,113 @@ public class Board {
     startPieces();
   }
 
-
-  public void createBoard() {
-
+  private void createBoard() {
     GridPane gameBoard = new GridPane();
     gameBoard.setPrefSize(PREF_WIDTH_BOARD, PREF_HEIGHT_BOARD);
-
     int gameBoardTileCount = gameData.getBoard().getTiles().size();
-
-    // Top left corner
-    Rectangle square0 = new Rectangle(RECT_HEIGHT, RECT_HEIGHT);
-    square0.setFill(Color.WHITE);
-    square0.setStroke(Color.BLACK);
-    gameBoard.add(new StackPane(square0), 0, 0);
-
-    // Top
-    for (int i = 1; i < BOARD_SIZE - 1; i++) {
-      if (gameBoardTileCount <= 0) {
-        break;
-      }
-      Rectangle tile = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
-      tile.setFill(Color.WHITE);
-      tile.setStroke(Color.BLACK);
-
-
-      StackPane stackPane = new StackPane();
-      Label name = new Label(gameData.getBoard().getTileAtIndex(i).getName());
-      stackPane.getChildren().addAll(tile, name);
-      gameBoard.add(stackPane, i, 0);
+    // Top Left Corner
+    if (gameBoardTileCount > 0) {
+      gameBoard.add(makeCornerProperty(gameBoardTileCount), 0, 0);
       gameBoardTileCount--;
     }
 
-    // Top Right corner
-    Rectangle square1 = new Rectangle(RECT_HEIGHT, RECT_HEIGHT);
-    square1.setFill(Color.WHITE);
-    square1.setStroke(Color.BLACK);
-    gameBoard.add(new StackPane(square1), BOARD_SIZE - 1, 0);
-
-    // Right
-    for (int j = 1; j < BOARD_SIZE-1; j++) {
-      if (gameBoardTileCount <= 0) {
+    // Top Row
+    for (int i = 0; i < SIDE_LENGTH; i++) {
+      if (gameBoardTileCount > 0) {
+        gameBoard.add(makeTopBottomProperty(gameBoardTileCount), i + 1, 0);
+        gameBoardTileCount--;
+      }
+      else {
         break;
       }
-      Rectangle tile = new Rectangle(RECT_HEIGHT, RECT_WIDTH);
-      tile.setFill(Color.WHITE);
-      tile.setStroke(Color.BLACK);
-      StackPane stackPane = new StackPane();
-      Label name = new Label();
-      stackPane.getChildren().addAll(tile, name);
-      gameBoard.add(stackPane, BOARD_SIZE-1, j);
+    }
+
+    // Top Right Corner
+    if (gameBoardTileCount > 0) {
+      gameBoard.add(makeCornerProperty(gameBoardTileCount), BOARD_SIZE-1, 0);
       gameBoardTileCount--;
     }
 
-    // Bottom right corner
-    Rectangle square2 = new Rectangle(RECT_HEIGHT, RECT_HEIGHT);
-    square2.setFill(Color.WHITE);
-    square2.setStroke(Color.BLACK);
-    gameBoard.add(new StackPane(square2), BOARD_SIZE - 1, BOARD_SIZE-1);
-
-    // Bottom
-    for (int k = BOARD_SIZE-2; k >= 0; k--) {
-      if (gameBoardTileCount <= 0) {
+    // Right Column
+    for (int i = 0; i < SIDE_LENGTH; i++) {
+      if (gameBoardTileCount > 0) {
+        gameBoard.add(makeLeftRightProperty(gameBoardTileCount), BOARD_SIZE-1, i + 1);
+        gameBoardTileCount--;
+      }
+      else {
         break;
       }
-      Rectangle tile = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
-      tile.setFill(Color.WHITE);
-      tile.setStroke(Color.BLACK);
+    }
 
-      StackPane stackPane = new StackPane();
-      Label name = new Label();
-      stackPane.getChildren().addAll(tile, name);
-
-      gameBoard.add(stackPane, k, BOARD_SIZE-1);
+    // Bottom Right Corner
+    if (gameBoardTileCount > 0) {
+      gameBoard.add(makeCornerProperty(gameBoardTileCount), BOARD_SIZE-1, BOARD_SIZE-1);
       gameBoardTileCount--;
     }
 
-    // Bottom left corner
-    Rectangle square3 = new Rectangle(RECT_HEIGHT, RECT_HEIGHT);
-    square3.setFill(Color.WHITE);
-    square3.setStroke(Color.BLACK);
-    gameBoard.add(new StackPane(square3), 0, BOARD_SIZE-1);
-
-    // Left
-    for (int m = BOARD_SIZE-2; m > 0; m--) {
-      if (gameBoardTileCount <= 0) {
+    // Bottom Row
+    for (int i = 0; i < SIDE_LENGTH; i++) {
+      if (gameBoardTileCount > 0) {
+        gameBoard.add(makeTopBottomProperty(gameBoardTileCount), SIDE_LENGTH-i, BOARD_SIZE-1);
+        gameBoardTileCount--;
+      }
+      else {
         break;
       }
-      Rectangle tile = new Rectangle(RECT_HEIGHT, RECT_WIDTH);
-      tile.setFill(Color.WHITE);
-      tile.setStroke(Color.BLACK);
-      StackPane stackPane = new StackPane();
-      Label name = new Label();
-      stackPane.getChildren().addAll(tile, name);
-      gameBoard.add(stackPane, 0, m);
+    }
+
+    // Bottom Left Corner
+    if (gameBoardTileCount > 0) {
+      gameBoard.add(makeCornerProperty(gameBoardTileCount), 0, BOARD_SIZE-1);
       gameBoardTileCount--;
     }
 
+    // Left Column
+    for (int i = 0; i < SIDE_LENGTH; i++) {
+      if (gameBoardTileCount > 0) {
+        gameBoard.add(makeLeftRightProperty(gameBoardTileCount), 0, SIDE_LENGTH-i);
+        gameBoardTileCount--;
+      }
+      else {
+        break;
+      }
+    }
     boardComponent.getChildren().add(gameBoard);
+  }
+
+  private StackPane makeTopBottomProperty(int gameBoardTileCount) {
+    Rectangle tile = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
+    tile.setFill(Color.WHITE);
+    tile.setStroke(Color.BLACK);
+    StackPane stackPane = new StackPane();
+    Label name = new Label(gameData.getBoard().getTileAtIndex(gameData.getBoard().getTiles().size() - gameBoardTileCount).getName());
+    stackPane.getChildren().addAll(tile, name);
+
+    return stackPane;
+  }
+
+  private StackPane makeLeftRightProperty(int gameBoardTileCount) {
+    Rectangle tile = new Rectangle(RECT_HEIGHT, RECT_WIDTH);
+    tile.setFill(Color.WHITE);
+    tile.setStroke(Color.BLACK);
+    StackPane stackPane = new StackPane();
+    Label name = new Label(gameData.getBoard().getTileAtIndex(gameData.getBoard().getTiles().size() - gameBoardTileCount).getName());
+    stackPane.getChildren().addAll(tile, name);
+
+    return stackPane;
+  }
+
+  private StackPane makeCornerProperty(int gameBoardTileCount) {
+    Rectangle tile = new Rectangle(RECT_HEIGHT, RECT_HEIGHT);
+    tile.setFill(Color.WHITE);
+    tile.setStroke(Color.BLACK);
+    StackPane stackPane = new StackPane();
+    Label name = new Label(gameData.getBoard().getTileAtIndex(gameData.getBoard().getTiles().size() - gameBoardTileCount).getName());
+    name.setWrapText(true);
+    name.setMaxWidth(RECT_HEIGHT);
+    stackPane.getChildren().addAll(tile, name);
+
+    return stackPane;
   }
 
   private void startPieces() {

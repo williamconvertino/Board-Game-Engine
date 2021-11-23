@@ -97,17 +97,6 @@ public class DisplayManager {
     myStage.setScene(currDisplay.getScene());
   }
 
-  public void changePlayerCount() {
-
-  }
-
-  public void changeTheme(String e) {
-
-  }
-
-  public void rotateBoard() {
-  }
-
   public void changeLanguage(String language) {
     languageResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     allDisplays.clear();
@@ -115,5 +104,38 @@ public class DisplayManager {
     allDisplays.add(new OptionsMenu(myStage, this, languageResource));
     currDisplay = allDisplays.get(1);
     myStage.setScene(currDisplay.getScene());
+  }
+
+  /**
+   * Get index of currDisplay from allDisplays
+   * 0 - Start Menu
+   * 1 - Options Menu
+   * 2 - Player Name Menu
+   * 3 - Game Board
+   *
+   * @return the currDisplay index
+   */
+  public int getCurrDisplayIndex() {
+    return allDisplays.indexOf(currDisplay);
+  }
+
+  public void changePlayerCount() {
+    //TODO: Will be added later - DO NOT DELETE
+  }
+
+  public void changeTheme(String e) {
+    //TODO: Will be added later - DO NOT DELETE
+  }
+
+  public void rotateBoard() {
+    //TODO: Will be added later - DO NOT DELETE
+  }
+
+  /**
+   * Get the language resource bundle
+   * @return languageResource
+   */
+  public ResourceBundle getLanguageResource() {
+    return languageResource;
   }
 }
