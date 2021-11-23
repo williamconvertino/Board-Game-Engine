@@ -83,9 +83,9 @@ public class Left {
         Tab tab1 = myUIBuilder.makeTab(myGameData.getPlayers().get(playerIndex).getName());
         VBox result = new VBox();
         result.getChildren().addAll(
-            myUIBuilder.makeLabel(PLAYER + (playerIndex + 1)),
+            new Label(myGameData.getPlayers().get(playerIndex).getName()),
             myUIBuilder.makeLabel(LOCATION),
-            new Label(String.valueOf(myGameData.getPlayers().get(playerIndex).getLocation())),
+            new Label(String.valueOf(myGameData.getBoard().getTileAtIndex(myGameData.getPlayers().get(playerIndex).getLocation()).getName())),
             myUIBuilder.makeLabel(BALANCE),
             new Label(String.valueOf(myGameData.getPlayers().get(playerIndex).getBalance())),
             myUIBuilder.makeLabel(PROPERTIES),

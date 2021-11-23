@@ -103,7 +103,7 @@ public class GameBoardDisplay extends Display {
     TabPane tabPane = (TabPane) leftComp.getChildren().get(0);
     Tab currTab = tabPane.getTabs().get(currPlayer);
     VBox tempTabVBox = (VBox) currTab.getContent();
-    tempTabVBox.getChildren().set(2, new Label(String.valueOf(myGameData.getPlayers().get(currPlayer).getLocation())));
+    tempTabVBox.getChildren().set(2, new Label(String.valueOf(myGameData.getBoard().getTileAtIndex(myGameData.getPlayers().get(currPlayer).getLocation()).getName())));
     tempTabVBox.getChildren().set(4, new Label(String.valueOf(myGameData.getPlayers().get(currPlayer).getBalance())));
     tempTabVBox.getChildren().set(6, theLeft.makePlayerTabProperties(currPlayer));
     tempTabVBox.getChildren().set(8, theLeft.makePlayerTabCards(currPlayer));

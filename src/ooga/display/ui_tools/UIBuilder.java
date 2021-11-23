@@ -199,7 +199,9 @@ public class UIBuilder {
      * @return textField
      */
     public Node makeTextField(String id) {
-        return new TextField(langResource.getString(id));
+        TextField textField = new TextField(langResource.getString(id));
+        textField.setId(id);
+        return textField;
     }
 
 

@@ -45,7 +45,6 @@ public class OptionsMenu extends Display {
         VBox result = new VBox();
         List<String> placeHolder = new ArrayList<>();
         List<String> placeHolder2 = new ArrayList<>();
-        List<String> placeHolder3 = new ArrayList<>();
         result.getChildren().add(myBuilder.makeCombo("NumberofPlayers", placeHolder, e ->
                 myDisplayManager.changePlayerCount()));
         result.getChildren().add(myBuilder.makeCombo("Theme", placeHolder2, e -> myDisplayManager.changeTheme(e)));
