@@ -10,6 +10,7 @@ import ooga.exceptions.NoHousesToSellException;
 import ooga.exceptions.PropertyNotMonopolyException;
 import ooga.exceptions.PropertyNotOwnedException;
 import ooga.exceptions.PropertyOwnedException;
+import ooga.exceptions.TileNotAPropertyException;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.properties.Property;
 import ooga.model.data.tilemodels.PropertyTileModel;
@@ -131,21 +132,26 @@ public class TurnManager {
     }
 
     /**
-     * Makes the current player buy the specified property.
+     * Makes the current player buy the property on the specified property.
      *
-     * @param property the property to buy.
+     * @param tile the tile whose property is purchased.
      */
-    public void buyProperty(Property tile) {
-        if (tile.getOwner() != Property.NULL_OWNER) {
-            displayComm.showException(new PropertyOwnedException(tile.getOwner().getName()));
+    public void buyProperty(TileModel tile) {
+        if (!(tile instanceof PropertyTileModel)) {
+            displayComm.showException(new TileNotAPropertyException());
             return;
         }
-        if (tile.getCost() > gameData.getCurrentPlayer().getBalance()) {
+        Property property = ((PropertyTileModel)tile).getProperty();
+        if (property.getOwner() != Property.NULL_OWNER) {
+            displayComm.showException(new PropertyOwnedException(property.getOwner().getName()));
+            return;
+        }
+        if (property.getCost() > gameData.getCurrentPlayer().getBalance()) {
             displayComm.showException(new InsufficientBalanceException());
             return;
         }
-        gameData.getCurrentPlayer().addMoney(-1 * tile.getCost());
-        gameData.getCurrentPlayer().giveProperty(tile);
+        gameData.getCurrentPlayer().addMoney(-1 * property.getCost());
+        gameData.getCurrentPlayer().giveProperty(property);
     }
 
     /**
