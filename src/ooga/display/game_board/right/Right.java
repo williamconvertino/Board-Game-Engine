@@ -60,8 +60,6 @@ public class Right {
     rightComponent.getChildren().add(new VBox());
   }
 
-
-  //FIXME: Refactor to use state signaler
   private void rollDice() {
     eventMap.get(ROLL).execute();
     int[] myRoll = gameData.getDie().diceResult();
@@ -70,12 +68,7 @@ public class Right {
     rightComponent.getChildren().set(2, rolledVals);
     myGameBoardDisplay.updatePlayerLocation();
     myGameBoardDisplay.updateLeftInfo();
-    eventMap.get(END_TURN).execute();
     myGameBoardDisplay.updateRightInfo();
-  }
-
-  //FIXME: End turn implementation
-  private void endTurn() {
   }
 
   /**
