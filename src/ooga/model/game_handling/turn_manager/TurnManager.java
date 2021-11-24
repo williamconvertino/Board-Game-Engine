@@ -104,6 +104,7 @@ public class TurnManager {
      * @param tile the tile to select.
      */
     public void setSelectedTile(TileModel tile) {
+        System.out.println(tile.getName());
         this.selectedTile = tile;
         displayComm.signalTile(tile);
         if (!(tile instanceof PropertyTileModel)) {
@@ -134,17 +135,17 @@ public class TurnManager {
      *
      * @param property the property to buy.
      */
-    public void buyProperty(Property property) {
-        if (property.getOwner() != Property.NULL_OWNER) {
-            displayComm.showException(new PropertyOwnedException(property.getOwner().getName()));
+    public void buyProperty(Property tile) {
+        if (tile.getOwner() != Property.NULL_OWNER) {
+            displayComm.showException(new PropertyOwnedException(tile.getOwner().getName()));
             return;
         }
-        if (property.getCost() > gameData.getCurrentPlayer().getBalance()) {
+        if (tile.getCost() > gameData.getCurrentPlayer().getBalance()) {
             displayComm.showException(new InsufficientBalanceException());
             return;
         }
-        gameData.getCurrentPlayer().addMoney(-1 * property.getCost());
-        gameData.getCurrentPlayer().giveProperty(property);
+        gameData.getCurrentPlayer().addMoney(-1 * tile.getCost());
+        gameData.getCurrentPlayer().giveProperty(tile);
     }
 
     /**
@@ -190,6 +191,4 @@ public class TurnManager {
             displayComm.showException(e);
         }
     }
-
-
 }

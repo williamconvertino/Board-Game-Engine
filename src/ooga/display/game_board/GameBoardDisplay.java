@@ -74,7 +74,7 @@ public class GameBoardDisplay extends Display {
     theRight = new Right(this, myDisplayManager, myLanguage, eventMap, gameData);
     theLeft = new Left(this, myDisplayManager, myLanguage, eventMap, gameData);
     theBottom = new Bottom(this, myDisplayManager, myLanguage);
-    theBoard = new Board(this, myDisplayManager, myLanguage, gameData);
+    theBoard = new Board(this, myDisplayManager, myLanguage, gameData, eventMap);
 
     theGameBoard = new BorderPane();
     theGameBoard.setCenter(theBoard.getComponent());

@@ -2,9 +2,17 @@ package ooga.display.game_board.board;
 
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+<<<<<<< HEAD
+=======
+
+import javafx.event.EventHandler;
+>>>>>>> 8e87158216b0d558c86e356be6a81754dcf3d5e0
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -12,10 +20,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import ooga.display.DisplayManager;
+import ooga.display.communication.EventManager;
+import ooga.display.communication.TMEvent;
 import ooga.display.game_board.GameBoardDisplay;
+<<<<<<< HEAD
 import ooga.display.popup.PropertyInfoPopUp;
+=======
+import ooga.display.game_board.right.TurnChoices;
+>>>>>>> 8e87158216b0d558c86e356be6a81754dcf3d5e0
 import ooga.display.ui_tools.UIBuilder;
 import ooga.model.data.gamedata.GameData;
+import ooga.model.data.tilemodels.TileModel;
+
+import static ooga.display.communication.EventManager.EVENT_NAMES.*;
 
 /**
  * Makes a game board
@@ -36,15 +53,24 @@ public class Board {
   private final int BOARD_SIZE = 11;
   private final int SIDE_LENGTH = 9;
 
+<<<<<<< HEAD
   private ArrayList<Circle> allCirclePieces = new ArrayList<Circle>();
+=======
+  private List<Circle> allCirclePieces = new ArrayList<Circle>();
+  private List<Integer> allPlayerLocation = new ArrayList<>();
+>>>>>>> 8e87158216b0d558c86e356be6a81754dcf3d5e0
 
   private VBox boardComponent;
   private GameData gameData;
+  private Map<EventManager.EVENT_NAMES, TMEvent> eventMap;
+  private TurnChoices myTurnChoices;
 
   /**
    * Constructor for the game board
    */
-  public Board(GameBoardDisplay gameBoardDisplay, DisplayManager displayManager, ResourceBundle language, GameData gameData) {
+  public Board(GameBoardDisplay gameBoardDisplay, DisplayManager displayManager, ResourceBundle language, GameData gameData,
+               Map<EventManager.EVENT_NAMES, TMEvent> eventMap) {
+    this.eventMap = eventMap;
     myLanguage = language;
     myBuilder = new UIBuilder(myLanguage);
     myGameBoardDisplay = gameBoardDisplay;
@@ -131,9 +157,7 @@ public class Board {
   }
 
   private StackPane makeTopBottomProperty(int gameBoardTileCount) {
-    Rectangle tile = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
-    tile.setFill(Color.WHITE);
-    tile.setStroke(Color.BLACK);
+    Rectangle tile = getRectangle(RECT_WIDTH, RECT_HEIGHT, gameBoardTileCount);
     StackPane stackPane = new StackPane();
     stackPane.setId(String.format("Tile%d", gameBoardTileCount));
     Label name = new Label(gameData.getBoard().getTileAtIndex(gameBoardTileCount).getName());
@@ -143,10 +167,9 @@ public class Board {
     return stackPane;
   }
 
+
   private StackPane makeLeftRightProperty(int gameBoardTileCount) {
-    Rectangle tile = new Rectangle(RECT_HEIGHT, RECT_WIDTH);
-    tile.setFill(Color.WHITE);
-    tile.setStroke(Color.BLACK);
+    Rectangle tile = getRectangle(RECT_HEIGHT, RECT_WIDTH, gameBoardTileCount);
     StackPane stackPane = new StackPane();
     stackPane.setId(String.format("Tile%d", gameBoardTileCount));
     Label name = new Label(gameData.getBoard().getTileAtIndex(gameBoardTileCount).getName());
@@ -157,9 +180,7 @@ public class Board {
   }
 
   private StackPane makeCornerProperty(int gameBoardTileCount) {
-    Rectangle tile = new Rectangle(RECT_HEIGHT, RECT_HEIGHT);
-    tile.setFill(Color.WHITE);
-    tile.setStroke(Color.BLACK);
+    Rectangle tile = getRectangle(RECT_HEIGHT, RECT_HEIGHT, gameBoardTileCount);
     StackPane stackPane = new StackPane();
     stackPane.setId(String.format("Tile%d", gameBoardTileCount));
     Label name = new Label(gameData.getBoard().getTileAtIndex(gameBoardTileCount).getName());
@@ -170,6 +191,19 @@ public class Board {
     stackPane.setOnMouseClicked(e -> popup.showPopup(myDisplayManager.getMyStage()));
     return stackPane;
   }
+
+  private Rectangle getRectangle(double width, double height, int gameBoardTileCount) {
+    Rectangle tile = new Rectangle(width, height);
+    tile.setFill(Color.WHITE);
+    tile.setStroke(Color.BLACK);
+    tile.setOnMouseClicked(e->showDetails(gameData.getBoard().getTileAtIndex(gameData.getBoard().getTiles().size() - gameBoardTileCount)));
+    return tile;
+  }
+
+  private void showDetails(TileModel tile) {
+    eventMap.get(SELECT_TILE).execute(tile);
+  }
+
 
   private void startPieces() {
     GridPane board = (GridPane) boardComponent.getChildren().get(0);
@@ -220,11 +254,15 @@ public class Board {
     return boardComponent;
   }
 
+<<<<<<< HEAD
   /**
    * Get the list of circle pieces
    * @return allCirclePieces
    */
   public ArrayList<Circle> getAllCirclePieces() {
+=======
+  public List<Circle> getAllCirclePieces() {
+>>>>>>> 8e87158216b0d558c86e356be6a81754dcf3d5e0
     return allCirclePieces;
   }
 }
