@@ -213,4 +213,20 @@ public class BoardTest extends DukeApplicationTest {
         int newLocation = myGameData.getPlayers().get(playerIndex).getLocation();
         Assertions.assertNotEquals(prevLocation, newLocation);
     }
+
+    @Test
+
+    void clickEndTurn() {
+        Button start = lookup("Start").query();
+        clickOn(start);
+        Button continueButton = lookup("Continue").query();
+        clickOn(continueButton);
+        Button rollDice = lookup("#RollDice").query();
+        clickOn(rollDice);
+        int prevPlayerIndex = myGameData.getPlayers().indexOf(myGameData.getCurrentPlayer());
+        Button endTurn = lookup("#EndTurn").query();
+        clickOn(endTurn);
+        int currentPlayerIndex = myGameData.getPlayers().indexOf(myGameData.getCurrentPlayer());
+        Assertions.assertNotEquals(prevPlayerIndex, currentPlayerIndex);
+    }
 }

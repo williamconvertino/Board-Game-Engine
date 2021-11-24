@@ -60,8 +60,6 @@ public class Right {
     rightComponent.getChildren().add(new VBox());
   }
 
-
-  //FIXME: Refactor to use state signaler
   private void rollDice() {
     eventMap.get(ROLL).execute();
     int[] myRoll = gameData.getDie().diceResult();
