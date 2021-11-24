@@ -135,9 +135,7 @@ public class Board {
   }
 
   private StackPane makeTopBottomProperty(int gameBoardTileCount) {
-    Rectangle tile = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
-    tile.setFill(Color.WHITE);
-    tile.setStroke(Color.BLACK);
+    Rectangle tile = getRectangle();
     StackPane stackPane = new StackPane();
     Label name = new Label(gameData.getBoard().getTileAtIndex(gameData.getBoard().getTiles().size() - gameBoardTileCount).getName());
     stackPane.getChildren().addAll(tile, name);
@@ -146,9 +144,7 @@ public class Board {
   }
 
   private StackPane makeLeftRightProperty(int gameBoardTileCount) {
-    Rectangle tile = new Rectangle(RECT_HEIGHT, RECT_WIDTH);
-    tile.setFill(Color.WHITE);
-    tile.setStroke(Color.BLACK);
+    Rectangle tile = getRectangle();
     StackPane stackPane = new StackPane();
     Label name = new Label(gameData.getBoard().getTileAtIndex(gameData.getBoard().getTiles().size() - gameBoardTileCount).getName());
     stackPane.getChildren().addAll(tile, name);
@@ -157,9 +153,7 @@ public class Board {
   }
 
   private StackPane makeCornerProperty(int gameBoardTileCount) {
-    Rectangle tile = new Rectangle(RECT_HEIGHT, RECT_HEIGHT);
-    tile.setFill(Color.WHITE);
-    tile.setStroke(Color.BLACK);
+    Rectangle tile = getRectangle();
     StackPane stackPane = new StackPane();
     Label name = new Label(gameData.getBoard().getTileAtIndex(gameData.getBoard().getTiles().size() - gameBoardTileCount).getName());
     name.setWrapText(true);
@@ -167,6 +161,13 @@ public class Board {
     stackPane.getChildren().addAll(tile, name);
 
     return stackPane;
+  }
+
+  private Rectangle getRectangle() {
+    Rectangle tile = new Rectangle(RECT_HEIGHT, RECT_WIDTH);
+    tile.setFill(Color.WHITE);
+    tile.setStroke(Color.BLACK);
+    return tile;
   }
 
   private void startPieces() {
