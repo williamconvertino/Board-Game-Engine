@@ -250,4 +250,13 @@ public class Property {
             throw new MortgageException();
         }
     }
+
+    public boolean isMortgaged() {
+        return isMortgaged;
+    }
+
+    @Override
+    public String toString(){
+        return this.getName();
+    }
 }

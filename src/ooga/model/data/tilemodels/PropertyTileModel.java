@@ -13,13 +13,13 @@ import ooga.model.game_handling.commands.ActionSequence;
  *
  * @since 0.0.1
  */
-public abstract class PropertyTileModel extends TileModel {
+public class PropertyTileModel extends TileModel {
 
     //The property that this tile represents.
     private Property myProperty;
 
     //The action sequence to execute when this tile has been landed on.
-    ActionSequence landOnPropertySequence;
+    private ActionSequence landOnPropertySequence;
 
     /**
      * Constructs a new tile with the specified name.
@@ -61,6 +61,10 @@ public abstract class PropertyTileModel extends TileModel {
     @Override
     public void executeLandOn(Player player) {
         landOnPropertySequence.execute(player);
+    }
+
+    public Property getProperty() {
+        return myProperty;
     }
 
 

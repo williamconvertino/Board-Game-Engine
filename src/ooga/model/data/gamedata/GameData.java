@@ -1,5 +1,6 @@
 package ooga.model.data.gamedata;
 
+import java.util.List;
 import ooga.exceptions.NoRemainingPlayersException;
 import ooga.model.data.deck.DeckManager;
 import ooga.model.die.Die;
@@ -48,6 +49,7 @@ public class GameData {
         this.myPlayers = players;
         this.myBoard = board;
         this.myDie = die;
+        setNextPlayer();
         resetTurnData();
     }
 
@@ -131,5 +133,14 @@ public class GameData {
      */
     public DeckManager getDecks() {
         return myDecks;
+    }
+
+    /**
+     * Returns a list of all the players in the game.
+     *
+     * @return a list of all the players in the game.
+     */
+    public List<Player> getPlayers() {
+        return myPlayers.getPlayers();
     }
 }

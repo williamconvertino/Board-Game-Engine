@@ -9,8 +9,12 @@
     -fx-background-color: #A23434;
 }
 
-
-
+#propertyVBox {
+    -fx-background-color: #A23434;
+    -fx-border-color: #000000;
+    -fx-border-width: 3px;
+    -fx-padding: 10px;
+}
 
 .choice-box {
     -fx-border-style: solid;
@@ -41,7 +45,7 @@
     -fx-border-color: lightgrey;
 }
 .label {
-    -fx-font-size: 20;
+    -fx-font-size: 15;
     -fx-text-fill: text_color;
     -fx-alignment: center;
     -fx-min-width: 10px;

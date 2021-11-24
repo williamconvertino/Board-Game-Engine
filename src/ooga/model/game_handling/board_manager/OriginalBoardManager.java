@@ -42,7 +42,7 @@ public class OriginalBoardManager extends BoardManager {
    */
   @Override
   public TileModel getTileAtIndex(int index) {
-    return getTileAtIndex(index);
+    return myTiles.get(index);
   }
 
   /**

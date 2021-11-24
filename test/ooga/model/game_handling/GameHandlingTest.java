@@ -12,11 +12,13 @@ import ooga.model.data.player.Player;
 import ooga.model.data.player.PlayerManager;
 import ooga.model.data.properties.Property;
 import ooga.model.data.tilemodels.EmptyTileModel;
+import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
 import ooga.model.die.Die;
 import ooga.model.die.OriginalDice;
 import ooga.model.game_handling.board_manager.BoardManager;
 import ooga.model.game_handling.board_manager.OriginalBoardManager;
+import ooga.model.game_handling.commands.ActionSequence;
 import ooga.model.game_handling.turn_manager.TurnManager;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -80,7 +82,8 @@ public class GameHandlingTest {
     t2 = new EmptyTileModel("t2");
     t3 = new EmptyTileModel("t3");
     t4 = new EmptyTileModel("t4");
-    t5 = new EmptyTileModel("t5");
+    Property property1 = new Property("Property 1", 100, new int[]{5,20,40},10, new ArrayList<>(), 60, "blue" );
+    t5 = new PropertyTileModel("prop1", property1, new ActionSequence());
     t6 = new EmptyTileModel("t6");
     t7 = new EmptyTileModel("t7");
     t8 = new EmptyTileModel("t8");

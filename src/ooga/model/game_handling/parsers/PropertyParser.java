@@ -1,34 +1,28 @@
 package ooga.model.game_handling.parsers;
 
-import java.io.FileReader;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Properties;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.model.data.properties.Property;
 import java.io.File;
-import java.io.IOException;
-import org.w3c.dom.Attr;
 
 /**
- * Parser class responsible for converting all Monopoly properties, cards into Property and Card objects.
+ * Parser class responsible for converting all Monopoly properties.
  *
  * @author Casey Goldstein
  *
  * @since 0.0.1
  */
 
-public class ConfigParser {
-
-  private static final String DEFAULT_DATA_PACKAGE = "data/";
+public class PropertyParser extends FolderParser {
 
   /**
-   * Creates ConfigParser
+   * Creates PropertyParser
    */
-  public ConfigParser(){
+  public PropertyParser(){
 
   }
 
@@ -41,8 +35,7 @@ public class ConfigParser {
    */
   public ArrayList<Property> parseProperties(String propertyFolderPath) throws AttributeNotFoundException {
     ArrayList<Property> result = new ArrayList<>();
-    File propertyFolder = new File(DEFAULT_DATA_PACKAGE + propertyFolderPath);
-    File filesList[] = propertyFolder.listFiles();
+    File [] filesList = getFileList(propertyFolderPath);
     for (File file : filesList) {
       result.add(parsePropertyFile(file));
     }
@@ -69,38 +62,6 @@ public class ConfigParser {
     String propertyColor = tryProperty(propertyProperties,"Color").toLowerCase(Locale.ROOT);
 
     return new Property (propertyName,propertyCost,propertyRentCosts,propertyHouseCost,propertyNeighbors,propertyMortgageCost,propertyColor);
-  }
-
-  //takes file and converts to Java property object. Shows error message if file doesn't work.
-  private Properties convertToPropertiesObject (File propertiesFile){
-    try {
-      FileReader propertiesReader = new FileReader(propertiesFile);
-      Properties properties = new Properties();
-      properties.load(propertiesReader);
-      return properties;
-    }
-    catch (IOException e){
-      Alert errorAlert = new Alert(AlertType.ERROR);
-      errorAlert.setHeaderText("Incorrect Format");
-      errorAlert.setContentText("Please check the format for file at path: " + propertiesFile);
-      errorAlert.showAndWait();
-      return null;
-    }
-  }
-
-  //tries to access the value for a given key in properties object. If null, throws exception.
-  private String tryProperty(Properties prop, String key) throws AttributeNotFoundException {
-    if (prop.getProperty(key) != null){
-      return prop.getProperty(key);
-    }
-    else{
-      throw new AttributeNotFoundException(key);
-    }
-  }
-
-  //code from: https://stackoverflow.com/questions/18838781/converting-string-array-to-an-integer-array
-  public int[] StringArrayToIntArray(String[] stringArray) {
-    return Arrays.stream(stringArray).mapToInt(Integer::parseInt).toArray();
   }
 
 

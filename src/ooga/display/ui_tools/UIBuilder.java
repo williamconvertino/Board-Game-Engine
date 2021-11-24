@@ -132,17 +132,15 @@ public class UIBuilder {
     /**
      * Creates label using id
      *
-     * @param id reference to find Label and what to call it
+     * @param id name for label
      * @return appropriate label using id
      */
     public Node makeLabel(String id) {
-        Label label = new Label(langResource.getString(id));
-        label.setId(id);
-        return label;
+        return new Label(langResource.getString(id));
     }
 
     /**
-     * @param id reference to find alert
+     *
      * @param header the error category
      * @param message the error message
      * @return error alert
@@ -183,9 +181,28 @@ public class UIBuilder {
      * @return tab
      */
     public Tab makeTab(String id) {
-        Tab tab = new Tab(langResource.getString(id));
+        Tab tab = new Tab(id);
         tab.setId(id);
         return tab;
     }
+
+    /**
+     * @param id reference to find tab and what to name it
+     * @return textArea
+     */
+    public Node makeTextArea(String id) {
+        return new TextArea(langResource.getString(id));
+    }
+
+    /**
+     * @param id reference to find tab and what to name it
+     * @return textField
+     */
+    public Node makeTextField(String id) {
+        TextField textField = new TextField(langResource.getString(id));
+        textField.setId(id);
+        return textField;
+    }
+
 
 }

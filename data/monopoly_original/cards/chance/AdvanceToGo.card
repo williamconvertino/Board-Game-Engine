@@ -1,0 +1,3 @@
+Name=AdvanceToGo
+Description=ADVANCE TO GO - COLLECT $200
+ActionSequence=[moveTo p0 GO]
