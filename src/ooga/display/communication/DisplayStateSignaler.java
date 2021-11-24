@@ -32,6 +32,7 @@ public class DisplayStateSignaler {
   }
 
   public void signalDisplay (State s) {
+    // ex: if s = buy property show buy prop button
 //    myDisplayManager.signalState(s);
   }
 
