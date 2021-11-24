@@ -2,6 +2,7 @@ package ooga.display.game_board.board;
 
 import java.awt.Canvas;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.geometry.Pos;
@@ -39,9 +40,8 @@ public class Board {
   private final int SIDE_LENGTH = 9;
   private final int BOARD_LENGTH = BOARD_SIZE*2 + (BOARD_SIZE - 2)*2;
 
-  //FIXME: change to list
-  private ArrayList<Circle> allCirclePieces = new ArrayList<Circle>();
-  private ArrayList<Integer> allPlayerLocation = new ArrayList<>();
+  private List<Circle> allCirclePieces = new ArrayList<Circle>();
+  private List<Integer> allPlayerLocation = new ArrayList<>();
 
   private VBox boardComponent;
   private GameData gameData;
@@ -211,7 +211,7 @@ public class Board {
     return boardComponent;
   }
 
-  public ArrayList<Circle> getAllCirclePieces() {
+  public List<Circle> getAllCirclePieces() {
     return allCirclePieces;
   }
 
