@@ -97,6 +97,9 @@ public class GameBoardDisplay extends Display {
     return theGameBoard;
   }
 
+  /**
+   * Update left panel with new info
+   */
   public void updateLeftInfo() {
     int currPlayer = myGameData.getPlayers().indexOf(myGameData.getCurrentPlayer());
     VBox leftComp = theLeft.getComponent();
@@ -109,14 +112,19 @@ public class GameBoardDisplay extends Display {
     tempTabVBox.getChildren().set(8, theLeft.makePlayerTabCards(currPlayer));
   }
 
+  /**
+   * Update the right panel
+   */
   public void updateRightInfo() {
     theRight.updateInfo();
   }
 
+  /**
+   * Update player location
+   */
   public void updatePlayerLocation() {
     theBoard.updateLocation();
   }
-
 
   /**
    * Get the scene
@@ -125,6 +133,14 @@ public class GameBoardDisplay extends Display {
   @Override
   public Scene getScene() {
     return scene;
+  }
+
+  /**
+   * Get the stage
+   * @return myStage
+   */
+  public Stage getMyStage() {
+    return myStage;
   }
 
 }

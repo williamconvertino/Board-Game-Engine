@@ -37,7 +37,7 @@ public class Right {
   private Map<EVENT_NAMES, TMEvent> eventMap;
   private GameData gameData;
   /**
-   * The constructor for the top display element
+   * The constructor for the right display element
    */
   public Right(GameBoardDisplay gameBoardDisplay, DisplayManager displayManager, ResourceBundle language, Map<EVENT_NAMES, TMEvent> eventMap, GameData gameData) {
     myLanguage = language;

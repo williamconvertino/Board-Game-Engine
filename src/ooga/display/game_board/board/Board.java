@@ -1,9 +1,8 @@
 package ooga.display.game_board.board;
 
-import java.awt.Canvas;
+
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -12,9 +11,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.TextAlignment;
 import ooga.display.DisplayManager;
 import ooga.display.game_board.GameBoardDisplay;
+import ooga.display.popup.PropertyInfoPopUp;
 import ooga.display.ui_tools.UIBuilder;
 import ooga.model.data.gamedata.GameData;
 
@@ -32,16 +31,12 @@ public class Board {
   private static final int RADIUS = 10;
   private GameBoardDisplay myGameBoardDisplay;
   private DisplayManager myDisplayManager;
-  private Canvas centerComponent;
   private ResourceBundle myLanguage;
   private UIBuilder myBuilder;
   private final int BOARD_SIZE = 11;
   private final int SIDE_LENGTH = 9;
-  private final int BOARD_LENGTH = BOARD_SIZE*2 + (BOARD_SIZE - 2)*2;
 
-  //FIXME: change to list
   private ArrayList<Circle> allCirclePieces = new ArrayList<Circle>();
-  private ArrayList<Integer> allPlayerLocation = new ArrayList<>();
 
   private VBox boardComponent;
   private GameData gameData;
@@ -64,17 +59,18 @@ public class Board {
     GridPane gameBoard = new GridPane();
     gameBoard.setPrefSize(PREF_WIDTH_BOARD, PREF_HEIGHT_BOARD);
     int gameBoardTileCount = gameData.getBoard().getTiles().size();
+    int makeTileIndex = gameData.getBoard().getTiles().size() - gameBoardTileCount;
     // Top Left Corner
     if (gameBoardTileCount > 0) {
-      gameBoard.add(makeCornerProperty(gameBoardTileCount), 0, 0);
-      gameBoardTileCount--;
+      gameBoard.add(makeCornerProperty(makeTileIndex), 0, 0);
+      makeTileIndex++;
     }
 
     // Top Row
     for (int i = 0; i < SIDE_LENGTH; i++) {
       if (gameBoardTileCount > 0) {
-        gameBoard.add(makeTopBottomProperty(gameBoardTileCount), i + 1, 0);
-        gameBoardTileCount--;
+        gameBoard.add(makeTopBottomProperty(makeTileIndex), i + 1, 0);
+        makeTileIndex++;
       }
       else {
         break;
@@ -83,15 +79,15 @@ public class Board {
 
     // Top Right Corner
     if (gameBoardTileCount > 0) {
-      gameBoard.add(makeCornerProperty(gameBoardTileCount), BOARD_SIZE-1, 0);
-      gameBoardTileCount--;
+      gameBoard.add(makeCornerProperty(makeTileIndex), BOARD_SIZE-1, 0);
+      makeTileIndex++;
     }
 
     // Right Column
     for (int i = 0; i < SIDE_LENGTH; i++) {
       if (gameBoardTileCount > 0) {
-        gameBoard.add(makeLeftRightProperty(gameBoardTileCount), BOARD_SIZE-1, i + 1);
-        gameBoardTileCount--;
+        gameBoard.add(makeLeftRightProperty(makeTileIndex), BOARD_SIZE-1, i + 1);
+        makeTileIndex++;
       }
       else {
         break;
@@ -100,15 +96,15 @@ public class Board {
 
     // Bottom Right Corner
     if (gameBoardTileCount > 0) {
-      gameBoard.add(makeCornerProperty(gameBoardTileCount), BOARD_SIZE-1, BOARD_SIZE-1);
-      gameBoardTileCount--;
+      gameBoard.add(makeCornerProperty(makeTileIndex), BOARD_SIZE-1, BOARD_SIZE-1);
+      makeTileIndex++;
     }
 
     // Bottom Row
     for (int i = 0; i < SIDE_LENGTH; i++) {
       if (gameBoardTileCount > 0) {
-        gameBoard.add(makeTopBottomProperty(gameBoardTileCount), SIDE_LENGTH-i, BOARD_SIZE-1);
-        gameBoardTileCount--;
+        gameBoard.add(makeTopBottomProperty(makeTileIndex), SIDE_LENGTH-i, BOARD_SIZE-1);
+        makeTileIndex++;
       }
       else {
         break;
@@ -117,15 +113,15 @@ public class Board {
 
     // Bottom Left Corner
     if (gameBoardTileCount > 0) {
-      gameBoard.add(makeCornerProperty(gameBoardTileCount), 0, BOARD_SIZE-1);
-      gameBoardTileCount--;
+      gameBoard.add(makeCornerProperty(makeTileIndex), 0, BOARD_SIZE-1);
+      makeTileIndex++;
     }
 
     // Left Column
     for (int i = 0; i < SIDE_LENGTH; i++) {
       if (gameBoardTileCount > 0) {
-        gameBoard.add(makeLeftRightProperty(gameBoardTileCount), 0, SIDE_LENGTH-i);
-        gameBoardTileCount--;
+        gameBoard.add(makeLeftRightProperty(makeTileIndex), 0, SIDE_LENGTH-i);
+        makeTileIndex++;
       }
       else {
         break;
@@ -139,9 +135,11 @@ public class Board {
     tile.setFill(Color.WHITE);
     tile.setStroke(Color.BLACK);
     StackPane stackPane = new StackPane();
-    Label name = new Label(gameData.getBoard().getTileAtIndex(gameData.getBoard().getTiles().size() - gameBoardTileCount).getName());
+    stackPane.setId(String.format("Tile%d", gameBoardTileCount));
+    Label name = new Label(gameData.getBoard().getTileAtIndex(gameBoardTileCount).getName());
     stackPane.getChildren().addAll(tile, name);
-
+    PropertyInfoPopUp popup = new PropertyInfoPopUp(gameData.getBoard().getTileAtIndex(gameBoardTileCount), myBuilder, myLanguage);
+    stackPane.setOnMouseClicked(e -> popup.showPopup(myDisplayManager.getMyStage()));
     return stackPane;
   }
 
@@ -150,9 +148,11 @@ public class Board {
     tile.setFill(Color.WHITE);
     tile.setStroke(Color.BLACK);
     StackPane stackPane = new StackPane();
-    Label name = new Label(gameData.getBoard().getTileAtIndex(gameData.getBoard().getTiles().size() - gameBoardTileCount).getName());
+    stackPane.setId(String.format("Tile%d", gameBoardTileCount));
+    Label name = new Label(gameData.getBoard().getTileAtIndex(gameBoardTileCount).getName());
     stackPane.getChildren().addAll(tile, name);
-
+    PropertyInfoPopUp popup = new PropertyInfoPopUp(gameData.getBoard().getTileAtIndex(gameBoardTileCount), myBuilder, myLanguage);
+    stackPane.setOnMouseClicked(e -> popup.showPopup(myDisplayManager.getMyStage()));
     return stackPane;
   }
 
@@ -161,11 +161,13 @@ public class Board {
     tile.setFill(Color.WHITE);
     tile.setStroke(Color.BLACK);
     StackPane stackPane = new StackPane();
-    Label name = new Label(gameData.getBoard().getTileAtIndex(gameData.getBoard().getTiles().size() - gameBoardTileCount).getName());
+    stackPane.setId(String.format("Tile%d", gameBoardTileCount));
+    Label name = new Label(gameData.getBoard().getTileAtIndex(gameBoardTileCount).getName());
     name.setWrapText(true);
     name.setMaxWidth(RECT_HEIGHT);
     stackPane.getChildren().addAll(tile, name);
-
+    PropertyInfoPopUp popup = new PropertyInfoPopUp(gameData.getBoard().getTileAtIndex(gameBoardTileCount), myBuilder, myLanguage);
+    stackPane.setOnMouseClicked(e -> popup.showPopup(myDisplayManager.getMyStage()));
     return stackPane;
   }
 
@@ -198,6 +200,9 @@ public class Board {
     }
   }
 
+  /**
+   * Update the circle piece of the player
+   */
   public void updateLocation() {
     GridPane board = (GridPane) boardComponent.getChildren().get(0);
     int playerPos = gameData.getCurrentPlayer().getLocation();
@@ -207,14 +212,19 @@ public class Board {
   }
 
 
+  /**
+   * Return this component
+   * @return boardComponent
+   */
   public VBox getComponent() {
     return boardComponent;
   }
 
+  /**
+   * Get the list of circle pieces
+   * @return allCirclePieces
+   */
   public ArrayList<Circle> getAllCirclePieces() {
     return allCirclePieces;
   }
-
-
-
 }

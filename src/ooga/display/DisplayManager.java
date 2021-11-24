@@ -61,6 +61,9 @@ public class DisplayManager {
     //displayElement();
   }
 
+  /**
+   * Switches to the player name screen
+   */
   public void goPlayerScreen() {
     myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource, myGameData);
     allDisplays.add(myEnterPlayerScreen);
@@ -69,6 +72,9 @@ public class DisplayManager {
     myInitializer.initialize();
   }
 
+  /**
+   * Switch screens to the gameboard and starts game
+   */
   public void startGame() {
     setPlayerNames();
     allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData));
@@ -87,16 +93,26 @@ public class DisplayManager {
     }
   }
 
+  /**
+   * Switch screens to options menu
+   */
   public void goOptions() {
     currDisplay = allDisplays.get(1);
     myStage.setScene(currDisplay.getScene());
   }
 
+  /**
+   * Switch screens to start menu
+   */
   public void goStartMenu() {
     currDisplay = allDisplays.get(0);
     myStage.setScene(currDisplay.getScene());
   }
 
+  /**
+   * Changes the language of the app
+   * @param language
+   */
   public void changeLanguage(String language) {
     languageResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     allDisplays.clear();
@@ -129,6 +145,14 @@ public class DisplayManager {
 
   public void rotateBoard() {
     //TODO: Will be added later - DO NOT DELETE
+  }
+
+  /**
+   * Get stage
+   * @return myStage
+   */
+  public Stage getMyStage() {
+    return myStage;
   }
 
   /**
