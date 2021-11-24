@@ -31,12 +31,12 @@ public class FunctionExecutorTest extends GameHandlingTest {
 
     int location1 = p1.getLocation();
     try {
-      myFunctionExecutor.movePlayerToTile(p1, "t5");
+      myFunctionExecutor.movePlayerToTile(p1, "t3");
     } catch (Exception e) {
       assertTrue(false);
     }
     int location2 = p1.getLocation();
-    assertEquals(5, p1.getLocation());
+    assertEquals(3, p1.getLocation());
 
     try {
       myFunctionExecutor.movePlayerToTile(p1, "NA");
@@ -59,12 +59,13 @@ public class FunctionExecutorTest extends GameHandlingTest {
   void testAdvanceToTile() {
     int location1 = p1.getLocation();
     try {
-      myFunctionExecutor.advancePlayerToTile(p1, "t5");
+      myFunctionExecutor.advancePlayerToTile(p1, "t3");
     } catch (Exception e) {
+
       assertTrue(false);
     }
     int location2 = p1.getLocation();
-    assertEquals(5, p1.getLocation());
+    assertEquals(3, p1.getLocation());
 
     try {
       myFunctionExecutor.advancePlayerToTile(p1, "NA");

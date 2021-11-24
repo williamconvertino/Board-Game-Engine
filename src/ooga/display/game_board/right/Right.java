@@ -60,16 +60,22 @@ public class Right {
     rightComponent.getChildren().add(new VBox());
   }
 
+
+  //FIXME: Refactor to use state signaler
   private void rollDice() {
     eventMap.get(ROLL).execute();
     int[] myRoll = gameData.getDie().diceResult();
-    Label rolled_vals = (Label) rightComponent.getChildren().get(2);
-    rolled_vals.setText(myRoll[0] + " " + myRoll[1]);
-    rightComponent.getChildren().set(2, rolled_vals);
+    Label rolledVals = (Label) rightComponent.getChildren().get(2);
+    rolledVals.setText(myRoll[0] + " " + myRoll[1]);
+    rightComponent.getChildren().set(2, rolledVals);
     myGameBoardDisplay.updatePlayerLocation();
     myGameBoardDisplay.updateLeftInfo();
     eventMap.get(END_TURN).execute();
     myGameBoardDisplay.updateRightInfo();
+  }
+
+  //FIXME: End turn implementation
+  private void endTurn() {
   }
 
   /**
