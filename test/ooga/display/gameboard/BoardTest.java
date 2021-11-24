@@ -206,7 +206,7 @@ public class BoardTest extends DukeApplicationTest {
         clickOn(start);
         Button continueButton = lookup("Continue").query();
         clickOn(continueButton);
-        Button rollDice = lookup("#Roll").query();
+        Button rollDice = lookup("#RollDice").query();
         int prevLocation = myGameData.getCurrentPlayer().getLocation();
         int playerIndex = myGameData.getPlayers().indexOf(myGameData.getCurrentPlayer());
         clickOn(rollDice);
