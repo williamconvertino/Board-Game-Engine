@@ -5,11 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-<<<<<<< HEAD
-=======
-
-import javafx.event.EventHandler;
->>>>>>> 8e87158216b0d558c86e356be6a81754dcf3d5e0
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -23,11 +18,8 @@ import ooga.display.DisplayManager;
 import ooga.display.communication.EventManager;
 import ooga.display.communication.TMEvent;
 import ooga.display.game_board.GameBoardDisplay;
-<<<<<<< HEAD
 import ooga.display.popup.PropertyInfoPopUp;
-=======
 import ooga.display.game_board.right.TurnChoices;
->>>>>>> 8e87158216b0d558c86e356be6a81754dcf3d5e0
 import ooga.display.ui_tools.UIBuilder;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.tilemodels.TileModel;
@@ -53,12 +45,7 @@ public class Board {
   private final int BOARD_SIZE = 11;
   private final int SIDE_LENGTH = 9;
 
-<<<<<<< HEAD
   private ArrayList<Circle> allCirclePieces = new ArrayList<Circle>();
-=======
-  private List<Circle> allCirclePieces = new ArrayList<Circle>();
-  private List<Integer> allPlayerLocation = new ArrayList<>();
->>>>>>> 8e87158216b0d558c86e356be6a81754dcf3d5e0
 
   private VBox boardComponent;
   private GameData gameData;
@@ -254,15 +241,11 @@ public class Board {
     return boardComponent;
   }
 
-<<<<<<< HEAD
   /**
    * Get the list of circle pieces
    * @return allCirclePieces
    */
   public ArrayList<Circle> getAllCirclePieces() {
-=======
-  public List<Circle> getAllCirclePieces() {
->>>>>>> 8e87158216b0d558c86e356be6a81754dcf3d5e0
     return allCirclePieces;
   }
 }
