@@ -106,8 +106,8 @@ public class GameDataInitializer {
 
       //TODO: Integrate property parser
       List<Property> myProperties = new ArrayList<>();//myProperyParser.parseProperties(variationFilePath + PROPERTIES);
-      BoardParser myBoardParser = new BoardParser(myProperties);
-      List<TileModel> myTiles = new ArrayList<>();//myBoardParser.parseBoard(variationFilePath + TILES);
+      BoardParser myBoardParser = new BoardParser();
+      List<TileModel> myTiles = myBoardParser.parseBoard(variationFilePath + TILES);
 
       //FOR TESTING TODO: Remove and replace with parsing.
       myTiles.add(new EmptyTileModel("t1"));

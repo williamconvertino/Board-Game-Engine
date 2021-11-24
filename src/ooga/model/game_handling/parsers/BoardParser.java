@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import ooga.display.tileviews.TileView;
 import ooga.model.data.properties.Property;
+import ooga.model.data.tilemodels.TileModel;
 
 
 /**
@@ -21,13 +22,12 @@ import ooga.model.data.properties.Property;
  */
 public class BoardParser {
 
-  private List<Property> propertyList;
+  private ArrayList<Property> propertyList;
 
-  public BoardParser(List<Property> propList){
-    propertyList = propList;
+  public BoardParser(){
   }
 
-  public List<TileView> parseBoard(String boardFilePath) throws IOException {
+  public List<TileModel> parseBoard(String boardFilePath) throws IOException {
     ArrayList<String> boardElements = new ArrayList<>();
     File file=new File(boardFilePath);
     FileReader fileReader =new FileReader(file);
