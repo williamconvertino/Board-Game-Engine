@@ -75,7 +75,7 @@ public class PropertyInfoPopUp {
     }
 
     // Index 7 or 1
-    Button closeButton = myUIBuilder.makeButton(myResource.getString("Close"), e -> hidePopup());
+    Button closeButton = myUIBuilder.makeButton("Close", e -> hidePopup());
     popUpVBox.getChildren().add(closeButton);
 
     myPopup.getContent().add(popUpVBox);
