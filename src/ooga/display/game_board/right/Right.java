@@ -70,12 +70,7 @@ public class Right {
     rightComponent.getChildren().set(2, rolledVals);
     myGameBoardDisplay.updatePlayerLocation();
     myGameBoardDisplay.updateLeftInfo();
-    eventMap.get(END_TURN).execute();
     myGameBoardDisplay.updateRightInfo();
-  }
-
-  //FIXME: End turn implementation
-  private void endTurn() {
   }
 
   /**
