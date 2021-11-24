@@ -53,9 +53,7 @@ public class Right {
 
   private void makeRightComponent() {
     Label playerLabel = new Label(gameData.getCurrentPlayer().getName());
-    Button rollDiceButton = new Button("Roll Dice");
-    rollDiceButton.setOnAction(e -> rollDice());
-
+    Button rollDiceButton = myBuilder.makeButton("RollDice", e -> rollDice());
     rightComponent.getChildren().add(playerLabel);
     rightComponent.getChildren().add(rollDiceButton);
     rightComponent.getChildren().add(new Label(""));
