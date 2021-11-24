@@ -1,5 +1,6 @@
 package ooga.display.game_board.right;
 
+import java.sql.SQLOutput;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
@@ -34,25 +35,26 @@ public class TurnChoices {
     myGameData = gameData;
     myGameBoardDisplay = gameBoardDisplay;
     myTurnChoices = new VBox();
+    makeTurnButtons();
+  }
+
+  private void makeTurnButtons() {
+    myTurnChoices = new VBox();
     buyProperty();
     endTurn();
   }
-
   /**
    * Make buy property button
    */
   private void buyProperty() {
-    myTurnChoices = new VBox();
-    myTurnChoices.getChildren().add(myBuilder.makeButton("BuyProperty", e->myEventMap.get(EVENT_NAMES.BUY_PROPERTY).execute(myGameData.getBoard().getTileAtIndex(myGameData.getCurrentPlayer().getLocation()))));
+    myTurnChoices.getChildren().add(myBuilder.makeButton("BuyProperty", e->myGameBoardDisplay.buyProp()));
   }
 
   /**
    * Make end turn button
    */
   private void endTurn() {
-    //FIXME: Will can u check this
-    myTurnChoices.getChildren().add(myBuilder.makeButton("EndTurn", e->myEventMap.get(EVENT_NAMES.END_TURN).execute()));
-    myGameBoardDisplay.updateLeftInfo();
+    myTurnChoices.getChildren().add(myBuilder.makeButton("EndTurn", e->myGameBoardDisplay.endTurn()));
   }
 
   /**

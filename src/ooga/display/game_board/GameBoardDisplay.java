@@ -41,7 +41,8 @@ import ooga.model.data.tilemodels.TileModel;
  */
 public class GameBoardDisplay extends Display {
 
-  private static final String DEFAULT_RESOURCE_PACKAGE = Display.class.getPackageName() + ".resources.";
+  private static final String DEFAULT_RESOURCE_PACKAGE =
+      Display.class.getPackageName() + ".resources.";
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
   private static final String DEFAULT_STYLE = STYLE_PACKAGE + "gameboard.css";
 
@@ -57,11 +58,13 @@ public class GameBoardDisplay extends Display {
   private Scene scene;
   private GameData myGameData;
   private UIBuilder myUIBuilder;
+  private Map<EVENT_NAMES, TMEvent> myEventMap;
 
   private ResourceBundle myLanguage;
+
   /**
-   * This constructor makes theGameBoard borderpane with all
-   * elements top, left, right, bottom, and center
+   * This constructor makes theGameBoard borderpane with all elements top, left, right, bottom, and
+   * center
    */
   public GameBoardDisplay(Stage stage, DisplayManager displayManager, ResourceBundle language,
       Map<EVENT_NAMES, TMEvent> eventMap, GameData gameData) {
@@ -69,6 +72,7 @@ public class GameBoardDisplay extends Display {
     myLanguage = language;
     myStage = stage;
     myGameData = gameData;
+    myEventMap = eventMap;
     myDisplayManager = displayManager;
     theTop = new Top(this, myDisplayManager, myLanguage);
     theRight = new Right(this, myDisplayManager, myLanguage, eventMap, gameData);
@@ -90,6 +94,7 @@ public class GameBoardDisplay extends Display {
     scene = new Scene(theGameBoard, 1280, 800);
     scene.getStylesheets().add(DEFAULT_STYLE);
   }
+
   /**
    * Return theGameBoard borderpane
    */
@@ -106,17 +111,23 @@ public class GameBoardDisplay extends Display {
     TabPane tabPane = (TabPane) leftComp.getChildren().get(0);
     Tab currTab = tabPane.getTabs().get(currPlayer);
     VBox tempTabVBox = (VBox) currTab.getContent();
-    tempTabVBox.getChildren().set(2, new Label(String.valueOf(myGameData.getBoard().getTileAtIndex(myGameData.getPlayers().get(currPlayer).getLocation()).getName())));
-    tempTabVBox.getChildren().set(4, new Label(String.valueOf(myGameData.getPlayers().get(currPlayer).getBalance())));
+    tempTabVBox.getChildren().set(2, new Label(String.valueOf(
+        myGameData.getBoard().getTileAtIndex(myGameData.getPlayers().get(currPlayer).getLocation())
+            .getName())));
+    tempTabVBox.getChildren()
+        .set(4, new Label(String.valueOf(myGameData.getPlayers().get(currPlayer).getBalance())));
     tempTabVBox.getChildren().set(6, theLeft.makePlayerTabProperties(currPlayer));
     tempTabVBox.getChildren().set(8, theLeft.makePlayerTabCards(currPlayer));
   }
 
-  /**
-   * Update the right panel
-   */
-  public void updateRightInfo() {
-    theRight.updateInfo();
+  public void buyProp() {
+    myEventMap.get(EVENT_NAMES.BUY_PROPERTY).execute(myGameData.getBoard().getTileAtIndex(myGameData.getCurrentPlayer().getLocation()));
+    updateLeftInfo();
+  }
+
+  public void endTurn() {
+    myEventMap.get(EVENT_NAMES.END_TURN).execute();
+    theRight.endTurn();
   }
 
   /**

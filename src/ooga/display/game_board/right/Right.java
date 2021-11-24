@@ -68,17 +68,23 @@ public class Right {
     rightComponent.getChildren().set(2, rolledVals);
     myGameBoardDisplay.updatePlayerLocation();
     myGameBoardDisplay.updateLeftInfo();
-    myGameBoardDisplay.updateRightInfo();
+    beginTurn();
   }
 
-  /**
-   * Update the right component
-   */
-  public void updateInfo() {
+  private void beginTurn() {
+    Button roll = (Button) rightComponent.getChildren().get(1);
+    roll.setDisable(true);
+    TurnChoices turnChoices = new TurnChoices(myGameBoardDisplay, myLanguage, myBuilder, eventMap, gameData);
+    rightComponent.getChildren().set(3, turnChoices.getMyTurnChoices());
+  }
+
+  public void endTurn() {
+    Button roll = (Button) rightComponent.getChildren().get(1);
+    roll.setDisable(false);
+    rightComponent.getChildren().set(3, new VBox());
     Label playerLabel = (Label) rightComponent.getChildren().get(0);
     playerLabel.setText(gameData.getCurrentPlayer().getName());
-    TurnChoices playerChoices = new TurnChoices(myGameBoardDisplay, myLanguage, myBuilder, eventMap, gameData);
-    rightComponent.getChildren().set(3, playerChoices.getMyTurnChoices());
+
   }
 
   /**
