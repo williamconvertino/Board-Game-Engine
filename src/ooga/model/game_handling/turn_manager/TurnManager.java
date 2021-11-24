@@ -65,7 +65,6 @@ public class TurnManager {
         this.selectedTile = null;
         gameData.resetTurnData();
         gameData.setNextPlayer();
-        displayComm.signalDisplay(State.START_TURN);
     }
 
     /**
@@ -105,30 +104,7 @@ public class TurnManager {
      * @param tile the tile to select.
      */
     public void setSelectedTile(TileModel tile) {
-        System.out.println(tile.getName());
         this.selectedTile = tile;
-        displayComm.signalTile(tile);
-        if (!(tile instanceof PropertyTileModel)) {
-            return;
-        }
-
-        Property selectedProperty = ((PropertyTileModel)tile).getProperty();
-
-        if (selectedProperty.getOwner() == Property.NULL_OWNER) { //TODO: check that the player is on the tile.
-            displayComm.signalDisplay(State.BUY_PROPERTY);
-            return;
-        }
-
-        if (gameData.getCurrentPlayer().getProperties().contains(selectedProperty)) {
-            if (selectedProperty.isMortgaged()) {
-                displayComm.signalDisplay(State.UNMORTGAGE_PROPERTY);
-            } else if (selectedProperty.isMonopoly()) {
-                displayComm.signalDisplay(State.BUY_HOUSE);
-            } else {
-                displayComm.signalDisplay(State.MORTGAGE_PROPERTY);
-            }
-        }
-
     }
 
     /**
