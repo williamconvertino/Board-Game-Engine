@@ -5,13 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import ooga.display.communication.DisplayStateSignaler.State;
-import ooga.display.communication.EventManager;
 import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
 import ooga.display.game_board.GameBoardDisplay;
@@ -20,7 +16,6 @@ import ooga.display.start.OptionsMenu;
 import ooga.display.start.StartMenu;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
-import ooga.model.game_handling.GameInitializer;
 
 /**
  * This class manages the display elements of the program.
@@ -38,7 +33,6 @@ public class DisplayManager {
           Display.class.getPackageName() + ".resources.";
   private Stage myStage;
   private ArrayList<Display> allDisplays = new ArrayList<>();
-  private GameInitializer myInitializer;
   private GameData myGameData;
   private Map<EVENT_NAMES, TMEvent> myEventMap;
   private EnterPlayersScreen myEnterPlayerScreen;
@@ -52,7 +46,6 @@ public class DisplayManager {
     myStage = stage;
     myGameData = gameData;
     myEventMap = eventMap;
-    myInitializer = new GameInitializer();
     languageResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
     allDisplays.add(new StartMenu(myStage, this, languageResource));
     allDisplays.add(new OptionsMenu(myStage, this, languageResource));
@@ -69,7 +62,6 @@ public class DisplayManager {
     allDisplays.add(myEnterPlayerScreen);
     currDisplay = allDisplays.get(2);
     myStage.setScene(currDisplay.getScene());
-    myInitializer.initialize();
   }
 
   /**
@@ -80,7 +72,6 @@ public class DisplayManager {
     allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData));
     currDisplay = allDisplays.get(3);
     myStage.setScene(currDisplay.getScene());
-    myInitializer.initialize();
   }
 
   private void setPlayerNames() {

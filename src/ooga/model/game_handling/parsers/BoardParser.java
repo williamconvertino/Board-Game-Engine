@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import ooga.display.tileviews.TileView;
 import ooga.model.data.properties.Property;
 
@@ -20,13 +21,13 @@ import ooga.model.data.properties.Property;
  */
 public class BoardParser {
 
-  private ArrayList<Property> propertyList;
+  private List<Property> propertyList;
 
-  public BoardParser(ArrayList<Property> propList){
+  public BoardParser(List<Property> propList){
     propertyList = propList;
   }
 
-  public ArrayList<TileView> parseBoard(String boardFilePath) throws IOException {
+  public List<TileView> parseBoard(String boardFilePath) throws IOException {
     ArrayList<String> boardElements = new ArrayList<>();
     File file=new File(boardFilePath);
     FileReader fileReader =new FileReader(file);
