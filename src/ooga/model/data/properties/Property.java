@@ -111,11 +111,20 @@ public class Property {
 
 
     /**
-     * Returns the player's name.
+     * Returns the properties' name.
      *
-     * @return the player's name.
+     * @return the properties' name.
      */
     public String getName() {
+        return name;
+    }
+
+    /**
+     * Returns the properties' type.
+     *
+     * @return the properties' type.
+     */
+    public String getType() {
         return name;
     }
 
