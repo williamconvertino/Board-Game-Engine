@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.model.data.properties.Property;
@@ -23,7 +24,8 @@ public class ConfigParserTest extends GameHandlingTest{
 
 
   @Test
-  void testParseProperty() throws AttributeNotFoundException {
+  void testParseProperty()
+      throws AttributeNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     PropertyParser myParser = new PropertyParser();
     Property testProperty = myParser.parsePropertyFile(new File("data/monopoly_original/board/properties/mediterranean_avenue.property"));
     assertEquals(testProperty.getName(),"Mediterranean Avenue");

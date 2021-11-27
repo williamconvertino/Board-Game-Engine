@@ -1,5 +1,5 @@
 Name=St. James Place
-Type=REGULAR
+Type=Regular
 Cost=180
 RentCost=14,70,200,550,750,950
 MaxHouses=4

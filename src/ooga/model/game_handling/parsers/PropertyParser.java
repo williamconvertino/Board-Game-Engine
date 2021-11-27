@@ -1,6 +1,8 @@
 package ooga.model.game_handling.parsers;
 
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
@@ -18,6 +20,9 @@ import java.io.File;
  */
 
 public class PropertyParser extends FolderParser {
+
+  public static final String PARSE_METHOD_PREFIX = "parse";
+  public static final String PARSE_METHOD_SUFFIX = "Property";
 
   /**
    * Creates PropertyParser
@@ -52,9 +57,13 @@ public class PropertyParser extends FolderParser {
    * @return
    * @throws AttributeNotFoundException
    */
-  public Property parsePropertyFile(File propertyFile) throws AttributeNotFoundException {
+  public Property parsePropertyFile(File propertyFile)
+      throws AttributeNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
     Properties propertyProperties = convertToPropertiesObject(propertyFile);
+    String propertyType = tryProperty(propertyProperties,"Type");
+    Method parseMethod = this.getClass().getMethod(PARSE_METHOD_PREFIX + propertyType);
+    parseMethod.invoke(this);
 
     String propertyName = tryProperty(propertyProperties,"Name");
     int propertyCost = Integer.parseInt(tryProperty(propertyProperties,"Cost"));
@@ -65,6 +74,10 @@ public class PropertyParser extends FolderParser {
     String propertyColor = tryProperty(propertyProperties,"Color").toLowerCase(Locale.ROOT);
 
     return new Property (propertyName,propertyCost,propertyRentCosts,propertyHouseCost,propertyNeighbors,propertyMortgageCost,propertyColor);
+  }
+
+  private Property parseRegularProperty(Properties props){
+    return null;
   }
 
 

@@ -1,5 +1,5 @@
 Name=Virginia Avenue
-Type=REGULAR
+Type=Regular
 Cost=160
 RentCost=12,60,180,500,700,900
 MaxHouses=4

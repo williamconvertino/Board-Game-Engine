@@ -1,5 +1,5 @@
 Name=States Avenue
-Type=REGULAR
+Type=Regular
 Cost=140
 RentCost=10,50,150,450,625,750
 MaxHouses=4
