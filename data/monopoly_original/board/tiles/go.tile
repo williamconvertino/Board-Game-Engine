@@ -1,4 +1,6 @@
 Name=Go
+Type=Action
 Description=COLLECT $200 AS YOU PASS
 Image=
-ActionSequence=[]
+PassThroughActionSequence=[]
+LandOnActionSequence=[]

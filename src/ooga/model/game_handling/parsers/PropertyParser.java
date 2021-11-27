@@ -3,13 +3,17 @@ package ooga.model.game_handling.parsers;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.model.data.properties.Property;
 import java.io.File;
+import ooga.model.data.tilemodels.PropertyTileModel;
+import ooga.model.game_handling.commands.ActionSequence;
 
 /**
  * Parser class responsible for converting all Monopoly properties.
@@ -21,8 +25,8 @@ import java.io.File;
 
 public class PropertyParser extends FolderParser {
 
-  public static final String PARSE_METHOD_PREFIX = "parse";
-  public static final String PARSE_METHOD_SUFFIX = "Property";
+  public static final String PARSE_PROPERTY_METHOD_PREFIX = "parse";
+  public static final String PARSE_PROPERTY_METHOD_SUFFIX = "Property";
 
   /**
    * Creates PropertyParser
@@ -64,7 +68,7 @@ public class PropertyParser extends FolderParser {
     Properties propertyProperties = convertToPropertiesObject(propertyFile);
     String propertyType = tryProperty(propertyProperties,"Type");
     //Class[] argTypes = new Class[] { Properties.class };
-    Method parseMethod = this.getClass().getMethod(PARSE_METHOD_PREFIX + propertyType + PARSE_METHOD_SUFFIX,Properties.class);
+    Method parseMethod = this.getClass().getMethod(PARSE_PROPERTY_METHOD_PREFIX + propertyType + PARSE_PROPERTY_METHOD_SUFFIX,Properties.class);
     return (Property) parseMethod.invoke(this,propertyProperties);
 
   }
@@ -99,6 +103,7 @@ public class PropertyParser extends FolderParser {
 
     return new Property (propertyName,"Regular",propertyCost,propertyRentCosts,propertyHouseCost,propertyNeighbors,propertyMortgageCost,propertyColor);
   }
+
 
 
 }

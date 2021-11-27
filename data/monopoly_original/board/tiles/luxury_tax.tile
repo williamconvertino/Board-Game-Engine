@@ -1,4 +1,6 @@
 Name=Luxury Tax
+Type=Action
 Description=PAY $100
 Image=
-ActionSequence=[]
+PassThroughActionSequence=[]
+LandOnActionSequence=[]

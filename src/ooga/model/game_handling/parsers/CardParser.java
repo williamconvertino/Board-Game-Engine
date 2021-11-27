@@ -61,7 +61,7 @@ public class CardParser extends FolderParser {
     ActionSequence actions = new ActionSequence();
     String[] actionSequenceText = tryProperty(cardProperties,"ActionSequence").split(",");
     for (String action: actionSequenceText){
-      action = action.substring(1,-1);
+      action = action.substring(1,action.length()-1);
       System.out.println(action);
     }
 

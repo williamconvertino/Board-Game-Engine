@@ -1,4 +1,6 @@
 Name=In Jail/Just Visiting
+Type=Action
 Description=
 Image=
-ActionSequence=[]
+PassThroughActionSequence=[]
+LandOnActionSequence=[]
