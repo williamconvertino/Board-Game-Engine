@@ -23,7 +23,7 @@ public class TileParser extends FolderParser{
   public static final String PARSE_TILE_METHOD_SUFFIX = "Tile";
 
   public TileParser(){
-
+    super();
   }
 
 
@@ -35,10 +35,11 @@ public class TileParser extends FolderParser{
    * @throws AttributeNotFoundException
    */
   public ArrayList<TileModel> parseNonPropertyTiles(String tileFolderPath)
-      throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+      throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidFileFormatException {
 
     //TODO: get rid of need for substring
     tileFolderPath = tileFolderPath.substring(4);
+    System.out.println(tileFolderPath);
     ArrayList<TileModel> result = new ArrayList<>();
     File[] filesList = getFileList(tileFolderPath);
     for (File file : filesList) {
@@ -55,21 +56,23 @@ public class TileParser extends FolderParser{
    * @throws AttributeNotFoundException
    */
   public TileModel parseTileFile(File propertyFile)
-      throws AttributeNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-
+      throws AttributeNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InvalidFileFormatException {
+    System.out.println(propertyFile);
     Properties tileProperties = convertToPropertiesObject(propertyFile);
     String tileType = tryProperty(tileProperties,"Type");
-    Method parseMethod = this.getClass().getMethod(PARSE_TILE_METHOD_PREFIX + tileType + PARSE_TILE_METHOD_SUFFIX,Properties.class);
-    return (TileModel) parseMethod.invoke(this,tileProperties);
+    System.out.println(PARSE_TILE_METHOD_PREFIX + tileType + PARSE_TILE_METHOD_SUFFIX);
+    //Method parseMethod = this.getClass().getMethod(PARSE_TILE_METHOD_PREFIX + tileType + PARSE_TILE_METHOD_SUFFIX,Properties.class);
+    //return (TileModel) parseMethod.invoke(this,tileProperties);
+    TileModel egh = (TileModel) parseActionTile(tileProperties);
+    System.out.println("done");
+    return egh;
   }
 
-
-
-  private TileModel parseActionTile(Properties props)
+  public ActionTileModel parseActionTile(Properties props)
       throws AttributeNotFoundException, InvalidFileFormatException {
 
     String tileName = tryProperty(props,"Name");
-    int tileDescription = Integer.parseInt(tryProperty(props,"Description"));
+    String tileDescription = tryProperty(props,"Description");
     String tileImage = tryProperty(props,"Image");
 
     ActionSequence passThrough = parseActionSequence(tryProperty(props,"PassThroughActionSequence"));
@@ -78,27 +81,16 @@ public class TileParser extends FolderParser{
     return new ActionTileModel(tileName,passThrough,landOn);
   }
 
-  private TileModel parseCardTile(Properties props)
+
+  public CardTileModel parseCardTile(Properties props)
       throws AttributeNotFoundException, InvalidFileFormatException {
 
     String tileName = tryProperty(props,"Name");
-    int tileDescription = Integer.parseInt(tryProperty(props,"Description"));
+    String tileDescription = tryProperty(props,"Description");
     String tileImage = tryProperty(props,"Image");
 
     return new CardTileModel(tileName);
   }
-
-/*
-  Name=Free Parking
-  Type=Action
-      Description=
-      Image=
-          PassThroughActionSequence=[]
-  LandOnActionSequence=[]
-
- */
-
-
 
 
   public List<PropertyTileModel> parsePropertyTiles (List<Property> propertyList){

@@ -25,6 +25,10 @@ public abstract class FolderParser {
 
   protected static ActionSequenceParser actionSequenceParser;
 
+  public FolderParser(){
+    actionSequenceParser = new ActionSequenceParser();
+  }
+
   //returns list of files in a given folder
   protected File[] getFileList(String folderPath){
     File fileFolder = new File(DEFAULT_DATA_PACKAGE + folderPath);

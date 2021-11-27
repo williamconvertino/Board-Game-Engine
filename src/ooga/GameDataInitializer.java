@@ -18,6 +18,7 @@ import ooga.model.data.player.Player;
 import ooga.model.data.player.PlayerManager;
 import ooga.model.data.properties.Property;
 import ooga.model.data.tilemodels.EmptyTileModel;
+import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
 import ooga.model.die.Die;
 import ooga.model.die.OriginalDice;
@@ -28,6 +29,7 @@ import ooga.model.game_handling.parsers.BoardParser;
 import ooga.model.game_handling.parsers.CardParser;
 import ooga.model.game_handling.parsers.PlayerParser;
 import ooga.model.game_handling.parsers.PropertyParser;
+import ooga.model.game_handling.parsers.TileParser;
 
 /**
  * This class parses all configuration files and preps program for game.
@@ -53,43 +55,13 @@ public class GameDataInitializer {
 
 
   public static PropertyParser propertyParser;
+  public static TileParser tileParser;
 
   public static Object playerManager;
   private ArrayList<Player> playerList;
   private OriginalDice dice;
   private GameData gameData;
   private ArrayList<Property> propertyList;
-//
-//  //NOTE: THIS WILL BE GENERALIZED OUTSIDE OF ORIGINAL VERSION ONCE EVERYTHING IS RUNNING
-//  public GameDataInitializer(){
-//
-//    myPropertyParser = new PropertyParser();
-//    playerList = new ArrayList<>();
-//    playerList.add(new Player ("Henry"));
-//    playerList.add(new Player ("Jordan"));
-//    playerList.add(new Player ("Will"));
-//    playerList.add(new Player ("Aaric"));
-//    playerManager = new OriginalPlayerManager(playerList);
-//    dice = new OriginalDice();
-//    propertyList = new ArrayList<>();
-//
-//  }
-//
-//  public void initialize(){
-//    try{
-//      propertyList = myPropertyParser.parseProperties(PROPERTIES_FOLDER_PATH);
-//      for (Property property: propertyList){
-//        System.out.println(property);
-//      }
-//    }
-//    catch (AttributeNotFoundException e) {
-//      Alert errorAlert = new Alert(AlertType.ERROR);
-//      errorAlert.setHeaderText("Missing Information");
-//      errorAlert.setContentText("Please check files for missing information");
-//      errorAlert.showAndWait();
-//    }
-//
-//  }
 
 
   public static GameData generateGameData(String variationFilePath)
@@ -108,16 +80,37 @@ public class GameDataInitializer {
       playerManager = Class.forName(modelConfig.getString(PLAYER_MANAGER)).getConstructor(List.class).newInstance(myPlayers);
 
       propertyParser = new PropertyParser();
+      tileParser = new TileParser();
 
       //TODO: Integrate property parser
       currentFile = PROPERTIES;
       System.out.println(PROPERTIES);
       System.out.println(variationFilePath + currentFile);
-      List<Property> myProperties = propertyParser.parseProperties(variationFilePath + currentFile);
+      List<Property> myPropertyList = propertyParser.parseProperties(variationFilePath + currentFile);
 
-      for (Property prop: myProperties){
+      /*
+      for (Property prop: myPropertyList){
         System.out.println(prop.getName());
       }
+
+       */
+
+      currentFile = TILES;
+      List<PropertyTileModel> propertyTileList = tileParser.parsePropertyTiles(myPropertyList);
+      List<TileModel> nonPropertyTileList = tileParser.parseNonPropertyTiles(variationFilePath + currentFile);
+
+
+
+/*
+      for (TileModel prop: nonPropertyTileList){
+        System.out.println(prop.getName());
+      }
+
+ */
+
+
+
+
 
       BoardParser myBoardParser = new BoardParser();
       //List<TileModel> myTiles = myBoardParser.parseBoard(variationFilePath + TILES);
@@ -135,6 +128,7 @@ public class GameDataInitializer {
 
     } catch (Exception e) {
       e.printStackTrace();
+      e.getCause();
       throw new ImproperlyFormattedFile(variationFilePath + currentFile);
     }
   }
