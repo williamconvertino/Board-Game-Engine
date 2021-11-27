@@ -1,4 +1,5 @@
 Name=Baltic Avenue
+Type=Regular
 Cost=60
 RentCost=4,20,60,180,320,450
 MaxHouses=4
