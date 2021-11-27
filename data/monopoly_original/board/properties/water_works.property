@@ -1,0 +1,6 @@
+Name=Water Works
+Type=UTILITIES
+Cost=150
+RentCost=4,10
+Mortgage=75
+Image=

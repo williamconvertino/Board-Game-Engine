@@ -1,5 +1,5 @@
 Name=Illinois Avenue
-Type=Regular
+Type=REGULAR
 Cost=240
 RentCost=20,100,300,750,925,1100
 MaxHouses=4

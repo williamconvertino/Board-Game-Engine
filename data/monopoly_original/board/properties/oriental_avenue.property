@@ -1,5 +1,5 @@
 Name=Oriental Avenue
-Type=Regular
+Type=REGULAR
 Cost=100
 RentCost=6,30,90,270,400,550
 MaxHouses=4

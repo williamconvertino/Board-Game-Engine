@@ -1,4 +1,5 @@
 Name=Tennessee Avenue
+Type=REGULAR
 Cost=180
 RentCost=14,70,200,550,750,950
 MaxHouses=4

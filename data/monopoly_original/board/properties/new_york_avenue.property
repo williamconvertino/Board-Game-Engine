@@ -1,5 +1,5 @@
 Name=New York Avenue
-Type=Regular
+Type=REGULAR
 Cost=200
 RentCost=16,80,220,600,800,1000
 MaxHouses=4

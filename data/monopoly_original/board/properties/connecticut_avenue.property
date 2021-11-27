@@ -1,5 +1,5 @@
 Name=Connecticut Avenue
-Type=Regular
+Type=REGULAR
 Cost=120
 RentCost=8,40,100,300,450,600
 MaxHouses=4
