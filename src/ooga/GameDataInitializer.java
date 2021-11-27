@@ -51,8 +51,9 @@ public class GameDataInitializer {
   public static final String DIE = "Die";
 
 
-  private PropertyParser myPropertyParser;
-  private OriginalPlayerManager playerManager;
+  public static PropertyParser propertyParser;
+
+  public static Object playerManager;
   private ArrayList<Player> playerList;
   private OriginalDice dice;
   private GameData gameData;
@@ -92,20 +93,31 @@ public class GameDataInitializer {
 
   public static GameData generateGameData(String variationFilePath)
       throws ImproperlyFormattedFile, AttributeNotFoundException, IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
-    ResourceBundle modelConfig = ResourceBundle.getBundle( variationFilePath.substring(5,variationFilePath.length()) + CONFIG);//).replaceAll("/", ".") );
+
+    ResourceBundle modelConfig = ResourceBundle.getBundle(variationFilePath.substring(5,variationFilePath.length()) + CONFIG);//).replaceAll("/", ".") );
+
     String currentFile = null;
+
     try {
       currentFile = PLAYER_NAMES;
       List<Player> myPlayers = PlayerParser.getPlayersFromFile(variationFilePath + PLAYER_NAMES);
+
       currentFile = CONFIG;
       System.out.println(modelConfig.getString(PLAYER_MANAGER));
-      PlayerManager myPlayerManager = (PlayerManager) Class.forName(modelConfig.getString(PLAYER_MANAGER)).getConstructor(List.class).newInstance(myPlayers);
+      playerManager = Class.forName(modelConfig.getString(PLAYER_MANAGER)).getConstructor(List.class).newInstance(myPlayers);
 
-      //TODO: Make static
-      PropertyParser myProperyParser = new PropertyParser();
+      propertyParser = new PropertyParser();
 
       //TODO: Integrate property parser
-      List<Property> myProperties = new ArrayList<>();//myProperyParser.parseProperties(variationFilePath + PROPERTIES);
+      currentFile = PROPERTIES;
+      System.out.println(PROPERTIES);
+      System.out.println(variationFilePath + currentFile);
+      List<Property> myProperties = propertyParser.parseProperties(variationFilePath + currentFile);
+
+      for (Property prop: myProperties){
+        System.out.println(prop.getName());
+      }
+
       BoardParser myBoardParser = new BoardParser();
       //List<TileModel> myTiles = myBoardParser.parseBoard(variationFilePath + TILES);
 
@@ -125,4 +137,6 @@ public class GameDataInitializer {
       throw new ImproperlyFormattedFile(variationFilePath + currentFile);
     }
   }
+
+
 }
