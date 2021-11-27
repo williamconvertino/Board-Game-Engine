@@ -13,7 +13,8 @@ import org.junit.jupiter.api.Test;
 
 public class ConfigParserTest extends GameHandlingTest{
   @Test
-  void testParseProperties() throws AttributeNotFoundException{
+  void testParseProperties()
+      throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
     PropertyParser myParser = new PropertyParser();
     ArrayList<Property> propertyList = myParser.parseProperties("monopoly_original/board/properties");
     for (Property prop: propertyList){

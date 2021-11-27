@@ -38,7 +38,8 @@ public class PropertyParser extends FolderParser {
    * @return ArrayList of all Monopoly Properties
    * @throws AttributeNotFoundException
    */
-  public ArrayList<Property> parseProperties(String propertyFolderPath) throws AttributeNotFoundException {
+  public ArrayList<Property> parseProperties(String propertyFolderPath)
+      throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
 
     //TODO: get rid of need for substring
     propertyFolderPath = propertyFolderPath.substring(4);
@@ -63,21 +64,39 @@ public class PropertyParser extends FolderParser {
     Properties propertyProperties = convertToPropertiesObject(propertyFile);
     String propertyType = tryProperty(propertyProperties,"Type");
     Method parseMethod = this.getClass().getMethod(PARSE_METHOD_PREFIX + propertyType);
-    parseMethod.invoke(this);
+    return (Property) parseMethod.invoke(this);
 
-    String propertyName = tryProperty(propertyProperties,"Name");
-    int propertyCost = Integer.parseInt(tryProperty(propertyProperties,"Cost"));
-    int[] propertyRentCosts = StringArrayToIntArray(tryProperty(propertyProperties,"RentCost").split(","));
-    int propertyHouseCost = Integer.parseInt(tryProperty(propertyProperties,"HouseCost"));
-    ArrayList<String> propertyNeighbors = new ArrayList(Arrays.asList(tryProperty(propertyProperties,"Neighbors").split(",")));
-    int propertyMortgageCost = Integer.parseInt(tryProperty(propertyProperties,"Mortgage"));
-    String propertyColor = tryProperty(propertyProperties,"Color").toLowerCase(Locale.ROOT);
-
-    return new Property (propertyName,propertyCost,propertyRentCosts,propertyHouseCost,propertyNeighbors,propertyMortgageCost,propertyColor);
   }
 
-  private Property parseRegularProperty(Properties props){
-    return null;
+  private Property parseRailroadProperty(Properties props) throws AttributeNotFoundException {
+    return parseSpecialProperty(props,"Railroads");
+  }
+
+  private Property parseUtilitiesProperty(Properties props) throws AttributeNotFoundException {
+    return parseSpecialProperty(props,"Utilities");
+  }
+
+  private Property parseSpecialProperty(Properties props, String type)
+      throws AttributeNotFoundException {
+    String propertyName = tryProperty(props,"Name");
+    int propertyCost = Integer.parseInt(tryProperty(props,"Cost"));
+    int[] propertyRentCosts = StringArrayToIntArray(tryProperty(props,"RentCost").split(","));
+    ArrayList<String> propertyNeighbors = new ArrayList(Arrays.asList(tryProperty(props,"Neighbors").split(",")));
+    int propertyMortgageCost = Integer.parseInt(tryProperty(props,"Mortgage"));
+    String propertyImage = tryProperty(props,"Image");
+    return new Property (propertyName,type,propertyCost,propertyRentCosts,propertyNeighbors,propertyMortgageCost,propertyImage);
+  }
+
+  private Property parseRegularProperty(Properties props) throws AttributeNotFoundException {
+    String propertyName = tryProperty(props,"Name");
+    int propertyCost = Integer.parseInt(tryProperty(props,"Cost"));
+    int[] propertyRentCosts = StringArrayToIntArray(tryProperty(props,"RentCost").split(","));
+    int propertyHouseCost = Integer.parseInt(tryProperty(props,"HouseCost"));
+    ArrayList<String> propertyNeighbors = new ArrayList(Arrays.asList(tryProperty(props,"Neighbors").split(",")));
+    int propertyMortgageCost = Integer.parseInt(tryProperty(props,"Mortgage"));
+    String propertyColor = tryProperty(props,"Color").toLowerCase(Locale.ROOT);
+
+    return new Property (propertyName,"Regular",propertyCost,propertyRentCosts,propertyHouseCost,propertyNeighbors,propertyMortgageCost,propertyColor);
   }
 
 
