@@ -3,7 +3,10 @@ package ooga.model.game_handling.parsers;
 
 import java.util.ArrayList;
 import java.util.Properties;
+import javax.swing.Action;
 import ooga.exceptions.AttributeNotFoundException;
+import ooga.exceptions.InvalidFileFormatException;
+import ooga.model.data.cards.Card;
 import ooga.model.data.properties.Property;
 import java.io.File;
 import ooga.model.game_handling.commands.ActionSequence;
@@ -17,16 +20,13 @@ import ooga.model.game_handling.commands.ActionSequenceParser;
  * @since 0.0.1
  */
 
-@Deprecated
 public class CardParser extends FolderParser {
 
-  private ActionSequenceParser myActionSequenceParser;
 
   /**
    * Creates CardParser
    */
   public CardParser(){
-    //ActionSequenceParser myActionSequenceParser = new ActionSequenceParser();
   }
 
   /**
@@ -36,8 +36,9 @@ public class CardParser extends FolderParser {
    * @return ArrayList of all Monopoly Properties
    * @throws AttributeNotFoundException
    */
-  public ArrayList<Property> parseCards(String cardFolderPath) throws AttributeNotFoundException {
-    ArrayList<Property> result = new ArrayList<>();
+  public ArrayList<Card> parseCards(String cardFolderPath)
+      throws AttributeNotFoundException, InvalidFileFormatException {
+    ArrayList<Card> result = new ArrayList<>();
     File [] filesList = getFileList(cardFolderPath);
     for (File file : filesList) {
       result.add(parseCardFile(file));
@@ -52,21 +53,17 @@ public class CardParser extends FolderParser {
    * @return
    * @throws AttributeNotFoundException
    */
-  public Property parseCardFile(File propertyFile) throws AttributeNotFoundException {
+  public Card parseCardFile(File propertyFile)
+      throws AttributeNotFoundException, InvalidFileFormatException {
 
     Properties cardProperties = convertToPropertiesObject(propertyFile);
 
     String cardName = tryProperty(cardProperties,"Name");
     String cardDescription = tryProperty(cardProperties,"Description");
-    ActionSequence actions = new ActionSequence();
-    String[] actionSequenceText = tryProperty(cardProperties,"ActionSequence").split(",");
-    for (String action: actionSequenceText){
-      action = action.substring(1,action.length()-1);
-      System.out.println(action);
-    }
+    ActionSequence actions = parseActionSequence(tryProperty(cardProperties,"ActionSequence"));
 
+    return new Card(cardName,cardDescription,actions);
 
-    return null;
   }
 
 

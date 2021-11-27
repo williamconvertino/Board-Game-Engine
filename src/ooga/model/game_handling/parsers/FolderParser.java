@@ -8,6 +8,9 @@ import java.util.Properties;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import ooga.exceptions.AttributeNotFoundException;
+import ooga.exceptions.InvalidFileFormatException;
+import ooga.model.game_handling.commands.ActionSequence;
+import ooga.model.game_handling.commands.ActionSequenceParser;
 
 /**
  * Abstract Parser class used by PropertyParser and CardParser to parse multiple files in folder
@@ -19,6 +22,8 @@ import ooga.exceptions.AttributeNotFoundException;
 public abstract class FolderParser {
 
   protected static final String DEFAULT_DATA_PACKAGE = "data/";
+
+  protected static ActionSequenceParser actionSequenceParser;
 
   //returns list of files in a given folder
   protected File[] getFileList(String folderPath){
@@ -52,6 +57,19 @@ public abstract class FolderParser {
       throw new AttributeNotFoundException(key);
     }
   }
+
+  protected ActionSequence parseActionSequence(String sequenceText)
+      throws InvalidFileFormatException {
+    ActionSequence result = new ActionSequence();
+    String [] sequenceArray = sequenceText.split(",");
+    for (String action: sequenceArray){
+      action = action.substring(1,action.length()-1);
+      actionSequenceParser.createSequence(action,result);
+    }
+    return result;
+  }
+
+
 
   //code from: https://stackoverflow.com/questions/18838781/converting-string-array-to-an-integer-array
   public int[] StringArrayToIntArray(String[] stringArray) {

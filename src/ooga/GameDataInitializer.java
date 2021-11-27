@@ -23,6 +23,7 @@ import ooga.model.die.Die;
 import ooga.model.die.OriginalDice;
 import ooga.model.game_handling.board_manager.BoardManager;
 import ooga.model.game_handling.board_manager.OriginalBoardManager;
+import ooga.model.game_handling.commands.ActionSequenceParser;
 import ooga.model.game_handling.parsers.BoardParser;
 import ooga.model.game_handling.parsers.CardParser;
 import ooga.model.game_handling.parsers.PlayerParser;

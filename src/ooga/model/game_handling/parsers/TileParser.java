@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import ooga.exceptions.AttributeNotFoundException;
+import ooga.exceptions.InvalidFileFormatException;
 import ooga.model.data.properties.Property;
+import ooga.model.data.tilemodels.ActionTileModel;
+import ooga.model.data.tilemodels.CardTileModel;
 import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
 import ooga.model.game_handling.commands.ActionSequence;
@@ -18,6 +21,10 @@ public class TileParser extends FolderParser{
 
   public static final String PARSE_TILE_METHOD_PREFIX = "parse";
   public static final String PARSE_TILE_METHOD_SUFFIX = "Tile";
+
+  public TileParser(){
+
+  }
 
 
   /**
@@ -56,15 +63,30 @@ public class TileParser extends FolderParser{
     return (TileModel) parseMethod.invoke(this,tileProperties);
   }
 
-  private TileModel parseActionTile(Properties props) throws AttributeNotFoundException {
+
+
+  private TileModel parseActionTile(Properties props)
+      throws AttributeNotFoundException, InvalidFileFormatException {
+
     String tileName = tryProperty(props,"Name");
     int tileDescription = Integer.parseInt(tryProperty(props,"Description"));
-    int propertyMortgageCost = Integer.parseInt(tryProperty(props,"Mortgage"));
-    String tileImage = tryProperty(props,"Color").toLowerCase(Locale.ROOT);
+    String tileImage = tryProperty(props,"Image");
 
-    return null;
+    ActionSequence passThrough = parseActionSequence(tryProperty(props,"PassThroughActionSequence"));
+    ActionSequence landOn = parseActionSequence(tryProperty(props,"LandOnActionSequence"));
+
+    return new ActionTileModel(tileName,passThrough,landOn);
   }
 
+  private TileModel parseCardTile(Properties props)
+      throws AttributeNotFoundException, InvalidFileFormatException {
+
+    String tileName = tryProperty(props,"Name");
+    int tileDescription = Integer.parseInt(tryProperty(props,"Description"));
+    String tileImage = tryProperty(props,"Image");
+
+    return new CardTileModel(tileName);
+  }
 
 /*
   Name=Free Parking
@@ -75,6 +97,7 @@ public class TileParser extends FolderParser{
   LandOnActionSequence=[]
 
  */
+
 
 
 
