@@ -63,20 +63,21 @@ public class PropertyParser extends FolderParser {
 
     Properties propertyProperties = convertToPropertiesObject(propertyFile);
     String propertyType = tryProperty(propertyProperties,"Type");
-    Method parseMethod = this.getClass().getMethod(PARSE_METHOD_PREFIX + propertyType);
-    return (Property) parseMethod.invoke(this);
+    //Class[] argTypes = new Class[] { Properties.class };
+    Method parseMethod = this.getClass().getMethod(PARSE_METHOD_PREFIX + propertyType + PARSE_METHOD_SUFFIX,Properties.class);
+    return (Property) parseMethod.invoke(this,propertyProperties);
 
   }
 
-  private Property parseRailroadProperty(Properties props) throws AttributeNotFoundException {
+  public Property parseRailroadProperty(Properties props) throws AttributeNotFoundException {
     return parseSpecialProperty(props,"Railroads");
   }
 
-  private Property parseUtilitiesProperty(Properties props) throws AttributeNotFoundException {
+  public Property parseUtilitiesProperty(Properties props) throws AttributeNotFoundException {
     return parseSpecialProperty(props,"Utilities");
   }
 
-  private Property parseSpecialProperty(Properties props, String type)
+  public Property parseSpecialProperty(Properties props, String type)
       throws AttributeNotFoundException {
     String propertyName = tryProperty(props,"Name");
     int propertyCost = Integer.parseInt(tryProperty(props,"Cost"));
@@ -87,7 +88,7 @@ public class PropertyParser extends FolderParser {
     return new Property (propertyName,type,propertyCost,propertyRentCosts,propertyNeighbors,propertyMortgageCost,propertyImage);
   }
 
-  private Property parseRegularProperty(Properties props) throws AttributeNotFoundException {
+  public Property parseRegularProperty(Properties props) throws AttributeNotFoundException {
     String propertyName = tryProperty(props,"Name");
     int propertyCost = Integer.parseInt(tryProperty(props,"Cost"));
     int[] propertyRentCosts = StringArrayToIntArray(tryProperty(props,"RentCost").split(","));

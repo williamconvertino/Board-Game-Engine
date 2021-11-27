@@ -24,10 +24,10 @@ public class TradeManagerTest {
         tradeManager = new TradeManager();
         player1 = new Player("p1");
         player2 = new Player("p2");
-        p1 = new Property("Boardwalk", 1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
-        p2 = new Property("Park Place", 1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
-        p3 = new Property("New York Ave", 1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
-        p4 = new Property("St. Charles Place", 1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
+        p1 = new Property("Boardwalk", "Regular",1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
+        p2 = new Property("Park Place", "Regular",1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
+        p3 = new Property("New York Ave", "Regular",1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
+        p4 = new Property("St. Charles Place", "Regular",1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
         player1.giveProperty(p1);
         player1.giveProperty(p3);
         player2.giveProperty(p2);

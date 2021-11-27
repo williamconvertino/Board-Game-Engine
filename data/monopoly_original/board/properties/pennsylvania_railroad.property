@@ -3,4 +3,5 @@ Type=Railroad
 Cost=200
 RentCost=25,50,100,200
 Mortgage=100
+Neighbors=B&O Railroad, Short Line, Reading Railroad
 Image=
