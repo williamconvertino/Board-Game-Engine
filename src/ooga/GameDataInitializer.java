@@ -107,20 +107,21 @@ public class GameDataInitializer {
       //TODO: Integrate property parser
       List<Property> myProperties = new ArrayList<>();//myProperyParser.parseProperties(variationFilePath + PROPERTIES);
       BoardParser myBoardParser = new BoardParser();
-      List<TileModel> myTiles = myBoardParser.parseBoard(variationFilePath + TILES);
+      //List<TileModel> myTiles = myBoardParser.parseBoard(variationFilePath + TILES);
 
       //FOR TESTING TODO: Remove and replace with parsing.
-      myTiles.add(new EmptyTileModel("t1"));
-      myTiles.add(new EmptyTileModel("t2"));
-      myTiles.add(new EmptyTileModel("t3"));
+      //myTiles.add(new EmptyTileModel("t1"));
+      //myTiles.add(new EmptyTileModel("t2"));
+      //myTiles.add(new EmptyTileModel("t3"));
 
-      BoardManager myBoardManager = (BoardManager) Class.forName(modelConfig.getString(BOARD_MANAGER)).getConstructor(List.class).newInstance(myTiles);
-      Die myDie = (Die) Class.forName(modelConfig.getString(DIE)).getConstructor().newInstance();
+      //BoardManager myBoardManager = (BoardManager) Class.forName(modelConfig.getString(BOARD_MANAGER)).getConstructor(List.class).newInstance(myTiles);
+      //Die myDie = (Die) Class.forName(modelConfig.getString(DIE)).getConstructor().newInstance();
 
-      GameData myGameData = new GameData(myPlayerManager, myBoardManager, myDie);
-      return myGameData;
+      //GameData myGameData = new GameData(myPlayerManager, myBoardManager, myDie);
+      return null;
 
     } catch (Exception e) {
+      e.printStackTrace();
       throw new ImproperlyFormattedFile(variationFilePath + currentFile);
     }
   }
