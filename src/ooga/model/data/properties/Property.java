@@ -22,6 +22,9 @@ public class Property {
     //The name of this property.
     private String name;
 
+    //The type of this property;
+    private String type;
+
     //The cost of this property.
     private int cost;
 
@@ -67,9 +70,10 @@ public class Property {
      * @param setMemberNames the names of the other members in this property's set.
      * @param mortgageValue the value of mortgaging this property.
      */
-    public Property(String name, int cost, int[] rentCost,
+    public Property(String name, String type, int cost, int[] rentCost,
         int houseCost, List<String> setMemberNames, int mortgageValue, String color) {
         this.name = name;
+        this.type = type;
         this.cost = cost;
         this.rentCost = rentCost;
         this.maxHouses = rentCost.length - 1;
@@ -92,9 +96,10 @@ public class Property {
      * @param setMemberNames the names of the other members in this property's set.
      * @param mortgageValue the value of mortgaging this property.
      */
-    public Property(String name, int cost, int[] rentCost,
+    public Property(String name, String type, int cost, int[] rentCost,
         List<String> setMemberNames, int mortgageValue, String image) {
         this.name = name;
+        this.type = type;
         this.cost = cost;
         this.rentCost = rentCost;
         this.setMemberNames = setMemberNames;
