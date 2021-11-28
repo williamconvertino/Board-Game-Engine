@@ -31,10 +31,10 @@ public class GameManager {
         try {
             DisplayComm myDisplayComm = new DisplayComm();
             GameData gameData = GameDataInitializer.generateGameData(VARIATION_NAME);
-            //FunctionExecutor myFunctionExecutor = new FunctionExecutor(gameData, gameData.getDie(), myDisplayComm);
-            //TurnManager myTurnManager = new TurnManager(gameData, myFunctionExecutor, myDisplayComm);
-            //EventManager myEventManager = new EventManager(myTurnManager);
-            //DisplayManager myDisplayManager = new DisplayManager(myStage, myEventManager.getMyEvents(), gameData);
+            FunctionExecutor myFunctionExecutor = new FunctionExecutor(gameData, gameData.getDie(), myDisplayComm);
+            TurnManager myTurnManager = new TurnManager(gameData, myFunctionExecutor, myDisplayComm);
+            EventManager myEventManager = new EventManager(myTurnManager);
+            DisplayManager myDisplayManager = new DisplayManager(myStage, myEventManager.getMyEvents(), gameData);
         } catch (Exception e) {
             e.printStackTrace();
         }
