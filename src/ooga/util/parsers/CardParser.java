@@ -22,12 +22,6 @@ public class CardParser extends FolderParser {
 
 
   /**
-   * Creates CardParser
-   */
-  public CardParser(){
-  }
-
-  /**
    * Alternate CardParser constructor
    * @param sequenceParser
    */
