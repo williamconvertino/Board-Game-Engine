@@ -13,6 +13,7 @@ import ooga.model.data.player.PlayerManager;
  * A class to store the data of the current game. This includes players and all their associated info, as well as the board_manager and its state.
  * 
  * @author William Convertino
+ * @author Casey Goldstein
  * 
  * @since 0.0.1
  */
@@ -40,15 +41,19 @@ public class GameData {
     private Die myDie;
 
     /**
-     * Constructs a new GameData with the specified board, players, and die.
+     * Constructs a new GameData.
+     *
+     */
+    public GameData() {
+    }
+
+    /**
+     * Constructs a new GameData with the specified board, players, and die. Used for testing.
      *
      * @param players the players in the game.
      * @param board the board on which the game is played.
      * @param die the die with which the game is played.
      */
-    public GameData() {
-    }
-
     public GameData(PlayerManager players, BoardManager board, Die die){
         this.myPlayers = players;
         this.myBoard = board;
@@ -57,7 +62,13 @@ public class GameData {
         resetTurnData();
     }
 
-
+    /**
+     * Sets the game data general information.
+     *
+     * @param players
+     * @param board
+     * @param die
+     */
     public void setGameData(PlayerManager players, BoardManager board, Die die){
         this.myPlayers = players;
         this.myBoard = board;
@@ -88,6 +99,11 @@ public class GameData {
         }
     }
 
+    /**
+     * Creates the deck manager with given list of decks.
+     *
+     * @param decks
+     */
     public void setDeckManager(List<Deck> decks){
         myDecks = new DeckManager();
         for (Deck deck: decks){
