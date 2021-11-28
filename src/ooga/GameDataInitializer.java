@@ -52,7 +52,10 @@ public class GameDataInitializer {
   public static final String TILES = "/board/tiles";
   public static final String CHANCE = "/cards/chance";
   public static final String COMMUNITY_CHEST = "/cards/community_chest";
+  public static final String BOARD = "/board/";
+  public static final String BOARD_SUFFIX = ".board";
   public static final String CONFIG = "/config";
+  public static final String DATA_PATH = "data/";
 
   public static final String PLAYER_MANAGER = "PlayerManager";
   public static final String BOARD_MANAGER = "BoardManager";
@@ -80,15 +83,14 @@ public class GameDataInitializer {
     GameData data = new GameData();
     FunctionExecutor executor = new FunctionExecutor();
 
-    ResourceBundle modelConfig = ResourceBundle.getBundle(variationFilePath.substring(5,variationFilePath.length()) + CONFIG);//).replaceAll("/", ".") );
+    ResourceBundle modelConfig = ResourceBundle.getBundle(variationFilePath + CONFIG);//).replaceAll("/", ".") );
 
     String currentFile = null;
 
     try {
       currentFile = PLAYER_NAMES;
-      List<Player> myPlayers = PlayerParser.getPlayersFromFile(variationFilePath + PLAYER_NAMES);
+      List<Player> myPlayers = PlayerParser.getPlayersFromFile(DATA_PATH + variationFilePath + PLAYER_NAMES);
 
-      variationFilePath = variationFilePath.substring(4);
       currentFile = CONFIG;
 
       playerManager = Class.forName(modelConfig.getString(PLAYER_MANAGER)).getConstructor(List.class).newInstance(myPlayers);
@@ -99,7 +101,7 @@ public class GameDataInitializer {
 
       currentFile = CHANCE;
       chanceDeck = new Deck("Chance",cardParser.parseCards(variationFilePath + currentFile));
-
+      //monopoly_original/players/players.info
       currentFile = COMMUNITY_CHEST;
       communityChestDeck = new Deck ("Community Chest",cardParser.parseCards(variationFilePath + currentFile));
 
@@ -133,15 +135,10 @@ public class GameDataInitializer {
       tileModelList.addAll(propertyTileList);
       tileModelList.addAll(nonPropertyTileList);
 
-      for (TileModel prop: tileModelList){
-        System.out.println(prop.getName());
-      }
 
-
-
-
+      currentFile = BOARD;
       BoardParser myBoardParser = new BoardParser();
-      List<TileModel> myTiles = myBoardParser.parseBoard(variationFilePath + TILES,tileModelList);
+      List<TileModel> myTiles = myBoardParser.parseBoard(DATA_PATH + variationFilePath + currentFile + variationFilePath + BOARD_SUFFIX,tileModelList);
 
       //FOR TESTING TODO: Remove and replace with parsing.
       //myTiles.add(new EmptyTileModel("t1"));

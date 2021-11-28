@@ -24,7 +24,7 @@ public class PlayerParser {
    * @throws IOException if the file cannot be found.
    */
   public static List<Player> getPlayersFromFile(String filePath) throws IOException {
-
+    System.out.println(filePath);
     BufferedReader myReader = new BufferedReader(new FileReader(new File(filePath)));
     ArrayList<Player> myPlayers = new ArrayList<>();
     String playerName;

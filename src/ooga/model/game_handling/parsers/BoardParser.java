@@ -35,7 +35,6 @@ public class BoardParser {
     String line;
     while((line = bufferedReader.readLine())!=null)
     {
-      boardElements.add(line);
       System.out.println(line);
     }
 

@@ -20,7 +20,7 @@ import ooga.model.game_handling.turn_manager.TurnManager;
 public class GameManager {
 
     //TODO: Replace this with a file-picker
-    public static final String VARIATION_PATH = "data/monopoly_original";
+    public static final String VARIATION_NAME = "monopoly_original";
 
 
     public GameManager(Stage myStage) {
@@ -30,7 +30,7 @@ public class GameManager {
     private void initialize(Stage myStage) {
         try {
             DisplayComm myDisplayComm = new DisplayComm();
-            GameData gameData = GameDataInitializer.generateGameData(VARIATION_PATH);
+            GameData gameData = GameDataInitializer.generateGameData(VARIATION_NAME);
             //FunctionExecutor myFunctionExecutor = new FunctionExecutor(gameData, gameData.getDie(), myDisplayComm);
             //TurnManager myTurnManager = new TurnManager(gameData, myFunctionExecutor, myDisplayComm);
             //EventManager myEventManager = new EventManager(myTurnManager);
