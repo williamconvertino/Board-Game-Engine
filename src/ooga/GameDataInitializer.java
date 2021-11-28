@@ -71,11 +71,6 @@ public class GameDataInitializer {
   public static Object playerManager;
   public static Deck chanceDeck;
   public static Deck communityChestDeck;
-  private ArrayList<Player> playerList;
-  private OriginalDice dice;
-  private GameData gameData;
-  private ArrayList<Property> propertyList;
-
 
   public static GameData generateGameData(String variationFilePath)
       throws ImproperlyFormattedFile {
@@ -147,6 +142,4 @@ public class GameDataInitializer {
       throw new ImproperlyFormattedFile(variationFilePath + currentFile);
     }
   }
-
-
 }
