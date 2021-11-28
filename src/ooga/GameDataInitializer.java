@@ -80,8 +80,6 @@ public class GameDataInitializer {
   public static GameData generateGameData(String variationFilePath)
       throws ImproperlyFormattedFile, AttributeNotFoundException, IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
 
-
-
     GameData data = new GameData();
     FunctionExecutor executor = new FunctionExecutor();
 
@@ -115,19 +113,9 @@ public class GameDataInitializer {
 
       tileParser = new TileParser(actionSequenceParser,data);
 
-
-
-      //TODO: Integrate property parser
       currentFile = PROPERTIES;
 
       List<Property> myPropertyList = propertyParser.parseProperties(variationFilePath + currentFile);
-
-      /*
-      for (Property prop: myPropertyList){
-        System.out.println(prop.getName());
-      }
-
-       */
 
       currentFile = TILES;
       Map<String,PropertyTileModel> propertyTileList = tileParser.parsePropertyTiles(myPropertyList);
@@ -137,23 +125,15 @@ public class GameDataInitializer {
       tileModelMap.putAll(propertyTileList);
       tileModelMap.putAll(nonPropertyTileList);
 
-
       currentFile = BOARD;
       BoardParser myBoardParser = new BoardParser();
       List<TileModel> myTiles = myBoardParser.parseBoard(DATA_PATH + variationFilePath + currentFile + variationFilePath + BOARD_SUFFIX,tileModelMap);
 
-      System.out.println(myTiles.size());
+      BoardManager myBoardManager = (BoardManager) Class.forName(modelConfig.getString(BOARD_MANAGER)).getConstructor(List.class).newInstance(myTiles);
+      Die myDie = (Die) Class.forName(modelConfig.getString(DIE)).getConstructor().newInstance();
 
-      //FOR TESTING TODO: Remove and replace with parsing.
-      //myTiles.add(new EmptyTileModel("t1"));
-      //myTiles.add(new EmptyTileModel("t2"));
-      //myTiles.add(new EmptyTileModel("t3"));
-
-      //BoardManager myBoardManager = (BoardManager) Class.forName(modelConfig.getString(BOARD_MANAGER)).getConstructor(List.class).newInstance(myTiles);
-      //Die myDie = (Die) Class.forName(modelConfig.getString(DIE)).getConstructor().newInstance();
-
-      //GameData myGameData = new GameData(myPlayerManager, myBoardManager, myDie);
-      return null;
+      data.setGameData((PlayerManager)playerManager, myBoardManager, myDie);
+      return data;
 
     } catch (Exception e) {
       e.printStackTrace();
