@@ -8,6 +8,7 @@ import ooga.exceptions.DeckNotFoundException;
  * A class to keep track of the active decks in the game.
  *
  * @author William Convertino
+ * @author Casey Goldstein
  *
  * @since 0.0.1
  */
@@ -38,6 +39,11 @@ public class DeckManager {
     return deck;
   }
 
+  /**
+   * Adds deck to deck map.
+   *
+   * @param deck
+   */
   public void addDeck(Deck deck){
     activeDecks.putIfAbsent(deck.getName(),deck);
   }
