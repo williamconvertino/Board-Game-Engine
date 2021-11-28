@@ -133,6 +133,7 @@ public class GameDataInitializer {
       Die myDie = (Die) Class.forName(modelConfig.getString(DIE)).getConstructor().newInstance();
 
       data.setGameData((PlayerManager)playerManager, myBoardManager, myDie);
+
       return data;
 
     } catch (Exception e) {
