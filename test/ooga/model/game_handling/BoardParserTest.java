@@ -16,7 +16,7 @@ public class BoardParserTest extends ParserTest{
   @Test
   void testParseBoard() throws AttributeNotFoundException, IOException {
     BoardParser myBoardParser = new BoardParser();
-    myBoardParser.parseBoard("data/monopoly_original/board/propertyOnly.board");
+    myBoardParser.parseBoard("data/monopoly_original/board/propertyOnly.board",null);
 
   }
 

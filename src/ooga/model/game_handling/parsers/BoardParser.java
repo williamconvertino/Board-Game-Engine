@@ -27,7 +27,7 @@ public class BoardParser {
   public BoardParser(){
   }
 
-  public List<TileModel> parseBoard(String boardFilePath) throws IOException {
+  public List<TileModel> parseBoard(String boardFilePath,List<TileModel> tileList) throws IOException {
     ArrayList<String> boardElements = new ArrayList<>();
     File file=new File(boardFilePath);
     FileReader fileReader =new FileReader(file);

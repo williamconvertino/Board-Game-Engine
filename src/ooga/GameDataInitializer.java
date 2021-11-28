@@ -111,13 +111,6 @@ public class GameDataInitializer {
 
       tileParser = new TileParser(actionSequenceParser,data);
 
-      for (Card card: chanceDeck.getCards()){
-        System.out.println(card.getName());
-      }
-
-      for (Card card: communityChestDeck.getCards()){
-        System.out.println(card.getName());
-      }
 
 
       //TODO: Integrate property parser
@@ -136,23 +129,19 @@ public class GameDataInitializer {
       List<PropertyTileModel> propertyTileList = tileParser.parsePropertyTiles(myPropertyList);
       List<TileModel> nonPropertyTileList = tileParser.parseNonPropertyTiles(variationFilePath + currentFile);
 
+      List<TileModel> tileModelList = new ArrayList<>();
+      tileModelList.addAll(propertyTileList);
+      tileModelList.addAll(nonPropertyTileList);
 
-
-
-      for (TileModel prop: nonPropertyTileList){
+      for (TileModel prop: tileModelList){
         System.out.println(prop.getName());
       }
 
 
 
 
-
-
-
-
-
       BoardParser myBoardParser = new BoardParser();
-      //List<TileModel> myTiles = myBoardParser.parseBoard(variationFilePath + TILES);
+      List<TileModel> myTiles = myBoardParser.parseBoard(variationFilePath + TILES,tileModelList);
 
       //FOR TESTING TODO: Remove and replace with parsing.
       //myTiles.add(new EmptyTileModel("t1"));
