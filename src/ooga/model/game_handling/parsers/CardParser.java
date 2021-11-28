@@ -29,6 +29,10 @@ public class CardParser extends FolderParser {
   public CardParser(){
   }
 
+  /**
+   * Alternate CardParser constructor
+   * @param sequenceParser
+   */
   public CardParser(ActionSequenceParser sequenceParser){
     super(sequenceParser);
   }
