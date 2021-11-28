@@ -1,0 +1,9 @@
+Name=Marvin Gardens
+Type=Regular
+Cost=280
+RentCost=24,120,360,850,1025,1200
+MaxHouses=4
+HouseCost=150
+Neighbors=Atlantic Avenue, Ventor Avenue
+Mortgage=140
+Color=yellow

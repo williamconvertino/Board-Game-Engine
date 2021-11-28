@@ -1,13 +1,11 @@
-package ooga.model.game_handling.parsers;
+package ooga.util.parsers;
 
 
 import java.util.ArrayList;
 import java.util.Properties;
-import javax.swing.Action;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.exceptions.InvalidFileFormatException;
 import ooga.model.data.cards.Card;
-import ooga.model.data.properties.Property;
 import java.io.File;
 import ooga.model.game_handling.commands.ActionSequence;
 import ooga.model.game_handling.commands.ActionSequenceParser;

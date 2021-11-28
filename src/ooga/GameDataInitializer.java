@@ -1,40 +1,28 @@
 package ooga;
 
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import ooga.exceptions.AttributeNotFoundException;
 import ooga.exceptions.ImproperlyFormattedFile;
-import ooga.model.data.cards.Card;
 import ooga.model.data.deck.Deck;
 import ooga.model.data.gamedata.GameData;
-import ooga.model.data.player.OriginalPlayerManager;
 import ooga.model.data.player.Player;
 import ooga.model.data.player.PlayerManager;
 import ooga.model.data.properties.Property;
-import ooga.model.data.tilemodels.CardTileModel;
-import ooga.model.data.tilemodels.EmptyTileModel;
 import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
 import ooga.model.die.Die;
-import ooga.model.die.OriginalDice;
 import ooga.model.game_handling.FunctionExecutor;
 import ooga.model.game_handling.board_manager.BoardManager;
-import ooga.model.game_handling.board_manager.OriginalBoardManager;
 import ooga.model.game_handling.commands.ActionSequenceParser;
-import ooga.model.game_handling.parsers.BoardParser;
-import ooga.model.game_handling.parsers.CardParser;
-import ooga.model.game_handling.parsers.PlayerParser;
-import ooga.model.game_handling.parsers.PropertyParser;
-import ooga.model.game_handling.parsers.TileParser;
+import ooga.util.parsers.BoardParser;
+import ooga.util.parsers.CardParser;
+import ooga.util.parsers.PlayerParser;
+import ooga.util.parsers.PropertyParser;
+import ooga.util.parsers.TileParser;
 
 /**
  * This class parses all configuration files and preps program for game.

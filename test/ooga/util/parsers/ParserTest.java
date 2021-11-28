@@ -1,4 +1,4 @@
-package ooga.model.game_handling;
+package ooga.util.parsers;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;

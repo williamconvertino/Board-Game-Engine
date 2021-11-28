@@ -1,14 +1,13 @@
-package ooga.model.game_handling;
+package ooga.util.parsers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.io.IOException;
 import ooga.exceptions.AttributeNotFoundException;
-import ooga.util.parsers.BoardParser;
 import org.junit.jupiter.api.Test;
 
-public class BoardParserTest extends ParserTest{
+public class BoardParserTest extends ParserTest {
   @Test
   void testParseBoard() throws AttributeNotFoundException, IOException {
     BoardParser myBoardParser = new BoardParser();

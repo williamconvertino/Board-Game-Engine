@@ -1,0 +1,9 @@
+Name=Pennsylvania Avenue
+Type=Regular
+Cost=320
+RentCost=28,150,450,1000,1200,1400
+MaxHouses=4
+HouseCost=200
+Neighbors=North Carolina Avenue, Pacific Avenue
+Mortgage=160
+Color=green

@@ -1,4 +1,4 @@
-package ooga.model.game_handling.parsers;
+package ooga.util.parsers;
 
 import java.io.BufferedReader;
 import java.io.File;

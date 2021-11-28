@@ -74,6 +74,4 @@ public class Deck {
         return myName;
     }
 
-    public List<Card> getCards() {return myCardList;}
-
 }

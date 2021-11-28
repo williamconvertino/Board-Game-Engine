@@ -12,7 +12,7 @@ import ooga.model.game_handling.GameHandlingTest;
 import ooga.util.parsers.PropertyParser;
 import org.junit.jupiter.api.Test;
 
-public class ConfigParserTest extends GameHandlingTest {
+public class PropertyParserTest extends GameHandlingTest {
   @Test
   void testParseProperties()
       throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
