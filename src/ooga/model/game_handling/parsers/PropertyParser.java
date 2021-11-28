@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import ooga.exceptions.AttributeNotFoundException;
+import ooga.exceptions.InvalidFileFormatException;
 import ooga.model.data.properties.Property;
 import java.io.File;
 import ooga.model.data.tilemodels.PropertyTileModel;
@@ -54,6 +55,7 @@ public class PropertyParser extends FolderParser {
     return result;
   }
 
+
   /**
    * Takes .property file and creates Property object, throwing errors if missing information.
    *
@@ -72,25 +74,13 @@ public class PropertyParser extends FolderParser {
 
   }
 
-  public Property parseRailroadProperty(Properties props) throws AttributeNotFoundException {
-    return parseSpecialProperty(props,"Railroads");
-  }
-
-  public Property parseUtilitiesProperty(Properties props) throws AttributeNotFoundException {
-    return parseSpecialProperty(props,"Utilities");
-  }
-
-  public Property parseSpecialProperty(Properties props, String type)
-      throws AttributeNotFoundException {
-    String propertyName = tryProperty(props,"Name");
-    int propertyCost = Integer.parseInt(tryProperty(props,"Cost"));
-    int[] propertyRentCosts = StringArrayToIntArray(tryProperty(props,"RentCost").split(","));
-    ArrayList<String> propertyNeighbors = new ArrayList(Arrays.asList(tryProperty(props,"Neighbors").split(",")));
-    int propertyMortgageCost = Integer.parseInt(tryProperty(props,"Mortgage"));
-    String propertyImage = tryProperty(props,"Image");
-    return new Property (propertyName,type,propertyCost,propertyRentCosts,propertyNeighbors,propertyMortgageCost,propertyImage);
-  }
-
+  /**
+   * creates regular property from Properties object
+   *
+   * @param props
+   * @return
+   * @throws AttributeNotFoundException
+   */
   public Property parseRegularProperty(Properties props) throws AttributeNotFoundException {
     String propertyName = tryProperty(props,"Name");
     int propertyCost = Integer.parseInt(tryProperty(props,"Cost"));
@@ -102,6 +92,43 @@ public class PropertyParser extends FolderParser {
 
     return new Property (propertyName,"Regular",propertyCost,propertyRentCosts,propertyHouseCost,propertyNeighbors,propertyMortgageCost,propertyColor);
   }
+
+
+  /**
+   * creates railroad property from Properties object
+   *
+   * @param props
+   * @return
+   * @throws AttributeNotFoundException
+   */
+  public Property parseRailroadProperty(Properties props) throws AttributeNotFoundException {
+    return parseSpecialProperty(props,"Railroads");
+  }
+
+  /**
+   * creates utilities property from Properties object
+   *
+   * @param props
+   * @return
+   * @throws AttributeNotFoundException
+   */
+  public Property parseUtilitiesProperty(Properties props) throws AttributeNotFoundException {
+    return parseSpecialProperty(props,"Utilities");
+  }
+
+  //called from parseRailRoadProperty and parseUtilitiesProperty to create Property of certain type
+  private Property parseSpecialProperty(Properties props, String type)
+      throws AttributeNotFoundException {
+    String propertyName = tryProperty(props,"Name");
+    int propertyCost = Integer.parseInt(tryProperty(props,"Cost"));
+    int[] propertyRentCosts = StringArrayToIntArray(tryProperty(props,"RentCost").split(","));
+    ArrayList<String> propertyNeighbors = new ArrayList(Arrays.asList(tryProperty(props,"Neighbors").split(",")));
+    int propertyMortgageCost = Integer.parseInt(tryProperty(props,"Mortgage"));
+    String propertyImage = tryProperty(props,"Image");
+    return new Property (propertyName,type,propertyCost,propertyRentCosts,propertyNeighbors,propertyMortgageCost,propertyImage);
+  }
+
+
 
 
 

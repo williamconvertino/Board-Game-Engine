@@ -109,8 +109,15 @@ public class TileParser extends FolderParser{
     }};
   }
 
-  //creates ActionTileModel object from properties object
-  private ActionTileModel parseActionTile(Properties props)
+  /**
+   * creates action tile (e.g Free Parking) from Properties object
+   *
+   * @param props
+   * @return
+   * @throws AttributeNotFoundException
+   * @throws InvalidFileFormatException
+   */
+  public ActionTileModel parseActionTile(Properties props)
       throws AttributeNotFoundException, InvalidFileFormatException {
 
     String tileName = tryProperty(props,"Name");
@@ -123,9 +130,15 @@ public class TileParser extends FolderParser{
     return new ActionTileModel(tileName,passThrough,landOn);
   }
 
-  //creates CardTileModel object from properties object
-  private CardTileModel parseCardTile(Properties props)
-      throws AttributeNotFoundException, InvalidFileFormatException, DeckNotFoundException {
+  /**
+   * creates card tile (e.g Chance) from Properties object
+   *
+   * @param props
+   * @return
+   * @throws AttributeNotFoundException
+   */
+  public CardTileModel parseCardTile(Properties props)
+      throws AttributeNotFoundException,DeckNotFoundException {
 
     String tileName = tryProperty(props,"Name");
     String tileImage = tryProperty(props,"Image");
