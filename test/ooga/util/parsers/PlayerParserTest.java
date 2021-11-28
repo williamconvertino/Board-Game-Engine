@@ -28,8 +28,7 @@ public class PlayerParserTest {
     assertEquals("Will",playerList.get(0).getName());
     assertEquals("Henry",playerList.get(1).getName());
     assertEquals("Aaric",playerList.get(2).getName());
-    assertEquals("Casey",playerList.get(3).getName());
-    assertEquals("Jordan",playerList.get(4).getName());
+    assertEquals("Jordan",playerList.get(3).getName());
 
 
 
