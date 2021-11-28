@@ -24,13 +24,20 @@ import ooga.model.game_handling.commands.ActionSequenceParser;
 public abstract class FolderParser {
 
   protected static final String DEFAULT_DATA_PACKAGE = "data/";
-
   protected static ActionSequenceParser actionSequenceParser;
 
+  /**
+   * Super constructor for child classes to call
+   *
+   * @param sequenceParser
+   */
   public FolderParser(ActionSequenceParser sequenceParser){
     actionSequenceParser = sequenceParser;
   }
 
+  /**
+   * Default constructor for child classes
+   */
   public FolderParser(){
   }
 
@@ -68,6 +75,7 @@ public abstract class FolderParser {
     }
   }
 
+  //takes a list of actions as a string and returns Action Sequence object.
   protected ActionSequence parseActionSequence(String sequenceText)
       throws InvalidFileFormatException {
     ActionSequence result = new ActionSequence();
@@ -78,8 +86,6 @@ public abstract class FolderParser {
     }
     return result;
   }
-
-
 
   //code from: https://stackoverflow.com/questions/18838781/converting-string-array-to-an-integer-array
   public int[] StringArrayToIntArray(String[] stringArray) {
