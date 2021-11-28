@@ -31,7 +31,16 @@ public class FunctionExecutor {
     /**
      * Constructs a new FunctionExecutor with the specified GameData, die, and endTurn method.
      */
-    public FunctionExecutor(GameData gameData, Die die, DisplayComm displayComm) {
+    public FunctionExecutor() {
+    }
+
+    public FunctionExecutor(GameData gameData, Die die, DisplayComm displayComm){
+        this.gameData = gameData;
+        this.myDie = die;
+        this.displayComm = displayComm;
+    }
+
+    public void setFunctionExecutor(GameData gameData, Die die, DisplayComm displayComm){
         this.gameData = gameData;
         this.myDie = die;
         this.displayComm = displayComm;

@@ -22,6 +22,7 @@ import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
 import ooga.model.die.Die;
 import ooga.model.die.OriginalDice;
+import ooga.model.game_handling.FunctionExecutor;
 import ooga.model.game_handling.board_manager.BoardManager;
 import ooga.model.game_handling.board_manager.OriginalBoardManager;
 import ooga.model.game_handling.commands.ActionSequenceParser;
@@ -45,7 +46,7 @@ public class GameDataInitializer {
   //TODO: Replace these with a config file
   public static final String PLAYER_NAMES = "/players/players.info";
   public static final String STARTING_VALUES = "/players/starting_values.info";
-  public static final String PROPERTIES = "/board/properties";
+  public static final String PROPERTIES = "/properties";
   public static final String TILES = "/board/tiles";
   public static final String CONFIG = "/config";
 
@@ -56,6 +57,7 @@ public class GameDataInitializer {
 
   public static PropertyParser propertyParser;
   public static TileParser tileParser;
+  public static ActionSequenceParser actionSequenceParser;
 
   public static Object playerManager;
   private ArrayList<Player> playerList;
@@ -67,6 +69,11 @@ public class GameDataInitializer {
   public static GameData generateGameData(String variationFilePath)
       throws ImproperlyFormattedFile, AttributeNotFoundException, IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
 
+
+
+    GameData data = new GameData();
+    FunctionExecutor executor = new FunctionExecutor();
+
     ResourceBundle modelConfig = ResourceBundle.getBundle(variationFilePath.substring(5,variationFilePath.length()) + CONFIG);//).replaceAll("/", ".") );
 
     String currentFile = null;
@@ -75,17 +82,19 @@ public class GameDataInitializer {
       currentFile = PLAYER_NAMES;
       List<Player> myPlayers = PlayerParser.getPlayersFromFile(variationFilePath + PLAYER_NAMES);
 
+      variationFilePath = variationFilePath.substring(4);
+      System.out.println(variationFilePath);
       currentFile = CONFIG;
-      System.out.println(modelConfig.getString(PLAYER_MANAGER));
+
       playerManager = Class.forName(modelConfig.getString(PLAYER_MANAGER)).getConstructor(List.class).newInstance(myPlayers);
 
       propertyParser = new PropertyParser();
-      tileParser = new TileParser();
+      actionSequenceParser = new ActionSequenceParser(executor,data);
+      tileParser = new TileParser(actionSequenceParser);
 
       //TODO: Integrate property parser
       currentFile = PROPERTIES;
-      System.out.println(PROPERTIES);
-      System.out.println(variationFilePath + currentFile);
+
       List<Property> myPropertyList = propertyParser.parseProperties(variationFilePath + currentFile);
 
       /*
@@ -101,12 +110,12 @@ public class GameDataInitializer {
 
 
 
-/*
+
       for (TileModel prop: nonPropertyTileList){
         System.out.println(prop.getName());
       }
 
- */
+
 
 
 

@@ -16,7 +16,7 @@ public class ConfigParserTest extends GameHandlingTest{
   void testParseProperties()
       throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
     PropertyParser myParser = new PropertyParser();
-    ArrayList<Property> propertyList = myParser.parseProperties("monopoly_original/board/properties");
+    ArrayList<Property> propertyList = myParser.parseProperties("monopoly_original/properties");
     for (Property prop: propertyList){
       System.out.println(prop.getColor());
     }
@@ -28,7 +28,7 @@ public class ConfigParserTest extends GameHandlingTest{
   void testParseProperty()
       throws AttributeNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     PropertyParser myParser = new PropertyParser();
-    Property testProperty = myParser.parsePropertyFile(new File("data/monopoly_original/board/properties/mediterranean_avenue.property"));
+    Property testProperty = myParser.parsePropertyFile(new File("data/monopoly_original/properties/mediterranean_avenue.property"));
     assertEquals(testProperty.getName(),"Mediterranean Avenue");
 
   }

@@ -46,7 +46,6 @@ public class PropertyParser extends FolderParser {
       throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
 
     //TODO: get rid of need for substring
-    propertyFolderPath = propertyFolderPath.substring(4);
     ArrayList<Property> result = new ArrayList<>();
     File [] filesList = getFileList(propertyFolderPath);
     for (File file : filesList) {

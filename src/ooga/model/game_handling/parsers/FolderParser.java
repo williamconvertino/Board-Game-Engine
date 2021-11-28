@@ -9,6 +9,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.exceptions.InvalidFileFormatException;
+import ooga.model.data.gamedata.GameData;
+import ooga.model.game_handling.FunctionExecutor;
 import ooga.model.game_handling.commands.ActionSequence;
 import ooga.model.game_handling.commands.ActionSequenceParser;
 
@@ -25,8 +27,11 @@ public abstract class FolderParser {
 
   protected static ActionSequenceParser actionSequenceParser;
 
+  public FolderParser(ActionSequenceParser sequenceParser){
+    actionSequenceParser = sequenceParser;
+  }
+
   public FolderParser(){
-    actionSequenceParser = new ActionSequenceParser();
   }
 
   //returns list of files in a given folder
@@ -58,6 +63,7 @@ public abstract class FolderParser {
       return prop.getProperty(key);
     }
     else{
+      System.out.println("missing key: " + key);
       throw new AttributeNotFoundException(key);
     }
   }

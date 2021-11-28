@@ -45,7 +45,19 @@ public class GameData {
      * @param board the board on which the game is played.
      * @param die the die with which the game is played.
      */
-    public GameData(PlayerManager players, BoardManager board, Die die) {
+    public GameData() {
+    }
+
+    public GameData(PlayerManager players, BoardManager board, Die die){
+        this.myPlayers = players;
+        this.myBoard = board;
+        this.myDie = die;
+        setNextPlayer();
+        resetTurnData();
+    }
+
+
+    public void setGameData(PlayerManager players, BoardManager board, Die die){
         this.myPlayers = players;
         this.myBoard = board;
         this.myDie = die;

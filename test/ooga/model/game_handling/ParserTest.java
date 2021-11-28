@@ -15,6 +15,6 @@ public class ParserTest {
   void initGamestate()
       throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
     PropertyParser myParser = new PropertyParser();
-    propertyList = myParser.parseProperties("monopoly_original/board/properties");
+    propertyList = myParser.parseProperties("monopoly_original/properties");
   }
 }
