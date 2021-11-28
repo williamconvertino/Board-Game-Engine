@@ -23,9 +23,21 @@ import ooga.model.data.tilemodels.TileModel;
  */
 public class BoardParser {
 
+  /**
+   * Creates BoardParser
+   */
   public BoardParser(){
   }
 
+  /**
+   * Takes board file path and map of TileModels and returns a ordered list of tileModels
+   * based off board configuration
+   *
+   * @param boardFilePath
+   * @param tileMap
+   * @return
+   * @throws IOException
+   */
   public List<TileModel> parseBoard(String boardFilePath, Map<String,TileModel> tileMap) throws IOException {
     List<TileModel> boardTileModels = new ArrayList<>();
 
