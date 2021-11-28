@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.model.data.properties.Property;
-import ooga.model.game_handling.parsers.PropertyParser;
+import ooga.util.parsers.PropertyParser;
 import org.junit.jupiter.api.BeforeEach;
 
 public class ParserTest {

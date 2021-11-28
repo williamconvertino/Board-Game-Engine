@@ -1,4 +1,4 @@
-package ooga.model.game_handling;
+package ooga.util.parsers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -8,10 +8,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.model.data.properties.Property;
-import ooga.model.game_handling.parsers.PropertyParser;
+import ooga.model.game_handling.GameHandlingTest;
+import ooga.util.parsers.PropertyParser;
 import org.junit.jupiter.api.Test;
 
-public class ConfigParserTest extends GameHandlingTest{
+public class ConfigParserTest extends GameHandlingTest {
   @Test
   void testParseProperties()
       throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
