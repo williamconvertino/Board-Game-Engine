@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.model.data.properties.Property;
 import ooga.model.game_handling.GameHandlingTest;
@@ -17,16 +20,19 @@ public class PropertyParserTest extends GameHandlingTest {
   void testParseProperties()
       throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
     PropertyParser myParser = new PropertyParser();
+    Map<String,Property> propList = new HashMap();
     ArrayList<Property> propertyList = myParser.parseProperties("monopoly_original/properties");
     for (Property prop: propertyList){
-      System.out.println(prop.getColor());
+      propList.putIfAbsent(prop.getName(),prop);
     }
+    assertEquals(28,propList.size());
+    assertEquals(true,propList.containsKey("Boardwalk"));
+    assertEquals(false,propList.containsKey("Walkboard"));
 
   }
 
-
   @Test
-  void testParseProperty()
+  void testParsePropertyName()
       throws AttributeNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     PropertyParser myParser = new PropertyParser();
     Property testProperty = myParser.parsePropertyFile(new File("data/monopoly_original/properties/mediterranean_avenue.property"));
