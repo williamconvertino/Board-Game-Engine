@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import ooga.display.tileviews.TileView;
 import ooga.model.data.properties.Property;
 import ooga.model.data.tilemodels.TileModel;
@@ -27,15 +28,18 @@ public class BoardParser {
   public BoardParser(){
   }
 
-  public List<TileModel> parseBoard(String boardFilePath,List<TileModel> tileList) throws IOException {
+  public List<TileModel> parseBoard(String boardFilePath, Map<String,TileModel> tileMap) throws IOException {
     ArrayList<String> boardElements = new ArrayList<>();
+
     File file=new File(boardFilePath);
     FileReader fileReader =new FileReader(file);
     BufferedReader bufferedReader = new BufferedReader(fileReader);
     String line;
     while((line = bufferedReader.readLine())!=null)
     {
-      System.out.println(line);
+      if(tileMap.containsKey(line)){
+        System.out.println("found tile for: " + line);
+      }
     }
 
     return null;

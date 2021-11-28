@@ -4,7 +4,9 @@ package ooga;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import javafx.scene.control.Alert;
@@ -128,17 +130,17 @@ public class GameDataInitializer {
        */
 
       currentFile = TILES;
-      List<PropertyTileModel> propertyTileList = tileParser.parsePropertyTiles(myPropertyList);
-      List<TileModel> nonPropertyTileList = tileParser.parseNonPropertyTiles(variationFilePath + currentFile);
+      Map<String,PropertyTileModel> propertyTileList = tileParser.parsePropertyTiles(myPropertyList);
+      Map<String,TileModel> nonPropertyTileList = tileParser.parseNonPropertyTiles(variationFilePath + currentFile);
 
-      List<TileModel> tileModelList = new ArrayList<>();
-      tileModelList.addAll(propertyTileList);
-      tileModelList.addAll(nonPropertyTileList);
+      Map<String,TileModel> tileModelMap = new HashMap<>();
+      tileModelMap.putAll(propertyTileList);
+      tileModelMap.putAll(nonPropertyTileList);
 
 
       currentFile = BOARD;
       BoardParser myBoardParser = new BoardParser();
-      List<TileModel> myTiles = myBoardParser.parseBoard(DATA_PATH + variationFilePath + currentFile + variationFilePath + BOARD_SUFFIX,tileModelList);
+      List<TileModel> myTiles = myBoardParser.parseBoard(DATA_PATH + variationFilePath + currentFile + variationFilePath + BOARD_SUFFIX,tileModelMap);
 
       //FOR TESTING TODO: Remove and replace with parsing.
       //myTiles.add(new EmptyTileModel("t1"));

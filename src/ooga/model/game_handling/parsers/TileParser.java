@@ -5,8 +5,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Properties;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.exceptions.DeckNotFoundException;
@@ -44,14 +46,13 @@ public class TileParser extends FolderParser{
    * @return ArrayList of all Monopoly Properties
    * @throws AttributeNotFoundException
    */
-  public ArrayList<TileModel> parseNonPropertyTiles(String tileFolderPath)
+  public Map<String, TileModel> parseNonPropertyTiles(String tileFolderPath)
       throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidFileFormatException {
 
-    //TODO: get rid of need for substring
-    ArrayList<TileModel> result = new ArrayList<>();
+    Map<String,TileModel> result = new HashMap<>();
     File[] filesList = getFileList(tileFolderPath);
     for (File file : filesList) {
-      result.add(parseTileFile(file));
+      result.putAll(parseTileFile(file));
     }
     return result;
   }
@@ -63,12 +64,16 @@ public class TileParser extends FolderParser{
    * @return
    * @throws AttributeNotFoundException
    */
-  public TileModel parseTileFile(File propertyFile)
+  public HashMap<String,TileModel> parseTileFile(File propertyFile)
       throws AttributeNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InvalidFileFormatException {
     Properties tileProperties = convertToPropertiesObject(propertyFile);
+    String tileName = tryProperty(tileProperties,"Name");
     String tileType = tryProperty(tileProperties,"Type");
     Method parseMethod = this.getClass().getMethod(PARSE_TILE_METHOD_PREFIX + tileType + PARSE_TILE_METHOD_SUFFIX,Properties.class);
-    return (TileModel) parseMethod.invoke(this,tileProperties);
+    TileModel tileModel = (TileModel) parseMethod.invoke(this,tileProperties);
+    return new HashMap<String, TileModel>() {{
+      put(tileName,tileModel);
+    }};
   }
 
   public ActionTileModel parseActionTile(Properties props)
@@ -103,10 +108,11 @@ public class TileParser extends FolderParser{
   }
 
 
-  public List<PropertyTileModel> parsePropertyTiles (List<Property> propertyList){
-    List<PropertyTileModel> result = new ArrayList<>();
+  public Map<String,PropertyTileModel> parsePropertyTiles (List<Property> propertyList){
+    Map<String,PropertyTileModel> result = new HashMap<>();
+
     for (Property prop: propertyList){
-      result.add(new PropertyTileModel(prop.getName(), prop, new ActionSequence()));
+      result.putIfAbsent(prop.getName(),new PropertyTileModel(prop.getName(), prop, new ActionSequence()));
     }
     return result;
   }
