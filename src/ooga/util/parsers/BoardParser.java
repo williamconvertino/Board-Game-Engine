@@ -47,13 +47,8 @@ public class BoardParser {
     String line;
     while((line = bufferedReader.readLine())!=null)
     {
-      if(tileMap.containsKey(line)){
         boardTileModels.add(tileMap.get(line));
       }
-      else{
-        System.out.println("Couldn't find: " + line);
-      }
-    }
 
     return boardTileModels;
   }

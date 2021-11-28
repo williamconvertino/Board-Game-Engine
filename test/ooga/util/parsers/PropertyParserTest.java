@@ -37,6 +37,42 @@ public class PropertyParserTest extends GameHandlingTest {
     PropertyParser myParser = new PropertyParser();
     Property testProperty = myParser.parsePropertyFile(new File("data/monopoly_original/properties/mediterranean_avenue.property"));
     assertEquals(testProperty.getName(),"Mediterranean Avenue");
-
   }
+
+  @Test
+  void testBadParsePropertyName()
+      {
+    boolean thrown = false;
+
+    try{
+    PropertyParser myParser = new PropertyParser();
+    Property testProperty = myParser.parsePropertyFile(new File("data/testdata/faulty_property.property"));
+
+    assertEquals(testProperty.getName(),"Mediterranean Avenue");
+    }
+    catch (Exception e){
+      thrown = true;
+    }
+
+    assertEquals(true,thrown);
+  }
+
+  @Test
+  void testBadParsePropertyFile()
+  {
+    boolean thrown = false;
+
+    try{
+      PropertyParser myParser = new PropertyParser();
+      Property testProperty = myParser.parsePropertyFile(new File("data/testdata/faulty_file.property"));
+
+      assertEquals(testProperty.getName(),"Mediterranean Avenue");
+    }
+    catch (Exception e){
+      thrown = true;
+    }
+
+    assertEquals(true,thrown);
+  }
+
 }
