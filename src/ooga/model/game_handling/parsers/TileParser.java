@@ -23,8 +23,8 @@ public class TileParser extends FolderParser{
   public static final String PARSE_TILE_METHOD_PREFIX = "parse";
   public static final String PARSE_TILE_METHOD_SUFFIX = "Tile";
 
-  public TileParser(ActionSequenceParser parser){
-    super(parser);
+  public TileParser(ActionSequenceParser sequenceParser){
+    super(sequenceParser);
   }
 
 
@@ -39,7 +39,6 @@ public class TileParser extends FolderParser{
       throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidFileFormatException {
 
     //TODO: get rid of need for substring
-    System.out.println(tileFolderPath);
     ArrayList<TileModel> result = new ArrayList<>();
     File[] filesList = getFileList(tileFolderPath);
     for (File file : filesList) {

@@ -12,6 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.exceptions.ImproperlyFormattedFile;
 import ooga.model.data.cards.Card;
+import ooga.model.data.deck.Deck;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.OriginalPlayerManager;
 import ooga.model.data.player.Player;
@@ -48,18 +49,22 @@ public class GameDataInitializer {
   public static final String STARTING_VALUES = "/players/starting_values.info";
   public static final String PROPERTIES = "/properties";
   public static final String TILES = "/board/tiles";
+  public static final String CHANCE = "/cards/chance";
+  public static final String COMMUNITY_CHEST = "/cards/community_chest";
   public static final String CONFIG = "/config";
 
   public static final String PLAYER_MANAGER = "PlayerManager";
   public static final String BOARD_MANAGER = "BoardManager";
   public static final String DIE = "Die";
 
-
   public static PropertyParser propertyParser;
+  public static CardParser cardParser;
   public static TileParser tileParser;
   public static ActionSequenceParser actionSequenceParser;
 
   public static Object playerManager;
+  public static Deck chanceDeck;
+  public static Deck communityChestDeck;
   private ArrayList<Player> playerList;
   private OriginalDice dice;
   private GameData gameData;
@@ -83,7 +88,6 @@ public class GameDataInitializer {
       List<Player> myPlayers = PlayerParser.getPlayersFromFile(variationFilePath + PLAYER_NAMES);
 
       variationFilePath = variationFilePath.substring(4);
-      System.out.println(variationFilePath);
       currentFile = CONFIG;
 
       playerManager = Class.forName(modelConfig.getString(PLAYER_MANAGER)).getConstructor(List.class).newInstance(myPlayers);
@@ -91,6 +95,22 @@ public class GameDataInitializer {
       propertyParser = new PropertyParser();
       actionSequenceParser = new ActionSequenceParser(executor,data);
       tileParser = new TileParser(actionSequenceParser);
+      cardParser = new CardParser(actionSequenceParser);
+
+      currentFile = CHANCE;
+      chanceDeck = new Deck("Chance",cardParser.parseCards(variationFilePath + currentFile));
+
+      currentFile = COMMUNITY_CHEST;
+      communityChestDeck = new Deck ("Community Chest",cardParser.parseCards(variationFilePath + currentFile));
+
+      for (Card card: chanceDeck.getCards()){
+        System.out.println(card.getName());
+      }
+
+      for (Card card: communityChestDeck.getCards()){
+        System.out.println(card.getName());
+      }
+
 
       //TODO: Integrate property parser
       currentFile = PROPERTIES;
@@ -110,10 +130,12 @@ public class GameDataInitializer {
 
 
 
-
+/*
       for (TileModel prop: nonPropertyTileList){
         System.out.println(prop.getName());
       }
+
+ */
 
 
 

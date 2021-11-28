@@ -29,6 +29,10 @@ public class CardParser extends FolderParser {
   public CardParser(){
   }
 
+  public CardParser(ActionSequenceParser sequenceParser){
+    super(sequenceParser);
+  }
+
   /**
    * Accesses a specific card folder (e.g Chance), and calls to create Card object for each file.
    *

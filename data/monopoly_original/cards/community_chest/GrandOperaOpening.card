@@ -1,5 +1,5 @@
 Name=GrandOperaOpening
 Description=COLLECT $50 FROM EACH PLAYER FOR OPENING NIGHT SEATS
 ActionSequence=\
-[addMoney p0 50],\
-[loseMoney pab0 50]
+[],\
+[]
