@@ -23,13 +23,11 @@ import ooga.model.data.tilemodels.TileModel;
  */
 public class BoardParser {
 
-  private ArrayList<Property> propertyList;
-
   public BoardParser(){
   }
 
   public List<TileModel> parseBoard(String boardFilePath, Map<String,TileModel> tileMap) throws IOException {
-    ArrayList<String> boardElements = new ArrayList<>();
+    List<TileModel> boardTileModels = new ArrayList<>();
 
     File file=new File(boardFilePath);
     FileReader fileReader =new FileReader(file);
@@ -38,11 +36,14 @@ public class BoardParser {
     while((line = bufferedReader.readLine())!=null)
     {
       if(tileMap.containsKey(line)){
-        System.out.println("found tile for: " + line);
+        boardTileModels.add(tileMap.get(line));
+      }
+      else{
+        System.out.println("Couldn't find: " + line);
       }
     }
 
-    return null;
+    return boardTileModels;
   }
 
 }

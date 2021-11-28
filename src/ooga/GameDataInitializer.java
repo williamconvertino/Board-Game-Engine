@@ -142,6 +142,8 @@ public class GameDataInitializer {
       BoardParser myBoardParser = new BoardParser();
       List<TileModel> myTiles = myBoardParser.parseBoard(DATA_PATH + variationFilePath + currentFile + variationFilePath + BOARD_SUFFIX,tileModelMap);
 
+      System.out.println(myTiles.size());
+
       //FOR TESTING TODO: Remove and replace with parsing.
       //myTiles.add(new EmptyTileModel("t1"));
       //myTiles.add(new EmptyTileModel("t2"));
