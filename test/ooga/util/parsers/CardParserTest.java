@@ -22,8 +22,6 @@ public class CardParserTest extends ParserTest {
   void testParseChanceCards()
       throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidFileFormatException {
 
-
-
     Map<String,Card>cardMap = new HashMap();
     ArrayList<Card> cardList = cardParser.parseCards("monopoly_original/cards/chance");
     for (Card card: cardList){
