@@ -78,63 +78,68 @@ public class GameDataInitializer {
 
 
   public static GameData generateGameData(String variationFilePath)
-      throws ImproperlyFormattedFile, AttributeNotFoundException, IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+      throws ImproperlyFormattedFile {
 
-    GameData data = new GameData();
-    FunctionExecutor executor = new FunctionExecutor();
+    //create GameData and FunctionExecutor objects
+    GameData gameData = new GameData();
+    FunctionExecutor functionExecutor = new FunctionExecutor();
 
+    //unpack config properties file
     ResourceBundle modelConfig = ResourceBundle.getBundle(variationFilePath + CONFIG);//).replaceAll("/", ".") );
 
     String currentFile = null;
 
     try {
+
+      //create parsers
+      propertyParser = new PropertyParser();
+      actionSequenceParser = new ActionSequenceParser(functionExecutor,gameData);
+      cardParser = new CardParser(actionSequenceParser);
+      tileParser = new TileParser(actionSequenceParser,gameData);
+      BoardParser myBoardParser = new BoardParser();
+
+      //parse all player names into list and create player manager
       currentFile = PLAYER_NAMES;
       List<Player> myPlayers = PlayerParser.getPlayersFromFile(DATA_PATH + variationFilePath + PLAYER_NAMES);
-
-      currentFile = CONFIG;
-
       playerManager = Class.forName(modelConfig.getString(PLAYER_MANAGER)).getConstructor(List.class).newInstance(myPlayers);
 
-      propertyParser = new PropertyParser();
-      actionSequenceParser = new ActionSequenceParser(executor,data);
-      cardParser = new CardParser(actionSequenceParser);
-
+      //parse card files into decks
       currentFile = CHANCE;
       chanceDeck = new Deck("Chance",cardParser.parseCards(variationFilePath + currentFile));
-      //monopoly_original/players/players.info
       currentFile = COMMUNITY_CHEST;
       communityChestDeck = new Deck ("Community Chest",cardParser.parseCards(variationFilePath + currentFile));
 
+      //combine decks into list, and give to gameData
       List<Deck> deckList = new ArrayList<>();
       deckList.add(chanceDeck);
       deckList.add(communityChestDeck);
+      gameData.setDeckManager(deckList);
 
-      data.setDeckManager(deckList);
-
-      tileParser = new TileParser(actionSequenceParser,data);
-
+      //parse monopoly properties into a list
       currentFile = PROPERTIES;
-
       List<Property> myPropertyList = propertyParser.parseProperties(variationFilePath + currentFile);
 
+      //parse all board elements (properties, action tiles, card tiles) into a map
       currentFile = TILES;
       Map<String,PropertyTileModel> propertyTileList = tileParser.parsePropertyTiles(myPropertyList);
       Map<String,TileModel> nonPropertyTileList = tileParser.parseNonPropertyTiles(variationFilePath + currentFile);
+      Map<String,TileModel> tileModelMap = new HashMap<>() {{
+        putAll(propertyTileList);
+        putAll(nonPropertyTileList);
+      }};
 
-      Map<String,TileModel> tileModelMap = new HashMap<>();
-      tileModelMap.putAll(propertyTileList);
-      tileModelMap.putAll(nonPropertyTileList);
-
+      //parse board file into an ordered list of TileModels, then construct board manager.
       currentFile = BOARD;
-      BoardParser myBoardParser = new BoardParser();
       List<TileModel> myTiles = myBoardParser.parseBoard(DATA_PATH + variationFilePath + currentFile + variationFilePath + BOARD_SUFFIX,tileModelMap);
-
       BoardManager myBoardManager = (BoardManager) Class.forName(modelConfig.getString(BOARD_MANAGER)).getConstructor(List.class).newInstance(myTiles);
+
+      //create the game die
       Die myDie = (Die) Class.forName(modelConfig.getString(DIE)).getConstructor().newInstance();
 
-      data.setGameData((PlayerManager)playerManager, myBoardManager, myDie);
+      //set necessary information in gameData
+      gameData.setGameData((PlayerManager)playerManager, myBoardManager, myDie);
 
-      return data;
+      return gameData;
 
     } catch (Exception e) {
       e.printStackTrace();
