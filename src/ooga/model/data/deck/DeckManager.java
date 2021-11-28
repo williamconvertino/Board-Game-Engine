@@ -1,5 +1,6 @@
 package ooga.model.data.deck;
 
+import java.util.HashMap;
 import java.util.Map;
 import ooga.exceptions.DeckNotFoundException;
 
@@ -19,7 +20,7 @@ public class DeckManager {
    * Constructs an empty DeckManager.
    */
   public DeckManager() {
-
+    activeDecks = new HashMap<>();
   }
 
   /**
@@ -35,6 +36,10 @@ public class DeckManager {
       throw new DeckNotFoundException();
     }
     return deck;
+  }
+
+  public void addDeck(Deck deck){
+    activeDecks.putIfAbsent(deck.getName(),deck);
   }
 
 }

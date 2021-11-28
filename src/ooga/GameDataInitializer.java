@@ -18,6 +18,7 @@ import ooga.model.data.player.OriginalPlayerManager;
 import ooga.model.data.player.Player;
 import ooga.model.data.player.PlayerManager;
 import ooga.model.data.properties.Property;
+import ooga.model.data.tilemodels.CardTileModel;
 import ooga.model.data.tilemodels.EmptyTileModel;
 import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
@@ -94,7 +95,6 @@ public class GameDataInitializer {
 
       propertyParser = new PropertyParser();
       actionSequenceParser = new ActionSequenceParser(executor,data);
-      tileParser = new TileParser(actionSequenceParser);
       cardParser = new CardParser(actionSequenceParser);
 
       currentFile = CHANCE;
@@ -102,6 +102,14 @@ public class GameDataInitializer {
 
       currentFile = COMMUNITY_CHEST;
       communityChestDeck = new Deck ("Community Chest",cardParser.parseCards(variationFilePath + currentFile));
+
+      List<Deck> deckList = new ArrayList<>();
+      deckList.add(chanceDeck);
+      deckList.add(communityChestDeck);
+
+      data.setDeckManager(deckList);
+
+      tileParser = new TileParser(actionSequenceParser,data);
 
       for (Card card: chanceDeck.getCards()){
         System.out.println(card.getName());
@@ -130,12 +138,12 @@ public class GameDataInitializer {
 
 
 
-/*
+
       for (TileModel prop: nonPropertyTileList){
         System.out.println(prop.getName());
       }
 
- */
+
 
 
 

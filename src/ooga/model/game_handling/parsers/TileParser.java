@@ -9,7 +9,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import ooga.exceptions.AttributeNotFoundException;
+import ooga.exceptions.DeckNotFoundException;
 import ooga.exceptions.InvalidFileFormatException;
+import ooga.model.data.cards.Card;
+import ooga.model.data.deck.Deck;
+import ooga.model.data.gamedata.GameData;
 import ooga.model.data.properties.Property;
 import ooga.model.data.tilemodels.ActionTileModel;
 import ooga.model.data.tilemodels.CardTileModel;
@@ -23,8 +27,13 @@ public class TileParser extends FolderParser{
   public static final String PARSE_TILE_METHOD_PREFIX = "parse";
   public static final String PARSE_TILE_METHOD_SUFFIX = "Tile";
 
-  public TileParser(ActionSequenceParser sequenceParser){
+  private Deck chance;
+  private Deck communityChest;
+  private GameData myData;
+
+  public TileParser(ActionSequenceParser sequenceParser, GameData data){
     super(sequenceParser);
+    this.myData = data;
   }
 
 
@@ -77,10 +86,18 @@ public class TileParser extends FolderParser{
 
 
   public CardTileModel parseCardTile(Properties props)
-      throws AttributeNotFoundException, InvalidFileFormatException {
+      throws AttributeNotFoundException, InvalidFileFormatException, DeckNotFoundException {
 
     String tileName = tryProperty(props,"Name");
     String tileImage = tryProperty(props,"Image");
+
+    if (tileName.equals("Community Chest")){
+      return new CardTileModel(tileName,myData.getDecks().getDeck("Community Chest"));
+    }
+
+    else if (tileName.equals("Chance")){
+      return new CardTileModel(tileName,myData.getDecks().getDeck("Chance"));
+    }
 
     return new CardTileModel(tileName);
   }

@@ -2,6 +2,7 @@ package ooga.model.data.gamedata;
 
 import java.util.List;
 import ooga.exceptions.NoRemainingPlayersException;
+import ooga.model.data.deck.Deck;
 import ooga.model.data.deck.DeckManager;
 import ooga.model.die.Die;
 import ooga.model.game_handling.board_manager.BoardManager;
@@ -84,6 +85,13 @@ public class GameData {
             this.currentPlayer = myPlayers.getNextPlayer();
         } catch (NoRemainingPlayersException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void setDeckManager(List<Deck> decks){
+        myDecks = new DeckManager();
+        for (Deck deck: decks){
+            myDecks.addDeck(deck);
         }
     }
 
