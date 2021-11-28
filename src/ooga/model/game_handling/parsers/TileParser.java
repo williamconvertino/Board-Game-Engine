@@ -24,6 +24,13 @@ import ooga.model.data.tilemodels.TileModel;
 import ooga.model.game_handling.commands.ActionSequence;
 import ooga.model.game_handling.commands.ActionSequenceParser;
 
+/**
+ * Parser class responsible for creating all TileModel elements.
+ *
+ * @author Casey Goldstein
+ *
+ * @since 0.0.1
+ */
 public class TileParser extends FolderParser{
 
   public static final String PARSE_TILE_METHOD_PREFIX = "parse";
@@ -33,14 +40,33 @@ public class TileParser extends FolderParser{
   private Deck communityChest;
   private GameData myData;
 
+  /**
+   * Creates TileParser
+   * @param sequenceParser
+   * @param data containing card decks
+   */
   public TileParser(ActionSequenceParser sequenceParser, GameData data){
     super(sequenceParser);
     this.myData = data;
   }
 
+  /**
+   * Takes list of properties and returns a map with key: propertyTileName and value: propertyTileModel
+   *
+   * @param propertyList
+   * @return
+   */
+  public Map<String,PropertyTileModel> parsePropertyTiles (List<Property> propertyList){
+    Map<String,PropertyTileModel> result = new HashMap<>();
+
+    for (Property prop: propertyList){
+      result.putIfAbsent(prop.getName(),new PropertyTileModel(prop.getName(), prop, new ActionSequence()));
+    }
+    return result;
+  }
 
   /**
-   * Accesses the property folder, and calls to create Property object for each file.
+   * Takes folder of tiles and creates a map with key: tileName and value: tileModel
    *
    * @param tileFolderPath
    * @return ArrayList of all Monopoly Properties
@@ -50,6 +76,7 @@ public class TileParser extends FolderParser{
       throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidFileFormatException {
 
     Map<String,TileModel> result = new HashMap<>();
+
     File[] filesList = getFileList(tileFolderPath);
     for (File file : filesList) {
       result.putAll(parseTileFile(file));
@@ -57,8 +84,9 @@ public class TileParser extends FolderParser{
     return result;
   }
 
+
   /**
-   * Takes .property file and creates Property object, throwing errors if missing information.
+   * Takes .tile file and creates a single map element (tileName, tileModel)
    *
    * @param propertyFile
    * @return
@@ -66,17 +94,23 @@ public class TileParser extends FolderParser{
    */
   public HashMap<String,TileModel> parseTileFile(File propertyFile)
       throws AttributeNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InvalidFileFormatException {
+
     Properties tileProperties = convertToPropertiesObject(propertyFile);
+
     String tileName = tryProperty(tileProperties,"Name");
     String tileType = tryProperty(tileProperties,"Type");
+
+    //get proper parsing method based off tile type
     Method parseMethod = this.getClass().getMethod(PARSE_TILE_METHOD_PREFIX + tileType + PARSE_TILE_METHOD_SUFFIX,Properties.class);
     TileModel tileModel = (TileModel) parseMethod.invoke(this,tileProperties);
+
     return new HashMap<String, TileModel>() {{
       put(tileName,tileModel);
     }};
   }
 
-  public ActionTileModel parseActionTile(Properties props)
+  //creates ActionTileModel object from properties object
+  private ActionTileModel parseActionTile(Properties props)
       throws AttributeNotFoundException, InvalidFileFormatException {
 
     String tileName = tryProperty(props,"Name");
@@ -89,8 +123,8 @@ public class TileParser extends FolderParser{
     return new ActionTileModel(tileName,passThrough,landOn);
   }
 
-
-  public CardTileModel parseCardTile(Properties props)
+  //creates CardTileModel object from properties object
+  private CardTileModel parseCardTile(Properties props)
       throws AttributeNotFoundException, InvalidFileFormatException, DeckNotFoundException {
 
     String tileName = tryProperty(props,"Name");
@@ -107,15 +141,6 @@ public class TileParser extends FolderParser{
     return new CardTileModel(tileName);
   }
 
-
-  public Map<String,PropertyTileModel> parsePropertyTiles (List<Property> propertyList){
-    Map<String,PropertyTileModel> result = new HashMap<>();
-
-    for (Property prop: propertyList){
-      result.putIfAbsent(prop.getName(),new PropertyTileModel(prop.getName(), prop, new ActionSequence()));
-    }
-    return result;
-  }
 
 
 }
