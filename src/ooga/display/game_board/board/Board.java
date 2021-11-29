@@ -33,10 +33,10 @@ import static ooga.display.communication.EventManager.EVENT_NAMES.*;
  * @author Henry Huynh
  */
 public class Board {
-  private static final double RECT_WIDTH = 50;
-  private static final double RECT_HEIGHT = 70;
-  private static final double PREF_WIDTH_BOARD = 600;
-  private static final double PREF_HEIGHT_BOARD = 600;
+  private static final double RECT_WIDTH = 70;
+  private static final double RECT_HEIGHT = 80;
+  private static final double PREF_WIDTH_BOARD = 1100;
+  private static final double PREF_HEIGHT_BOARD = 1100;
   private static final int RADIUS = 10;
   private GameBoardDisplay myGameBoardDisplay;
   private DisplayManager myDisplayManager;
@@ -148,6 +148,9 @@ public class Board {
     StackPane stackPane = new StackPane();
     stackPane.setId(String.format("Tile%d", gameBoardTileCount));
     Label name = new Label(gameData.getBoard().getTileAtIndex(gameBoardTileCount).getName());
+    name.setWrapText(true);
+    name.setMaxWidth(RECT_WIDTH);
+    name.setId("propdisptilename");
     stackPane.getChildren().addAll(tile, name);
     PropertyInfoPopUp popup = new PropertyInfoPopUp(gameData.getBoard().getTileAtIndex(gameBoardTileCount), myBuilder, myLanguage);
     stackPane.setOnMouseClicked(e -> popup.showPopup(myDisplayManager.getMyStage()));
@@ -160,6 +163,9 @@ public class Board {
     StackPane stackPane = new StackPane();
     stackPane.setId(String.format("Tile%d", gameBoardTileCount));
     Label name = new Label(gameData.getBoard().getTileAtIndex(gameBoardTileCount).getName());
+    name.setWrapText(true);
+    name.setMaxWidth(RECT_HEIGHT);
+    name.setId("propdisptilename");
     stackPane.getChildren().addAll(tile, name);
     PropertyInfoPopUp popup = new PropertyInfoPopUp(gameData.getBoard().getTileAtIndex(gameBoardTileCount), myBuilder, myLanguage);
     stackPane.setOnMouseClicked(e -> popup.showPopup(myDisplayManager.getMyStage()));
@@ -173,6 +179,7 @@ public class Board {
     Label name = new Label(gameData.getBoard().getTileAtIndex(gameBoardTileCount).getName());
     name.setWrapText(true);
     name.setMaxWidth(RECT_HEIGHT);
+    name.setId("propdisptilename");
     stackPane.getChildren().addAll(tile, name);
     PropertyInfoPopUp popup = new PropertyInfoPopUp(gameData.getBoard().getTileAtIndex(gameBoardTileCount), myBuilder, myLanguage);
     stackPane.setOnMouseClicked(e -> popup.showPopup(myDisplayManager.getMyStage()));

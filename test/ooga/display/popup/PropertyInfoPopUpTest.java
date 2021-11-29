@@ -210,9 +210,14 @@ public class PropertyInfoPopUpTest extends DukeApplicationTest {
    */
   @Test
   public void testPopUp() {
-    StackPane tile = lookup("#t1").query();
+    StackPane tile = lookup("#Tile1").query();
     clickOn(tile);
     Button closeButton = lookup("Close").query();
+    clickOn(closeButton);
+
+    tile = lookup("#Tile0").query();
+    clickOn(tile);
+    closeButton = lookup("Close").query();
     clickOn(closeButton);
   }
 }

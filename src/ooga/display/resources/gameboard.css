@@ -16,6 +16,10 @@
     -fx-padding: 10px;
 }
 
+#propdisptilename {
+    -fx-font-size: 80%;
+}
+
 .choice-box {
     -fx-border-style: solid;
     -fx-padding: 5px;
