@@ -20,7 +20,7 @@ import ooga.model.game_handling.board_manager.OriginalBoardManager;
 import ooga.model.game_handling.turn_manager.TurnManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import util.DukeApplicationTest;
+import ooga.util.DukeApplicationTest;
 
 import java.util.ArrayList;
 

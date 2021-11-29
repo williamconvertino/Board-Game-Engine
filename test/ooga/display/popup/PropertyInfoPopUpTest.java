@@ -25,7 +25,8 @@ import ooga.model.game_handling.board_manager.OriginalBoardManager;
 import ooga.model.game_handling.turn_manager.TurnManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import util.DukeApplicationTest;
+import ooga.util.DukeApplicationTest;
+
 
 public class PropertyInfoPopUpTest extends DukeApplicationTest {
   public Player p1;
@@ -209,7 +210,7 @@ public class PropertyInfoPopUpTest extends DukeApplicationTest {
    */
   @Test
   public void testPopUp() {
-    StackPane tile = lookup("#Tile0").query();
+    StackPane tile = lookup("#t1").query();
     clickOn(tile);
     Button closeButton = lookup("Close").query();
     clickOn(closeButton);

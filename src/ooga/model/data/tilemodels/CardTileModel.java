@@ -50,4 +50,5 @@ public class CardTileModel extends TileModel {
         }
         myDeck.drawCard().execute(player);
     }
+
 }

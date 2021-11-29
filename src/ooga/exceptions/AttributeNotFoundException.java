@@ -1,6 +1,6 @@
 package ooga.exceptions;
 
-public class AttributeNotFoundException extends Throwable {
+public class AttributeNotFoundException extends Exception {
 
   String attributeName;
 

@@ -1,0 +1,9 @@
+Name=Indiana Avenue
+Type=Regular
+Cost=220
+RentCost=18,90,250,700,875,1050
+MaxHouses=4
+HouseCost=150
+Neighbors=Kentucky Avenue, Illinois Avenue
+Mortgage=110
+Color=red

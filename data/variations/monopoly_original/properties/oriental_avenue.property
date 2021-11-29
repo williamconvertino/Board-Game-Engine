@@ -1,0 +1,9 @@
+Name=Oriental Avenue
+Type=Regular
+Cost=100
+RentCost=6,30,90,270,400,550
+MaxHouses=4
+HouseCost=50
+Neighbors=Vermont Avenue, Connecticut Avenue
+Mortgage=50
+Color=lightblue

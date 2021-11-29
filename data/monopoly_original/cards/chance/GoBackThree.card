@@ -1,3 +1,0 @@
-Name=GoBackThree
-Description=GO BACK THREE SPACES
-ActionSequence=[moveBackward p0 3]

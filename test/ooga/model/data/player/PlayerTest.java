@@ -23,7 +23,7 @@ public class PlayerTest {
   void testPropertyGiving() {
     Player p = new Player("p1");
     assertTrue(p.getProperties().isEmpty());
-    Property prop = new Property("test",0,new int[] {0},0,new LinkedList<>(),0,"red");
+    Property prop = new Property("test","Regular",0,new int[] {0},0,new LinkedList<>(),0,"red");
     p.giveProperty(prop);
     assertTrue(p.getProperties().contains(prop));
     p.removeProperty(prop);

@@ -22,6 +22,9 @@ public class Property {
     //The name of this property.
     private String name;
 
+    //The type of this property;
+    private String type;
+
     //The cost of this property.
     private int cost;
 
@@ -33,14 +36,17 @@ public class Property {
     //The number of houses currently built on the property.
     private int numHouses;
 
-    //The maximum number of houses that can be built on this property.
+    //The maximum number of houses that can be built on this property, if applicable.
     private int maxHouses;
 
-    //The cost of buying one house on this property.
+    //The cost of buying one house on this property, if applicable.
     private int houseCost;
 
     //The owner of this property.
     private Player owner;
+
+    //image of property, if applicable.
+    private String image;
 
     //A list of the names of the properties in this properties set.
     private List<String> setMemberNames;
@@ -55,7 +61,7 @@ public class Property {
     private String color;
 
     /**
-     * Constructs a new property with the specified data.
+     * Constructs a new regular property with the specified data.
      *
      * @param name the name of the property.
      * @param cost the cost of the property.
@@ -64,9 +70,10 @@ public class Property {
      * @param setMemberNames the names of the other members in this property's set.
      * @param mortgageValue the value of mortgaging this property.
      */
-    public Property(String name, int cost, int[] rentCost,
+    public Property(String name, String type, int cost, int[] rentCost,
         int houseCost, List<String> setMemberNames, int mortgageValue, String color) {
         this.name = name;
+        this.type = type;
         this.cost = cost;
         this.rentCost = rentCost;
         this.maxHouses = rentCost.length - 1;
@@ -79,13 +86,45 @@ public class Property {
         this.color = color;
     }
 
+    /**
+     * Constructs a new special property with the specified data. For Railroads and Utilities.
+     *
+     * @param name the name of the property.
+     * @param cost the cost of the property.
+     * @param rentCost an array of the rent cost of this property for each house built.
+     * @param image the image associated with the property
+     * @param setMemberNames the names of the other members in this property's set.
+     * @param mortgageValue the value of mortgaging this property.
+     */
+    public Property(String name, String type, int cost, int[] rentCost,
+        List<String> setMemberNames, int mortgageValue, String image) {
+        this.name = name;
+        this.type = type;
+        this.cost = cost;
+        this.rentCost = rentCost;
+        this.setMemberNames = setMemberNames;
+        this.mortgageValue = mortgageValue;
+        this.owner = NULL_OWNER;
+        this.isMortgaged = false;
+        this.image = image;
+    }
+
 
     /**
-     * Returns the player's name.
+     * Returns the properties' name.
      *
-     * @return the player's name.
+     * @return the properties' name.
      */
     public String getName() {
+        return name;
+    }
+
+    /**
+     * Returns the properties' type.
+     *
+     * @return the properties' type.
+     */
+    public String getType() {
         return name;
     }
 

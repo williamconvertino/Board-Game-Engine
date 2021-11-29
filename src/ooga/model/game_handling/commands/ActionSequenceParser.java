@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Supplier;
+import ooga.display.Display;
 import ooga.exceptions.InvalidFileFormatException;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
@@ -19,6 +20,9 @@ import ooga.model.game_handling.FunctionExecutor;
  * @since 0.0.1
  */
 public class ActionSequenceParser {
+
+
+  private static final String RESOURCE_DIRECTORY = ActionSequenceParser.class.getPackageName() + ".resources.".replace(".","/");
 
   //The FunctionExecutor that houses the commands to be run.
   private FunctionExecutor functions;
@@ -42,11 +46,12 @@ public class ActionSequenceParser {
    * @param gameData a reference to the game's data.
    */
   public ActionSequenceParser (FunctionExecutor functions, GameData gameData) {
+    System.out.println(RESOURCE_DIRECTORY);
     this.functions = functions;
     this.gameData = gameData;
-    this.commandDoc = ResourceBundle.getBundle("commands");
-    this.argumentsDoc = ResourceBundle.getBundle("arguments");
-    this.multistepArgumentsDoc = ResourceBundle.getBundle("multistep_arguments");
+    this.commandDoc = ResourceBundle.getBundle(RESOURCE_DIRECTORY + "commands");
+    this.argumentsDoc = ResourceBundle.getBundle(RESOURCE_DIRECTORY + "arguments");
+    this.multistepArgumentsDoc = ResourceBundle.getBundle(RESOURCE_DIRECTORY + "multistep_arguments");
   }
 
   /**

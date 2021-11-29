@@ -66,7 +66,7 @@ public class PropertyInfoPopUp {
       popUpVBox.getChildren().add(houseCost);
 
       // index 5
-      Label owner = new Label(String.format("%d", propertyTileModel.getProperty().getOwner()));
+      Label owner = new Label(String.format("%s", propertyTileModel.getProperty().getOwner()));
       popUpVBox.getChildren().add(owner);
 
       // index 6

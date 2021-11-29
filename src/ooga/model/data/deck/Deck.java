@@ -30,6 +30,10 @@ public class Deck {
         resetDeck();
     }
 
+    public void setDeck(List<Card> cards){
+        myCardList = cards;
+    }
+
     /**
      *  Removes a random card from the deck and returns it.
      *

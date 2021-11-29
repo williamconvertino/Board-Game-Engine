@@ -1,0 +1,9 @@
+Name=St. Charles Place
+Type=Regular
+Cost=140
+RentCost=10,50,150,450,625,750
+MaxHouses=4
+HouseCost=100
+Neighbors=States Avenue, Virginia Avenue
+Mortgage=70
+Color=pink

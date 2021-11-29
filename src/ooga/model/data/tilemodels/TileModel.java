@@ -46,4 +46,9 @@ public abstract class TileModel {
         return myName;
     }
 
+
+    public String getString(){
+        return myName;
+    }
+
 }

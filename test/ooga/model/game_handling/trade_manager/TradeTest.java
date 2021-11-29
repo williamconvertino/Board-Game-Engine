@@ -22,10 +22,10 @@ public class TradeTest {
     void setUp() {
         player1 = new Player("p1");
         player2 = new Player("p2");
-        p1 = new Property("Boardwalk", 1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
-        p2 = new Property("Park Place", 1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
-        p3 = new Property("New York Ave", 1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
-        p4 = new Property("St. Charles Place", 1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
+        p1 = new Property("Boardwalk", "Regular",1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
+        p2 = new Property("Park Place", "Regular",1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
+        p3 = new Property("New York Ave", "Regular",1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
+        p4 = new Property("St. Charles Place", "Regular",1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
         player1.giveProperty(p1);
         player1.giveProperty(p3);
         player2.giveProperty(p2);
@@ -62,7 +62,7 @@ public class TradeTest {
         int receivingAmount = 0;
         List<Property> offeringProperties = new LinkedList<Property>();
         List<Property> receivingProperties = new LinkedList<Property>();
-        Property randomProp = new Property("Random Property", 1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
+        Property randomProp = new Property("Random Property", "Regular",1, new int[]{2,4,6}, 3, new LinkedList<>(), 5,"red");
         offeringProperties.add(randomProp);
         receivingProperties.add(p2);
         Trade trade = new Trade(player1, player2, offeringAmount, receivingAmount, offeringProperties, receivingProperties);
