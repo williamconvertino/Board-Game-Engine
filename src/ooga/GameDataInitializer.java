@@ -86,7 +86,10 @@ public class GameDataInitializer {
 
       //parse all player names into list and create player manager
       currentFile = PLAYER_NAMES;
-      List<Player> myPlayers = PlayerParser.getPlayersFromFile(DATA_PATH + variationFilePath + PLAYER_NAMES);
+      List<Player> myPlayers = new ArrayList<>();
+      for (int i = 0; i < 4; i++) {
+        myPlayers.add(new Player(""));
+      }
       playerManager = Class.forName(modelConfig.getString(PLAYER_MANAGER)).getConstructor(List.class).newInstance(myPlayers);
 
       //parse card files into decks
