@@ -9,9 +9,7 @@ import ooga.model.data.deck.Deck;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.properties.Property;
 import ooga.model.game_handling.FunctionExecutor;
-import ooga.model.game_handling.commands.ActionSequence;
 import ooga.model.game_handling.commands.ActionSequenceParser;
-import ooga.util.parsers.PropertyParser;
 import org.junit.jupiter.api.BeforeEach;
 
 public class ParserTest {
@@ -30,7 +28,7 @@ public class ParserTest {
       throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidFileFormatException {
     propertyParser = new PropertyParser();
     propertyList = new ArrayList<>();
-    propertyList = propertyParser.parseProperties("monopoly_original/properties");
+    propertyList = propertyParser.parseProperties("variations/monopoly_original/properties");
     gameData = new GameData();
     FunctionExecutor functionExecutor = new FunctionExecutor();
     //create parsers
@@ -40,8 +38,10 @@ public class ParserTest {
     boardParser = new BoardParser();
 
 
-    Deck chanceDeck = new Deck("Chance",cardParser.parseCards("monopoly_original/cards/chance"));
-    Deck communityChestDeck = new Deck ("Community Chest",cardParser.parseCards("monopoly_original/cards/community_chest"));
+    Deck chanceDeck = new Deck("Chance",cardParser.parseCards(
+        "variations/monopoly_original/cards/chance"));
+    Deck communityChestDeck = new Deck ("Community Chest",cardParser.parseCards(
+        "variations/monopoly_original/cards/community_chest"));
 
     //combine decks into list, and give to gameData
     List<Deck> deckList = new ArrayList<>();

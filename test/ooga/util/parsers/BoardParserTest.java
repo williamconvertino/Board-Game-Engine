@@ -27,7 +27,7 @@ public class BoardParserTest extends ParserTest {
     nonPropperTileMap = new HashMap<>();
     propperTileMap = tileParser.parsePropertyTiles(propertyList);
     Map<String, TileModel> nonPropTileMap = new HashMap();
-    nonPropperTileMap = tileParser.parseNonPropertyTiles("monopoly_original/board/tiles");
+    nonPropperTileMap = tileParser.parseNonPropertyTiles("variations/monopoly_original/board/tiles");
 
 
     Map<String,TileModel> tileModelMap = new HashMap<>() {{

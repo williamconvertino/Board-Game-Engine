@@ -1,0 +1,7 @@
+Name=Water Works
+Type=Utilities
+Cost=150
+RentCost=4,10
+Mortgage=75
+Neighbors=Electric Company
+Image=

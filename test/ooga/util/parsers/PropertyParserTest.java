@@ -7,12 +7,10 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.model.data.properties.Property;
 import ooga.model.game_handling.GameHandlingTest;
-import ooga.util.parsers.PropertyParser;
 import org.junit.jupiter.api.Test;
 
 public class PropertyParserTest extends GameHandlingTest {
@@ -21,7 +19,8 @@ public class PropertyParserTest extends GameHandlingTest {
       throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
     PropertyParser myParser = new PropertyParser();
     Map<String,Property> propList = new HashMap();
-    ArrayList<Property> propertyList = myParser.parseProperties("monopoly_original/properties");
+    ArrayList<Property> propertyList = myParser.parseProperties(
+        "variations/monopoly_original/properties");
     for (Property prop: propertyList){
       propList.putIfAbsent(prop.getName(),prop);
     }
@@ -35,7 +34,7 @@ public class PropertyParserTest extends GameHandlingTest {
   void testParsePropertyName()
       throws AttributeNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     PropertyParser myParser = new PropertyParser();
-    Property testProperty = myParser.parsePropertyFile(new File("data/monopoly_original/properties/mediterranean_avenue.property"));
+    Property testProperty = myParser.parsePropertyFile(new File("data/variations/monopoly_original/properties/mediterranean_avenue.property"));
     assertEquals(testProperty.getName(),"Mediterranean Avenue");
   }
 

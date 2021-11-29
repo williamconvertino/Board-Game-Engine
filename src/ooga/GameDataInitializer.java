@@ -46,7 +46,7 @@ public class GameDataInitializer {
   public static final String BOARD_SUFFIX = ".board";
   public static final String CONFIG = "/config";
   public static final String DATA_PATH = "data/";
-
+  public static final String VARIATION_PATH = "variations/";
   public static final String PLAYER_MANAGER = "PlayerManager";
   public static final String BOARD_MANAGER = "BoardManager";
   public static final String DIE = "Die";
@@ -60,8 +60,10 @@ public class GameDataInitializer {
   public static Deck chanceDeck;
   public static Deck communityChestDeck;
 
-  public static GameData generateGameData(String variationFilePath)
+  public static GameData generateGameData(String variationName)
       throws ImproperlyFormattedFile {
+
+    String variationFilePath = VARIATION_PATH + variationName;
 
     //create GameData and FunctionExecutor objects
     GameData gameData = new GameData();
@@ -73,6 +75,7 @@ public class GameDataInitializer {
     String currentFile = null;
 
     try {
+
 
       //create parsers
       propertyParser = new PropertyParser();

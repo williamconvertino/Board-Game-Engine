@@ -42,7 +42,7 @@ public class BoardParser {
     List<TileModel> boardTileModels = new ArrayList<>();
 
     File file=new File(boardFilePath);
-    FileReader fileReader =new FileReader(file);
+    FileReader fileReader =new FileReader("data/variations/monopoly_original/board/monopoly_original.board");
     BufferedReader bufferedReader = new BufferedReader(fileReader);
     String line;
     while((line = bufferedReader.readLine())!=null)

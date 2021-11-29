@@ -2,14 +2,11 @@ package ooga.util.parsers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.exceptions.InvalidFileFormatException;
-import ooga.model.data.properties.Property;
 import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
 import org.junit.jupiter.api.Test;
@@ -33,7 +30,7 @@ public class TileParserTest extends ParserTest{
       throws AttributeNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InvalidFileFormatException {
 
     Map<String, TileModel> nonPropTileMap = new HashMap();
-    nonPropTileMap = tileParser.parseNonPropertyTiles("monopoly_original/board/tiles");
+    nonPropTileMap = tileParser.parseNonPropertyTiles("variations/monopoly_original/board/tiles");
 
     assertEquals(8,nonPropTileMap.size());
 

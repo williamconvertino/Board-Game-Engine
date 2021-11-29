@@ -3,7 +3,6 @@ package ooga.model;
 import ooga.GameDataInitializer;
 import ooga.exceptions.ImproperlyFormattedFile;
 import ooga.model.data.gamedata.GameData;
-import ooga.util.DukeApplicationTest;
 import ooga.util.parsers.ParserTest;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

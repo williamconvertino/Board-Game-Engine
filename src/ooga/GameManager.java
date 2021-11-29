@@ -5,7 +5,6 @@ import javafx.stage.Stage;
 import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayComm;
 import ooga.display.communication.EventManager;
-import ooga.exceptions.ImproperlyFormattedFile;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.game_handling.FunctionExecutor;
 import ooga.model.game_handling.turn_manager.TurnManager;
