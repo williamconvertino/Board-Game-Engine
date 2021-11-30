@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import ooga.GameManager;
 import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
 import ooga.display.game_board.GameBoardDisplay;
@@ -37,29 +38,29 @@ public class DisplayManager {
   private GameData myGameData;
   private Map<EVENT_NAMES, TMEvent> myEventMap;
   private EnterPlayersScreen myEnterPlayerScreen;
+  private GameManager myGame;
 
 
 
   /**
    * Default constructor
    */
-  public DisplayManager(Stage stage, Map<EVENT_NAMES, TMEvent> eventMap, GameData gameData) {
+  public DisplayManager(Stage stage) {
     myStage = stage;
-    myGameData = gameData;
-    myEventMap = eventMap;
     languageResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
     allDisplays.add(new StartMenu(myStage, this, languageResource));
     allDisplays.add(new OptionsMenu(myStage, this, languageResource));
     currDisplay = allDisplays.get(0);
     myStage.setScene(currDisplay.getScene());
     //displayElement();
+
   }
 
   /**
    * Switches to the player name screen
    */
   public void goPlayerScreen() {
-    myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource, myGameData);
+    myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource);
     allDisplays.add(myEnterPlayerScreen);
     currDisplay = allDisplays.get(2);
     myStage.setScene(currDisplay.getScene());
@@ -69,6 +70,9 @@ public class DisplayManager {
    * Switch screens to the gameboard and starts game
    */
   public void startGame() {
+    myGame = new GameManager();
+    myGameData = myGame.getGameData();
+    myEventMap = myGame.getEventMap();
     setPlayerNames();
     setPlayerColors();
     allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData));
@@ -156,6 +160,14 @@ public class DisplayManager {
    */
   public Stage getMyStage() {
     return myStage;
+  }
+
+  /**
+   * Get GameData for testing
+   * @return myGameData
+   */
+  public GameData getGameData() {
+    return myGameData;
   }
 
   /**

@@ -47,11 +47,9 @@ public class EnterPlayersScreen extends Display {
     private static final String PLAYER_NAME = "PlayerNameLabel";
     private static final String ENTER_NAME = "EnterPlayerName";
     private ArrayList<Color> playerColors = new ArrayList<>();
-    private GameData myGameData;
     private Scene scene;
 
-    public EnterPlayersScreen (Stage stage, DisplayManager displayManager, ResourceBundle langResource, GameData gameData) {
-        myGameData = gameData;
+    public EnterPlayersScreen (Stage stage, DisplayManager displayManager, ResourceBundle langResource) {
         myLangResource = langResource;
         myBuilder = new UIBuilder(langResource);
         myStage = stage;
@@ -77,7 +75,7 @@ public class EnterPlayersScreen extends Display {
 
     private Node makeTextAreas() {
         myTextAreaVBox = new VBox();
-        for (int i = 1; i < myGameData.getPlayers().size() + 1; i++) {
+        for (int i = 1; i < 5; i++) {
             myTextAreaVBox.getChildren().add(myBuilder.makeLabel(String.format("%s%d", ENTER_NAME, i)));
             myTextAreaVBox.getChildren().add(myBuilder.makeTextField(String.format("%s%d", ENTER_NAME, i)));
         }
@@ -86,7 +84,7 @@ public class EnterPlayersScreen extends Display {
 
     private Node makeColorSelection() {
         myColorSelectionVBox = new VBox();
-        for (int i = 1; i < myGameData.getPlayers().size() + 1; i++) {
+        for (int i = 1; i < 5; i++) {
             myColorSelectionVBox.getChildren().add(myBuilder.makeLabel(String.format("%s", SELECT_COLORLABEL)));
             ComboBox colorSelectorBox = new ComboBox();
             ObservableList<String> options =
