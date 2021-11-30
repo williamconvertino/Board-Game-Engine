@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ooga.display.communication.EventManager.EVENT_NAMES;
@@ -69,6 +70,7 @@ public class DisplayManager {
    */
   public void startGame() {
     setPlayerNames();
+    setPlayerColors();
     allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData));
     currDisplay = allDisplays.get(3);
     myStage.setScene(currDisplay.getScene());
@@ -77,9 +79,19 @@ public class DisplayManager {
   private void setPlayerNames() {
     List<Player> playerList = myGameData.getPlayers();
     int index = 0;
-    for (Node node : myEnterPlayerScreen.getTextAreaInfo()) {
+    for (Node node : myEnterPlayerScreen.getPlayerNameTextAreaInfo()) {
       TextField textArea = (TextField) node;
       playerList.get(index).setName(textArea.getText());
+      index++;
+    }
+  }
+
+  private void setPlayerColors() {
+    List<Player> playerList = myGameData.getPlayers();
+    int index = 0;
+    for (Node node : myEnterPlayerScreen.getPlayerColors()) {
+      ComboBox comboBox = (ComboBox) node;
+      playerList.get(index).setColor((String) comboBox.getSelectionModel().getSelectedItem());
       index++;
     }
   }

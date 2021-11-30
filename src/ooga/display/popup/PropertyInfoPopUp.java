@@ -40,7 +40,7 @@ public class PropertyInfoPopUp {
   private void setupPopup() {
     // Property Popup:
     VBox popUpVBox = new VBox();
-    popUpVBox.setPrefSize(200, 400);
+    popUpVBox.setPrefSize(400, 600);
     popUpVBox.setId("propertyVBox");
 
     // index 0
@@ -50,27 +50,31 @@ public class PropertyInfoPopUp {
     if (myPropertyTileModel instanceof PropertyTileModel) {
       PropertyTileModel propertyTileModel = (PropertyTileModel) myPropertyTileModel;
       // index 1
-      Label cost = new Label(String.format("%d", propertyTileModel.getProperty().getCost()));
+      Label cost = new Label(String.format("Property Cost: %d", propertyTileModel.getProperty().getCost()));
       popUpVBox.getChildren().add(cost);
 
       // index 2
-      Label rentCost = new Label(String.format("%d", propertyTileModel.getProperty().getRentCost()));
+      Label rentCost = new Label(String.format("Rent Cost: %d", propertyTileModel.getProperty().getRentCost()));
       popUpVBox.getChildren().add(rentCost);
 
       // index 3
-      Label numHouses = new Label(String.format("%d", propertyTileModel.getProperty().getNumHouses()));
+      Label numHouses = new Label(String.format("Houses: %d", propertyTileModel.getProperty().getNumHouses()));
       popUpVBox.getChildren().add(numHouses);
 
       // index 4
-      Label houseCost = new Label(String.format("%d", propertyTileModel.getProperty().getHouseCost()));
+      Label houseCost = new Label(String.format("House Cost: %d", propertyTileModel.getProperty().getHouseCost()));
       popUpVBox.getChildren().add(houseCost);
 
       // index 5
-      Label owner = new Label(String.format("%s", propertyTileModel.getProperty().getOwner()));
+      String ownerNameCheck = propertyTileModel.getProperty().getOwner().getName();
+      if (ownerNameCheck.equals("Null")) {
+        ownerNameCheck = "No owner";
+      }
+      Label owner = new Label(String.format("Owner: %s", ownerNameCheck));
       popUpVBox.getChildren().add(owner);
 
       // index 6
-      Label mortgageValue = new Label(String.format("%d", propertyTileModel.getProperty().getMortgageValue()));
+      Label mortgageValue = new Label(String.format("Mortgage Value: %d", propertyTileModel.getProperty().getMortgageValue()));
       popUpVBox.getChildren().add(mortgageValue);
     }
 
@@ -86,7 +90,6 @@ public class PropertyInfoPopUp {
    * @param stage
    */
   public void showPopup(Stage stage) {
-
     myPopup.show(stage);
   }
 

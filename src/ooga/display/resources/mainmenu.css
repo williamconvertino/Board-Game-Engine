@@ -9,8 +9,9 @@
     -fx-background-color: #A23434;
 }
 
-
-
+#PlayerCustomizeRight {
+    -fx-alignment: right;
+}
 
 .choice-box {
     -fx-border-style: solid;

@@ -2,6 +2,7 @@ package ooga.model.data.player;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.paint.Color;
 import ooga.model.data.cards.Card;
 import ooga.model.data.properties.Property;
 import ooga.util.ImmutTool;
@@ -10,6 +11,7 @@ import ooga.util.ImmutTool;
  * A class to keep track of a single player's data.
  *
  * @author William Convertino
+ * @author Aaric Han
  *
  * @since 0.0.1
  */
@@ -17,6 +19,9 @@ public class Player {
 
     //The name of the player.
     private String myName;
+
+    //The color of the player.
+    private Color myColor;
 
     //Keeps track of whether the player is actively in the game.
     private boolean isActive;
@@ -45,6 +50,7 @@ public class Player {
      */
     public Player(String name) {
         this.myName = name;
+        this.myColor = null;
         this.isActive = true;
         this.isInJail = false;
         this.myLocation = 0;
@@ -192,7 +198,31 @@ public class Player {
         return myBalance;
     }
 
+    /**
+     * Sets the name of the player
+     * @param text
+     */
     public void setName(String text) {
         myName = text;
+    }
+
+    /**
+     * Sets the color of the player
+     * @param colorString
+     */
+    public void setColor(String colorString) {
+        if (colorString == null) {
+            myColor = Color.BLACK;
+        }
+        else {
+            myColor = Color.web(colorString);
+        }
+    }
+
+    /**
+     * Get the color of the player
+     */
+    public Color getColor() {
+        return myColor;
     }
 }
