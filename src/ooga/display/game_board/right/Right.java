@@ -1,18 +1,9 @@
 package ooga.display.game_board.right;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import java.util.ArrayList;
 import java.util.Map;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import ooga.display.DisplayManager;
-import ooga.display.communication.DisplayStateSignaler.State;
-import ooga.display.communication.EventManager;
 import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
 import ooga.display.game_board.GameBoardDisplay;
@@ -30,7 +21,6 @@ import ooga.model.data.gamedata.GameData;
 public class Right {
 
   private GameBoardDisplay myGameBoardDisplay;
-  private DisplayManager myDisplayManager;
   private VBox rightComponent;
   private ResourceBundle myLanguage;
   private UIBuilder myBuilder;
@@ -39,11 +29,10 @@ public class Right {
   /**
    * The constructor for the right display element
    */
-  public Right(GameBoardDisplay gameBoardDisplay, DisplayManager displayManager, ResourceBundle language, Map<EVENT_NAMES, TMEvent> eventMap, GameData gameData) {
+  public Right(GameBoardDisplay gameBoardDisplay, ResourceBundle language, Map<EVENT_NAMES, TMEvent> eventMap, GameData gameData) {
     myLanguage = language;
     myBuilder = new UIBuilder(myLanguage);
     myGameBoardDisplay = gameBoardDisplay;
-    myDisplayManager = displayManager;
     rightComponent = new VBox();
     rightComponent.setPrefWidth(200);
     this.eventMap = eventMap;
@@ -74,10 +63,13 @@ public class Right {
   private void beginTurn() {
     Button roll = (Button) rightComponent.getChildren().get(1);
     roll.setDisable(true);
-    TurnChoices turnChoices = new TurnChoices(myGameBoardDisplay, myLanguage, myBuilder, eventMap, gameData);
+    TurnChoices turnChoices = new TurnChoices(myGameBoardDisplay, myLanguage, myBuilder);
     rightComponent.getChildren().set(3, turnChoices.getMyTurnChoices());
   }
 
+  /**
+   * Ends turn and updates the right component's turn choices element
+   */
   public void endTurn() {
     Button roll = (Button) rightComponent.getChildren().get(1);
     roll.setDisable(false);

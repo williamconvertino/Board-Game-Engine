@@ -49,6 +49,10 @@ public class Top {
 
   private void pressedRotateButton() { myDisplayManager.rotateBoard();}
 
+  /**
+   * Gets the top component
+   * @return topComponent
+   */
   public HBox getTopComponent() {
     return topComponent;
   }

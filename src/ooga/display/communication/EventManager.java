@@ -9,6 +9,10 @@ import ooga.model.game_handling.turn_manager.TurnManager;
 import static ooga.display.communication.EventManager.EVENT_NAMES.*;
 /**
  * This class creates the buttons for the game and send them to the DisplayManager
+ *
+ * @author William Convertino
+ * @author Aaric Han
+ * @author Henry Huynh
  */
 public class EventManager {
 
@@ -43,6 +47,10 @@ public class EventManager {
         myEvents.put(BUY_PROPERTY, e->turnManager.buyProperty((TileModel) e[0]));
     }
 
+    /**
+     * Get the events map
+     * @return myEvents
+     */
     public Map<EVENT_NAMES, TMEvent> getMyEvents() {
         return myEvents;
     }
