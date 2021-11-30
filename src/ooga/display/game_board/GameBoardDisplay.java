@@ -1,22 +1,16 @@
 package ooga.display.game_board;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import ooga.display.Display;
 import ooga.display.DisplayManager;
-import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
 import ooga.display.game_board.board.Board;
@@ -24,14 +18,9 @@ import ooga.display.game_board.bottom.Bottom;
 import ooga.display.game_board.left.Left;
 import ooga.display.game_board.right.Right;
 import ooga.display.game_board.top.Top;
-
-import java.util.Random;
 import java.util.ResourceBundle;
-
 import ooga.display.ui_tools.UIBuilder;
 import ooga.model.data.gamedata.GameData;
-import ooga.model.data.player.Player;
-import ooga.model.data.tilemodels.TileModel;
 
 /**
  * This class displays all elements of the Game BoardManager
@@ -75,10 +64,10 @@ public class GameBoardDisplay extends Display {
     myEventMap = eventMap;
     myDisplayManager = displayManager;
     theTop = new Top(this, myDisplayManager, myLanguage);
-    theRight = new Right(this, myDisplayManager, myLanguage, eventMap, gameData);
-    theLeft = new Left(this, myDisplayManager, myLanguage, eventMap, gameData);
-    theBottom = new Bottom(this, myDisplayManager, myLanguage);
-    theBoard = new Board(this, myDisplayManager, myLanguage, gameData, eventMap);
+    theRight = new Right(this, myLanguage, eventMap, gameData);
+    theLeft = new Left(myLanguage, eventMap, gameData);
+    theBottom = new Bottom(myLanguage);
+    theBoard = new Board(myDisplayManager, myLanguage, gameData, eventMap);
 
     theGameBoard = new BorderPane();
     theGameBoard.setCenter(theBoard.getComponent());
@@ -121,12 +110,18 @@ public class GameBoardDisplay extends Display {
     tempTabVBox.getChildren().set(10, theLeft.makePlayerTabCards(currPlayer));
   }
 
+  /**
+   * Buys Property and updates the board elements
+   */
   public void buyProp() {
     myEventMap.get(EVENT_NAMES.BUY_PROPERTY).execute(myGameData.getBoard().getTileAtIndex(myGameData.getCurrentPlayer().getLocation()));
     theBoard.updatePropertyPopups();
     updateLeftInfo(); // FIXME: This is breaking causing next lines to not execute
   }
 
+  /**
+   * Ends the turn and updates the board elements
+   */
   public void endTurn() {
     myEventMap.get(EVENT_NAMES.END_TURN).execute();
     theRight.endTurn();

@@ -1,14 +1,11 @@
 package ooga.display.game_board.board;
 
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -18,9 +15,7 @@ import javafx.scene.shape.Rectangle;
 import ooga.display.DisplayManager;
 import ooga.display.communication.EventManager;
 import ooga.display.communication.TMEvent;
-import ooga.display.game_board.GameBoardDisplay;
 import ooga.display.popup.PropertyInfoPopUp;
-import ooga.display.game_board.right.TurnChoices;
 import ooga.display.ui_tools.UIBuilder;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.tilemodels.TileModel;
@@ -39,7 +34,6 @@ public class Board {
   private static final double PREF_WIDTH_BOARD = 1100;
   private static final double PREF_HEIGHT_BOARD = 1100;
   private static final int RADIUS = 10;
-  private GameBoardDisplay myGameBoardDisplay;
   private DisplayManager myDisplayManager;
   private ResourceBundle myLanguage;
   private UIBuilder myBuilder;
@@ -52,17 +46,15 @@ public class Board {
   private GameData gameData;
   private Map<EventManager.EVENT_NAMES, TMEvent> eventMap;
   private ArrayList<PropertyInfoPopUp> allPropInfoPopups = new ArrayList<>(2*BOARD_SIZE + 2*SIDE_LENGTH);
-  private TurnChoices myTurnChoices;
 
   /**
    * Constructor for the game board
    */
-  public Board(GameBoardDisplay gameBoardDisplay, DisplayManager displayManager, ResourceBundle language, GameData gameData,
+  public Board(DisplayManager displayManager, ResourceBundle language, GameData gameData,
                Map<EventManager.EVENT_NAMES, TMEvent> eventMap) {
     this.eventMap = eventMap;
     myLanguage = language;
     myBuilder = new UIBuilder(myLanguage);
-    myGameBoardDisplay = gameBoardDisplay;
     myDisplayManager = displayManager;
     boardComponent = new VBox();
     this.gameData = gameData;
@@ -175,27 +167,15 @@ public class Board {
   private void startPieces() {
     GridPane board = (GridPane) boardComponent.getChildren().get(0);
     StackPane stackPane = (StackPane) board.getChildren().get(0);
+    Map<Integer, Pos> positionMap = new HashMap<>();
+    positionMap.put(0, Pos.TOP_LEFT);
+    positionMap.put(1, Pos.TOP_RIGHT);
+    positionMap.put(2, Pos.BOTTOM_LEFT);
+    positionMap.put(3, Pos.BOTTOM_RIGHT);
     for(int i = 0; i < gameData.getPlayers().size(); i++) {
-      if(i == 0) {
-        allCirclePieces.add(new Circle(RADIUS, gameData.getPlayers().get(i).getColor()));
-        stackPane.getChildren().add(allCirclePieces.get(i));
-        StackPane.setAlignment(allCirclePieces.get(i), Pos.TOP_LEFT);
-      }
-      else if(i == 1) {
-        allCirclePieces.add(new Circle(RADIUS, gameData.getPlayers().get(i).getColor()));
-        stackPane.getChildren().add(allCirclePieces.get(i));
-        StackPane.setAlignment(allCirclePieces.get(i), Pos.TOP_RIGHT);
-      }
-      else if(i == 2) {
-        allCirclePieces.add(new Circle(RADIUS, gameData.getPlayers().get(i).getColor()));
-        stackPane.getChildren().add(allCirclePieces.get(i));
-        StackPane.setAlignment(allCirclePieces.get(i), Pos.BOTTOM_RIGHT);
-      }
-      else if(i == 3) {
-        allCirclePieces.add(new Circle(RADIUS, gameData.getPlayers().get(i).getColor()));
-        stackPane.getChildren().add(allCirclePieces.get(i));
-        StackPane.setAlignment(allCirclePieces.get(i), Pos.BOTTOM_LEFT);
-      }
+      allCirclePieces.add(new Circle(RADIUS, gameData.getPlayers().get(i).getColor()));
+      stackPane.getChildren().add(allCirclePieces.get(i));
+      StackPane.setAlignment(allCirclePieces.get(i), positionMap.get(i));
     }
   }
 

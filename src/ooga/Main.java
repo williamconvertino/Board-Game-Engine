@@ -10,7 +10,6 @@ import ooga.display.DisplayManager;
  * Initializes and runs the game.
  */
 public class Main extends Application {
-
     @Override
     public void start(Stage stage) {
         DisplayManager displayManager = new DisplayManager(stage);

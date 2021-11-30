@@ -50,36 +50,36 @@ public class PropertyInfoPopUp {
     if (myPropertyTileModel instanceof PropertyTileModel) {
       PropertyTileModel propertyTileModel = (PropertyTileModel) myPropertyTileModel;
       // index 1
-      Label cost = new Label(String.format("Property Cost: %d", propertyTileModel.getProperty().getCost()));
+      Label cost = new Label(String.format("%s %d", myResource.getString("propCostLabel"), propertyTileModel.getProperty().getCost()));
       popUpVBox.getChildren().add(cost);
 
       // index 2
-      Label rentCost = new Label(String.format("Rent Cost: %d", propertyTileModel.getProperty().getRentCost()));
+      Label rentCost = new Label(String.format("%s %d", myResource.getString("rentCostLabel"), propertyTileModel.getProperty().getRentCost()));
       popUpVBox.getChildren().add(rentCost);
 
       // index 3
-      Label numHouses = new Label(String.format("Houses: %d", propertyTileModel.getProperty().getNumHouses()));
+      Label numHouses = new Label(String.format("%s %d", myResource.getString("houseLabel"), propertyTileModel.getProperty().getNumHouses()));
       popUpVBox.getChildren().add(numHouses);
 
       // index 4
-      Label houseCost = new Label(String.format("House Cost: %d", propertyTileModel.getProperty().getHouseCost()));
+      Label houseCost = new Label(String.format("%s %d", myResource.getString("houseCostLabel"), propertyTileModel.getProperty().getHouseCost()));
       popUpVBox.getChildren().add(houseCost);
 
       // index 5
       String ownerNameCheck = propertyTileModel.getProperty().getOwner().getName();
       if (ownerNameCheck.equals("Null")) {
-        ownerNameCheck = "No owner";
+        ownerNameCheck = myResource.getString("noOwnerString");
       }
-      Label owner = new Label(String.format("Owner: %s", ownerNameCheck));
+      Label owner = new Label(String.format("%s %s", myResource.getString("ownerLabel"), ownerNameCheck));
       popUpVBox.getChildren().add(owner);
 
       // index 6
-      Label mortgageValue = new Label(String.format("Mortgage Value: %d", propertyTileModel.getProperty().getMortgageValue()));
+      Label mortgageValue = new Label(String.format("%s %d", myResource.getString("mortgageValueLabel"), propertyTileModel.getProperty().getMortgageValue()));
       popUpVBox.getChildren().add(mortgageValue);
     }
 
     // Index 7 or 1
-    Button closeButton = myUIBuilder.makeButton("Close", e -> hidePopup());
+    Button closeButton = myUIBuilder.makeButton(myResource.getString("Close"), e -> hidePopup());
     popUpVBox.getChildren().add(closeButton);
 
     myPopup.getContent().add(popUpVBox);
