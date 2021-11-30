@@ -52,7 +52,6 @@ public class DisplayManager {
     allDisplays.add(new OptionsMenu(myStage, this, languageResource));
     currDisplay = allDisplays.get(0);
     myStage.setScene(currDisplay.getScene());
-    //displayElement();
 
   }
 
