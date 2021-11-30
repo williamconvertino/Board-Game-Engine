@@ -1,6 +1,7 @@
 package ooga.display.game_board.board;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,8 +34,8 @@ import static ooga.display.communication.EventManager.EVENT_NAMES.*;
  * @author Henry Huynh
  */
 public class Board {
-  private static final double RECT_WIDTH = 70;
-  private static final double RECT_HEIGHT = 80;
+  private static final int RECT_WIDTH = 70;
+  private static final int RECT_HEIGHT = 80;
   private static final double PREF_WIDTH_BOARD = 1100;
   private static final double PREF_HEIGHT_BOARD = 1100;
   private static final int RADIUS = 10;
@@ -50,6 +51,7 @@ public class Board {
   private VBox boardComponent;
   private GameData gameData;
   private Map<EventManager.EVENT_NAMES, TMEvent> eventMap;
+  private ArrayList<PropertyInfoPopUp> allPropInfoPopups = new ArrayList<>(2*BOARD_SIZE + 2*SIDE_LENGTH);
   private TurnChoices myTurnChoices;
 
   /**
@@ -75,14 +77,14 @@ public class Board {
     int makeTileIndex = gameData.getBoard().getTiles().size() - gameBoardTileCount;
     // Top Left Corner
     if (gameBoardTileCount > 0) {
-      gameBoard.add(makeCornerProperty(makeTileIndex), 0, 0);
+      gameBoard.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_HEIGHT), 0, 0);
       makeTileIndex++;
     }
 
     // Top Row
     for (int i = 0; i < SIDE_LENGTH; i++) {
       if (gameBoardTileCount > 0) {
-        gameBoard.add(makeTopBottomProperty(makeTileIndex), i + 1, 0);
+        gameBoard.add(makePropertyPane(makeTileIndex, RECT_WIDTH, RECT_HEIGHT), i + 1, 0);
         makeTileIndex++;
       }
       else {
@@ -92,14 +94,14 @@ public class Board {
 
     // Top Right Corner
     if (gameBoardTileCount > 0) {
-      gameBoard.add(makeCornerProperty(makeTileIndex), BOARD_SIZE-1, 0);
+      gameBoard.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_HEIGHT), BOARD_SIZE-1, 0);
       makeTileIndex++;
     }
 
     // Right Column
     for (int i = 0; i < SIDE_LENGTH; i++) {
       if (gameBoardTileCount > 0) {
-        gameBoard.add(makeLeftRightProperty(makeTileIndex), BOARD_SIZE-1, i + 1);
+        gameBoard.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_WIDTH), BOARD_SIZE-1, i + 1);
         makeTileIndex++;
       }
       else {
@@ -109,14 +111,14 @@ public class Board {
 
     // Bottom Right Corner
     if (gameBoardTileCount > 0) {
-      gameBoard.add(makeCornerProperty(makeTileIndex), BOARD_SIZE-1, BOARD_SIZE-1);
+      gameBoard.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_HEIGHT), BOARD_SIZE-1, BOARD_SIZE-1);
       makeTileIndex++;
     }
 
     // Bottom Row
     for (int i = 0; i < SIDE_LENGTH; i++) {
       if (gameBoardTileCount > 0) {
-        gameBoard.add(makeTopBottomProperty(makeTileIndex), SIDE_LENGTH-i, BOARD_SIZE-1);
+        gameBoard.add(makePropertyPane(makeTileIndex, RECT_WIDTH, RECT_HEIGHT), SIDE_LENGTH-i, BOARD_SIZE-1);
         makeTileIndex++;
       }
       else {
@@ -126,14 +128,14 @@ public class Board {
 
     // Bottom Left Corner
     if (gameBoardTileCount > 0) {
-      gameBoard.add(makeCornerProperty(makeTileIndex), 0, BOARD_SIZE-1);
+      gameBoard.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_HEIGHT), 0, BOARD_SIZE-1);
       makeTileIndex++;
     }
 
     // Left Column
     for (int i = 0; i < SIDE_LENGTH; i++) {
       if (gameBoardTileCount > 0) {
-        gameBoard.add(makeLeftRightProperty(makeTileIndex), 0, SIDE_LENGTH-i);
+        gameBoard.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_WIDTH), 0, SIDE_LENGTH-i);
         makeTileIndex++;
       }
       else {
@@ -143,46 +145,17 @@ public class Board {
     boardComponent.getChildren().add(gameBoard);
   }
 
-  private StackPane makeTopBottomProperty(int gameBoardTileCount) {
-    Rectangle tile = getRectangle(RECT_WIDTH, RECT_HEIGHT, gameBoardTileCount);
+  private StackPane makePropertyPane(int gameBoardTileCount, int width, int height) {
+    Rectangle tile = getRectangle(width, height, gameBoardTileCount);
     StackPane stackPane = new StackPane();
     stackPane.setId(String.format("Tile%d", gameBoardTileCount));
     Label name = new Label(gameData.getBoard().getTileAtIndex(gameBoardTileCount).getName());
     name.setWrapText(true);
-    name.setMaxWidth(RECT_WIDTH);
+    name.setMaxWidth(Math.min(height, width));
     name.setId("propdisptilename");
     stackPane.getChildren().addAll(tile, name);
-    PropertyInfoPopUp popup = new PropertyInfoPopUp(gameData.getBoard().getTileAtIndex(gameBoardTileCount), myBuilder, myLanguage);
-    stackPane.setOnMouseClicked(e -> popup.showPopup(myDisplayManager.getMyStage()));
-    return stackPane;
-  }
-
-
-  private StackPane makeLeftRightProperty(int gameBoardTileCount) {
-    Rectangle tile = getRectangle(RECT_HEIGHT, RECT_WIDTH, gameBoardTileCount);
-    StackPane stackPane = new StackPane();
-    stackPane.setId(String.format("Tile%d", gameBoardTileCount));
-    Label name = new Label(gameData.getBoard().getTileAtIndex(gameBoardTileCount).getName());
-    name.setWrapText(true);
-    name.setMaxWidth(RECT_HEIGHT);
-    name.setId("propdisptilename");
-    stackPane.getChildren().addAll(tile, name);
-    PropertyInfoPopUp popup = new PropertyInfoPopUp(gameData.getBoard().getTileAtIndex(gameBoardTileCount), myBuilder, myLanguage);
-    stackPane.setOnMouseClicked(e -> popup.showPopup(myDisplayManager.getMyStage()));
-    return stackPane;
-  }
-
-  private StackPane makeCornerProperty(int gameBoardTileCount) {
-    Rectangle tile = getRectangle(RECT_HEIGHT, RECT_HEIGHT, gameBoardTileCount);
-    StackPane stackPane = new StackPane();
-    stackPane.setId(String.format("Tile%d", gameBoardTileCount));
-    Label name = new Label(gameData.getBoard().getTileAtIndex(gameBoardTileCount).getName());
-    name.setWrapText(true);
-    name.setMaxWidth(RECT_HEIGHT);
-    name.setId("propdisptilename");
-    stackPane.getChildren().addAll(tile, name);
-    PropertyInfoPopUp popup = new PropertyInfoPopUp(gameData.getBoard().getTileAtIndex(gameBoardTileCount), myBuilder, myLanguage);
-    stackPane.setOnMouseClicked(e -> popup.showPopup(myDisplayManager.getMyStage()));
+    allPropInfoPopups.add(new PropertyInfoPopUp(gameData.getBoard().getTileAtIndex(gameBoardTileCount), myBuilder, myLanguage));
+    stackPane.setOnMouseClicked(e -> allPropInfoPopups.get(gameBoardTileCount).showPopup(myDisplayManager.getMyStage()));
     return stackPane;
   }
 
@@ -203,28 +176,26 @@ public class Board {
     GridPane board = (GridPane) boardComponent.getChildren().get(0);
     StackPane stackPane = (StackPane) board.getChildren().get(0);
     for(int i = 0; i < gameData.getPlayers().size(); i++) {
-
       if(i == 0) {
-        allCirclePieces.add(new Circle(RADIUS, Color.BLACK));
+        allCirclePieces.add(new Circle(RADIUS, gameData.getPlayers().get(i).getColor()));
         stackPane.getChildren().add(allCirclePieces.get(i));
         StackPane.setAlignment(allCirclePieces.get(i), Pos.TOP_LEFT);
       }
       else if(i == 1) {
-        allCirclePieces.add(new Circle(RADIUS, Color.RED));
+        allCirclePieces.add(new Circle(RADIUS, gameData.getPlayers().get(i).getColor()));
         stackPane.getChildren().add(allCirclePieces.get(i));
         StackPane.setAlignment(allCirclePieces.get(i), Pos.TOP_RIGHT);
       }
       else if(i == 2) {
-        allCirclePieces.add(new Circle(RADIUS, Color.GREEN));
+        allCirclePieces.add(new Circle(RADIUS, gameData.getPlayers().get(i).getColor()));
         stackPane.getChildren().add(allCirclePieces.get(i));
         StackPane.setAlignment(allCirclePieces.get(i), Pos.BOTTOM_RIGHT);
       }
       else if(i == 3) {
-        allCirclePieces.add(new Circle(RADIUS, Color.BLUE));
+        allCirclePieces.add(new Circle(RADIUS, gameData.getPlayers().get(i).getColor()));
         stackPane.getChildren().add(allCirclePieces.get(i));
         StackPane.setAlignment(allCirclePieces.get(i), Pos.BOTTOM_LEFT);
       }
-
     }
   }
 
@@ -239,6 +210,14 @@ public class Board {
     stackPane.getChildren().add(allCirclePieces.get(currPlayer));
   }
 
+  /**
+   * Update popup for properties
+   */
+  public void updatePropertyPopups() {
+    for (int i = 0; i < gameData.getBoard().getTiles().size(); i++) {
+      allPropInfoPopups.set(i, new PropertyInfoPopUp(gameData.getBoard().getTileAtIndex(i), myBuilder, myLanguage));
+    }
+  }
 
   /**
    * Return this component

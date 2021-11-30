@@ -84,7 +84,6 @@ public class Right {
     rightComponent.getChildren().set(3, new VBox());
     Label playerLabel = (Label) rightComponent.getChildren().get(0);
     playerLabel.setText(gameData.getCurrentPlayer().getName());
-
   }
 
   /**

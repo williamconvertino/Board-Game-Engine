@@ -2,7 +2,9 @@ package ooga.display.start;
 
 import java.util.ArrayList;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayComm;
@@ -242,5 +244,19 @@ public class EnterPlayersScreenTest extends DukeApplicationTest {
     Button Continue = lookup("#Continue").query();
     clickOn(Continue);
     assertEquals("p1", myPlayers.getActivePlayers().get(0).getName());
+  }
+
+  /**
+   * This test clicks start then enters names
+   */
+  @Test
+  public void modifyPlayerColor() {
+    Button options = lookup("#Start").query();
+    clickOn(options);
+    ComboBox player1Color = lookup("#SelectColor1").query();
+    select(player1Color, "YELLOW");
+    Button Continue = lookup("#Continue").query();
+    clickOn(Continue);
+    assertEquals(Color.YELLOW, myPlayers.getActivePlayers().get(0).getColor());
   }
 }

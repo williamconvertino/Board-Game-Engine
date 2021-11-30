@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import ooga.display.DisplayManager;
 import ooga.display.communication.EventManager;
 import ooga.display.communication.TMEvent;
@@ -28,6 +29,7 @@ public class Left {
     private static final String PROPERTIES = "Properties";
     private static final String CARDS = "Cards";
     private static final String NONE = "None";
+    private static final String COLOR = "Color";
     private GameBoardDisplay myGameBoardDisplay;
     private DisplayManager myDisplayManager;
     private VBox leftComponent;
@@ -84,6 +86,8 @@ public class Left {
         VBox result = new VBox();
         result.getChildren().addAll(
             new Label(myGameData.getPlayers().get(playerIndex).getName()),
+            myUIBuilder.makeLabel(COLOR),
+            new Circle(20, myGameData.getPlayers().get(playerIndex).getColor()),
             myUIBuilder.makeLabel(LOCATION),
             new Label(String.valueOf(myGameData.getBoard().getTileAtIndex(myGameData.getPlayers().get(playerIndex).getLocation()).getName())),
             myUIBuilder.makeLabel(BALANCE),
