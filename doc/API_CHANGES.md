@@ -66,3 +66,18 @@ This was refactored to allow better access of other elements in myTextAreaVBox. 
     }
 ```
 
+This is added to get the players colors and add them to the game data.
+
+**Refactor Start and DisplayManager**
+```java
+  /**
+   * Get GameData for testing
+   * @return myGameData
+   */
+  public GameData getGameData() {
+    return myGameData;
+  }
+```
+
+This 
+

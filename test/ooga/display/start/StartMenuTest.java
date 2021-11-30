@@ -190,7 +190,7 @@ public class StartMenuTest extends DukeApplicationTest {
     myFunctionExecutor = new FunctionExecutor(myGameData, myDie, myDisplayComm);
     myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
     EventManager eh = new EventManager(myTurnManager);
-    dm = new DisplayManager(stage, eh.getMyEvents(), myGameData);
+    dm = new DisplayManager(stage);
   }
 
   /**

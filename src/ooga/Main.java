@@ -3,6 +3,7 @@ package ooga;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import ooga.display.DisplayManager;
 
 
 /**
@@ -12,8 +13,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-
-        GameManager myGame = new GameManager(stage);
-
+        DisplayManager displayManager = new DisplayManager(stage);
     }
 }
