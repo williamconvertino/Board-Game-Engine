@@ -16,6 +16,7 @@ import java.util.function.Consumer;
 
 /**
  * UI building tools for the display
+ * NOTE: These many components require language support from language resource property packages.
  *
  * @author Henry Huynh
  * @author Aaric Han
