@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import ooga.display.communication.DisplayComm;
 import ooga.exceptions.ImproperlyFormattedFile;
 import ooga.model.data.deck.Deck;
 import ooga.model.data.gamedata.GameData;
@@ -60,7 +61,7 @@ public class GameDataInitializer {
   public static Deck chanceDeck;
   public static Deck communityChestDeck;
 
-  public static GameData generateGameData(String variationName)
+  public static GameData generateGameData(String variationName, DisplayComm displayComm)
       throws ImproperlyFormattedFile {
 
     String variationFilePath = VARIATION_PATH + variationName;
@@ -81,7 +82,7 @@ public class GameDataInitializer {
       propertyParser = new PropertyParser();
       actionSequenceParser = new ActionSequenceParser(functionExecutor,gameData);
       cardParser = new CardParser(actionSequenceParser);
-      tileParser = new TileParser(actionSequenceParser,gameData);
+      tileParser = new TileParser(actionSequenceParser,gameData, displayComm);
       BoardParser myBoardParser = new BoardParser();
 
       //parse all player names into list and create player manager

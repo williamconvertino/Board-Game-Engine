@@ -16,22 +16,12 @@ public class DisplayStateSignaler {
   public enum State {
 
     //Display prompts.
-    START_TURN,
-    GO_TO_JAIL,
-    ROLLING,
-    TILE_CLICKED,
-    LANDED,
-    MOVING,
-    DRAW_CARD,
     PLAYER_WIN,
+    GO_TO_JAIL,
 
-    //Button prompts.
-    READ_TO_ROLL,
-    POST_BAIL,
-    BUY_PROPERTY,
-    MORTGAGE_PROPERTY,
-    UNMORTGAGE_PROPERTY,
-    BUY_HOUSE
+    //Button Prompts
+    READY_TO_ROLL
+
   }
 
   /**
