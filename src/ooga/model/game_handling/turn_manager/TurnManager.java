@@ -1,5 +1,9 @@
 package ooga.model.game_handling.turn_manager;
 
+import static ooga.display.communication.DisplayStateSignaler.State.GO_TO_JAIL;
+import static ooga.display.communication.DisplayStateSignaler.State.PLAYER_WIN;
+import static ooga.display.communication.DisplayStateSignaler.State.READY_TO_ROLL;
+
 import java.util.ArrayList;
 import java.util.List;
 import ooga.display.communication.DisplayComm;
@@ -74,7 +78,9 @@ public class TurnManager {
         List<Player> activePlayers = new ArrayList<>(gameData.getPlayers());
         activePlayers.removeIf(e->!e.isActive());
         if (activePlayers.size() == 1) {
-            displayComm.signalState(State.PLAYER_WIN);
+            displayComm.signalState(PLAYER_WIN);
+        } else {
+            displayComm.signalState(READY_TO_ROLL);
         }
     }
 
@@ -97,6 +103,7 @@ public class TurnManager {
         //If the roll is the third of the turn, send the player to jail.
         if (gameData.getNumRolls() > GLOBAL_MAX_ROLLS) {
             functionExecutor.goToJail(gameData.getCurrentPlayer());
+            displayComm.signalState(GO_TO_JAIL);
             endTurn();
             return;
         }
@@ -104,6 +111,7 @@ public class TurnManager {
         //If the roll is a double, increase the maximum number of rolls by one.
         if (gameData.getDie().lastRollDouble()) {
             maxRolls++;
+            displayComm.signalState(READY_TO_ROLL);
         }
         functionExecutor.movePlayerFd(gameData.getCurrentPlayer(), myRoll);
     }

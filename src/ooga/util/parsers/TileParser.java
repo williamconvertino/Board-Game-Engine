@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import ooga.display.communication.DisplayComm;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.exceptions.DeckNotFoundException;
 import ooga.exceptions.InvalidFileFormatException;
@@ -35,15 +36,17 @@ public class TileParser extends FolderParser{
   private Deck chance;
   private Deck communityChest;
   private GameData myData;
+  private DisplayComm displayComm;
 
   /**
    * Creates TileParser
    * @param sequenceParser
    * @param data containing card decks
    */
-  public TileParser(ActionSequenceParser sequenceParser, GameData data){
+  public TileParser(ActionSequenceParser sequenceParser, GameData data, DisplayComm displayComm){
     super(sequenceParser);
     this.myData = data;
+    this.displayComm = displayComm;
   }
 
   /**
@@ -56,7 +59,7 @@ public class TileParser extends FolderParser{
     Map<String,PropertyTileModel> result = new HashMap<>();
 
     for (Property prop: propertyList){
-      result.putIfAbsent(prop.getName(),new PropertyTileModel(prop.getName(), prop, new ActionSequence()));
+      result.putIfAbsent(prop.getName(),new PropertyTileModel(prop.getName(), prop, new ActionSequence(), displayComm));
     }
     return result;
   }

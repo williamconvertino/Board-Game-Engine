@@ -34,7 +34,7 @@ public class ParserTest {
     //create parsers
     actionSequenceParser = new ActionSequenceParser(functionExecutor,gameData);
     cardParser = new CardParser(actionSequenceParser);
-    tileParser = new TileParser(actionSequenceParser,gameData);
+    tileParser = new TileParser(actionSequenceParser,gameData, null);
     boardParser = new BoardParser();
 
 
