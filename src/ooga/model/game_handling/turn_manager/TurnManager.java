@@ -1,8 +1,11 @@
 package ooga.model.game_handling.turn_manager;
 
+import static ooga.display.communication.DisplayStateSignaler.State.BUY_HOUSES;
 import static ooga.display.communication.DisplayStateSignaler.State.GO_TO_JAIL;
+import static ooga.display.communication.DisplayStateSignaler.State.MORTGAGE_PROPERTY;
 import static ooga.display.communication.DisplayStateSignaler.State.PLAYER_WIN;
 import static ooga.display.communication.DisplayStateSignaler.State.READY_TO_ROLL;
+import static ooga.display.communication.DisplayStateSignaler.State.SELL_HOUSES;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,6 +127,9 @@ public class TurnManager {
      */
     public void setSelectedTile(TileModel tile) {
         this.selectedTile = tile;
+        displayComm.signalState(BUY_HOUSES);
+        displayComm.signalState(SELL_HOUSES);
+        displayComm.signalState(MORTGAGE_PROPERTY);
     }
 
     /**

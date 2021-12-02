@@ -23,6 +23,9 @@ public class DisplayStateSignaler {
     //Button Prompts
     READY_TO_ROLL,
     BUY_PROPERTY,
+    BUY_HOUSES,
+    SELL_HOUSES,
+    MORTGAGE_PROPERTY
 
   }
 
