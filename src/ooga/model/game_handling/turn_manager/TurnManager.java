@@ -1,5 +1,7 @@
 package ooga.model.game_handling.turn_manager;
 
+import java.util.ArrayList;
+import java.util.List;
 import ooga.display.communication.DisplayComm;
 import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.exceptions.InsufficientBalanceException;
@@ -12,6 +14,7 @@ import ooga.exceptions.PropertyNotOwnedException;
 import ooga.exceptions.PropertyOwnedException;
 import ooga.exceptions.TileNotAPropertyException;
 import ooga.model.data.gamedata.GameData;
+import ooga.model.data.player.Player;
 import ooga.model.data.properties.Property;
 import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
@@ -62,9 +65,17 @@ public class TurnManager {
      * Starts the next turn.
      */
     public void endTurn() {
+        if (gameData.getCurrentPlayer().getBalance() < 0) {
+            gameData.getCurrentPlayer().setActiveStatus(false);
+        }
         this.selectedTile = null;
         gameData.resetTurnData();
         gameData.setNextPlayer();
+        List<Player> activePlayers = new ArrayList<>(gameData.getPlayers());
+        activePlayers.removeIf(e->!e.isActive());
+        if (activePlayers.size() == 1) {
+            displayComm.signalState(State.PLAYER_WIN);
+        }
     }
 
     /**

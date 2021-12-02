@@ -5,6 +5,7 @@ import java.util.Map;
 import javafx.stage.Stage;
 import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayComm;
+import ooga.display.communication.DisplayStateSignaler;
 import ooga.display.communication.EventManager;
 import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
@@ -29,14 +30,15 @@ public class GameManager {
     private FunctionExecutor myFunctionExecutor;
     private TurnManager myTurnManager;
     private EventManager myEventManager;
+    private DisplayStateSignaler myDisplayStateSignaler;
 
-    public GameManager() {
-        initialize();
+    public GameManager(DisplayManager dm) {
+        initialize(dm);
     }
 
-    private void initialize() {
+    private void initialize(DisplayManager dm) {
         try {
-            myDisplayComm = new DisplayComm();
+            myDisplayComm = new DisplayComm(dm);
             myGameData = GameDataInitializer.generateGameData(VARIATION_NAME);
             myFunctionExecutor = new FunctionExecutor(myGameData, myGameData.getDie(), myDisplayComm);
             myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
