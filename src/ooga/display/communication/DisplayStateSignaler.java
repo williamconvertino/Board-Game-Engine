@@ -18,9 +18,11 @@ public class DisplayStateSignaler {
     //Display prompts.
     PLAYER_WIN,
     GO_TO_JAIL,
+    PAY_MONEY_TO_PLAYER,
 
     //Button Prompts
-    READY_TO_ROLL
+    READY_TO_ROLL,
+    BUY_PROPERTY,
 
   }
 

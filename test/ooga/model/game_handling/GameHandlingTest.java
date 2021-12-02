@@ -70,6 +70,7 @@ public class GameHandlingTest {
 
     Property prop1;
 
+
     ArrayList<Player> playerlist = new ArrayList<>();
     playerlist.add(p1);
     playerlist.add(p2);
@@ -77,6 +78,13 @@ public class GameHandlingTest {
     playerlist.add(p4);
 
     myPlayers = new OriginalPlayerManager(playerlist);
+
+    myDisplayComm = new DisplayComm(null) {
+      @Override
+      public void signalState(State s) {
+
+      }
+    };
 
     t0 = new EmptyTileModel("t0");
     t1 = new EmptyTileModel("t1");
@@ -116,12 +124,7 @@ public class GameHandlingTest {
     myBoard = new OriginalBoardManager(tileList);
     myDie = new OriginalDice();
     myGameData = new GameData(myPlayers, myBoard, myDie);
-    myDisplayComm = new DisplayComm(null) {
-      @Override
-      public void signalState(State s) {
 
-      }
-    };
     myFunctionExecutor = new FunctionExecutor(myGameData, myDie, myDisplayComm);
     myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
 
