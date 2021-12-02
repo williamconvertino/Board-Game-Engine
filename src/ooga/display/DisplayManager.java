@@ -22,6 +22,7 @@ import ooga.display.start.StartMenu;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
 import ooga.model.game_handling.turn_manager.CheatCodeManager;
+import ooga.model.game_handling.turn_manager.CheatCodeManager.Code;
 
 /**
  * This class manages the display elements of the program.
@@ -90,9 +91,12 @@ public class DisplayManager {
     myScene.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent e)-> {
       try {
         //TODO: Replace with log
-        System.out.println(CheatCodeManager.CODE_MAP.get(e.getCode()));
-        myEventMap.get(EVENT_NAMES.CHEAT_CODE).execute(CheatCodeManager.CODE_MAP.get(e.getCode()));
-        e.consume();
+        Code myCode = CheatCodeManager.CODE_MAP.get(e.getCode());
+        if (myCode != null) {
+          System.out.println(myCode);
+          myEventMap.get(EVENT_NAMES.CHEAT_CODE).execute(CheatCodeManager.CODE_MAP.get(e.getCode()));
+          e.consume();
+        }
       } catch (Exception exception) {}
 
     });
