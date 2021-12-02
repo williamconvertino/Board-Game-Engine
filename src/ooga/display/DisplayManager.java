@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import ooga.GameManager;
 import ooga.display.communication.EventManager.EVENT_NAMES;
@@ -17,6 +21,7 @@ import ooga.display.start.OptionsMenu;
 import ooga.display.start.StartMenu;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
+import ooga.model.game_handling.turn_manager.CheatCodeManager;
 
 /**
  * This class manages the display elements of the program.
@@ -76,6 +81,21 @@ public class DisplayManager {
     allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData));
     currDisplay = allDisplays.get(3);
     myStage.setScene(currDisplay.getScene());
+
+    establishCheatCodes();
+  }
+
+  private void establishCheatCodes() {
+    Scene myScene = myStage.getScene();
+    myScene.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent e)-> {
+      try {
+        //TODO: Replace with log
+        System.out.println(CheatCodeManager.CODE_MAP.get(e.getCode()));
+        myEventMap.get(EVENT_NAMES.CHEAT_CODE).execute(CheatCodeManager.CODE_MAP.get(e.getCode()));
+        e.consume();
+      } catch (Exception exception) {}
+
+    });
   }
 
   private void setPlayerNames() {

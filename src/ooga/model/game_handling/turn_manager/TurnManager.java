@@ -51,8 +51,8 @@ public class TurnManager {
     //The display communication class.
     private DisplayComm displayComm;
 
-    //WIP
-    private boolean commandActive;
+    //The cheat code manager class.
+    private CheatCodeManager cheatCodeManager;
 
     /**
      * Default constructor
@@ -62,7 +62,7 @@ public class TurnManager {
         this.functionExecutor = functionExecutor;
         this.displayComm = displayComm;
         this.maxRolls = 1;
-        this.commandActive = true;
+        this.cheatCodeManager = new CheatCodeManager(this, functionExecutor, gameData);
     }
 
     /**
@@ -124,6 +124,15 @@ public class TurnManager {
      */
     public void setSelectedTile(TileModel tile) {
         this.selectedTile = tile;
+    }
+
+    /**
+     * Returns the currently selected tile.
+     *
+     * @return the currently selected tile.
+     */
+    public TileModel getSelectedTile() {
+        return selectedTile;
     }
 
     /**
@@ -192,4 +201,15 @@ public class TurnManager {
             displayComm.showException(e);
         }
     }
+
+    /**
+     * Executes the cheat associated with the given code.
+     *
+     * @param myCode the cheat code to use.
+     */
+    public void executeCheatCode(CheatCodeManager.Code myCode) {
+        cheatCodeManager.executeCheatCode(myCode);
+    }
+
+
 }

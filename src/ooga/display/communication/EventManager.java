@@ -5,6 +5,8 @@ import java.util.Map;
 import javafx.event.EventHandler;
 import ooga.model.data.properties.Property;
 import ooga.model.data.tilemodels.TileModel;
+import ooga.model.game_handling.turn_manager.CheatCodeManager;
+import ooga.model.game_handling.turn_manager.CheatCodeManager.Code;
 import ooga.model.game_handling.turn_manager.TurnManager;
 import static ooga.display.communication.EventManager.EVENT_NAMES.*;
 /**
@@ -26,7 +28,8 @@ public class EventManager {
         BUY_HOUSE,
         SELL_HOUSE,
         POST_BAIL,
-        SELECT_TILE
+        SELECT_TILE,
+        CHEAT_CODE
     }
 
     Map<EVENT_NAMES, TMEvent> myEvents;
@@ -45,6 +48,7 @@ public class EventManager {
         myEvents.put(END_TURN, e ->turnManager.endTurn());
         myEvents.put(SELECT_TILE, e->turnManager.setSelectedTile((TileModel)e[0]));
         myEvents.put(BUY_PROPERTY, e->turnManager.buyProperty((TileModel) e[0]));
+        myEvents.put(CHEAT_CODE, e->turnManager.executeCheatCode((Code)e[0]));
     }
 
     /**
