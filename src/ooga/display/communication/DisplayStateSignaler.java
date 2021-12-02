@@ -23,6 +23,7 @@ public class DisplayStateSignaler {
     LANDED,
     MOVING,
     DRAW_CARD,
+    PLAYER_WIN,
 
     //Button prompts.
     READ_TO_ROLL,

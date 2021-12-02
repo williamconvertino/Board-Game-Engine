@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayComm;
 import ooga.display.communication.DisplayStateSignaler;
+import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.ExceptionHandler;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.OriginalPlayerManager;
@@ -115,7 +116,12 @@ public class GameHandlingTest {
     myBoard = new OriginalBoardManager(tileList);
     myDie = new OriginalDice();
     myGameData = new GameData(myPlayers, myBoard, myDie);
-    myDisplayComm = new DisplayComm();
+    myDisplayComm = new DisplayComm(null) {
+      @Override
+      public void signalState(State s) {
+
+      }
+    };
     myFunctionExecutor = new FunctionExecutor(myGameData, myDie, myDisplayComm);
     myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
 

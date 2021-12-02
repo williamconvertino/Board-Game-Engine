@@ -1,5 +1,8 @@
 package ooga.display.communication;
 
+import ooga.display.DisplayManager;
+import ooga.display.communication.DisplayStateSignaler.State;
+
 /**
  * The display communication which shows exceptions
  *
@@ -8,12 +11,14 @@ package ooga.display.communication;
 public class DisplayComm {
 
   private ExceptionHandler myExceptionHandler;
+  private DisplayStateSignaler signaler;
 
   /**
    * The constructor to make a exception handler in DisplayComm
    */
-  public DisplayComm() {
+  public DisplayComm(DisplayManager dm) {
     this.myExceptionHandler = new ExceptionHandler();
+    this.signaler = new DisplayStateSignaler(dm);
   }
 
   /**
@@ -24,5 +29,13 @@ public class DisplayComm {
     myExceptionHandler.showException(e);
   }
 
+  /**
+   * Signals the display that a new state has been reached.
+   *
+   * @param state the state that has been reached.
+   */
+  public void signalState(State state) {
+    signaler.signalDisplay(state);
+  }
 
 }

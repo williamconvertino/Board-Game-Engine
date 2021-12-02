@@ -68,7 +68,7 @@ public class DisplayManager {
    * Switch screens to the gameboard and starts game
    */
   public void startGame() {
-    myGame = new GameManager();
+    myGame = new GameManager(this);
     myGameData = myGame.getGameData();
     myEventMap = myGame.getEventMap();
     setPlayerNames();
