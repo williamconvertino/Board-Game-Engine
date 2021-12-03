@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import ooga.model.data.cards.Card;
 import ooga.model.data.properties.Property;
+import ooga.model.game_handling.GameHandlingTest;
 import ooga.model.game_handling.commands.ActionSequence;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PlayerTest {
+public class PlayerTest extends GameHandlingTest {
 
   @Test
   void testName() {
@@ -34,7 +35,7 @@ public class PlayerTest {
   void testCardGiving() {
     Player p = new Player("p1");
     assertTrue(p.getCards().isEmpty());
-    Card card = new Card("c", "desc", new ActionSequence());
+    Card card = new Card("c", "desc", new ActionSequence(myActionSequenceParser, myDisplayComm));
     p.giveCard(card);
     assertTrue(p.getCards().contains(card));
     p.removeCard(card);

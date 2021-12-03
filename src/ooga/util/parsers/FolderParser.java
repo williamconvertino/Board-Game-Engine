@@ -7,12 +7,11 @@ import java.util.Arrays;
 import java.util.Properties;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import ooga.display.communication.DisplayComm;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.exceptions.InvalidFileFormatException;
-import ooga.model.data.gamedata.GameData;
-import ooga.model.game_handling.FunctionExecutor;
 import ooga.model.game_handling.commands.ActionSequence;
-import ooga.model.game_handling.commands.ActionSequenceParser;
+import ooga.model.game_handling.commands.ActionSequenceExecutor;
 
 /**
  * Abstract Parser class used by PropertyParser and CardParser to parse multiple files in folder
@@ -24,15 +23,17 @@ import ooga.model.game_handling.commands.ActionSequenceParser;
 public abstract class FolderParser {
 
   protected static final String DEFAULT_DATA_PACKAGE = "data/";
-  protected static ActionSequenceParser actionSequenceParser;
+  protected static ActionSequenceExecutor actionSequenceParser;
+  private DisplayComm displayComm;
 
   /**
    * Super constructor for child classes to call
    *
    * @param sequenceParser
    */
-  public FolderParser(ActionSequenceParser sequenceParser){
+  public FolderParser(ActionSequenceExecutor sequenceParser, DisplayComm displayComm){
     actionSequenceParser = sequenceParser;
+    this.displayComm = displayComm;
   }
 
   /**
@@ -78,11 +79,11 @@ public abstract class FolderParser {
   //takes a list of actions as a string and returns Action Sequence object.
   protected ActionSequence parseActionSequence(String sequenceText)
       throws InvalidFileFormatException {
-    ActionSequence result = new ActionSequence();
+    ActionSequence result = new ActionSequence(actionSequenceParser, displayComm);
     String [] sequenceArray = sequenceText.split(",");
     for (String action: sequenceArray){
       action = action.substring(1,action.length()-1);
-      actionSequenceParser.createSequence(action,result);
+      result.add(action);
     }
     return result;
   }

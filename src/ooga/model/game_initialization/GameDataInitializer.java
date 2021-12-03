@@ -18,7 +18,7 @@ import ooga.model.data.tilemodels.TileModel;
 import ooga.model.die.Die;
 import ooga.model.game_handling.FunctionExecutor;
 import ooga.model.game_handling.board_manager.BoardManager;
-import ooga.model.game_handling.commands.ActionSequenceParser;
+import ooga.model.game_handling.commands.ActionSequenceExecutor;
 import ooga.util.parsers.BoardParser;
 import ooga.util.parsers.CardParser;
 import ooga.util.parsers.PropertyParser;
@@ -43,7 +43,7 @@ public class GameDataInitializer {
   private PropertyParser propertyParser;
   private CardParser cardParser;
   private TileParser tileParser;
-  private ActionSequenceParser actionSequenceParser;
+  private ActionSequenceExecutor actionSequenceParser;
 
 
   /**
@@ -81,8 +81,8 @@ public class GameDataInitializer {
 
       //create parsers
       propertyParser = new PropertyParser();
-      actionSequenceParser = new ActionSequenceParser(functionExecutor,gameData);
-      cardParser = new CardParser(actionSequenceParser);
+      actionSequenceParser = new ActionSequenceExecutor(functionExecutor,gameData);
+      cardParser = new CardParser(actionSequenceParser, displayComm);
       tileParser = new TileParser(actionSequenceParser,gameData, displayComm);
       BoardParser myBoardParser = new BoardParser();
 
