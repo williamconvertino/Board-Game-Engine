@@ -48,7 +48,7 @@ public class GameManager {
     public GameManager(DisplayManager display, String variationName) {
         myDisplayComm = new DisplayComm(display);
         try {
-            myGameData = GameDataInitializer.generateGameData(variationName, myDisplayComm);
+            myGameData = (new GameDataInitializer()).generateGameData(variationName, myDisplayComm);
             myFunctionExecutor = new FunctionExecutor(myGameData, myGameData.getDie(), myDisplayComm);
             myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
             myEventManager = new EventManager(myTurnManager);

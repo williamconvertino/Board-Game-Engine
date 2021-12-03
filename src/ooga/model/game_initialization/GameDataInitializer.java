@@ -35,32 +35,44 @@ import ooga.util.parsers.TileParser;
  */
 public class GameDataInitializer {
 
-  /**A bundle of the configuration values.**/
-  public static ResourceBundle CONFIG_VALUES = ResourceBundle.getBundle(GameDataInitializer.class.getPackageName() + ".ConfigValues");
+  //Resource bundles for various data values.
+  private ResourceBundle configValueBundle;
+  private ResourceBundle directoryBundle;
 
-  /**A bundle of the directory names**/
-  public static ResourceBundle DIRECTORY_NAMES = ResourceBundle.getBundle(GameDataInitializer.class.getPackageName() + ".DirectoryNames");
+  //Parsers with which the data is generated.
+  private PropertyParser propertyParser;
+  private CardParser cardParser;
+  private TileParser tileParser;
+  private ActionSequenceParser actionSequenceParser;
 
-  public static PropertyParser propertyParser;
-  public static CardParser cardParser;
-  public static TileParser tileParser;
-  public static ActionSequenceParser actionSequenceParser;
 
-  public static Object playerManager;
-  public static Deck chanceDeck;
-  public static Deck communityChestDeck;
+  /**
+   * Constructs a new GameDataInitializer, and initializes it to use ConfigValues.properties and DirectoryNames.properties
+   */
+  public GameDataInitializer() {
+    configValueBundle = ResourceBundle.getBundle(GameDataInitializer.class.getPackageName() + ".ConfigValues");
+    directoryBundle = ResourceBundle.getBundle(GameDataInitializer.class.getPackageName() + ".DirectoryNames");
+  }
 
-  public static GameData generateGameData(String variationName, DisplayComm displayComm)
+  /**
+   * Generates and returns a fresh instance of gamedata for the specified variation name.
+   *
+   * @param variationName the variation type for which the gamedata should be generated.
+   * @param displayComm the displayComm that the data should use to communicate with the display.
+   * @return the generated gamedata.
+   * @throws ImproperlyFormattedFile if the variation provided contains an improperly formatted file.
+   */
+  public GameData generateGameData(String variationName, DisplayComm displayComm)
       throws ImproperlyFormattedFile {
 
-    String variationFilePath = DIRECTORY_NAMES.getString("variationPath") + variationName;
+    String variationFilePath = directoryBundle.getString("variationPath") + variationName;
 
     //create GameData and FunctionExecutor objects
     GameData gameData = new GameData();
     FunctionExecutor functionExecutor = new FunctionExecutor();
 
     //unpack config properties file
-    ResourceBundle modelConfig = ResourceBundle.getBundle(variationFilePath + DIRECTORY_NAMES.getString("configPath"));//).replaceAll("/", ".") );
+    ResourceBundle modelConfig = ResourceBundle.getBundle(variationFilePath + directoryBundle.getString("configPath"));//).replaceAll("/", ".") );
 
     String currentFile = null;
 
@@ -75,18 +87,18 @@ public class GameDataInitializer {
       BoardParser myBoardParser = new BoardParser();
 
       //parse all player names into list and create player manager
-      currentFile = DIRECTORY_NAMES.getString("playerNames");
+      currentFile = directoryBundle.getString("playerNames");
       List<Player> myPlayers = new ArrayList<>();
       for (int i = 0; i < 4; i++) {
         myPlayers.add(new Player(""));
       }
-      playerManager = Class.forName(modelConfig.getString(CONFIG_VALUES.getString("playerManager"))).getConstructor(List.class).newInstance(myPlayers);
+      PlayerManager playerManager = (PlayerManager) Class.forName(modelConfig.getString(configValueBundle.getString("playerManager"))).getConstructor(List.class).newInstance(myPlayers);
 
       //parse card files into decks
-      currentFile = DIRECTORY_NAMES.getString("chanceCardFiles");
-      chanceDeck = new Deck("Chance",cardParser.parseCards(variationFilePath + currentFile));
-      currentFile = DIRECTORY_NAMES.getString("communityChestCards");;
-      communityChestDeck = new Deck ("Community Chest",cardParser.parseCards(variationFilePath + currentFile));
+      currentFile = directoryBundle.getString("chanceCardFiles");
+      Deck chanceDeck = new Deck("Chance",cardParser.parseCards(variationFilePath + currentFile));
+      currentFile = directoryBundle.getString("communityChestCards");;
+      Deck communityChestDeck = new Deck ("Community Chest",cardParser.parseCards(variationFilePath + currentFile));
 
       //combine decks into list, and give to gameData
       List<Deck> deckList = new ArrayList<>();
@@ -95,11 +107,11 @@ public class GameDataInitializer {
       gameData.setDeckManager(deckList);
 
       //parse monopoly properties into a list
-      currentFile = DIRECTORY_NAMES.getString("propertyFiles");
+      currentFile = directoryBundle.getString("propertyFiles");
       List<Property> myPropertyList = propertyParser.parseProperties(variationFilePath + currentFile);
 
       //parse all board elements (properties, action tiles, card tiles) into a map
-      currentFile = DIRECTORY_NAMES.getString("tileFiles");
+      currentFile = directoryBundle.getString("tileFiles");
       Map<String,PropertyTileModel> propertyTileList = tileParser.parsePropertyTiles(myPropertyList);
       Map<String,TileModel> nonPropertyTileList = tileParser.parseNonPropertyTiles(variationFilePath + currentFile);
       Map<String,TileModel> tileModelMap = new HashMap<>() {{
@@ -108,13 +120,14 @@ public class GameDataInitializer {
       }};
 
       //parse board file into an ordered list of TileModels, then construct board manager.
-      currentFile = DIRECTORY_NAMES.getString("boardPath");
+      currentFile = directoryBundle.getString("boardPath");
       List<TileModel> myTiles = myBoardParser.parseBoard(
-          DIRECTORY_NAMES.getString("dataPath") + variationFilePath + currentFile + variationFilePath + CONFIG_VALUES.getString("boardExtension"),tileModelMap);
-      BoardManager myBoardManager = (BoardManager) Class.forName(modelConfig.getString(CONFIG_VALUES.getString("boardManager"))).getConstructor(List.class).newInstance(myTiles);
+          directoryBundle.getString("dataPath") + variationFilePath + currentFile + variationFilePath + configValueBundle.getString("boardExtension"),tileModelMap);
+      BoardManager myBoardManager = (BoardManager) Class.forName(modelConfig.getString(
+          configValueBundle.getString("boardManager"))).getConstructor(List.class).newInstance(myTiles);
 
       //create the game die
-      Die myDie = (Die) Class.forName(modelConfig.getString(CONFIG_VALUES.getString("die"))).getConstructor().newInstance();
+      Die myDie = (Die) Class.forName(modelConfig.getString(configValueBundle.getString("die"))).getConstructor().newInstance();
 
       //set necessary information in gameData
       gameData.setGameData((PlayerManager)playerManager, myBoardManager, myDie);
