@@ -2,10 +2,13 @@ package ooga.util;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
+import com.opencsv.CSVWriter;
 import ooga.exceptions.PlayerProfileException;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -23,8 +26,39 @@ public class ProfileManager {
 
     }
 
+    /**
+     * Method to add a new player profile to the records.
+     * @param newProfile- a list of strings containing all the necessary data to construct a player profile.
+     * @throws IOException- should the player profile records file not exist.
+     */
+    public void createNewPlayerProfile(String[] newProfile) throws IOException, PlayerProfileException {
+        List<String[]> allProfiles = getAllPlayerProfiles();
+        if (profileUsernameAlreadyExists(newProfile[0], allProfiles)) {
+            throw new PlayerProfileException();
+        }
+        try {
+            CSVWriter writer = new CSVWriter(new FileWriter(filePath));
+            allProfiles.add(newProfile);
+            writer.writeAll(allProfiles);
+            writer.close();
+        }
+        //if something goes wrong when adding a new player profile
+        catch (Exception e) {
+            throw new PlayerProfileException();
+        }
+    }
+
+    public boolean profileUsernameAlreadyExists(String username, List<String[]> existingProfiles) {
+        for (String[] profile: existingProfiles) {
+            if (profile[0] == username) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     //TODO
-    public void createNewPlayerProfile(String username, String password, String imageString) {
+    public void updatePlayerProfile(String username, String password, String imageString) {
 
     }
 
@@ -62,8 +96,8 @@ public class ProfileManager {
         try {
             FileReader filereader = new FileReader(filePath);
             CSVReader csvReader = new CSVReaderBuilder(filereader).build();
-            List<String[]> parsedData = csvReader.readAll();
-            return parsedData;
+            List<String[]> allProfiles = csvReader.readAll();
+            return allProfiles;
         }
         catch (Exception e) {
             throw new FileNotFoundException();
