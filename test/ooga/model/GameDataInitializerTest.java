@@ -1,6 +1,6 @@
 package ooga.model;
 
-import ooga.GameDataInitializer;
+import ooga.model.game_initialization.GameDataInitializer;
 import ooga.exceptions.ImproperlyFormattedFile;
 import ooga.model.data.gamedata.GameData;
 import ooga.util.parsers.ParserTest;
