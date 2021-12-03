@@ -31,7 +31,7 @@ import ooga.util.parsers.TileParser;
  * @author William Convertino
  * @author Jordan Castleman
  *
- * @since 0.0.1
+ * @since 0.0.2
  */
 public class GameDataInitializer {
 

@@ -8,7 +8,8 @@ import ooga.model.data.player.Player;
 import ooga.model.die.Die;
 
 /**
- * This class executes the game's functions. This includes any changes to the game data.
+ * This class executes a variety of functions that change the game data. This is
+ * where the majority of the logic updates will happen.
  * 
  * @author William Convertino
  * 
@@ -17,7 +18,7 @@ import ooga.model.die.Die;
 public class FunctionExecutor {
 
     //The game data to change.
-    private GameData gameData;
+    private GameData gamedata;
 
     //A method with which this class can end the current player's turn.
     private Method endTurn;
@@ -29,19 +30,21 @@ public class FunctionExecutor {
     private DisplayComm displayComm;
 
     /**
-     * Constructs a new FunctionExecutor with the specified GameData, die, and endTurn method.
+     * Constructs an empty FunctionExecutor. Note: This must be initialized before use.
      */
     public FunctionExecutor() {
     }
 
-    public FunctionExecutor(GameData gameData, Die die, DisplayComm displayComm){
-        this.gameData = gameData;
-        this.myDie = die;
-        this.displayComm = displayComm;
-    }
-
-    public void setFunctionExecutor(GameData gameData, Die die, DisplayComm displayComm){
-        this.gameData = gameData;
+    /**
+     * Initializes the function executor with the specified gamedata, die, and display communication
+     * module.
+     *
+     * @param gamedata the gamedata to act on.
+     * @param die the die to use.
+     * @param displayComm the display communication module for the current game.
+     */
+    public void initializeWithGameValues(GameData gamedata, Die die, DisplayComm displayComm){
+        this.gamedata = gamedata;
         this.myDie = die;
         this.displayComm = displayComm;
     }
@@ -53,7 +56,7 @@ public class FunctionExecutor {
      * @param location the location at which the player should be moved.
      */
     public void movePlayerToIndex(Player player, int location) {
-        gameData.getBoard().movePlayerToIndex(player, location, false);
+        gamedata.getBoard().movePlayerToIndex(player, location, false);
     }
 
     /**
@@ -65,7 +68,7 @@ public class FunctionExecutor {
      */
     public void movePlayerToTile(Player player, String tileName) throws TileNotFoundException {
         try {
-            gameData.getBoard().movePlayerToTile(player, tileName, false);
+            gamedata.getBoard().movePlayerToTile(player, tileName, false);
         } catch (Exception e) {
             displayComm.showException(e);
             throw e;
@@ -82,7 +85,7 @@ public class FunctionExecutor {
      */
     public void advancePlayerToTile(Player player, String tileName) throws TileNotFoundException {
         try {
-            gameData.getBoard().movePlayerToTile(player, tileName, true);
+            gamedata.getBoard().movePlayerToTile(player, tileName, true);
         } catch (Exception e) {
             displayComm.showException(e);
             throw e;
@@ -96,7 +99,7 @@ public class FunctionExecutor {
      * @param spaces the number of spaces to move.
      */
     public void movePlayerFd(Player player, int spaces) {
-        gameData.getBoard().movePlayerFd(player, spaces);
+        gamedata.getBoard().movePlayerFd(player, spaces);
     }
 
     /**
@@ -106,7 +109,7 @@ public class FunctionExecutor {
      * @param spaces the number of spaces to move.
      */
     public void movePlayerBk(Player player, int spaces) {
-        gameData.getBoard().movePlayerBk(player, spaces);
+        gamedata.getBoard().movePlayerBk(player, spaces);
     }
 
     /**
@@ -152,7 +155,7 @@ public class FunctionExecutor {
     public void goToJail(Player player) {
         player.setJailStatus(true);
         try {
-            gameData.getBoard().movePlayerToTile(player, "Jail", false);
+            gamedata.getBoard().movePlayerToTile(player, "Jail", false);
         } catch (TileNotFoundException e) {
             displayComm.showException(e);
         }
@@ -164,6 +167,7 @@ public class FunctionExecutor {
      * @param player the player who receives the card.
      * @param cardName the name of the card that the player receives.
      */
+    @Deprecated
     public void givePlayerCard(Player player, String cardName) {
 
     }
