@@ -49,7 +49,8 @@ public class GameManager {
         myDisplayComm = new DisplayComm(display);
         try {
             myGameData = (new GameDataInitializer()).generateGameData(variationName, myDisplayComm);
-            myFunctionExecutor = new FunctionExecutor(myGameData, myGameData.getDie(), myDisplayComm);
+            myFunctionExecutor = new FunctionExecutor();
+            myFunctionExecutor.initializeWithGameValues(myGameData, myGameData.getDie(), myDisplayComm);
             myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
             myEventManager = new EventManager(myTurnManager);
         } catch (Exception e) {
