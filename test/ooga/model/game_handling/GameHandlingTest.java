@@ -2,11 +2,8 @@ package ooga.model.game_handling;
 
 
 import java.util.ArrayList;
-import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayComm;
-import ooga.display.communication.DisplayStateSignaler;
 import ooga.display.communication.DisplayStateSignaler.State;
-import ooga.display.communication.ExceptionHandler;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.OriginalPlayerManager;
 import ooga.model.data.player.Player;
@@ -20,7 +17,7 @@ import ooga.model.die.OriginalDice;
 import ooga.model.game_handling.board_manager.BoardManager;
 import ooga.model.game_handling.board_manager.OriginalBoardManager;
 import ooga.model.game_handling.commands.ActionSequence;
-import ooga.model.game_handling.commands.ActionSequenceParser;
+import ooga.model.game_handling.commands.ActionSequenceExecutor;
 import ooga.model.game_handling.turn_manager.TurnManager;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -42,7 +39,7 @@ public class GameHandlingTest {
 
   public FunctionExecutor myFunctionExecutor;
 
-  public ActionSequenceParser myActionSequenceParser;
+  public ActionSequenceExecutor myActionSequenceParser;
 
   public DisplayComm myDisplayComm;
 
@@ -88,7 +85,7 @@ public class GameHandlingTest {
 
       }
     };
-    
+
     t0 = new EmptyTileModel("t0");
     t1 = new EmptyTileModel("t1");
     t2 = new EmptyTileModel("t2");

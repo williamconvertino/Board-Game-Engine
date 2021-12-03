@@ -19,7 +19,7 @@ public class ActionSequence {
   private List<String> mySequence;
 
   //The action sequence parser with which the commands should be executed.
-  private ActionSequenceParser myParser;
+  private ActionSequenceExecutor myParser;
 
   //The display communication module of the sequence.
   private DisplayComm displayComm;
@@ -27,7 +27,7 @@ public class ActionSequence {
   /**
    * Constructs an empty ActionSequence.
    */
-  public ActionSequence(ActionSequenceParser parser, DisplayComm dc) {
+  public ActionSequence(ActionSequenceExecutor parser, DisplayComm dc) {
     this.mySequence = new ArrayList<>();
     this.myParser = parser;
     this.displayComm = dc;
@@ -48,7 +48,7 @@ public class ActionSequence {
   public void execute(Player p) {
     try {
       for (String command: mySequence) {
-        //TODO
+        myParser.executeCommand(command);
       }
     } catch (Exception e) {
       displayComm.showException(new InvalidFileFormatException());

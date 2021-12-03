@@ -10,10 +10,8 @@ import javafx.scene.control.Alert.AlertType;
 import ooga.display.communication.DisplayComm;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.exceptions.InvalidFileFormatException;
-import ooga.model.data.gamedata.GameData;
-import ooga.model.game_handling.FunctionExecutor;
 import ooga.model.game_handling.commands.ActionSequence;
-import ooga.model.game_handling.commands.ActionSequenceParser;
+import ooga.model.game_handling.commands.ActionSequenceExecutor;
 
 /**
  * Abstract Parser class used by PropertyParser and CardParser to parse multiple files in folder
@@ -25,7 +23,7 @@ import ooga.model.game_handling.commands.ActionSequenceParser;
 public abstract class FolderParser {
 
   protected static final String DEFAULT_DATA_PACKAGE = "data/";
-  protected static ActionSequenceParser actionSequenceParser;
+  protected static ActionSequenceExecutor actionSequenceParser;
   private DisplayComm displayComm;
 
   /**
@@ -33,7 +31,7 @@ public abstract class FolderParser {
    *
    * @param sequenceParser
    */
-  public FolderParser(ActionSequenceParser sequenceParser, DisplayComm displayComm){
+  public FolderParser(ActionSequenceExecutor sequenceParser, DisplayComm displayComm){
     actionSequenceParser = sequenceParser;
     this.displayComm = displayComm;
   }

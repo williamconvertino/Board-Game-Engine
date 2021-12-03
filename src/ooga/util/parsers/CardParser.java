@@ -9,7 +9,7 @@ import ooga.exceptions.InvalidFileFormatException;
 import ooga.model.data.cards.Card;
 import java.io.File;
 import ooga.model.game_handling.commands.ActionSequence;
-import ooga.model.game_handling.commands.ActionSequenceParser;
+import ooga.model.game_handling.commands.ActionSequenceExecutor;
 
 /**
  * Parser class responsible for converting all Monopoly cards.
@@ -26,7 +26,7 @@ public class CardParser extends FolderParser {
    * Alternate CardParser constructor
    * @param sequenceParser
    */
-  public CardParser(ActionSequenceParser sequenceParser, DisplayComm displayComm){
+  public CardParser(ActionSequenceExecutor sequenceParser, DisplayComm displayComm){
     super(sequenceParser, displayComm);
   }
 

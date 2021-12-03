@@ -1,29 +1,23 @@
 package ooga.model.game_handling.commands;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.function.Supplier;
-import ooga.display.Display;
-import ooga.exceptions.InvalidFileFormatException;
 import ooga.model.data.gamedata.GameData;
-import ooga.model.data.player.Player;
-import ooga.model.data.properties.Property;
 import ooga.model.game_handling.FunctionExecutor;
 
+
 /**
- * A utility that can convert string lines into executable commands.
+ * A utility that can execute action commands formatted as strings.
  *
  * @author William Convertino
  *
  * @since 0.0.2
  */
 
-public class ActionSequenceParser {
+public class ActionSequenceExecutor {
 
   //The directory containing the ActionSequence resources.
-  private static final String RESOURCE_DIRECTORY = ActionSequenceParser.class.getPackageName() + ".resources.".replace(".","/");
+  private static final String RESOURCE_DIRECTORY = ActionSequenceExecutor.class.getPackageName() + ".resources.".replace(".","/");
 
   //The FunctionExecutor that houses the commands to be run.
   private FunctionExecutor functions;
@@ -40,19 +34,44 @@ public class ActionSequenceParser {
   //The ResourceBundle containing the multi-step argument generation methods and their keywords.
   private ResourceBundle multistepArgumentsDoc;
 
+  //The ResourceBundle containing the class types of the arguments for the action sequences.
+  private ResourceBundle argumentClassTypes;
+
   /**
    * Constructs a new ActionSequenceParser.
    *
    * @param functions the functions with which this class can run.
    * @param gameData a reference to the game's data.
    */
-  public ActionSequenceParser (FunctionExecutor functions, GameData gameData) {
+  public ActionSequenceExecutor(FunctionExecutor functions, GameData gameData) {
     System.out.println(RESOURCE_DIRECTORY);
     this.functions = functions;
     this.gameData = gameData;
     this.commandDoc = ResourceBundle.getBundle(RESOURCE_DIRECTORY + "commands");
     this.argumentsDoc = ResourceBundle.getBundle(RESOURCE_DIRECTORY + "arguments");
     this.multistepArgumentsDoc = ResourceBundle.getBundle(RESOURCE_DIRECTORY + "multistep_arguments");
+    this.argumentClassTypes = ResourceBundle.getBundle(RESOURCE_DIRECTORY + "argument_class_types");
+  }
+
+  /**
+   * Executes an action command given as a string.
+   *
+   * @param command the command to execute.
+   */
+  public void executeCommand(String command) throws Exception {
+
+    String[] commandElements = command.split(" ");
+
+    Object argument;
+
+    Class argumentType;
+
+    if (argumentsDoc.containsKey(commandElements[0])) {
+      String argName = argumentsDoc.getString(commandElements[0]);
+      Class argType = Class.forName(argumentClassTypes.getString(argName));
+    }
+
+
   }
 
 

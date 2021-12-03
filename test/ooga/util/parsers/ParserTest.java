@@ -10,7 +10,7 @@ import ooga.model.data.gamedata.GameData;
 import ooga.model.data.properties.Property;
 import ooga.model.game_handling.FunctionExecutor;
 import ooga.model.game_handling.GameHandlingTest;
-import ooga.model.game_handling.commands.ActionSequenceParser;
+import ooga.model.game_handling.commands.ActionSequenceExecutor;
 import org.junit.jupiter.api.BeforeEach;
 
 public class ParserTest extends GameHandlingTest {
@@ -20,7 +20,7 @@ public class ParserTest extends GameHandlingTest {
   public CardParser cardParser;
   public TileParser tileParser;
   public BoardParser boardParser;
-  public ActionSequenceParser actionSequenceParser;
+  public ActionSequenceExecutor actionSequenceParser;
   public GameData gameData;
 
 
@@ -33,7 +33,7 @@ public class ParserTest extends GameHandlingTest {
     gameData = new GameData();
     FunctionExecutor functionExecutor = new FunctionExecutor();
     //create parsers
-    actionSequenceParser = new ActionSequenceParser(functionExecutor,gameData);
+    actionSequenceParser = new ActionSequenceExecutor(functionExecutor,gameData);
     cardParser = new CardParser(actionSequenceParser,myDisplayComm);
     tileParser = new TileParser(actionSequenceParser,gameData, null);
     boardParser = new BoardParser();
