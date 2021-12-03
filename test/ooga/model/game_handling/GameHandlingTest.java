@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayComm;
 import ooga.display.communication.DisplayStateSignaler;
+import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.ExceptionHandler;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.OriginalPlayerManager;
@@ -69,6 +70,7 @@ public class GameHandlingTest {
 
     Property prop1;
 
+
     ArrayList<Player> playerlist = new ArrayList<>();
     playerlist.add(p1);
     playerlist.add(p2);
@@ -77,13 +79,20 @@ public class GameHandlingTest {
 
     myPlayers = new OriginalPlayerManager(playerlist);
 
+    myDisplayComm = new DisplayComm(null) {
+      @Override
+      public void signalState(State s) {
+
+      }
+    };
+
     t0 = new EmptyTileModel("t0");
     t1 = new EmptyTileModel("t1");
     t2 = new EmptyTileModel("t2");
     t3 = new EmptyTileModel("t3");
     t4 = new EmptyTileModel("t4");
     Property property1 = new Property("Property 1", "Regular",100, new int[]{5,20,40},10, new ArrayList<>(), 60, "blue" );
-    t5 = new PropertyTileModel("prop1", property1, new ActionSequence());
+    t5 = new PropertyTileModel("prop1", property1, new ActionSequence(), myDisplayComm);
     t6 = new EmptyTileModel("t6");
     t7 = new EmptyTileModel("t7");
     t8 = new EmptyTileModel("t8");
@@ -115,8 +124,9 @@ public class GameHandlingTest {
     myBoard = new OriginalBoardManager(tileList);
     myDie = new OriginalDice();
     myGameData = new GameData(myPlayers, myBoard, myDie);
-    myDisplayComm = new DisplayComm();
-    myFunctionExecutor = new FunctionExecutor(myGameData, myDie, myDisplayComm);
+
+    myFunctionExecutor = new FunctionExecutor();
+    myFunctionExecutor.initializeWithGameValues(myGameData, myDie, myDisplayComm);
     myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
 
   }

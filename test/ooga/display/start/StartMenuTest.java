@@ -182,15 +182,16 @@ public class StartMenuTest extends DukeApplicationTest {
     tileList.add(t38);
     tileList.add(t39);
 
-
+    dm = new DisplayManager(stage);
     myBoard = new OriginalBoardManager(tileList);
     myDie = new OriginalDice();
     myGameData = new GameData(myPlayers, myBoard, myDie);
-    myDisplayComm = new DisplayComm();
-    myFunctionExecutor = new FunctionExecutor(myGameData, myDie, myDisplayComm);
+    myDisplayComm = new DisplayComm(dm);
+    myFunctionExecutor = new FunctionExecutor();
+    myFunctionExecutor.initializeWithGameValues(myGameData, myDie, myDisplayComm);
     myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
     EventManager eh = new EventManager(myTurnManager);
-    dm = new DisplayManager(stage);
+
   }
 
   /**

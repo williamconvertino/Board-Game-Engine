@@ -1,5 +1,9 @@
 package ooga.model.data.tilemodels;
 
+import static ooga.display.communication.DisplayStateSignaler.State.BUY_PROPERTY;
+import static ooga.display.communication.DisplayStateSignaler.State.PAY_MONEY_TO_PLAYER;
+
+import ooga.display.communication.DisplayComm;
 import ooga.model.data.player.Player;
 import ooga.model.data.properties.Property;
 import ooga.model.game_handling.commands.ActionSequence;
@@ -21,6 +25,9 @@ public class PropertyTileModel extends TileModel {
     //The action sequence to execute when this tile has been landed on.
     private ActionSequence landOnPropertySequence;
 
+    //The display communication module of this model.
+    private DisplayComm displayComm;
+
     /**
      * Constructs a new tile with the specified name.
      *
@@ -37,10 +44,11 @@ public class PropertyTileModel extends TileModel {
      * @param property the property associated with this tile.
      * @param landOnPropertySequence the action sequence to execute when this tile has been landed on.
      */
-    public PropertyTileModel(String name, Property property, ActionSequence landOnPropertySequence) {
+    public PropertyTileModel(String name, Property property, ActionSequence landOnPropertySequence, DisplayComm displayComm) {
         this(name);
         this.myProperty = property;
         this.landOnPropertySequence = landOnPropertySequence;
+        this.displayComm = displayComm;
     }
 
     /**
@@ -60,7 +68,16 @@ public class PropertyTileModel extends TileModel {
      */
     @Override
     public void executeLandOn(Player player) {
-        landOnPropertySequence.execute(player);
+        if (myProperty.getOwner() == player || myProperty.isMortgaged()) {
+            return;
+        }
+        if (myProperty.getOwner() == Property.NULL_OWNER) {
+            displayComm.signalState(BUY_PROPERTY);
+            return;
+        }
+        player.addMoney(-1 * myProperty.getRentCost());
+        myProperty.getOwner().addMoney(myProperty.getRentCost());
+        displayComm.signalState(PAY_MONEY_TO_PLAYER);
     }
 
     public Property getProperty() {

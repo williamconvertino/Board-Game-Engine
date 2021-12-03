@@ -1,6 +1,6 @@
 package ooga.model;
 
-import ooga.GameDataInitializer;
+import ooga.model.game_initialization.GameDataInitializer;
 import ooga.exceptions.ImproperlyFormattedFile;
 import ooga.model.data.gamedata.GameData;
 import ooga.util.parsers.ParserTest;
@@ -12,7 +12,7 @@ public class GameDataInitializerTest extends ParserTest {
 
   @Test
   void TestInitializeGameData() throws ImproperlyFormattedFile {
-    GameData data = GameDataInitializer.generateGameData("monopoly_original");
+    GameData data = (new GameDataInitializer()).generateGameData("monopoly_original",null);
     assertEquals(data.getBoard().getTiles().size(),40);
   }
 }

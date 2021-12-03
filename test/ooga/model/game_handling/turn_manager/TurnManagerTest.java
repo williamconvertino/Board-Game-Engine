@@ -1,5 +1,7 @@
 package ooga.model.game_handling.turn_manager;
 
+import java.util.ArrayList;
+import java.util.List;
 import ooga.exceptions.TileNotFoundException;
 import ooga.model.data.player.Player;
 import ooga.model.data.properties.Property;
@@ -111,6 +113,18 @@ public class TurnManagerTest extends GameHandlingTest {
     assertEquals(1, myProp.getNumHouses());
     myTurnManager.sellHouse(myProp);
     assertEquals(0, myProp.getNumHouses());
+
+  }
+
+  @Test
+  void testPlayerLose() {
+    List<Player> remaingPlayers = new ArrayList<>(myGameData.getPlayers());
+    remaingPlayers.removeIf(e->!e.isActive());
+    assertTrue(remaingPlayers.size() == 4);
+    myGameData.getCurrentPlayer().addMoney(-1000000);
+    myTurnManager.endTurn();
+    remaingPlayers.removeIf(e->!e.isActive());
+    assertTrue(remaingPlayers.size() == 3);
 
   }
 

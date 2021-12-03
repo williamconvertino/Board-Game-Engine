@@ -1,17 +1,23 @@
 package ooga.model.game_handling.turn_manager;
 
+import static ooga.display.communication.DisplayStateSignaler.State.BUY_HOUSES;
+import static ooga.display.communication.DisplayStateSignaler.State.GO_TO_JAIL;
+import static ooga.display.communication.DisplayStateSignaler.State.MORTGAGE_PROPERTY;
+import static ooga.display.communication.DisplayStateSignaler.State.PLAYER_WIN;
+import static ooga.display.communication.DisplayStateSignaler.State.READY_TO_ROLL;
+import static ooga.display.communication.DisplayStateSignaler.State.SELL_HOUSES;
+
+import java.util.ArrayList;
+import java.util.List;
 import ooga.display.communication.DisplayComm;
-import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.exceptions.InsufficientBalanceException;
-import ooga.exceptions.MaxHousesReachedException;
 import ooga.exceptions.MaxRollsReachedException;
-import ooga.exceptions.MortgageException;
-import ooga.exceptions.NoHousesToSellException;
 import ooga.exceptions.PropertyNotMonopolyException;
 import ooga.exceptions.PropertyNotOwnedException;
 import ooga.exceptions.PropertyOwnedException;
 import ooga.exceptions.TileNotAPropertyException;
 import ooga.model.data.gamedata.GameData;
+import ooga.model.data.player.Player;
 import ooga.model.data.properties.Property;
 import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
@@ -44,8 +50,8 @@ public class TurnManager {
     //The display communication class.
     private DisplayComm displayComm;
 
-    //WIP
-    private boolean commandActive;
+    //The cheat code manager class.
+    private CheatCodeManager cheatCodeManager;
 
     /**
      * Default constructor
@@ -55,16 +61,26 @@ public class TurnManager {
         this.functionExecutor = functionExecutor;
         this.displayComm = displayComm;
         this.maxRolls = 1;
-        this.commandActive = true;
+        this.cheatCodeManager = new CheatCodeManager(this, functionExecutor, gameData);
     }
 
     /**
      * Starts the next turn.
      */
     public void endTurn() {
+        if (gameData.getCurrentPlayer().getBalance() < 0) {
+            gameData.getCurrentPlayer().setActiveStatus(false);
+        }
         this.selectedTile = null;
         gameData.resetTurnData();
         gameData.setNextPlayer();
+        List<Player> activePlayers = new ArrayList<>(gameData.getPlayers());
+        activePlayers.removeIf(e->!e.isActive());
+        if (activePlayers.size() == 1) {
+            displayComm.signalState(PLAYER_WIN);
+        } else {
+            displayComm.signalState(READY_TO_ROLL);
+        }
     }
 
     /**
@@ -86,6 +102,7 @@ public class TurnManager {
         //If the roll is the third of the turn, send the player to jail.
         if (gameData.getNumRolls() > GLOBAL_MAX_ROLLS) {
             functionExecutor.goToJail(gameData.getCurrentPlayer());
+            displayComm.signalState(GO_TO_JAIL);
             endTurn();
             return;
         }
@@ -93,6 +110,7 @@ public class TurnManager {
         //If the roll is a double, increase the maximum number of rolls by one.
         if (gameData.getDie().lastRollDouble()) {
             maxRolls++;
+            displayComm.signalState(READY_TO_ROLL);
         }
         functionExecutor.movePlayerFd(gameData.getCurrentPlayer(), myRoll);
     }
@@ -105,6 +123,18 @@ public class TurnManager {
      */
     public void setSelectedTile(TileModel tile) {
         this.selectedTile = tile;
+        displayComm.signalState(BUY_HOUSES);
+        displayComm.signalState(SELL_HOUSES);
+        displayComm.signalState(MORTGAGE_PROPERTY);
+    }
+
+    /**
+     * Returns the currently selected tile.
+     *
+     * @return the currently selected tile.
+     */
+    public TileModel getSelectedTile() {
+        return selectedTile;
     }
 
     /**
@@ -173,4 +203,15 @@ public class TurnManager {
             displayComm.showException(e);
         }
     }
+
+    /**
+     * Executes the cheat associated with the given code.
+     *
+     * @param myCode the cheat code to use.
+     */
+    public void executeCheatCode(CheatCodeManager.Code myCode) {
+        cheatCodeManager.executeCheatCode(myCode);
+    }
+
+
 }

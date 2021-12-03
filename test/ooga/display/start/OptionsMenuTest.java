@@ -6,6 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayComm;
+import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.EventManager;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.OriginalPlayerManager;
@@ -183,15 +184,16 @@ public class OptionsMenuTest extends DukeApplicationTest {
     tileList.add(t38);
     tileList.add(t39);
 
-
+    dm = new DisplayManager(stage);
     myBoard = new OriginalBoardManager(tileList);
     myDie = new OriginalDice();
     myGameData = new GameData(myPlayers, myBoard, myDie);
-    myDisplayComm = new DisplayComm();
-    myFunctionExecutor = new FunctionExecutor(myGameData, myDie, myDisplayComm);
+    myDisplayComm = myDisplayComm = new DisplayComm(dm);
+    myFunctionExecutor = new FunctionExecutor();
+    myFunctionExecutor.initializeWithGameValues(myGameData, myDie, myDisplayComm);
     myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
     EventManager eh = new EventManager(myTurnManager);
-    dm = new DisplayManager(stage);
+
   }
 
   /**
