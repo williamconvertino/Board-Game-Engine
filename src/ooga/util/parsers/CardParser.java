@@ -3,6 +3,7 @@ package ooga.util.parsers;
 
 import java.util.ArrayList;
 import java.util.Properties;
+import ooga.display.communication.DisplayComm;
 import ooga.exceptions.AttributeNotFoundException;
 import ooga.exceptions.InvalidFileFormatException;
 import ooga.model.data.cards.Card;
@@ -25,8 +26,8 @@ public class CardParser extends FolderParser {
    * Alternate CardParser constructor
    * @param sequenceParser
    */
-  public CardParser(ActionSequenceParser sequenceParser){
-    super(sequenceParser);
+  public CardParser(ActionSequenceParser sequenceParser, DisplayComm displayComm){
+    super(sequenceParser, displayComm);
   }
 
   /**

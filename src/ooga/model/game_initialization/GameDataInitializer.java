@@ -82,7 +82,7 @@ public class GameDataInitializer {
       //create parsers
       propertyParser = new PropertyParser();
       actionSequenceParser = new ActionSequenceParser(functionExecutor,gameData);
-      cardParser = new CardParser(actionSequenceParser);
+      cardParser = new CardParser(actionSequenceParser, displayComm);
       tileParser = new TileParser(actionSequenceParser,gameData, displayComm);
       BoardParser myBoardParser = new BoardParser();
 

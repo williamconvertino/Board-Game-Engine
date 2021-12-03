@@ -44,7 +44,7 @@ public class TileParser extends FolderParser{
    * @param data containing card decks
    */
   public TileParser(ActionSequenceParser sequenceParser, GameData data, DisplayComm displayComm){
-    super(sequenceParser);
+    super(sequenceParser, displayComm);
     this.myData = data;
     this.displayComm = displayComm;
   }
@@ -59,7 +59,7 @@ public class TileParser extends FolderParser{
     Map<String,PropertyTileModel> result = new HashMap<>();
 
     for (Property prop: propertyList){
-      result.putIfAbsent(prop.getName(),new PropertyTileModel(prop.getName(), prop, new ActionSequence(), displayComm));
+      result.putIfAbsent(prop.getName(),new PropertyTileModel(prop.getName(), prop, new ActionSequence(actionSequenceParser, displayComm), displayComm));
     }
     return result;
   }

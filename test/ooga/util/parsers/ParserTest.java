@@ -9,10 +9,11 @@ import ooga.model.data.deck.Deck;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.properties.Property;
 import ooga.model.game_handling.FunctionExecutor;
+import ooga.model.game_handling.GameHandlingTest;
 import ooga.model.game_handling.commands.ActionSequenceParser;
 import org.junit.jupiter.api.BeforeEach;
 
-public class ParserTest {
+public class ParserTest extends GameHandlingTest {
 
   public ArrayList<Property> propertyList;
   public PropertyParser propertyParser;
@@ -33,7 +34,7 @@ public class ParserTest {
     FunctionExecutor functionExecutor = new FunctionExecutor();
     //create parsers
     actionSequenceParser = new ActionSequenceParser(functionExecutor,gameData);
-    cardParser = new CardParser(actionSequenceParser);
+    cardParser = new CardParser(actionSequenceParser,myDisplayComm);
     tileParser = new TileParser(actionSequenceParser,gameData, null);
     boardParser = new BoardParser();
 

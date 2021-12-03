@@ -16,25 +16,21 @@ import ooga.model.data.player.Player;
 public class ActionSequence {
 
   //A list of the commands to be run.
-  private List<Command> mySequence;
+  private List<String> mySequence;
 
-  DisplayComm displayComm;
+  //The action sequence parser with which the commands should be executed.
+  private ActionSequenceParser myParser;
 
-  /**
-   * Constructs a new ActionSequence and starts it with the specified sequence.
-   *
-   * @param mySequence the starting sequence.
-   */
-  public ActionSequence(List<Command> mySequence, DisplayComm displayComm) {
-    this.mySequence = mySequence;
-    this.displayComm = displayComm;
-  }
+  //The display communication module of the sequence.
+  private DisplayComm displayComm;
 
   /**
    * Constructs an empty ActionSequence.
    */
-  public ActionSequence() {
+  public ActionSequence(ActionSequenceParser parser, DisplayComm dc) {
     this.mySequence = new ArrayList<>();
+    this.myParser = parser;
+    this.displayComm = dc;
   }
 
   /**
@@ -42,7 +38,7 @@ public class ActionSequence {
    *
    * @param command the command to add to the sequence.
    */
-  public void add(Command command) {
+  public void add(String command) {
     mySequence.add(command);
   }
 
@@ -51,8 +47,8 @@ public class ActionSequence {
    */
   public void execute(Player p) {
     try {
-      for (Command command: mySequence) {
-        command.execute(p);
+      for (String command: mySequence) {
+        //TODO
       }
     } catch (Exception e) {
       displayComm.showException(new InvalidFileFormatException());
