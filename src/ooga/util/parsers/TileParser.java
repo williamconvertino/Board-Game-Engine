@@ -19,7 +19,7 @@ import ooga.model.data.tilemodels.CardTileModel;
 import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
 import ooga.model.game_handling.commands.ActionSequence;
-import ooga.model.game_handling.commands.ActionSequenceParser;
+import ooga.model.game_handling.commands.ActionSequenceExecutor;
 
 /**
  * Parser class responsible for creating all TileModel elements.
@@ -43,8 +43,8 @@ public class TileParser extends FolderParser{
    * @param sequenceParser
    * @param data containing card decks
    */
-  public TileParser(ActionSequenceParser sequenceParser, GameData data, DisplayComm displayComm){
-    super(sequenceParser);
+  public TileParser(ActionSequenceExecutor sequenceParser, GameData data, DisplayComm displayComm){
+    super(sequenceParser, displayComm);
     this.myData = data;
     this.displayComm = displayComm;
   }
@@ -59,7 +59,7 @@ public class TileParser extends FolderParser{
     Map<String,PropertyTileModel> result = new HashMap<>();
 
     for (Property prop: propertyList){
-      result.putIfAbsent(prop.getName(),new PropertyTileModel(prop.getName(), prop, new ActionSequence(), displayComm));
+      result.putIfAbsent(prop.getName(),new PropertyTileModel(prop.getName(), prop, new ActionSequence(actionSequenceParser, displayComm), displayComm));
     }
     return result;
   }
