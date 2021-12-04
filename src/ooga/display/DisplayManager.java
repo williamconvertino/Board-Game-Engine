@@ -4,21 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import ooga.GameManager;
 import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
 import ooga.display.game_board.GameBoardDisplay;
-import ooga.display.start.EnterPlayersScreen;
-import ooga.display.start.OptionsMenu;
-import ooga.display.start.StartMenu;
+import ooga.display.screens.EnterPlayersScreen;
+import ooga.display.screens.OptionsMenu;
+import ooga.display.screens.StartMenu;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
 import ooga.model.game_handling.turn_manager.CheatCodeManager;
@@ -131,7 +129,7 @@ public class DisplayManager {
   }
 
   /**
-   * Switch screens to start menu
+   * Switch screens to screens menu
    */
   public void goStartMenu() {
     currDisplay = allDisplays.get(0);

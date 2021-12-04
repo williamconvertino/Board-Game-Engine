@@ -1,4 +1,4 @@
-package ooga.display.start;
+package ooga.display.screens;
 
 import java.util.ArrayList;
 import javafx.scene.control.Button;
@@ -194,7 +194,7 @@ public class StartMenuTest extends DukeApplicationTest {
   }
 
   /**
-   * This test tests to see if at the start menu (display Index 0)
+   * This test tests to see if at the screens menu (display Index 0)
    * is active
    */
   @Test
@@ -203,7 +203,7 @@ public class StartMenuTest extends DukeApplicationTest {
   }
 
   /**
-   * This test tests to see if at the start menu (display Index 0)
+   * This test tests to see if at the screens menu (display Index 0)
    * whether or not clicking the options button makes the index
    * of List of Displays in DisplayManager go to 1 (OptionsMenu)
    */
@@ -227,8 +227,8 @@ public class StartMenuTest extends DukeApplicationTest {
   }
 
   /**
-   * This test tests to see if at the start menu (display index 0)
-   * whether or not clicking on the start button makes the index
+   * This test tests to see if at the screens menu (display index 0)
+   * whether or not clicking on the screens button makes the index
    * of List of Displays in DisplayManager go to 2 (PlayerName)
    */
   @Test
@@ -239,7 +239,7 @@ public class StartMenuTest extends DukeApplicationTest {
   }
 
   /**
-   * This test clicks start then clicks home
+   * This test clicks screens then clicks home
    */
   @Test
   public void clickHomeFromPlayerNames() {
@@ -251,7 +251,7 @@ public class StartMenuTest extends DukeApplicationTest {
   }
 
   /**
-   * This test clicks start then clicks continue
+   * This test clicks screens then clicks continue
    */
   @Test
   public void clickContinueFromPlayerNames() {

@@ -1,4 +1,4 @@
-package ooga.display.start;
+package ooga.display.screens;
 
 import java.util.ArrayList;
 import javafx.collections.FXCollections;

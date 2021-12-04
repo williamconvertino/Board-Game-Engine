@@ -1,4 +1,4 @@
-package ooga.display.start;
+package ooga.display.screens;
 
 import java.util.ArrayList;
 import javafx.scene.control.Button;
@@ -6,7 +6,6 @@ import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayComm;
-import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.EventManager;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.OriginalPlayerManager;
@@ -196,7 +195,7 @@ public class OptionsMenuTest extends DukeApplicationTest {
   }
 
   /**
-   * This test tests to see if at the start menu (display Index 0)
+   * This test tests to see if at the screens menu (display Index 0)
    * whether or not clicking the options button makes the index
    * of List of Displays in DisplayManager go to 1 (OptionsMenu)
    */
