@@ -150,7 +150,7 @@ public class EnterPlayersScreen extends Display {
         colorsComboBoxes.add(nodeCheck);
       }
       else {
-        System.out.println("error occurs here");
+        System.out.println("error getting color? see getPlayerColors()");
       }
     }
     return colorsComboBoxes;
