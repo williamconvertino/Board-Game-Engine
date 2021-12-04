@@ -57,9 +57,26 @@ public class ProfileManager {
         return false;
     }
 
-    //TODO
-    public void updatePlayerProfile(String username, String password, String imageString) {
-
+    /**
+     * Method to update a player profile.
+     * @param newProfile- the updated player profile.
+     * @throws IOException- should the file to write to not exist.
+     * @throws PlayerProfileException- should the player profile being updated does not exist.
+     */
+    public void updatePlayerProfile(String[] newProfile) throws IOException, PlayerProfileException {
+        List<String[]> allProfiles = getAllPlayerProfiles();
+        //find old profile that needs to be updated
+        for (int i = 0; i < allProfiles.size(); i++) {
+            if (allProfiles.get(i)[0] == newProfile[0]) {
+                allProfiles.set(i, newProfile);
+                CSVWriter writer = new CSVWriter(new FileWriter(filePath));
+                writer.writeAll(allProfiles);
+                writer.close();
+                return;
+            }
+        }
+        //if no profile found that matches the username and password
+        throw new PlayerProfileException();
     }
 
     /**
