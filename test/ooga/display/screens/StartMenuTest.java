@@ -1,12 +1,10 @@
-package ooga.display.start;
+package ooga.display.screens;
 
 import java.util.ArrayList;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayComm;
-import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.EventManager;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.OriginalPlayerManager;
@@ -26,7 +24,7 @@ import ooga.util.DukeApplicationTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class OptionsMenuTest extends DukeApplicationTest {
+public class StartMenuTest extends DukeApplicationTest {
   public Player p1;
   public Player p2;
   public Player p3;
@@ -188,7 +186,7 @@ public class OptionsMenuTest extends DukeApplicationTest {
     myBoard = new OriginalBoardManager(tileList);
     myDie = new OriginalDice();
     myGameData = new GameData(myPlayers, myBoard, myDie);
-    myDisplayComm = myDisplayComm = new DisplayComm(dm);
+    myDisplayComm = new DisplayComm(dm);
     myFunctionExecutor = new FunctionExecutor();
     myFunctionExecutor.initializeWithGameValues(myGameData, myDie, myDisplayComm);
     myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
@@ -197,7 +195,16 @@ public class OptionsMenuTest extends DukeApplicationTest {
   }
 
   /**
-   * This test tests to see if at the start menu (display Index 0)
+   * This test tests to see if at the screens menu (display Index 0)
+   * is active
+   */
+  @Test
+  public void onStartScreen() {
+    assertEquals(0, dm.getCurrDisplayIndex());
+  }
+
+  /**
+   * This test tests to see if at the screens menu (display Index 0)
    * whether or not clicking the options button makes the index
    * of List of Displays in DisplayManager go to 1 (OptionsMenu)
    */
@@ -208,38 +215,51 @@ public class OptionsMenuTest extends DukeApplicationTest {
     assertEquals(1, dm.getCurrDisplayIndex());
   }
 
+  /**
+   * This test clicks options then clicks home
+   */
   @Test
-  public void clickNumPlayers() {
+  public void clickHomeFromOptions() {
     Button options = lookup("#Options").query();
     clickOn(options);
-    ComboBox numPlayers = lookup("#NumberofPlayers").query();
-    select(numPlayers, "");
+    Button GoHome = lookup("#GotoHome").query();
+    clickOn(GoHome);
+    assertEquals(0, dm.getCurrDisplayIndex());
   }
 
+  /**
+   * This test tests to see if at the screens menu (display index 0)
+   * whether or not clicking on the screens button makes the index
+   * of List of Displays in DisplayManager go to 2 (PlayerName)
+   */
   @Test
-  public void clickTheme() {
-    Button options = lookup("#Options").query();
+  public void clickStartEnterPlayerNames() {
+    Button options = lookup("#Start").query();
     clickOn(options);
-    ComboBox theme = lookup("#Theme").query();
-    select(theme, "");
+    assertEquals(2, dm.getCurrDisplayIndex());
   }
 
+  /**
+   * This test clicks screens then clicks home
+   */
   @Test
-  public void setLangFrench() {
-    Button options = lookup("#Options").query();
+  public void clickHomeFromPlayerNames() {
+    Button options = lookup("#Start").query();
     clickOn(options);
-    ComboBox lang = lookup("#ChangeLanguage").query();
-    select(lang, "French");
-    assertEquals("ooga.display.resources.French", dm.getLanguageResource().getBaseBundleName());
+    Button GoHome = lookup("#GotoHome").query();
+    clickOn(GoHome);
+    assertEquals(0, dm.getCurrDisplayIndex());
   }
 
+  /**
+   * This test clicks screens then clicks continue
+   */
   @Test
-  public void setLangSpanish() {
-    Button options = lookup("#Options").query();
+  public void clickContinueFromPlayerNames() {
+    Button options = lookup("#Start").query();
     clickOn(options);
-    ComboBox lang = lookup("#ChangeLanguage").query();
-    select(lang, "Spanish");
-    assertEquals("ooga.display.resources.Spanish", dm.getLanguageResource().getBaseBundleName());
+    Button GoHome = lookup("#Continue").query();
+    clickOn(GoHome);
+    assertEquals(3, dm.getCurrDisplayIndex());
   }
-
 }

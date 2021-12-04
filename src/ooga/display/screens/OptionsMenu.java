@@ -1,4 +1,4 @@
-package ooga.display.start;
+package ooga.display.screens;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -41,7 +41,7 @@ public class OptionsMenu extends Display {
   }
 
   /**
-   * Make the panel with buttons to start or go to settings
+   * Make the panel with buttons to screens or go to settings
    */
   private Node optionsPanel() {
     VBox result = new VBox();
