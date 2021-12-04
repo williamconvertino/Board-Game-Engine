@@ -12,6 +12,7 @@ import ooga.util.ImmutTool;
  *
  * @author William Convertino
  * @author Aaric Han
+ * @author Henry Huynh
  *
  * @since 0.0.1
  */

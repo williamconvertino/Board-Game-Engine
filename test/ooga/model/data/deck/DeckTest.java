@@ -4,12 +4,13 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import ooga.model.data.cards.Card;
+import ooga.model.game_handling.GameHandlingTest;
 import ooga.model.game_handling.commands.ActionSequence;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class DeckTest {
+class DeckTest extends GameHandlingTest {
 
   Card c1;
   Card c2;
@@ -18,7 +19,7 @@ class DeckTest {
 
   @BeforeEach
   void resetCards() {
-    ActionSequence mySequence = new ActionSequence();
+    ActionSequence mySequence = new ActionSequence(myActionSequenceParser, myDisplayComm);
     cardList = new ArrayList<Card>();
     c1 = new Card("1", "first", mySequence);
     c2 = new Card("2", "second", mySequence);
