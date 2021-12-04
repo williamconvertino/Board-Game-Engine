@@ -142,6 +142,18 @@ public class UIBuilder {
   }
 
   /**
+   * Creates label using id
+   *
+   * @param id name for label
+   * @return appropriate label using id
+   */
+  public Node makeSmallLabel(String id) {
+    Label smallLabel = new Label(langResource.getString(id));
+    smallLabel.getStyleClass().add("small-label");
+    return smallLabel;
+  }
+
+  /**
    * @param header  the error category
    * @param message the error message
    * @return error alert

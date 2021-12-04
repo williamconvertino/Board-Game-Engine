@@ -17,6 +17,7 @@ public class StartMenu extends Display {
   private Stage myStage;
   private DisplayManager myDisplayManager;
   private UIBuilder myBuilder;
+  private ResourceBundle myResource;
   private Scene scene;
   private static final String DEFAULT_RESOURCE_PACKAGE =
       Display.class.getPackageName() + ".resources.";
@@ -24,6 +25,7 @@ public class StartMenu extends Display {
   private static final String DEFAULT_STYLE = STYLE_PACKAGE + "mainmenu.css";
 
   public StartMenu(Stage stage, DisplayManager displayManager, ResourceBundle langResource) {
+    myResource = langResource;
     myBuilder = new UIBuilder(langResource);
     myStage = stage;
     myDisplayManager = displayManager;
@@ -40,7 +42,7 @@ public class StartMenu extends Display {
     VBox result = new VBox();
     result.getChildren().add(myBuilder.makeButton("Start", e -> myDisplayManager.goPlayerScreen()));
     result.getChildren().add(myBuilder.makeButton("Options", e -> myDisplayManager.goOptions()));
-    SignupProfile signup = new SignupProfile(myStage, myBuilder);
+    SignupProfile signup = new SignupProfile(myStage, myBuilder, myResource);
     result.getChildren().add(myBuilder.makeButton("Signup", e -> signup.getPopup().show(myStage)));
     return result;
   }
