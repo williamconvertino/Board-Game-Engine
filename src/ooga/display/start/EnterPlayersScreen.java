@@ -142,11 +142,15 @@ public class EnterPlayersScreen extends Display {
    *
    * @return List of String colors
    */
+  //FIXME: error with getting player colors
   public List<Node> getPlayerColors() {
     List<Node> colorsComboBoxes = new ArrayList<>();
     for (Node nodeCheck : myColorSelectionVBox.getChildren()) {
       if (nodeCheck.getId() != null && nodeCheck.getId().contains(SELECT_COLOR)) {
         colorsComboBoxes.add(nodeCheck);
+      }
+      else {
+        System.out.println("error occurs here");
       }
     }
     return colorsComboBoxes;
