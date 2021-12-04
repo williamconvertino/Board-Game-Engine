@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class ProfileManager {
 
-    private final String filePath = "data/profiles/playerProfiles.csv";
+//    private final String filePath = "data/profiles/playerProfiles.csv";
 
     public ProfileManager() {
 
@@ -29,13 +29,15 @@ public class ProfileManager {
     /**
      * Method to add a new player profile to the records.
      * @param newProfile- a list of strings containing all the necessary data to construct a player profile.
+     * @param filePath- the location of the csv file storing all player profiles.
      * @throws IOException- should the player profile records file not exist.
      */
-    public void createNewPlayerProfile(String[] newProfile) throws IOException, PlayerProfileException {
-        List<String[]> allProfiles = getAllPlayerProfiles();
+    public void createNewPlayerProfile(String[] newProfile, String filePath) throws IOException, PlayerProfileException {
+        List<String[]> allProfiles = getAllPlayerProfiles(filePath);
         if (profileUsernameAlreadyExists(newProfile[0], allProfiles)) {
             throw new PlayerProfileException();
         }
+
         try {
             CSVWriter writer = new CSVWriter(new FileWriter(filePath));
             allProfiles.add(newProfile);
@@ -48,9 +50,9 @@ public class ProfileManager {
         }
     }
 
-    public boolean profileUsernameAlreadyExists(String username, List<String[]> existingProfiles) {
+    private boolean profileUsernameAlreadyExists(String username, List<String[]> existingProfiles) {
         for (String[] profile: existingProfiles) {
-            if (profile[0] == username) {
+            if (profile[0].equals(username)) {
                 return true;
             }
         }
@@ -60,14 +62,15 @@ public class ProfileManager {
     /**
      * Method to update a player profile.
      * @param newProfile- the updated player profile.
+     * @param filePath- the location of the csv file storing all player profiles.
      * @throws IOException- should the file to write to not exist.
      * @throws PlayerProfileException- should the player profile being updated does not exist.
      */
-    public void updatePlayerProfile(String[] newProfile) throws IOException, PlayerProfileException {
-        List<String[]> allProfiles = getAllPlayerProfiles();
+    public void updatePlayerProfile(String[] newProfile, String filePath) throws IOException, PlayerProfileException {
+        List<String[]> allProfiles = getAllPlayerProfiles(filePath);
         //find old profile that needs to be updated
         for (int i = 0; i < allProfiles.size(); i++) {
-            if (allProfiles.get(i)[0] == newProfile[0]) {
+            if (allProfiles.get(i)[0].equals(newProfile[0])) {
                 allProfiles.set(i, newProfile);
                 CSVWriter writer = new CSVWriter(new FileWriter(filePath));
                 writer.writeAll(allProfiles);
@@ -83,19 +86,20 @@ public class ProfileManager {
      * Method to login to a player profile.
      * @param username- the username of the profile to be logged into.
      * @param password- the password of the profile to be logged into.
+     * @param filePath- the location of the csv file storing all player profiles.
      * @return- A list of strings representing the player profile logged into.  The first element of the list is the username,
      * the second element is the password, the third is the player's avatar.
      * @throws FileNotFoundException- should the player profile file not exist or cannot be found.
      * @throws PlayerProfileException- should there be no existing profiles or if the username/password does not match an existing profile.
      */
-    public String[] loginPlayerProfile(String username, String password) throws FileNotFoundException, PlayerProfileException {
-        List<String[]> existingProfiles = getAllPlayerProfiles();
+    public String[] loginPlayerProfile(String username, String password, String filePath) throws FileNotFoundException, PlayerProfileException {
+        List<String[]> existingProfiles = getAllPlayerProfiles(filePath);
         //if no player profiles
         if (existingProfiles.size() == 0) {
             throw new PlayerProfileException();
         }
         for (String[] profile: existingProfiles) {
-            if (profile[0] == username && profile[1] == password) {
+            if (profile[0].equals(username) && profile[1].equals(password)) {
                 return profile;
             }
         }
@@ -105,11 +109,12 @@ public class ProfileManager {
 
     /**
      * Method to get all existing player profiles.
+     * @param filePath- the location of the csv file storing all player profiles.
      * @return- A list of lists of strings each of which represents a player profile.
      * @throws FileNotFoundException- should the player profile file not exist.
      * @throws PlayerProfileException- should there be no existing player profiles.
      */
-    public List<String[]> getAllPlayerProfiles() throws FileNotFoundException {
+    public List<String[]> getAllPlayerProfiles(String filePath) throws FileNotFoundException {
         try {
             FileReader filereader = new FileReader(filePath);
             CSVReader csvReader = new CSVReaderBuilder(filereader).build();
