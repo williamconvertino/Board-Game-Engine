@@ -54,4 +54,9 @@ Reviewer 4: Luke Turkovitch (lkt12)
 - can add color blocks to properties on the UI to make it more monopoly like
   - throw image in the middle of board maybe?
 
+Reviewer 5: Morgan Feist (mjf58) and Kathryn Jenkins
+- Modify number of players
+
+Reviewer 6: Evan (ek168)
+- Instructions panel
 
