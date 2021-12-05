@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import ooga.display.Display;
 import ooga.display.DisplayManager;
 import ooga.display.communication.EventManager;
 import ooga.display.communication.TMEvent;
@@ -36,8 +37,7 @@ public class Board {
   private static final double PREF_WIDTH_BOARD = 1100;
   private static final double PREF_HEIGHT_BOARD = 1100;
   private static final int RADIUS = 10;
-  private static final String ORIGINAL_IMG = "center_images/original.png";
-  private static final String DUKE_IMG = "center_images/duke.png";
+
   private DisplayManager myDisplayManager;
   private ResourceBundle myLanguage;
   private UIBuilder myBuilder;
@@ -52,12 +52,31 @@ public class Board {
   private GameData gameData;
   private Map<EventManager.EVENT_NAMES, TMEvent> eventMap;
   private ArrayList<PropertyInfoPopUp> allPropInfoPopups = new ArrayList<>(2*BOARD_SIZE + 2*SIDE_LENGTH);
+  private static final String DEFAULT_RESOURCE_PACKAGE =
+          Display.class.getPackageName() + ".resources.";
+
+  private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
+  private static final String ORIGINAL_STYLE = STYLE_PACKAGE + "original.css";
+  private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
+  private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
+  private static final String ORIGINAL_IMG = "center_images/original.png";
+  private static final String DUKE_IMG = "center_images/duke.png";
+  private static final String MONO_IMG = "center_images/mono.png";
+
+  private static final Map<String, String> IMAGE_MAP = Map.of(
+          ORIGINAL_STYLE, ORIGINAL_IMG,
+          MONO_STYLE, MONO_IMG,
+          DUKE_STYLE, DUKE_IMG
+  );
+
+  private String myStyle = ORIGINAL_STYLE;
 
   /**
    * Constructor for the game board
    */
   public Board(DisplayManager displayManager, ResourceBundle language, GameData gameData,
-               Map<EventManager.EVENT_NAMES, TMEvent> eventMap) {
+               Map<EventManager.EVENT_NAMES, TMEvent> eventMap, String theme) {
+    myStyle = theme;
     this.eventMap = eventMap;
     myLanguage = language;
     myBuilder = new UIBuilder(myLanguage);
@@ -65,7 +84,7 @@ public class Board {
     boardComponent = new VBox();
     this.gameData = gameData;
     createBoard();
-    createCenterImage();
+    createCenterImage(theme);
     startPieces();
   }
 
@@ -147,13 +166,13 @@ public class Board {
     // Center Image
 
     gameBoard.getChildren().add(boardEdge);
-    gameBoard.getChildren().add(createCenterImage());
+    gameBoard.getChildren().add(createCenterImage(myStyle));
     boardComponent.getChildren().add(gameBoard);
   }
 
-  private BorderPane createCenterImage() {
+  private BorderPane createCenterImage(String theme) {
     BorderPane centerImg = new BorderPane();
-    ImageView imageView = new ImageView(ORIGINAL_IMG);
+    ImageView imageView = new ImageView(IMAGE_MAP.get(theme));
     imageView.setFitHeight(CENTER_IMAGE_HEIGHT);
     imageView.setFitWidth(CENTER_IMAGE_WIDTH);
     imageView.setPreserveRatio(true);

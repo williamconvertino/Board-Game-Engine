@@ -29,7 +29,7 @@ public class OptionsMenu extends Display {
   private static final String DEFAULT_STYLE = STYLE_PACKAGE + "original.css";
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
-  private static final List<String> LANGUAGES_LIST = List.of("English", "Spanish", "French");
+  private static final List<String> LANGUAGES_LIST = List.of("English", "Spanish", "French", "Irish", "Latin");
   private Scene scene;
 
   public OptionsMenu(Stage stage, DisplayManager displayManager, ResourceBundle langResource) {

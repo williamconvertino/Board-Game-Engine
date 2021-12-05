@@ -43,11 +43,17 @@ public class DisplayManager {
           Display.class.getPackageName() + ".resources.";
 
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
-  private static final String ORIGINAL_STYLE = STYLE_PACKAGE + "lightMode.css";
-  private static final String MONO_STYLE = STYLE_PACKAGE + "darkMode.css";
+  private static final String ORIGINAL_STYLE = STYLE_PACKAGE + "original.css";
+  private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
 
   private String selectedTheme = ORIGINAL_STYLE;
+
+  private static final Map<String, String> STYLESHEETS = Map.of(
+          "Original", ORIGINAL_STYLE,
+          "Mono", MONO_STYLE,
+          "Duke", DUKE_STYLE
+  );
 
   private Stage myStage;
   private ArrayList<Display> allDisplays = new ArrayList<>();
@@ -76,7 +82,7 @@ public class DisplayManager {
    * Switches to the player name screen
    */
   public void goPlayerScreen() {
-    myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource);
+    myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource, selectedTheme);
     allDisplays.add(myEnterPlayerScreen);
     currDisplay = allDisplays.get(2);
     myStage.setScene(currDisplay.getScene());
@@ -91,7 +97,7 @@ public class DisplayManager {
     myEventMap = myGame.getEventMap();
     setPlayerNames();
     setPlayerColors();
-    allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData));
+    allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData, selectedTheme));
     currDisplay = allDisplays.get(3);
     myStage.setScene(currDisplay.getScene());
 
@@ -187,16 +193,11 @@ public class DisplayManager {
    * @param theme the theme
    */
   public void changeTheme(String theme) {
-    selectedTheme = theme;
+    selectedTheme = STYLESHEETS.get(theme);
     for (Display display : allDisplays) {
-      try {
-        Scene scene = display.getScene();
-        scene.getStylesheets().remove(1);
-        scene.getStylesheets().add(getClass().getResource(selectedTheme).toExternalForm());
-      } catch (Exception e) {
-        //FIXME: Add error popup
-        //showError(ERROR_THEME_CHANGE);
-      }
+      Scene scene = display.getScene();
+      scene.getStylesheets().remove(0);
+      scene.getStylesheets().add(getClass().getResource(selectedTheme).toExternalForm());
     }
   }
 

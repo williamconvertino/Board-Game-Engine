@@ -52,13 +52,15 @@ public class GameBoardDisplay extends Display {
   private Map<EVENT_NAMES, TMEvent> myEventMap;
 
   private ResourceBundle myLanguage;
+  private String myStyle = DEFAULT_STYLE;
 
   /**
    * This constructor makes theGameBoard borderpane with all elements top, left, right, bottom, and
    * center
    */
   public GameBoardDisplay(Stage stage, DisplayManager displayManager, ResourceBundle language,
-      Map<EVENT_NAMES, TMEvent> eventMap, GameData gameData) {
+      Map<EVENT_NAMES, TMEvent> eventMap, GameData gameData, String theme) {
+    myStyle = theme;
     myUIBuilder = new UIBuilder(language);
     myLanguage = language;
     myStage = stage;
@@ -69,7 +71,7 @@ public class GameBoardDisplay extends Display {
     theRight = new Right(this, myLanguage, eventMap, gameData);
     theLeft = new Left(myLanguage, eventMap, gameData);
     theBottom = new Bottom(myLanguage);
-    theBoard = new Board(myDisplayManager, myLanguage, gameData, eventMap);
+    theBoard = new Board(myDisplayManager, myLanguage, gameData, eventMap, theme);
 
     theGameBoard = new BorderPane();
     theGameBoard.setCenter(theBoard.getComponent());
@@ -83,7 +85,7 @@ public class GameBoardDisplay extends Display {
 
   private void makeScene() {
     scene = new Scene(theGameBoard, 1280, 800);
-    scene.getStylesheets().add(DEFAULT_STYLE);
+    scene.getStylesheets().add(myStyle);
   }
 
   /**
