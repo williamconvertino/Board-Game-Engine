@@ -34,8 +34,8 @@ import static ooga.display.communication.EventManager.EVENT_NAMES.*;
 public class Board {
   private static final int RECT_WIDTH = 70;
   private static final int RECT_HEIGHT = 80;
-  private static final double PREF_WIDTH_BOARD = 1100;
-  private static final double PREF_HEIGHT_BOARD = 1100;
+  private static final double PREF_WIDTH_BOARD = 800;
+  private static final double PREF_HEIGHT_BOARD = 800;
   private static final int RADIUS = 10;
 
   private DisplayManager myDisplayManager;
