@@ -26,6 +26,12 @@ public class StartMenu extends Display {
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
 
+  /**
+   * Constructor for creating a start menu screen
+   * @param stage
+   * @param displayManager
+   * @param langResource
+   */
   public StartMenu(Stage stage, DisplayManager displayManager, ResourceBundle langResource) {
     myResource = langResource;
     myBuilder = new UIBuilder(langResource);

@@ -32,6 +32,12 @@ public class OptionsMenu extends Display {
   private static final List<String> LANGUAGES_LIST = List.of("English", "Spanish", "French", "Irish", "Latin");
   private Scene scene;
 
+  /**
+   * Constructor for creating an option menu screen
+   * @param stage The stage
+   * @param displayManager The display manager
+   * @param langResource The language
+   */
   public OptionsMenu(Stage stage, DisplayManager displayManager, ResourceBundle langResource) {
     myLangResource = langResource;
     myBuilder = new UIBuilder(langResource);

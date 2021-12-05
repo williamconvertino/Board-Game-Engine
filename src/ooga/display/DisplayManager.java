@@ -188,7 +188,8 @@ public class DisplayManager {
 
 
   /**
-   * Change theme.
+   * Loops through all the available displays, changes theme.
+   * All future added displays will also be of said theme.
    *
    * @param theme the theme
    */

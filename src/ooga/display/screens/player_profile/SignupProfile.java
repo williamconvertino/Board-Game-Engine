@@ -37,6 +37,13 @@ public class SignupProfile implements Profile {
   private final String AVATAR_DIR_PATH = "data/profiles/avatar-img/";
   private final File AVATAR_DIR = new File(AVATAR_DIR_PATH);
 
+  /**
+   * Instantiates a new Signup profile.
+   *
+   * @param stage          the stage
+   * @param uiBuilder      the ui builder
+   * @param resourceBundle the resource bundle
+   */
   public SignupProfile(Stage stage, UIBuilder uiBuilder, ResourceBundle resourceBundle) {
     myStage = stage;
     myUIBuilder = uiBuilder;
@@ -44,11 +51,17 @@ public class SignupProfile implements Profile {
     makeScene();
   }
 
+  /**
+   * @return
+   */
   @Override
   public Popup getPopup() {
     return myPopup;
   }
 
+  /**
+   *
+   */
   @Override
   public void buttonPressed() {
     // TODO: Send information from textfields and file chooser to Jordan's backend
