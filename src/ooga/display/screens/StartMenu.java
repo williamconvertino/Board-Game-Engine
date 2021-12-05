@@ -1,13 +1,14 @@
-package ooga.display.start;
+package ooga.display.screens;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ooga.display.Display;
 import ooga.display.DisplayManager;
+import ooga.display.screens.player_profile.LoginProfile;
+import ooga.display.screens.player_profile.SignupProfile;
 import ooga.display.ui_tools.UIBuilder;
 import java.util.ResourceBundle;
 
@@ -17,13 +18,23 @@ public class StartMenu extends Display {
   private Stage myStage;
   private DisplayManager myDisplayManager;
   private UIBuilder myBuilder;
+  private ResourceBundle myResource;
   private Scene scene;
   private static final String DEFAULT_RESOURCE_PACKAGE =
       Display.class.getPackageName() + ".resources.";
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
-  private static final String DEFAULT_STYLE = STYLE_PACKAGE + "mainmenu.css";
+  private static final String DEFAULT_STYLE = STYLE_PACKAGE + "original.css";
+  private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
+  private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
 
+  /**
+   * Constructor for creating a start menu screen
+   * @param stage
+   * @param displayManager
+   * @param langResource
+   */
   public StartMenu(Stage stage, DisplayManager displayManager, ResourceBundle langResource) {
+    myResource = langResource;
     myBuilder = new UIBuilder(langResource);
     myStage = stage;
     myDisplayManager = displayManager;
@@ -34,12 +45,16 @@ public class StartMenu extends Display {
   }
 
   /**
-   * Make the panel with buttons to start or go to settings
+   * Make the panel with buttons to screens or go to settings
    */
   private Node navigationPanel() {
     VBox result = new VBox();
     result.getChildren().add(myBuilder.makeButton("Start", e -> myDisplayManager.goPlayerScreen()));
     result.getChildren().add(myBuilder.makeButton("Options", e -> myDisplayManager.goOptions()));
+    SignupProfile signup = new SignupProfile(myStage, myBuilder, myResource);
+    result.getChildren().add(myBuilder.makeButton("Signup", e -> signup.getPopup().show(myStage)));
+    LoginProfile login = new LoginProfile(myStage, myBuilder, myResource);
+    result.getChildren().add(myBuilder.makeButton("Login", e -> login.getPopup().show(myStage)));
     return result;
   }
 

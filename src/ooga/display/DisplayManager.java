@@ -4,21 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import ooga.GameManager;
 import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
 import ooga.display.game_board.GameBoardDisplay;
-import ooga.display.start.EnterPlayersScreen;
-import ooga.display.start.OptionsMenu;
-import ooga.display.start.StartMenu;
+import ooga.display.screens.EnterPlayersScreen;
+import ooga.display.screens.OptionsMenu;
+import ooga.display.screens.StartMenu;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
 import ooga.model.game_handling.turn_manager.CheatCodeManager;
@@ -34,16 +32,36 @@ import ooga.model.game_handling.turn_manager.CheatCodeManager.Code;
  */
 public class DisplayManager {
 
-  private ResourceBundle languageResource; 
+
+
+
+
+  private ResourceBundle languageResource;
+
   private Display currDisplay;
   private static final String DEFAULT_RESOURCE_PACKAGE =
           Display.class.getPackageName() + ".resources.";
+
+  private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
+  private static final String ORIGINAL_STYLE = STYLE_PACKAGE + "original.css";
+  private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
+  private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
+
+  private String selectedTheme = ORIGINAL_STYLE;
+
+  private static final Map<String, String> STYLESHEETS = Map.of(
+          "Original", ORIGINAL_STYLE,
+          "Mono", MONO_STYLE,
+          "Duke", DUKE_STYLE
+  );
+
   private Stage myStage;
   private ArrayList<Display> allDisplays = new ArrayList<>();
   private GameData myGameData;
   private Map<EVENT_NAMES, TMEvent> myEventMap;
   private EnterPlayersScreen myEnterPlayerScreen;
   private GameManager myGame;
+
 
 
 
@@ -64,7 +82,7 @@ public class DisplayManager {
    * Switches to the player name screen
    */
   public void goPlayerScreen() {
-    myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource);
+    myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource, selectedTheme);
     allDisplays.add(myEnterPlayerScreen);
     currDisplay = allDisplays.get(2);
     myStage.setScene(currDisplay.getScene());
@@ -79,7 +97,7 @@ public class DisplayManager {
     myEventMap = myGame.getEventMap();
     setPlayerNames();
     setPlayerColors();
-    allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData));
+    allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData, selectedTheme));
     currDisplay = allDisplays.get(3);
     myStage.setScene(currDisplay.getScene());
 
@@ -131,7 +149,7 @@ public class DisplayManager {
   }
 
   /**
-   * Switch screens to start menu
+   * Switch screens to screens menu
    */
   public void goStartMenu() {
     currDisplay = allDisplays.get(0);
@@ -168,8 +186,20 @@ public class DisplayManager {
     //TODO: Will be added later - DO NOT DELETE
   }
 
-  public void changeTheme(String e) {
-    //TODO: Will be added later - DO NOT DELETE
+
+  /**
+   * Loops through all the available displays, changes theme.
+   * All future added displays will also be of said theme.
+   *
+   * @param theme the theme
+   */
+  public void changeTheme(String theme) {
+    selectedTheme = STYLESHEETS.get(theme);
+    for (Display display : allDisplays) {
+      Scene scene = display.getScene();
+      scene.getStylesheets().remove(0);
+      scene.getStylesheets().add(getClass().getResource(selectedTheme).toExternalForm());
+    }
   }
 
   public void rotateBoard() {

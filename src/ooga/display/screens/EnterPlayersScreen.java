@@ -1,4 +1,4 @@
-package ooga.display.start;
+package ooga.display.screens;
 
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
@@ -36,10 +36,14 @@ public class EnterPlayersScreen extends Display {
   private LanguageUI myLanguageUI;
   private VBox myTextAreaVBox;
   private VBox myColorSelectionVBox;
+
   private static final String DEFAULT_RESOURCE_PACKAGE =
       Display.class.getPackageName() + ".resources.";
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
-  private static final String DEFAULT_STYLE = STYLE_PACKAGE + "mainmenu.css";
+  private static final String DEFAULT_STYLE = STYLE_PACKAGE + "original.css";
+
+  private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
+  private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
   private static final String PLAYER_CUSTOMIZER = "PlayerCustomizer";
   private static final String SELECT_COLORLABEL = "SelectColorLabel";
   private static final String SELECT_COLOR = "SelectColor";
@@ -47,6 +51,7 @@ public class EnterPlayersScreen extends Display {
   private static final String ENTER_NAME = "EnterPlayerName";
   private ArrayList<Color> playerColors = new ArrayList<>();
   private Scene scene;
+  private String myStyle = DEFAULT_STYLE;
 
   /**
    * Default constructor for the Player Customization Screen
@@ -55,7 +60,8 @@ public class EnterPlayersScreen extends Display {
    * @param langResource
    */
   public EnterPlayersScreen(Stage stage, DisplayManager displayManager,
-      ResourceBundle langResource) {
+      ResourceBundle langResource, String selectedTheme) {
+    myStyle = selectedTheme;
     myLangResource = langResource;
     myBuilder = new UIBuilder(langResource);
     myStage = stage;
@@ -150,7 +156,7 @@ public class EnterPlayersScreen extends Display {
         colorsComboBoxes.add(nodeCheck);
       }
       else {
-        System.out.println("error getting color? see getPlayerColors()");
+        //System.out.println("error getting color? see getPlayerColors()");
       }
     }
     return colorsComboBoxes;
@@ -158,7 +164,7 @@ public class EnterPlayersScreen extends Display {
 
   private void makeScene() {
     scene = new Scene(playerMenu, 800, 600);
-    scene.getStylesheets().add(DEFAULT_STYLE);
+    scene.getStylesheets().add(myStyle);
   }
 
   /**

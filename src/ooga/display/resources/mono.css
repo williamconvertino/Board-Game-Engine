@@ -5,12 +5,22 @@
 .root {
     -fx-font-family: "Rockwell";
     /* define variables to avoid duplicating values */
-    text_color: #F8CE87;
-    -fx-background-color: #A23434;
+    text_color: #FFFFFF;
+    alt_color: #808080;
+    -fx-background-color: #000000;
 }
 
-#PlayerCustomizeRight {
-    -fx-alignment: right;
+#propertyVBox {
+    -fx-background-color: White;
+    -fx-border-color: #000000;
+    -fx-border-width: 3px;
+    -fx-padding: 10px;
+}
+
+#propdisptilename {
+    -fx-font-size: 80%;
+    -fx-padding: 2px;
+    -fx-text-alignment: center;
 }
 
 .choice-box {
@@ -19,31 +29,32 @@
     -fx-spacing: 2px;
 }
 
-.list-cell, /* items in combo-box */
-.check-box,
-.toggle-button,
 .radio-button {
     -fx-text-fill: text_color;
+    -fx-color: darkgray;
 }
 
 .button-box {
     -fx-alignment: center;
     -fx-spacing: 8px;
+    -fx-color: darkgray;
+
 }
 
 .button {
     -fx-text-fill: text_color;
-    -fx-background-color: floralwhite;
+    -fx-color: darkgray;
     -fx-padding: 10px;
     -fx-border-color: lightgrey;
 }
 
 .text-area {
     -fx-border-color: lightgrey;
+    -fx-background-color: darkgray;
 }
 .label {
-    -fx-font-size: 20;
-    -fx-text-fill: text_color;
+    -fx-font-size: 15;
+    -fx-text-fill: alt_color;
     -fx-alignment: center;
     -fx-min-width: 10px;
     -fx-padding: 10px;
@@ -51,32 +62,8 @@
 
 .text-field {
     -fx-text-fill: text_color;
-    -fx-background-color: floralwhite;
+    -fx-background-color: darkgray;
     -fx-min-width: 200px;
 }
 
 
-
-.bg-1 {
-    -fx-background-color: #ffd0fe;
-}
-
-.bg-2 {
-    -fx-background-color: #ffc3cb;
-}
-
-.bg-3 {
-    -fx-background-color: #ffefc8;
-}
-
-.bg-4 {
-    -fx-background-color: #ceffc6;
-}
-
-.bg-5 {
-    -fx-background-color: #befaff;
-}
-
-.bg-6 {
-    -fx-background-color: #c4c4ff;
-}
