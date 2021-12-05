@@ -5,7 +5,11 @@ import java.sql.SQLOutput;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
@@ -75,11 +79,11 @@ public class SignupProfile implements Profile {
 
     ExceptionPopUp error;
 
-    if (username.equals(myResource.getString("UsernameTextFieldID")) || username.isBlank()) {
+    if (username.equals(myResource.getString("UsernameTextFieldID")) || username.isBlank() || username.contains(" ")) {
       errorLabel = "Invalid Fields";
       errorContent = String.format("%s\n%s", errorContent, myResource.getString("PleaseEnterNewUsername"));
     }
-    if (password.equals(myResource.getString("PasswordTextFieldID")) || password.isBlank()) {
+    if (password.equals(myResource.getString("PasswordTextFieldID")) || password.isBlank() || password.contains(" ")) {
       errorLabel = "Invalid Fields";
       errorContent = String.format("%s\n%s", errorContent, myResource.getString("PleaseEnterNewPassword"));
     }
@@ -121,12 +125,21 @@ public class SignupProfile implements Profile {
     playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("ChooseAvatarLabel"));
     FileChooser fileChooser = new FileChooser();
     fileChooser.setInitialDirectory(AVATAR_DIR);
-    playerMenu.getChildren().add(myUIBuilder.makeButton("ChooseAvatarButton", e-> {
+    HBox avatarBox = new HBox();
+    ImageView avatarName = new ImageView();
+    Button avatarButton = myUIBuilder.makeButton("ChooseAvatarButton", e-> {
       File avatarfile = fileChooser.showOpenDialog(myStage);
-      if (!(avatarfile == null)) {
+      if (avatarfile != null) {
         myAvatar = avatarfile.getName();
+        avatarName.setImage(new Image("profiles/avatar-img/" + myAvatar));
+        avatarName.setFitHeight(40);
+        avatarName.setFitWidth(40);
       }
-    }));
+    });
+
+    avatarBox.getChildren().add(avatarButton);
+    avatarBox.getChildren().add(avatarName);
+    playerMenu.getChildren().add(avatarBox);
 
     // Signup Button
     Button signupButton = myUIBuilder.makeButton("Signup", e -> buttonPressed());
