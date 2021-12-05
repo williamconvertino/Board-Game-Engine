@@ -23,8 +23,16 @@ public class StartMenu extends Display {
   private static final String DEFAULT_RESOURCE_PACKAGE =
       Display.class.getPackageName() + ".resources.";
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
-  private static final String DEFAULT_STYLE = STYLE_PACKAGE + "mainmenu.css";
+  private static final String DEFAULT_STYLE = STYLE_PACKAGE + "original.css";
+  private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
+  private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
 
+  /**
+   * Constructor for creating a start menu screen
+   * @param stage
+   * @param displayManager
+   * @param langResource
+   */
   public StartMenu(Stage stage, DisplayManager displayManager, ResourceBundle langResource) {
     myResource = langResource;
     myBuilder = new UIBuilder(langResource);
