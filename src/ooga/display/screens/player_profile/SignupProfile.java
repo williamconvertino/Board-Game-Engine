@@ -64,11 +64,11 @@ public class SignupProfile implements Profile {
 
     ExceptionPopUp error;
 
-    if (username.equals(myResource.getString("UsernameTextFieldID")) || username.isBlank()) {
+    if (username.equals(myResource.getString("UsernameTextFieldID")) || username.isBlank() || username.contains(" ")) {
       errorLabel = "Invalid Fields";
       errorContent = String.format("%s\n%s", errorContent, myResource.getString("PleaseEnterNewUsername"));
     }
-    if (password.equals(myResource.getString("PasswordTextFieldID")) || password.isBlank()) {
+    if (password.equals(myResource.getString("PasswordTextFieldID")) || password.isBlank() || password.contains(" ")) {
       errorLabel = "Invalid Fields";
       errorContent = String.format("%s\n%s", errorContent, myResource.getString("PleaseEnterNewPassword"));
     }
@@ -116,7 +116,7 @@ public class SignupProfile implements Profile {
       File avatarfile = fileChooser.showOpenDialog(myStage);
       if (avatarfile != null) {
         myAvatar = avatarfile.getName();
-        avatarName.setImage(new Image("profiles/avatar-img/books.png"));
+        avatarName.setImage(new Image("profiles/avatar-img/" + myAvatar));
         avatarName.setFitHeight(40);
         avatarName.setFitWidth(40);
       }
