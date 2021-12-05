@@ -1,0 +1,67 @@
+{
+  "addMoney": {
+    "method":"addMoney",
+    "sourceclass": "ooga.model.game_handling.FunctionExecutor",
+    "numarg": 2,
+    "argtype1": "ooga.model.data.player.Player",
+    "argtype2":"java.lang.Integer"
+  },
+  "addMoneyToMultiple": {
+    "method": "addMoney",
+    "sourceclass": "ooga.model.game_handling.FunctionExecutor",
+    "numarg": 2,
+    "argtype1": "java.util.List",
+    "argtype2":"java.lang.Integer"
+  },
+  "loseMoney": {
+    "method":"loseMoney",
+    "sourceclass": "ooga.model.game_handling.FunctionExecutor",
+    "numarg": 2,
+    "argtype1": "ooga.model.data.player.Player",
+    "argtype2":"java.lang.Integer"
+  },
+  "advanceToTile": {
+    "method": "advancePlayerToTile",
+    "sourceclass": "ooga.model.game_handling.FunctionExecutor",
+    "numarg": 2,
+    "argtype1": "ooga.model.data.player.Player",
+    "argtype2":"java.lang.String"
+  },
+  "moveToTile": {
+    "method": "movePlayerToTile",
+    "sourceclass": "ooga.model.game_handling.FunctionExecutor",
+    "numarg": 2,
+    "argtype1": "ooga.model.data.player.Player",
+    "argtype2":"java.lang.String"
+  },
+  "moveFd": {
+    "method": "movePlayerFd",
+    "sourceclass": "ooga.model.game_handling.FunctionExecutor",
+    "numarg": 2,
+    "argtype1": "ooga.model.data.player.Player",
+    "argtype2":"java.lang.Integer"
+  },
+  "moveBk": {
+    "method": "movePlayerBk",
+    "sourceclass": "ooga.model.game_handling.FunctionExecutor",
+    "numarg": 2,
+    "argtype1": "ooga.model.data.player.Player",
+    "argtype2":"java.lang.Integer"
+  },
+  "loseMoneyForNumHouses": {
+    "method":"loseMoneyForNumHouses",
+    "numarg": 2,
+    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceExecutor",
+    "argtype1":"ooga.model.data.player.Player",
+    "argtype2": "java.lang.Integer"
+  },
+  "loseMoneyForNumHotels": {
+    "method":"loseMoneyForNumHotels",
+    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceExecutor",
+    "numarg": 2,
+    "argtype1":"ooga.model.data.player.Player",
+    "argtype2": "java.lang.Integer"
+  }
+
+
+}

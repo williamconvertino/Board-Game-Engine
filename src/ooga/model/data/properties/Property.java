@@ -143,7 +143,23 @@ public class Property {
      * @return the number of houses on the property.
      */
     public int getNumHouses() {
-        return numHouses;
+        if (numHouses < maxHouses) {
+            return numHouses;
+        } else {
+            return 0;
+        }
+    }
+    /**
+     * Return the number of hotels on the property.
+     *
+     * @return the number of hotels on the property.
+     */
+    public int getNumHotels() {
+        if (numHouses == maxHouses) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     /**

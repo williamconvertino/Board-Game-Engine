@@ -33,7 +33,7 @@ public class ParserTest extends GameHandlingTest {
     gameData = new GameData();
     FunctionExecutor functionExecutor = new FunctionExecutor();
     //create parsers
-    actionSequenceParser = new ActionSequenceExecutor(functionExecutor,gameData);
+    actionSequenceParser = new ActionSequenceExecutor(functionExecutor,gameData, myDisplayComm);
     cardParser = new CardParser(actionSequenceParser,myDisplayComm);
     tileParser = new TileParser(actionSequenceParser,gameData, null);
     boardParser = new BoardParser();

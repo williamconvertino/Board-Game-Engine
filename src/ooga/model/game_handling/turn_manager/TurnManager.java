@@ -187,6 +187,17 @@ public class TurnManager {
     }
 
     /**
+     * Buys a house on the currently selected tile.
+     */
+    public void buyHouse() {
+        try {
+            buyHouse(((PropertyTileModel)selectedTile).getProperty());
+        } catch (Exception e) {
+            displayComm.showException(new TileNotAPropertyException());
+        }
+    }
+
+    /**
      * Makes the current player sell a house on the selected property.
      *
      * @param property the property on which the houses should be sold.
