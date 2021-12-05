@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -38,6 +36,8 @@ public class Board {
   private static final double PREF_WIDTH_BOARD = 1100;
   private static final double PREF_HEIGHT_BOARD = 1100;
   private static final int RADIUS = 10;
+  private static final String ORIGINAL_IMG = "center_images/original.png";
+  private static final String DUKE_IMG = "center_images/duke.png";
   private DisplayManager myDisplayManager;
   private ResourceBundle myLanguage;
   private UIBuilder myBuilder;
@@ -153,7 +153,7 @@ public class Board {
 
   private BorderPane createCenterImage() {
     BorderPane centerImg = new BorderPane();
-    ImageView imageView = new ImageView("resources/center_images/original.png");
+    ImageView imageView = new ImageView(ORIGINAL_IMG);
     imageView.setFitHeight(CENTER_IMAGE_HEIGHT);
     imageView.setFitWidth(CENTER_IMAGE_WIDTH);
     imageView.setPreserveRatio(true);

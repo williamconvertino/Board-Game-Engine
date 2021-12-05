@@ -5,20 +5,21 @@
 .root {
     -fx-font-family: "Rockwell";
     /* define variables to avoid duplicating values */
-    text_color: #F8CE87;
-    -fx-background-color: #A23434;
+    text_color: White;
+    -fx-background-color: #00009c;
 }
 
-#PlayerCustomizeRight {
-    -fx-alignment: right;
-}
-
-#ProfileVBox {
-    -fx-background-color: #A23434;
+#propertyVBox {
+    -fx-background-color: #00009c;
     -fx-border-color: #000000;
     -fx-border-width: 3px;
     -fx-padding: 10px;
-    -fx-spacing: 10px;
+}
+
+#propdisptilename {
+    -fx-font-size: 80%;
+    -fx-padding: 2px;
+    -fx-text-alignment: center;
 }
 
 .choice-box {
@@ -50,19 +51,11 @@
     -fx-border-color: lightgrey;
 }
 .label {
-    -fx-font-size: 20;
+    -fx-font-size: 15;
     -fx-text-fill: text_color;
     -fx-alignment: center;
     -fx-min-width: 10px;
     -fx-padding: 10px;
-}
-
-.small-label {
-    -fx-font-size: 16;
-    -fx-text-fill: text_color;
-    -fx-alignment: center;
-    -fx-min-width: 10px;
-    -fx-padding: 4px;
 }
 
 .text-field {

@@ -39,7 +39,9 @@ public class EnterPlayersScreen extends Display {
   private static final String DEFAULT_RESOURCE_PACKAGE =
       Display.class.getPackageName() + ".resources.";
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
-  private static final String DEFAULT_STYLE = STYLE_PACKAGE + "mainmenu.css";
+  private static final String DEFAULT_STYLE = STYLE_PACKAGE + "original.css";
+  private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
+  private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
   private static final String PLAYER_CUSTOMIZER = "PlayerCustomizer";
   private static final String SELECT_COLORLABEL = "SelectColorLabel";
   private static final String SELECT_COLOR = "SelectColor";

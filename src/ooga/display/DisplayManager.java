@@ -32,16 +32,30 @@ import ooga.model.game_handling.turn_manager.CheatCodeManager.Code;
  */
 public class DisplayManager {
 
-  private ResourceBundle languageResource; 
+
+
+
+
+  private ResourceBundle languageResource;
+
   private Display currDisplay;
   private static final String DEFAULT_RESOURCE_PACKAGE =
           Display.class.getPackageName() + ".resources.";
+
+  private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
+  private static final String ORIGINAL_STYLE = STYLE_PACKAGE + "lightMode.css";
+  private static final String MONO_STYLE = STYLE_PACKAGE + "darkMode.css";
+  private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
+
+  private String selectedTheme = ORIGINAL_STYLE;
+
   private Stage myStage;
   private ArrayList<Display> allDisplays = new ArrayList<>();
   private GameData myGameData;
   private Map<EVENT_NAMES, TMEvent> myEventMap;
   private EnterPlayersScreen myEnterPlayerScreen;
   private GameManager myGame;
+
 
 
 
@@ -166,8 +180,24 @@ public class DisplayManager {
     //TODO: Will be added later - DO NOT DELETE
   }
 
-  public void changeTheme(String e) {
-    //TODO: Will be added later - DO NOT DELETE
+
+  /**
+   * Change theme.
+   *
+   * @param theme the theme
+   */
+  public void changeTheme(String theme) {
+    selectedTheme = theme;
+    for (Display display : allDisplays) {
+      try {
+        Scene scene = display.getScene();
+        scene.getStylesheets().remove(1);
+        scene.getStylesheets().add(getClass().getResource(selectedTheme).toExternalForm());
+      } catch (Exception e) {
+        //FIXME: Add error popup
+        //showError(ERROR_THEME_CHANGE);
+      }
+    }
   }
 
   public void rotateBoard() {
