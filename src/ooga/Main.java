@@ -12,7 +12,7 @@ import ooga.display.DisplayManager;
  * @author Casey Goldstein
  * @author Aaric Han
  * @author Henry Huynh
- * @author Jordon Csatleman
+ * @author Jordon Castleman
  *
  * @since 0.0.1
  */

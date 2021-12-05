@@ -5,7 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -39,6 +43,8 @@ public class Board {
   private UIBuilder myBuilder;
   private final int BOARD_SIZE = 11;
   private final int SIDE_LENGTH = 9;
+  private final int CENTER_IMAGE_HEIGHT = 500;
+  private final int CENTER_IMAGE_WIDTH = 500;
 
   private ArrayList<Circle> allCirclePieces = new ArrayList<Circle>();
 
@@ -59,24 +65,27 @@ public class Board {
     boardComponent = new VBox();
     this.gameData = gameData;
     createBoard();
+    createCenterImage();
     startPieces();
   }
 
   private void createBoard() {
-    GridPane gameBoard = new GridPane();
-    gameBoard.setPrefSize(PREF_WIDTH_BOARD, PREF_HEIGHT_BOARD);
+    StackPane gameBoard = new StackPane();
+    GridPane boardEdge = new GridPane();
+    boardEdge.setPrefSize(PREF_WIDTH_BOARD, PREF_HEIGHT_BOARD);
     int gameBoardTileCount = gameData.getBoard().getTiles().size();
     int makeTileIndex = gameData.getBoard().getTiles().size() - gameBoardTileCount;
+
     // Top Left Corner
     if (gameBoardTileCount > 0) {
-      gameBoard.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_HEIGHT), 0, 0);
+      boardEdge.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_HEIGHT), 0, 0);
       makeTileIndex++;
     }
 
     // Top Row
     for (int i = 0; i < SIDE_LENGTH; i++) {
       if (gameBoardTileCount > 0) {
-        gameBoard.add(makePropertyPane(makeTileIndex, RECT_WIDTH, RECT_HEIGHT), i + 1, 0);
+        boardEdge.add(makePropertyPane(makeTileIndex, RECT_WIDTH, RECT_HEIGHT), i + 1, 0);
         makeTileIndex++;
       }
       else {
@@ -86,14 +95,14 @@ public class Board {
 
     // Top Right Corner
     if (gameBoardTileCount > 0) {
-      gameBoard.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_HEIGHT), BOARD_SIZE-1, 0);
+      boardEdge.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_HEIGHT), BOARD_SIZE-1, 0);
       makeTileIndex++;
     }
 
     // Right Column
     for (int i = 0; i < SIDE_LENGTH; i++) {
       if (gameBoardTileCount > 0) {
-        gameBoard.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_WIDTH), BOARD_SIZE-1, i + 1);
+        boardEdge.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_WIDTH), BOARD_SIZE-1, i + 1);
         makeTileIndex++;
       }
       else {
@@ -103,14 +112,14 @@ public class Board {
 
     // Bottom Right Corner
     if (gameBoardTileCount > 0) {
-      gameBoard.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_HEIGHT), BOARD_SIZE-1, BOARD_SIZE-1);
+      boardEdge.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_HEIGHT), BOARD_SIZE-1, BOARD_SIZE-1);
       makeTileIndex++;
     }
 
     // Bottom Row
     for (int i = 0; i < SIDE_LENGTH; i++) {
       if (gameBoardTileCount > 0) {
-        gameBoard.add(makePropertyPane(makeTileIndex, RECT_WIDTH, RECT_HEIGHT), SIDE_LENGTH-i, BOARD_SIZE-1);
+        boardEdge.add(makePropertyPane(makeTileIndex, RECT_WIDTH, RECT_HEIGHT), SIDE_LENGTH-i, BOARD_SIZE-1);
         makeTileIndex++;
       }
       else {
@@ -120,21 +129,36 @@ public class Board {
 
     // Bottom Left Corner
     if (gameBoardTileCount > 0) {
-      gameBoard.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_HEIGHT), 0, BOARD_SIZE-1);
+      boardEdge.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_HEIGHT), 0, BOARD_SIZE-1);
       makeTileIndex++;
     }
 
     // Left Column
     for (int i = 0; i < SIDE_LENGTH; i++) {
       if (gameBoardTileCount > 0) {
-        gameBoard.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_WIDTH), 0, SIDE_LENGTH-i);
+        boardEdge.add(makePropertyPane(makeTileIndex, RECT_HEIGHT, RECT_WIDTH), 0, SIDE_LENGTH-i);
         makeTileIndex++;
       }
       else {
         break;
       }
     }
+
+    // Center Image
+
+    gameBoard.getChildren().add(boardEdge);
+    gameBoard.getChildren().add(createCenterImage());
     boardComponent.getChildren().add(gameBoard);
+  }
+
+  private BorderPane createCenterImage() {
+    BorderPane centerImg = new BorderPane();
+    ImageView imageView = new ImageView("resources/center_images/original.png");
+    imageView.setFitHeight(CENTER_IMAGE_HEIGHT);
+    imageView.setFitWidth(CENTER_IMAGE_WIDTH);
+    imageView.setPreserveRatio(true);
+    centerImg.setCenter(imageView);
+    return centerImg;
   }
 
   private StackPane makePropertyPane(int gameBoardTileCount, int width, int height) {
@@ -165,8 +189,9 @@ public class Board {
 
 
   private void startPieces() {
-    GridPane board = (GridPane) boardComponent.getChildren().get(0);
-    StackPane stackPane = (StackPane) board.getChildren().get(0);
+    StackPane entireBoard = (StackPane) boardComponent.getChildren().get(0);
+    GridPane edgeBoard = (GridPane) entireBoard.getChildren().get(0);
+    StackPane stackPane = (StackPane) edgeBoard.getChildren().get(0);
     Map<Integer, Pos> positionMap = new HashMap<>();
     positionMap.put(0, Pos.TOP_LEFT);
     positionMap.put(1, Pos.TOP_RIGHT);
@@ -183,10 +208,11 @@ public class Board {
    * Update the circle piece of the player
    */
   public void updateLocation() {
-    GridPane board = (GridPane) boardComponent.getChildren().get(0);
+    StackPane entireBoard = (StackPane) boardComponent.getChildren().get(0);
+    GridPane edgeBoard = (GridPane) entireBoard.getChildren().get(0);
     int playerPos = gameData.getCurrentPlayer().getLocation();
     int currPlayer = gameData.getPlayers().indexOf(gameData.getCurrentPlayer());
-    StackPane stackPane = (StackPane) board.getChildren().get(playerPos);
+    StackPane stackPane = (StackPane) edgeBoard.getChildren().get(playerPos);
     stackPane.getChildren().add(allCirclePieces.get(currPlayer));
   }
 

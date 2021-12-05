@@ -48,7 +48,6 @@
             <artifactId>log4j-core</artifactId>
             <version>2.14.1</version>
         </dependency>
-<<<<<<< HEAD
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
@@ -59,15 +58,6 @@
             <artifactId>opencsv</artifactId>
             <version>5.5.2</version>
         </dependency>
-=======
-        <!-- https://mvnrepository.com/artifact/javax.json/javax.json-api -->
-        <dependency>
-            <groupId>javax.json</groupId>
-            <artifactId>javax.json-api</artifactId>
-            <version>1.1.4</version>
-        </dependency>
-
->>>>>>> ebea9833e6f8a62fe95287e652b07606a6590d64
     </dependencies>
 
     <build>
