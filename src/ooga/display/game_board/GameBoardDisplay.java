@@ -33,7 +33,9 @@ public class GameBoardDisplay extends Display {
   private static final String DEFAULT_RESOURCE_PACKAGE =
       Display.class.getPackageName() + ".resources.";
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
-  private static final String DEFAULT_STYLE = STYLE_PACKAGE + "gameboard.css";
+  private static final String DEFAULT_STYLE = STYLE_PACKAGE + "original.css";
+  private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
+  private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
 
   private BorderPane theGameBoard;
   private Board theBoard;
@@ -50,13 +52,15 @@ public class GameBoardDisplay extends Display {
   private Map<EVENT_NAMES, TMEvent> myEventMap;
 
   private ResourceBundle myLanguage;
+  private String myStyle = DEFAULT_STYLE;
 
   /**
    * This constructor makes theGameBoard borderpane with all elements top, left, right, bottom, and
    * center
    */
   public GameBoardDisplay(Stage stage, DisplayManager displayManager, ResourceBundle language,
-      Map<EVENT_NAMES, TMEvent> eventMap, GameData gameData) {
+      Map<EVENT_NAMES, TMEvent> eventMap, GameData gameData, String theme) {
+    myStyle = theme;
     myUIBuilder = new UIBuilder(language);
     myLanguage = language;
     myStage = stage;
@@ -67,7 +71,7 @@ public class GameBoardDisplay extends Display {
     theRight = new Right(this, myLanguage, eventMap, gameData);
     theLeft = new Left(myLanguage, eventMap, gameData);
     theBottom = new Bottom(myLanguage);
-    theBoard = new Board(myDisplayManager, myLanguage, gameData, eventMap);
+    theBoard = new Board(myDisplayManager, myLanguage, gameData, eventMap, theme);
 
     theGameBoard = new BorderPane();
     theGameBoard.setCenter(theBoard.getComponent());
@@ -81,7 +85,7 @@ public class GameBoardDisplay extends Display {
 
   private void makeScene() {
     scene = new Scene(theGameBoard, 1280, 800);
-    scene.getStylesheets().add(DEFAULT_STYLE);
+    scene.getStylesheets().add(myStyle);
   }
 
   /**
