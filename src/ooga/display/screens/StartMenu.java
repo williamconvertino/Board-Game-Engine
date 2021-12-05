@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ooga.display.Display;
 import ooga.display.DisplayManager;
+import ooga.display.screens.player_profile.LoginProfile;
 import ooga.display.screens.player_profile.SignupProfile;
 import ooga.display.ui_tools.UIBuilder;
 import java.util.ResourceBundle;
@@ -44,6 +45,8 @@ public class StartMenu extends Display {
     result.getChildren().add(myBuilder.makeButton("Options", e -> myDisplayManager.goOptions()));
     SignupProfile signup = new SignupProfile(myStage, myBuilder, myResource);
     result.getChildren().add(myBuilder.makeButton("Signup", e -> signup.getPopup().show(myStage)));
+    LoginProfile login = new LoginProfile(myStage, myBuilder, myResource);
+    result.getChildren().add(myBuilder.makeButton("Login", e -> login.getPopup().show(myStage)));
     return result;
   }
 

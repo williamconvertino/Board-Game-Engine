@@ -80,7 +80,7 @@ public class GameBoardDisplay extends Display {
   }
 
   private void makeScene() {
-    scene = new Scene(theGameBoard, 1280, 800);
+    scene = new Scene(theGameBoard, 1000, 800);
     scene.getStylesheets().add(DEFAULT_STYLE);
   }
 
