@@ -13,6 +13,7 @@ public class ExceptionHandler {
 
   private static final Logger LOG = LogManager.getLogger(ExceptionHandler.class);
 
+
   public ExceptionHandler() {
 
   }

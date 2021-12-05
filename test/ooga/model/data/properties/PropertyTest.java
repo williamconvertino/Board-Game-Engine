@@ -58,8 +58,8 @@ public class PropertyTest {
     } catch (Exception e) {
       assertTrue(true);
     }
-    assertEquals(2, p.getNumHouses());
-
+    assertEquals(0, p.getNumHouses());
+    assertEquals(1, p.getNumHotels());
   }
 
   @Test

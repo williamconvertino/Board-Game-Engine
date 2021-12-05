@@ -1,6 +1,7 @@
 package ooga.model.game_handling;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import ooga.display.communication.DisplayComm;
 import ooga.exceptions.TileNotFoundException;
 import ooga.model.data.gamedata.GameData;
@@ -55,7 +56,7 @@ public class FunctionExecutor {
      * @param player the player to move.
      * @param location the location at which the player should be moved.
      */
-    public void movePlayerToIndex(Player player, int location) {
+    public void movePlayerToIndex(Player player, Integer location) {
         gamedata.getBoard().movePlayerToIndex(player, location, false);
     }
 
@@ -98,7 +99,7 @@ public class FunctionExecutor {
      * @param player the player to move.
      * @param spaces the number of spaces to move.
      */
-    public void movePlayerFd(Player player, int spaces) {
+    public void movePlayerFd(Player player, Integer spaces) {
         gamedata.getBoard().movePlayerFd(player, spaces);
     }
 
@@ -108,7 +109,7 @@ public class FunctionExecutor {
      * @param player the player to move.
      * @param spaces the number of spaces to move.
      */
-    public void movePlayerBk(Player player, int spaces) {
+    public void movePlayerBk(Player player, Integer spaces) {
         gamedata.getBoard().movePlayerBk(player, spaces);
     }
 
@@ -127,8 +128,19 @@ public class FunctionExecutor {
      * @param player the player who is to receive the money.
      * @param amount the amount of money that player should receive.
      */
-    public void addMoney(Player player, int amount) {
+    public void addMoney(Player player, Integer amount) {
         player.addMoney(amount);
+    }
+
+    /**
+     * TODO: Add docs
+     * @param players
+     * @param amount
+     */
+    public void addMoney(List<Player> players, Integer amount) {
+        for (Player p: players) {
+            p.addMoney(amount);
+        }
     }
 
     /**
@@ -139,7 +151,7 @@ public class FunctionExecutor {
      * @param amount the amount of money that player should lose.
      * @return the amount of debt the player takes on after this loss of money.
      */
-    public int loseMoney(Player player, int amount) {
+    public int loseMoney(Player player, Integer amount) {
         player.addMoney(-1 * amount);
         if (player.getBalance() < 0) {
             return (-1 * player.getBalance());
@@ -162,13 +174,13 @@ public class FunctionExecutor {
     }
 
     /**
-     * Gives the player a card with the specified name.
+     * Executes the card with the specified name.
      *
      * @param player the player who receives the card.
-     * @param cardName the name of the card that the player receives.
+     * @param cardName the name of the card that should be executed.
      */
     @Deprecated
-    public void givePlayerCard(Player player, String cardName) {
+    public void executeCard(Player player, String cardName) {
 
     }
 
