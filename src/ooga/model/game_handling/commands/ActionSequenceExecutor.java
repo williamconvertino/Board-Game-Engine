@@ -95,15 +95,10 @@ public class ActionSequenceExecutor {
       Object[] fExecutorArgs = generateArgumentArrayFromJSONObject(fExecutorCommand, sourceClass,
           Arrays.copyOfRange(commandElements, 1, commandElements.length));
 
-//      System.out.println(fExecutorMethod);
-//      System.out.println(fExecutorArgs[0]);
-//      System.out.println(fExecutorArgs[1]);
-//      System.out.println(fExecutorArgs[2]);
 
       fExecutorMethod.invoke(getInstanceOfClass(sourceClass), fExecutorArgs);
 
     } catch (Exception e) {
-      e.printStackTrace();
       throw new InvalidFileFormatException();
     }
 

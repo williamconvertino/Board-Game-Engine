@@ -155,7 +155,6 @@ public class Property {
      * @return the number of hotels on the property.
      */
     public int getNumHotels() {
-        System.out.println(numHouses + " " + maxHouses);
         if (numHouses == maxHouses) {
             return 1;
         } else {
@@ -276,7 +275,6 @@ public class Property {
      * @throws MortgageException if the house is mortgaged and therefore cannot build houses.
      */
     public void buyHouse() throws MaxHousesReachedException, MortgageException {
-        System.out.println(">>> " + numHouses);
         if (!isMortgaged) {
             if (numHouses < maxHouses) {
                 numHouses++;

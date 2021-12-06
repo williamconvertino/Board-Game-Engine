@@ -35,8 +35,8 @@ public class ActionTileModel extends TileModel {
    */
   public ActionTileModel(String name, ActionSequence passThroughActions, ActionSequence landOnActions) {
     this(name, "Action");
-    this.myPassThroughActions = myPassThroughActions;
-    this.myLandOnActions = myLandOnActions;
+    this.myPassThroughActions = passThroughActions;
+    this.myLandOnActions = landOnActions;
   }
 
   /**

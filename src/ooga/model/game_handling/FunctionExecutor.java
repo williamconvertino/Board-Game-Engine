@@ -163,9 +163,10 @@ public class FunctionExecutor {
     }
 
     /**
-     * TODO: Add docs
-     * @param players
-     * @param amount
+     * Adds the specified amount of money to each player in the specified list.
+     *
+     * @param players a list of the players to whom the money should be added.
+     * @param amount the amount of money to add.
      */
     public void addMoney(List<Player> players, Integer amount) {
         for (Player p: players) {
@@ -179,14 +180,22 @@ public class FunctionExecutor {
      *
      * @param player the player who is to lose the money.
      * @param amount the amount of money that player should lose.
-     * @return the amount of debt the player takes on after this loss of money.
      */
-    public int loseMoney(Player player, Integer amount) {
+    public void loseMoney(Player player, Integer amount) {
         player.addMoney(-1 * amount);
-        if (player.getBalance() < 0) {
-            return (-1 * player.getBalance());
+    }
+
+    /**
+     * Takes away a specified amount of money from the specified player and returns
+     * any debt that player takes on.
+     *
+     * @param players the players who are to lose the money.
+     * @param amount the amount of money that each player should lose.
+     */
+    public void loseMoney(List<Player> players, Integer amount) {
+        for (Player p: players) {
+            p.addMoney(-1 * amount);
         }
-        return 0;
     }
 
     /**

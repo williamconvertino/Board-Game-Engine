@@ -33,7 +33,7 @@ class CardTest extends OriginalTest {
   }
 
   @Test
-  void testChance() {
+  void testCards() {
     try {
       Player currentPlayer = gameData.getCurrentPlayer();
 
@@ -108,9 +108,10 @@ class CardTest extends OriginalTest {
       Property boardwalk = ((PropertyTileModel)board.getTile("Boardwalk")).getProperty();
       Property park = ((PropertyTileModel)board.getTile("Park Place")).getProperty();
 
-      boardwalk.setOwner(currentPlayer);
-      park.setOwner(currentPlayer);
-      currentPlayer.setBalance(1000);
+      currentPlayer.giveProperty(boardwalk);
+      currentPlayer.giveProperty(park);
+
+      currentPlayer.setBalance(1000000);
       turnManager.setSelectedTile(board.getTile("Boardwalk"));
       turnManager.buyHouse();
       turnManager.buyHouse();
@@ -123,13 +124,24 @@ class CardTest extends OriginalTest {
       turnManager.buyHouse();
       turnManager.buyHouse();
 
-      System.out.println(boardwalk.getNumHouses());
-      System.out.println(boardwalk.getNumHotels());
-
       assertEquals(boardwalk.getNumHouses(), 0);
       assertEquals(boardwalk.getNumHotels(), 1);
       assertEquals(park.getNumHouses(), 3);
-      assertEquals(park.getNumHouses(), 0);
+      assertEquals(park.getNumHotels(), 0);
+
+      currentPlayer.setBalance(1000);
+
+      chance.getCard("Make General Repairs").execute(currentPlayer);
+      assertEquals(currentPlayer.getBalance(), (1000-175));
+
+      Property rr = ((PropertyTileModel)board.getTile("Reading Railroad")).getProperty();
+      rr.setOwner(Property.NULL_OWNER);
+      currentPlayer.setBalance(0);
+      currentPlayer.setLocation(10);
+      assertEquals(currentPlayer.getBalance(), 0);
+      chance.getCard("Take A Trip To Reading Railroad").execute(currentPlayer);
+      assertEquals(currentPlayer.getLocation(), board.getTileIndex("Reading Railroad"));
+      assertEquals(currentPlayer.getBalance(), 200);
 
     } catch (Exception e) {
       e.printStackTrace();
