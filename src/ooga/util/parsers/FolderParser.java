@@ -24,7 +24,7 @@ public abstract class FolderParser {
 
   protected static final String DEFAULT_DATA_PACKAGE = "data/";
   protected static ActionSequenceExecutor actionSequenceParser;
-  private DisplayComm displayComm;
+  protected DisplayComm displayComm;
 
   /**
    * Super constructor for child classes to call

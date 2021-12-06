@@ -1,6 +1,7 @@
 package ooga.display.communication;
 
 
+import ooga.exceptions.PlayerWarning;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,7 +22,13 @@ public class ExceptionHandler {
   }
 
   public void showException(Exception e) {
-    LOG.error(e.toString());
+    if (e instanceof PlayerWarning) {
+      LOG.warn(String.format("[%s]", e.toString()));
+    } else {
+      e.printStackTrace();
+      LOG.error(String.format("%s", e.toString()));
+    }
+
   }
 
 }

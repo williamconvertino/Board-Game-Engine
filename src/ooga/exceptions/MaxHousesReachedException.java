@@ -1,5 +1,5 @@
 package ooga.exceptions;
 
-public class MaxHousesReachedException extends Exception {
+public class MaxHousesReachedException extends PlayerWarning {
 
 }

@@ -1,5 +1,5 @@
 package ooga.exceptions;
 
-public class TileNotAPropertyException extends Exception {
+public class TileNotAPropertyException extends PlayerWarning {
 
 }

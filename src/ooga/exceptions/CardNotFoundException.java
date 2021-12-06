@@ -1,6 +1,6 @@
 package ooga.exceptions;
 
-public class CardNotFoundException extends Exception {
+public class CardNotFoundException extends GameError {
 
   String cardName;
 

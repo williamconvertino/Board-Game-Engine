@@ -63,7 +63,7 @@ public class CardParser extends FolderParser {
     String cardDescription = tryProperty(cardProperties,"Description");
     ActionSequence actions = parseActionSequence(tryProperty(cardProperties,"ActionSequence"));
 
-    return new Card(cardName,cardDescription,actions);
+    return new Card(cardName,cardDescription,actions, displayComm);
 
   }
 

@@ -1,6 +1,6 @@
 package ooga.exceptions;
 
-public class InvalidFileFormatException extends Exception {
+public class InvalidFileFormatException extends GameError {
 
   String fileName;
 

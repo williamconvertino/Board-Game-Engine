@@ -1,6 +1,6 @@
 package ooga.exceptions;
 
-public class PropertyNotOwnedException extends Exception {
+public class PropertyNotOwnedException extends PlayerWarning {
 
 
 

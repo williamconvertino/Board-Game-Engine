@@ -7,7 +7,7 @@ package ooga.exceptions;
  *
  * @since 0.0.1
  */
-public class TileNotFoundException extends Exception {
+public class TileNotFoundException extends GameError {
 
   //The name of the tile that was attempted to be called.
   String tileName;
