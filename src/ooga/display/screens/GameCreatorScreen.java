@@ -115,7 +115,7 @@ public class GameCreatorScreen extends Display {
 
     createPropertyButtons.getChildren().add(myBuilder.makeTextButton("MakeRegularProperty",e -> createRegularPropertyPopUp()));
     createPropertyButtons.getChildren().add(myBuilder.makeTextButton("MakeRailroadProperty",e -> createRailroadPropertyPopUp()));
-    //createPropertyButtons.getChildren().add(myBuilder.makeTextButton("MakeUtilitiesProperty",e -> createButtonPopUp()));
+    createPropertyButtons.getChildren().add(myBuilder.makeTextButton("MakeUtilitiesProperty",e -> createUtilitiesPropertyPopUp()));
 
     result.getChildren().add(createPropertyButtons);
 
@@ -203,6 +203,41 @@ public class GameCreatorScreen extends Display {
     PropertyPopUp.show(myStage);
   }
 
+  private void createUtilitiesPropertyPopUp(){
+
+
+    propertyName = (TextField) myBuilder.makeTextField("EnterPropertyName");
+    propertyCost = (TextField) myBuilder.makeTextField("EnterCost");
+    propertyRentCosts = (TextField) myBuilder.makeTextField("EnterRentCosts");
+    propertyNeighbors = (TextField) myBuilder.makeTextField("EnterNeighbors");
+    propertyMortgage = (TextField) myBuilder.makeTextField("EnterMortgagePrice");
+    propertyImage = (TextField) myBuilder.makeTextField("EnterImage");
+
+    //propBox.setPrefSize(200, 300);
+    propBox.getChildren().add(myBuilder.makeLabel("EnterPropertyName"));
+    propBox.getChildren().add(propertyName);
+    propBox.getChildren().add(myBuilder.makeLabel("EnterCost"));
+    propBox.getChildren().add(propertyCost);
+    propBox.getChildren().add(myBuilder.makeLabel("EnterRentCosts"));
+    propBox.getChildren().add(propertyRentCosts);
+    propBox.getChildren().add(myBuilder.makeLabel("EnterNeighbors"));
+    propBox.getChildren().add(propertyNeighbors);
+    propBox.getChildren().add(myBuilder.makeLabel("EnterMortgagePrice"));
+    propBox.getChildren().add(propertyMortgage);
+    propBox.getChildren().add(myBuilder.makeLabel("EnterImage"));
+    propBox.getChildren().add(propertyImage);
+    propBox.getChildren().add(myBuilder.makeTextButton("SaveProperty",e -> {
+      try {
+        saveUtilitiesProperty();
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+    }));
+    propBox.setId("ProfileVBox");
+    PropertyPopUp.getContent().add(propBox);
+    PropertyPopUp.show(myStage);
+  }
+
 
 
   private void showOptions(){
@@ -217,6 +252,13 @@ public class GameCreatorScreen extends Display {
   }
 
   private void saveRailroadProperty() throws IOException {
+    writeRailroadPropertyFile(propertyName.getText(),propertyCost.getText(),propertyRentCosts.getText(), propertyNeighbors.getText(), propertyMortgage.getText(),propertyImage.getText());
+    PropertyPopUp.hide();
+    propBox = new VBox();
+    PropertyPopUp = new Popup();
+  }
+
+  private void saveUtilitiesProperty() throws IOException {
     writeRailroadPropertyFile(propertyName.getText(),propertyCost.getText(),propertyRentCosts.getText(), propertyNeighbors.getText(), propertyMortgage.getText(),propertyImage.getText());
     PropertyPopUp.hide();
     propBox = new VBox();
@@ -253,6 +295,25 @@ public class GameCreatorScreen extends Display {
     FileWriter fw = new FileWriter(property);
     fw.write("Name=" + name + "\n");
     fw.write("Type=" + "Railroad" + "\n");
+    fw.write("Cost=" + cost + "\n");
+    fw.write("RentCost=" + rentcosts + "\n");
+    fw.write("Neighbors=" + neighbors + "\n");
+    fw.write("Mortgage=" + mortgage + "\n");
+    fw.write("Image=" + image);
+
+    fw.close();
+
+    System.out.println("hi!");
+    property.createNewFile();
+  }
+
+  private void writeUtilitiesPropertyFile(String name, String cost, String rentcosts, String neighbors, String mortgage, String image)
+      throws IOException {
+    File property = new File("data/variations/" + gameName.getText().replace(" ","_") + "/properties/" + name + ".property");
+
+    FileWriter fw = new FileWriter(property);
+    fw.write("Name=" + name + "\n");
+    fw.write("Type=" + "Utilities" + "\n");
     fw.write("Cost=" + cost + "\n");
     fw.write("RentCost=" + rentcosts + "\n");
     fw.write("Neighbors=" + neighbors + "\n");
