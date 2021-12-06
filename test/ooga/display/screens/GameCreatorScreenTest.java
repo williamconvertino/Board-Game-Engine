@@ -34,14 +34,44 @@ public class GameCreatorScreenTest extends DukeApplicationTest {
     Button start = lookup("#CreateNewGame").query();
     clickOn(start);
     createFreeParking();
-    createRegularProperty("Park Place","400","50,200,600,1400,1700,2000","200","Park Place","175","blue");
-    createRegularProperty("Boardwalk","350","35,175,500,1100,1300,1500","200","Park Place","200","blue");
-    createRailroadProperty("Reading Railroad","200","25,50,100,200","Pennsylvania Railroad, Short Line, B&O Railroad","100","null");
-    createRailroadProperty("B&O Railroad","200","25,50,100,200","Pennsylvania Railroad, Short Line, Reading Railroad","100","null");
-    createRailroadProperty("Short Line","200","25,50,100,200","Pennsylvania Railroad, B&O Railroad, Reading Railroad","100","null");
-    createRailroadProperty("Pennsylvania Railroad","200","25,50,100,200","Short Line, B&O Railroad, Reading Railroad","100","null");
+    createRegularProperty("Casey Cavern","400","50,200,600,1400,1700,2000","200","Will Walkway","175","green");
+    createChance();
+    createCommunityChest();
+    createRegularProperty("Will Walkway","350","35,175,500,1100,1300,1500","200","Casey Cavern","200","green");
     createIncomeTax();
+    createRailroadProperty("Reading Railroad","200","25,50,100,200","Pennsylvania Railroad, Short Line, B&O Railroad","100","null");
+    createFreeParking();
+    createJail();
     createGoToJail();
+    createRegularProperty("Aaric Avenue","600","35,175,500,1100,1300,1500","200","Jordan Junction, Henry Highway","200","blue");
+    createCommunityChest();
+    createCommunityChest();
+    createCommunityChest();
+    createRegularProperty("Jordan Junction","550","35,175,500,1100,1300,1500","200","Aaric Avenue, Henry Highway","200","blue");
+    createRegularProperty("Henry Highway","650","35,175,500,1100,1300,1500","200","Jordan Junction, Aaric Avenue","200","blue");
+    createFreeParking();
+    createLuxuryTax();
+    createFreeParking();
+    createRailroadProperty("Short Line","200","25,50,100,200","Pennsylvania Railroad, B&O Railroad, Reading Railroad","100","null");
+    createIncomeTax();
+    createLuxuryTax();
+    createIncomeTax();
+    createLuxuryTax();
+    createIncomeTax();
+    createLuxuryTax();
+    createIncomeTax();
+    createLuxuryTax();
+    createIncomeTax();
+    createUtilitiesProperty("Duke Energy","200","50,100","Solar Farm","100","null");
+    createIncomeTax();
+    createLuxuryTax();
+    createIncomeTax();
+    createLuxuryTax();
+    createUtilitiesProperty("Solar Farm","200","50,100","Duke Energy","100","null");
+    createLuxuryTax();
+    createIncomeTax();
+    createLuxuryTax();
+    createIncomeTax();
 
 
     TimeUnit.SECONDS.sleep(4);
@@ -108,6 +138,25 @@ public class GameCreatorScreenTest extends DukeApplicationTest {
 
   public void createRailroadProperty(String name, String cost, String rentcosts, String neighbors,String mortgage, String image){
     Button creator = lookup("#AddRailroadProperty").query();
+    clickOn(creator);
+    TextField player1Name = lookup("#EnterPropertyName").query();
+    writeInputTo(player1Name, name);
+    player1Name = lookup("#EnterCost").query();
+    writeInputTo(player1Name, cost);
+    player1Name = lookup("#EnterRentCosts").query();
+    writeInputTo(player1Name, rentcosts);
+    player1Name = lookup("#EnterNeighbors").query();
+    writeInputTo(player1Name, neighbors);
+    player1Name = lookup("#EnterMortgagePrice").query();
+    writeInputTo(player1Name, mortgage);
+    player1Name = lookup("#EnterImage").query();
+    writeInputTo(player1Name, image);
+    creator = lookup("#SaveProperty").query();
+    clickOn(creator);
+  }
+
+  public void createUtilitiesProperty(String name, String cost, String rentcosts, String neighbors,String mortgage, String image){
+    Button creator = lookup("#AddUtilitiesProperty").query();
     clickOn(creator);
     TextField player1Name = lookup("#EnterPropertyName").query();
     writeInputTo(player1Name, name);

@@ -35,10 +35,11 @@ public class BoardParser {
    * @throws IOException
    */
   public List<TileModel> parseBoard(String boardFilePath, Map<String,TileModel> tileMap) throws IOException {
+    System.out.println("HELLLOOO");
     List<TileModel> boardTileModels = new ArrayList<>();
-
     File file=new File(boardFilePath);
-    FileReader fileReader =new FileReader("data/variations/original/board/original.board");
+    System.out.println(file.getPath());
+    FileReader fileReader =new FileReader(file);
     BufferedReader bufferedReader = new BufferedReader(fileReader);
     String line;
     while((line = bufferedReader.readLine())!=null)

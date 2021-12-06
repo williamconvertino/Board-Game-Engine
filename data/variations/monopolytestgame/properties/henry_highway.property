@@ -1,0 +1,9 @@
+Name=Henry Highway
+Type=Regular
+Cost=650
+RentCost=35,175,500,1100,1300,1500
+MaxHouses=4
+HouseCost=200
+Neighbors=Jordan Junction, Aaric Avenue
+Mortgage=200
+Color=blue

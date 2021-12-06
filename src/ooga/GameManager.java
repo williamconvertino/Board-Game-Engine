@@ -34,7 +34,7 @@ public class GameManager {
     //The function executor with which the game is run.
     private FunctionExecutor myFunctionExecutor;
 
-    //The turn manager that dicates the turn structure of a game.
+    //The turn manager that dictates the turn structure of a game.
     private TurnManager myTurnManager;
 
     //The event manager of the game.
@@ -48,11 +48,12 @@ public class GameManager {
     public GameManager(DisplayManager display, String variationName) {
         myDisplayComm = new DisplayComm(display);
         try {
-            myGameData = (new GameDataInitializer()).generateGameData(variationName, myDisplayComm);
+            myGameData = (new GameDataInitializer()).generateGameData("monopolytestgame", myDisplayComm);
             myFunctionExecutor = new FunctionExecutor();
             myFunctionExecutor.initializeWithGameValues(myGameData, myGameData.getDie(), myDisplayComm);
             myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
             myEventManager = new EventManager(myTurnManager);
+
         } catch (Exception e) {
             e.printStackTrace();
             myDisplayComm.showException(e);

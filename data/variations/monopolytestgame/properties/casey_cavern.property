@@ -1,9 +1,9 @@
-Name=Park Place
+Name=Casey Cavern
 Type=Regular
 Cost=400
 RentCost=50,200,600,1400,1700,2000
 MaxHouses=4
 HouseCost=200
-Neighbors=Park Place
+Neighbors=Will Walkway
 Mortgage=175
-Color=blue
+Color=green

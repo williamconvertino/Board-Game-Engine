@@ -76,6 +76,8 @@ public class GameDataInitializer {
 
     String currentFile = null;
 
+
+
     try {
 
 
@@ -92,6 +94,9 @@ public class GameDataInitializer {
       for (int i = 0; i < 4; i++) {
         myPlayers.add(new Player(""));
       }
+
+
+
       PlayerManager playerManager = (PlayerManager) Class.forName(modelConfig.getString(configValueBundle.getString("playerManager"))).getConstructor(List.class).newInstance(myPlayers);
 
       //parse card files into decks
@@ -119,12 +124,15 @@ public class GameDataInitializer {
         putAll(nonPropertyTileList);
       }};
 
+
+
       //parse board file into an ordered list of TileModels, then construct board manager.
       currentFile = directoryBundle.getString("boardPath");
       List<TileModel> myTiles = myBoardParser.parseBoard(
-          directoryBundle.getString("dataPath") + variationFilePath + currentFile + variationFilePath + configValueBundle.getString("boardExtension"),tileModelMap);
+          directoryBundle.getString("dataPath") + variationFilePath + currentFile + variationName + configValueBundle.getString("boardExtension"),tileModelMap);
       BoardManager myBoardManager = (BoardManager) Class.forName(modelConfig.getString(
           configValueBundle.getString("boardManager"))).getConstructor(List.class).newInstance(myTiles);
+
 
       //create the game die
       Die myDie = (Die) Class.forName(modelConfig.getString(configValueBundle.getString("die"))).getConstructor().newInstance();

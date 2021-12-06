@@ -1,7 +1,0 @@
-Name=Pennsylvania Railroad
-Type=railroad
-Cost=200
-RentCost=25,50,100,200
-Neighbors=Short Line, B&O Railroad, Reading Railroad
-Mortgage=100
-Image=null

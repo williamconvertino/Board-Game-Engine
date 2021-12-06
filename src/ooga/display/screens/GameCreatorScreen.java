@@ -85,6 +85,8 @@ public class GameCreatorScreen extends Display {
   private Path src;
   private Path des;
 
+  private HBox contents;
+
 
   /**
    * Constructor for creating an option menu screen
@@ -105,12 +107,14 @@ public class GameCreatorScreen extends Display {
     myStage = stage;
     myDisplayManager = displayManager;
     myGameImages = ResourceBundle.getBundle("ooga/display/resources/image_paths");
-
+    contents  = new HBox();
 
     startMenu = new VBox();
     startMenu.setMaxWidth(400);
     startMenu.getChildren().add(myBuilder.makeLabel("GameCreator"));
     startMenu.getChildren().add(startCreating());
+    contents.getChildren().add(startMenu);
+    contents.getChildren().add(myBuilder.makeTextButton("SetGame", e -> setGame()));
     makeScene();
   }
 
@@ -305,7 +309,7 @@ public class GameCreatorScreen extends Display {
   }
 
   private void createPropertyPopUp(String type){
-    String myType = type.toLowerCase(Locale.ROOT);
+    String myType = type;
     propertyName = (TextField) myBuilder.makeTextField("EnterPropertyName");
     propertyCost = (TextField) myBuilder.makeTextField("EnterCost");
     propertyRentCosts = (TextField) myBuilder.makeTextField("EnterRentCosts");
@@ -324,7 +328,7 @@ public class GameCreatorScreen extends Display {
     propBox.getChildren().add(propertyMortgage);
 
     switch (myType){
-      case "regular":
+      case "Regular":
         propertyHouseCost = (TextField) myBuilder.makeTextField("EnterHouseCost");
         propertyColor = (TextField) myBuilder.makeTextField("EnterColor");
         propBox.getChildren().add(myBuilder.makeLabel("EnterHouseCost"));
@@ -334,7 +338,7 @@ public class GameCreatorScreen extends Display {
         break;
 
 
-      case "railroad": case "utilities":
+      case "Railroad": case "Utilities":
         propertyImage = (TextField) myBuilder.makeTextField("EnterImage");
         propBox.getChildren().add(myBuilder.makeLabel("EnterImage"));
         propBox.getChildren().add(propertyImage);
@@ -350,12 +354,12 @@ public class GameCreatorScreen extends Display {
   private void saveProperty(String type) throws IOException {
     String myType = type;
     switch (myType){
-      case "regular":
+      case "Regular":
         writeRegularPropertyFile(propertyName.getText(),propertyCost.getText(),propertyRentCosts.getText(),propertyHouseCost.getText(), propertyNeighbors.getText(), propertyMortgage.getText(),propertyColor.getText());
         board.getChildren().add(createBoardSpace(propertyName.getText(),propertyColor.getText()));
         break;
 
-      case "utilities": case "railroad":
+      case "Utilities": case "Railroad":
         writeSpecialPropertyFile(propertyName.getText(),type,propertyCost.getText(),propertyRentCosts.getText(), propertyNeighbors.getText(), propertyMortgage.getText(),propertyImage.getText());
         board.getChildren().add(createBoardSpace(propertyName.getText(),new Image(myGameImages.getString(type))));
         break;
@@ -379,7 +383,7 @@ public class GameCreatorScreen extends Display {
 
   private void writeRegularPropertyFile(String name, String cost, String rentcosts, String housecost, String neighbors, String mortgage, String color)
       throws IOException {
-    File property = new File("data/variations/" + gameName.getText().replace(" ","_") + "/properties/" + name + ".property");
+    File property = new File("data/variations/" + gameName.getText().replace(" ","_") + "/properties/" + name.toLowerCase(Locale.ROOT).replace(" ","_") + ".property");
 
     FileWriter fw = new FileWriter(property);
     fw.write("Name=" + name + "\n");
@@ -397,7 +401,7 @@ public class GameCreatorScreen extends Display {
 
   private void writeSpecialPropertyFile(String name, String type, String cost, String rentcosts, String neighbors, String mortgage, String image)
       throws IOException {
-    File property = new File("data/variations/" + gameName.getText().replace(" ","_") + "/properties/" + name + ".property");
+    File property = new File("data/variations/" + gameName.getText().replace(" ","_") + "/properties/" + name.toLowerCase(Locale.ROOT).replace(" ","_") + ".property");
     FileWriter fw = new FileWriter(property);
     fw.write("Name=" + name + "\n");
     fw.write("Type=" + type + "\n");
@@ -426,9 +430,11 @@ public class GameCreatorScreen extends Display {
     stackPane.setMinWidth(50);
     stackPane.setMinHeight(50);
     if(tileCounter % 10 == 0){
-      stackPane.setTranslateX(-500);
-      stackPane.setTranslateY(50);
+      colJumper += -500;
+      rowJumper += 50;
     }
+    stackPane.setTranslateY(rowJumper);
+    stackPane.setTranslateX(colJumper);
     return stackPane;
   }
 
@@ -459,7 +465,7 @@ public class GameCreatorScreen extends Display {
   }
 
   private void makeScene() {
-    scene = new Scene(startMenu, 800, 600);
+    scene = new Scene(contents, 800, 600);
     scene.getStylesheets().add(DEFAULT_STYLE);
   }
 
