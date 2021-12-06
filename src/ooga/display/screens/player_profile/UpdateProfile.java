@@ -1,7 +1,6 @@
 package ooga.display.screens.player_profile;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
@@ -147,7 +146,7 @@ public class UpdateProfile implements Profile {
     fileChooser.setInitialDirectory(AVATAR_DIR);
     HBox avatarBox = new HBox();
     ImageView avatarName = new ImageView();
-    Button avatarButton = myUIBuilder.makeButton("ChooseAvatarButton", e-> {
+    Button avatarButton = myUIBuilder.makeTextButton("ChooseAvatarButton", e-> {
       File avatarfile = fileChooser.showOpenDialog(myStage);
       if (avatarfile != null) {
         myAvatar = avatarfile.getName();
@@ -162,9 +161,9 @@ public class UpdateProfile implements Profile {
     playerMenu.getChildren().add(avatarBox);
 
     // Signup Button
-    Button signupButton = myUIBuilder.makeButton("Update", e -> buttonPressed());
+    Button signupButton = myUIBuilder.makeTextButton("Update", e -> buttonPressed());
     // Close Button
-    Button closeButton = myUIBuilder.makeButton("Close", e -> closePopup());
+    Button closeButton = myUIBuilder.makeTextButton("Close", e -> closePopup());
     playerMenu.getChildren().add(myUIBuilder.makeButtonBox(signupButton, closeButton));
 
     playerMenu.setId("ProfileVBox");

@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import ooga.display.Display;
 
@@ -63,7 +65,7 @@ public class UIBuilder {
    * @param response is the action event the button should have
    * @return new button with properly initialized
    */
-  public Button makeButton(String id, EventHandler<ActionEvent> response) {
+  public Button makeTextButton(String id, EventHandler<ActionEvent> response) {
     Button button = new Button();
     button.setOnAction(response);
     button.setText(langResource.getString(id));
@@ -71,6 +73,22 @@ public class UIBuilder {
     button.getStyleClass().add("button");
     return button;
   }
+
+  public Node makeImageButton(String id, EventHandler<ActionEvent> response, String imagePath){
+    System.out.println(imagePath);
+    System.out.println(id);
+    //data/images/variationimages/original.png
+    ImageView image = new ImageView(new Image(imagePath));
+    image.setId(id);
+    Button button = new Button();
+    button.setOnAction(response);
+    button.setId(id);
+    button.setGraphic(image);
+    image.setFitHeight(50);
+    image.setFitWidth(50);
+    return button;
+  }
+
 
   /**
    * creates a slider
@@ -228,4 +246,5 @@ public class UIBuilder {
     textField.setId(id);
     return textField;
   }
+
 }

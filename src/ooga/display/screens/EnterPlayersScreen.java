@@ -1,5 +1,6 @@
 package ooga.display.screens;
 
+import java.io.File;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,6 +10,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import ooga.display.Display;
 import ooga.display.DisplayManager;
@@ -33,6 +36,7 @@ public class EnterPlayersScreen extends Display {
   private DisplayManager myDisplayManager;
   private UIBuilder myBuilder;
   private ResourceBundle myLangResource;
+  private ResourceBundle myGameImages;
   private LanguageUI myLanguageUI;
   private VBox myTextAreaVBox;
   private VBox myColorSelectionVBox;
@@ -41,7 +45,9 @@ public class EnterPlayersScreen extends Display {
       Display.class.getPackageName() + ".resources.";
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
   private static final String DEFAULT_STYLE = STYLE_PACKAGE + "original.css";
-
+  private static final String VARIATION_IMAGES = DEFAULT_RESOURCE_PACKAGE + "variation_image_paths";
+  private static final String DEFAULT_DATA_PACKAGE = "data/";
+  private static final String VARIATION_FOLDER_NAME = "variations/";
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
   private static final String PLAYER_CUSTOMIZER = "PlayerCustomizer";
@@ -52,6 +58,7 @@ public class EnterPlayersScreen extends Display {
   private ArrayList<Color> playerColors = new ArrayList<>();
   private Scene scene;
   private String myStyle = DEFAULT_STYLE;
+  private String variationName;
 
   /**
    * Default constructor for the Player Customization Screen
@@ -61,8 +68,10 @@ public class EnterPlayersScreen extends Display {
    */
   public EnterPlayersScreen(Stage stage, DisplayManager displayManager,
       ResourceBundle langResource, String selectedTheme) {
+    variationName = "monopoly_original";
     myStyle = selectedTheme;
-    myLangResource = langResource;
+    myLangResource = langResource;//ooga/display/resources/variation_image_paths
+    myGameImages = ResourceBundle.getBundle(VARIATION_IMAGES);
     myBuilder = new UIBuilder(langResource);
     myStage = stage;
     myDisplayManager = displayManager;
@@ -80,8 +89,9 @@ public class EnterPlayersScreen extends Display {
 
   private Node makeRight() {
     VBox result = new VBox();
-    result.getChildren().add(myBuilder.makeButton("Continue", e -> myDisplayManager.startGame()));
-    result.getChildren().add(myBuilder.makeButton("GotoHome", e -> myDisplayManager.goStartMenu()));
+    result.getChildren().add(makeVariationButtons());
+    result.getChildren().add(myBuilder.makeTextButton("Continue", e -> myDisplayManager.startGame()));
+    result.getChildren().add(myBuilder.makeTextButton("GotoHome", e -> myDisplayManager.goStartMenu()));
     return result;
   }
 
@@ -166,6 +176,27 @@ public class EnterPlayersScreen extends Display {
     scene = new Scene(playerMenu, 800, 600);
     scene.getStylesheets().add(myStyle);
   }
+
+  private Node makeVariationButtons(){
+    HBox result = new HBox();
+    for (String image: myGameImages.keySet()){
+      result.getChildren().add(myBuilder.makeImageButton("variationButton",(e -> setVariationName(image)),myGameImages.getString(image)));
+      }
+      return result;
+    }
+
+  private String loadGame(){
+    FileChooser GameChooser = new FileChooser();
+    GameChooser.getExtensionFilters().add(new ExtensionFilter("SIM File", "*.sim"));
+    GameChooser.setInitialDirectory(new File("data"));
+    File simFile = GameChooser.showOpenDialog(getScene().getWindow());
+    return simFile.toString();
+  }
+
+  private void setVariationName(String name){
+    variationName = name;
+  }
+
 
   /**
    * Get the scene

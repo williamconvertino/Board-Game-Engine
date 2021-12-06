@@ -2,15 +2,10 @@ package ooga.display.screens.player_profile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import ooga.display.Display;
@@ -18,7 +13,6 @@ import ooga.display.DisplayManager;
 import ooga.display.popup.ExceptionPopUp;
 import ooga.display.ui_tools.UIBuilder;
 import ooga.exceptions.PlayerProfileException;
-import ooga.model.data.player.Player;
 import ooga.util.ProfileManager;
 
 
@@ -129,9 +123,9 @@ public class LoginProfile implements Profile {
     myPassword = (TextField) myUIBuilder.makeTextField("PasswordTextFieldID");
     playerMenu.getChildren().add(myPassword);
     // Signup Button
-    Button loginButton = myUIBuilder.makeButton("Login", e -> buttonPressed());
+    Button loginButton = myUIBuilder.makeTextButton("Login", e -> buttonPressed());
     // Close Button
-    Button closeButton = myUIBuilder.makeButton("Close", e -> closePopup());
+    Button closeButton = myUIBuilder.makeTextButton("Close", e -> closePopup());
     playerMenu.getChildren().add(myUIBuilder.makeButtonBox(loginButton, closeButton));
 
     playerMenu.setId("ProfileVBox");

@@ -50,6 +50,10 @@
     -fx-border-color: lightgrey;
 }
 
+#variationButton{
+    -fx-padding: 0px;
+}
+
 .text-area {
     -fx-border-color: lightgrey;
 }

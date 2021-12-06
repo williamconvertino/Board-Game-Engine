@@ -62,17 +62,17 @@ public class StartMenu extends Display {
    */
   private Node navigationPanel() {
     VBox result = new VBox();
-    result.getChildren().add(myBuilder.makeButton("Start", e -> myDisplayManager.goPlayerScreen()));
-    result.getChildren().add(myBuilder.makeButton("Options", e -> myDisplayManager.goOptions()));
+    result.getChildren().add(myBuilder.makeTextButton("Start", e -> myDisplayManager.goPlayerScreen()));
+    result.getChildren().add(myBuilder.makeTextButton("Options", e -> myDisplayManager.goOptions()));
     SignupProfile signup = new SignupProfile(myStage, myBuilder, myResource, myDisplayManager,
         myDisplayManager.getProfileManager());
-    result.getChildren().add(myBuilder.makeButton("Signup", e -> {
+    result.getChildren().add(myBuilder.makeTextButton("Signup", e -> {
       signup.getPopup().show(myStage);
     }));
     LoginProfile login = new LoginProfile(myStage, myBuilder, myResource, myDisplayManager, myDisplayManager.getProfileManager());
-    result.getChildren().add(myBuilder.makeButton("Login", e -> login.getPopup().show(myStage)));
+    result.getChildren().add(myBuilder.makeTextButton("Login", e -> login.getPopup().show(myStage)));
     updateProfile = new UpdateProfile(myStage, myBuilder, myResource, myDisplayManager, myDisplayManager.getProfileManager());
-    result.getChildren().add(myBuilder.makeButton("Update", e -> {
+    result.getChildren().add(myBuilder.makeTextButton("Update", e -> {
       notLoggedInException(updateProfile);
     }));
     return result;
