@@ -19,6 +19,13 @@
     "numarg": 1,
     "argtype1": "java.lang.Integer"
   },
+  "numPlayersX": {
+    "multistep": true,
+    "method":"numberOfPlayersTimesValue",
+    "numarg": 1,
+    "argtype1": "java.lang.Integer"
+  },
+
   "numHousesX": {
     "multistep": true,
     "method":"numHousesTimesValue",
