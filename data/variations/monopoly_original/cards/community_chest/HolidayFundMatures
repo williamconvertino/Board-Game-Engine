@@ -1,3 +1,0 @@
-Name=HolidayFundMatures
-Description=HOLIDAY FUND MATURES - COLLECT $100
-ActionSequence=[addMoney p0 100]

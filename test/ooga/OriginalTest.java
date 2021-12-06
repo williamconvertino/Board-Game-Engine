@@ -31,7 +31,6 @@ public class OriginalTest {
 
   public BoardManager board;
 
-  public PlayerManager players;
 
   public Player p1;
   public Player p2;
@@ -56,17 +55,17 @@ public class OriginalTest {
     try {
       String variationName = GameManager.DEFAULT_VARIATION_NAME;
       gameData = (new GameDataInitializer()).generateGameData(variationName, myDisplayComm);
-      functionExecutor = new FunctionExecutor();
-      functionExecutor.initializeWithGameValues(gameData, gameData.getDie(), myDisplayComm);
+      functionExecutor = new FunctionExecutor(gameData, gameData.getDie(), myDisplayComm);
       turnManager = new TurnManager(gameData, functionExecutor, myDisplayComm);
       eventManager = new EventManager(turnManager);
 
-      List<Player> playerList = players.getPlayers();
+      List<Player> playerList = gameData.getPlayers();
       p1 = playerList.get(0);
       p2 = playerList.get(1);
       p3 = playerList.get(2);
       p4 = playerList.get(3);
 
+      board = gameData.getBoard();
     } catch (Exception e) {
       e.printStackTrace();
       assertTrue(false);
@@ -75,6 +74,8 @@ public class OriginalTest {
 
   @Test
   void testInitialization () {
+
+
     //System.out.println(gameData.getBoard().getTiles());
   }
 

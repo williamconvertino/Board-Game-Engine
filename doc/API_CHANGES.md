@@ -185,3 +185,48 @@ public TileModel getClosestTileOfType(Player player, String type)
 These methods are all utility functions for the BoardManager to help retrieve data in different ways.
 I implemented them mostly for their use in testing, but they could also have useful applications in the actual code.
 
+**added getRandomCard, getCard, and getCards to Deck class**
+```java
+
+/**
+     * Returns a random card from this deck.
+     *
+     * @return a random card from this deck.
+     */
+    public Card getRandomCard() {
+        Random rd = new Random();
+        return myCardList.get(rd.nextInt(myCardList.size()));
+    }
+
+    /**
+     *  Finds and returns the card with the given name. If the card cannot be found,
+     *  throws a CardNotFoundException.
+     *
+     * @param cardName the name of the desired card.
+     * @return the card with the specified name.
+     * @throws CardNotFoundException if the card cannot be found.
+     */
+    public Card getCard(String cardName) throws CardNotFoundException {
+
+        for (Card c: myCardList) {
+            if (c.getName().equals(cardName)) {
+                return c;
+            }
+        }
+        throw new CardNotFoundException(cardName);
+    }
+
+    /**
+     * Returns all the cards in this deck.
+     *
+     * @return an immutable list containing all the cards in this deck.
+     */
+    public List<Card> getCards() {
+        return ImmutTool.getImmutableList(myCardList);
+    }
+
+```
+
+These methods allow for additional ways to access the data in the deck.
+I implemented them mostly for testing purposes, but they also have potential applications
+in the program itself.

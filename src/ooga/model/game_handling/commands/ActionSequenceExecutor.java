@@ -61,7 +61,6 @@ public class ActionSequenceExecutor {
     this.functionExecutor = functions;
     this.gameData = gameData;
     this.myJSONParser = new JSONParser();
-
     try {
       myCommands = (JSONObject)myJSONParser.parse(new FileReader(String.format("%s%s", RESOURCE_DIRECTORY, COMMAND_DATA_FILENAME)));
       myArgs = (JSONObject)myJSONParser.parse(new FileReader(String.format("%s%s", RESOURCE_DIRECTORY, ARGUMENT_DATA_FILENAME)));
@@ -96,9 +95,15 @@ public class ActionSequenceExecutor {
       Object[] fExecutorArgs = generateArgumentArrayFromJSONObject(fExecutorCommand, sourceClass,
           Arrays.copyOfRange(commandElements, 1, commandElements.length));
 
+      //System.out.println(fExecutorMethod);
+      System.out.println(((Player)fExecutorArgs[0]));
+      System.out.println(gameData.getCurrentPlayer());
+      //System.out.println(fExecutorArgs[1]);
+
       fExecutorMethod.invoke(getInstanceOfClass(sourceClass), fExecutorArgs);
 
     } catch (Exception e) {
+      e.printStackTrace();
       throw new InvalidFileFormatException();
     }
 

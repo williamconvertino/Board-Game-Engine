@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import ooga.display.communication.DisplayComm;
+import ooga.display.communication.DisplayStateSignaler;
+import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.exceptions.TileNotFoundException;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
@@ -33,21 +35,16 @@ public class FunctionExecutor {
     private DisplayComm displayComm;
 
     /**
-     * Constructs an empty FunctionExecutor. Note: This must be initialized before use.
-     */
-    public FunctionExecutor() {
-    }
-
-    /**
-     * Initializes the function executor with the specified gamedata, die, and display communication
+     * Creates a new FunctionExecutor and initializes it
+     * with the specified gamedata, die, and display communication
      * module.
      *
-     * @param gamedata    the gamedata to act on.
+     * @param gameData    the gamedata to act on.
      * @param die         the die to use.
      * @param displayComm the display communication module for the current game.
      */
-    public void initializeWithGameValues(GameData gamedata, Die die, DisplayComm displayComm) {
-        this.gamedata = gamedata;
+    public FunctionExecutor(GameData gameData, Die die, DisplayComm displayComm) {
+        this.gamedata = gameData;
         this.myDie = die;
         this.displayComm = displayComm;
     }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 import ooga.exceptions.CardNotFoundException;
 import ooga.model.data.cards.Card;
+import ooga.util.ImmutTool;
 
 /**
  * A data structure that stores a list of executable cards.
@@ -102,6 +103,15 @@ public class Deck {
             }
         }
         throw new CardNotFoundException(cardName);
+    }
+
+    /**
+     * Returns all the cards in this deck.
+     *
+     * @return an immutable list containing all the cards in this deck.
+     */
+    public List<Card> getCards() {
+        return ImmutTool.getImmutableList(myCardList);
     }
 
 }
