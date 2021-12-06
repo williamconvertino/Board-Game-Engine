@@ -108,7 +108,7 @@ public class PropertyParser extends FolderParser {
    * @throws AttributeNotFoundException
    */
   public Property parseUtilitiesProperty(Properties props) throws AttributeNotFoundException {
-    return parseSpecialProperty(props,"Utilities");
+    return parseSpecialProperty(props,"Utility");
   }
 
   //called from parseRailRoadProperty and parseUtilitiesProperty to create Property of certain type
