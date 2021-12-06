@@ -1,9 +1,0 @@
-Name=Boardwalk
-Type=Regular
-Cost=400
-RentCost=20,40,60
-MaxHouses=4
-HouseCost=150
-Neighbors=Park Place
-Mortgage=200
-Color=blue

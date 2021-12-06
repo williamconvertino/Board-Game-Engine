@@ -34,7 +34,7 @@ public class GameCreatorScreenTest extends DukeApplicationTest {
     Button start = lookup("#CreateNewGame").query();
     clickOn(start);
     createFreeParking();
-    createRegularProperty("Boardwalk","400","20,40,60","150","Park Place","200","blue");
+    //createRegularProperty("Boardwalk","400","20,40,60","150","Park Place","200","blue");
     TimeUnit.SECONDS.sleep(4);
     //assertEquals(2, dm.getCurrDisplayIndex());
   }

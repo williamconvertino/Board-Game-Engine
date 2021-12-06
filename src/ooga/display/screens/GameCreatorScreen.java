@@ -258,9 +258,11 @@ public class GameCreatorScreen extends Display {
       goToJailButton = myBuilder.makeImageButton("GoToJail",e -> tryCreateSingleCardTile("go_to_jail", goToJailButton), myGameImages.getString("go_to_jail"),50,50);
       createSpecialTileButtons.getChildren().add(goToJailButton);
 
-      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("Chance",e -> tryCreateCardTile("chance"), myGameImages.getString("chance"),50,50));
-      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("CommunityChest",e -> tryCreateCardTile("community_chest"), myGameImages.getString("community_chest"),50,50));
-      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("FreeParking",e -> tryCreateCardTile("free_parking"), myGameImages.getString("free_parking"),50,50));
+      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("Chance",e -> tryCreateCardTile("Chance"), myGameImages.getString("chance"),50,50));
+      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("CommunityChest",e -> tryCreateCardTile("Community Chest"), myGameImages.getString("community_chest"),50,50));
+      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("FreeParking",e -> tryCreateCardTile("FreeParking"), myGameImages.getString("FreeParking"),50,50));
+      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("LuxuryTax",e -> tryCreateCardTile("luxury_tax"), myGameImages.getString("luxury_tax"),50,50));
+      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("IncomeTax",e -> tryCreateCardTile("income_tax"), myGameImages.getString("income_tax"),50,50));
 
 
 
@@ -409,7 +411,7 @@ public class GameCreatorScreen extends Display {
   }
 
   private VBox createBoardSpace(String name,String color) throws IOException {
-    writeLineToBoard(name);
+    writeLineToBoard(myLangResource.getString(name));
     VBox stackPane = new VBox();
     stackPane.setId("creatorTile");
     Label tilename = new Label(name);
@@ -431,7 +433,7 @@ public class GameCreatorScreen extends Display {
   }
 
   private VBox createBoardSpace(String name, Image image) throws IOException {
-    writeLineToBoard(name);
+    writeLineToBoard(myLangResource.getString(name));
     VBox stackPane = new VBox();
     stackPane.setId("creatorTile");
     ImageView view = new ImageView(image);
