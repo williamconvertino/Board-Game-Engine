@@ -1,6 +1,7 @@
 package ooga.model.game_handling;
 
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import javafx.scene.input.KeyCode;
 import ooga.model.data.cards.Card;
@@ -19,16 +20,19 @@ import ooga.model.game_handling.TurnManager;
  */
 public class CheatCodeManager {
 
-  public static Map<KeyCode, String> CODE_MAP =
-      Map.of(
-          KeyCode.DIGIT1, "giveMoney",
-          KeyCode.DIGIT2, "winGame",
-          KeyCode.DIGIT3, "teleportToSelectedTile",
-          KeyCode.DIGIT4, "setOwner",
-          KeyCode.DIGIT5, "buyAllProperties",
-          KeyCode.DIGIT6, "executeCard",
-          KeyCode.SEMICOLON, "bugggged"
-      );
+  public static Map<KeyCode, String> CODE_MAP = Map.ofEntries(
+    Map.entry(KeyCode.DIGIT1, "giveMoney"),
+    Map.entry(KeyCode.DIGIT2,"bankrupt"),
+    Map.entry(KeyCode.DIGIT3,"exodus"),
+    Map.entry(KeyCode.DIGIT4, "setOwner"),
+    Map.entry(KeyCode.DIGIT5, "buyAllProperties"),
+    Map.entry(KeyCode.DIGIT6, "buyHouse"),
+    Map.entry(KeyCode.DIGIT7,"executeCard"),
+      Map.entry(KeyCode.DIGIT8,"jail"),
+      Map.entry(KeyCode.DIGIT9, "winGame"),
+    Map.entry(KeyCode.DIGIT0, "teleportToSelectedTile"),
+      Map.entry(KeyCode.SEMICOLON, "forceEndTurn")
+  );
 
   private FunctionExecutor myFunctionExecutor;
 
@@ -51,9 +55,9 @@ public class CheatCodeManager {
     if (CODE_MAP.containsKey(code)) {
       try {
         Method cheatMethod = getClass().getMethod(CODE_MAP.get(code));
+        System.out.println(cheatMethod.getName());
         cheatMethod.invoke(this);
       } catch (Exception e) {
-        e.printStackTrace();
       }
     }
   }
@@ -62,8 +66,24 @@ public class CheatCodeManager {
    * Gives the player $99,999.
    */
   public void giveMoney() {
-    myFunctionExecutor.addMoney(gameData.getCurrentPlayer(), 99999);
+    myFunctionExecutor.addMoney(gameData.getCurrentPlayer(), 9999999);
   }
+
+  /**
+   * Makes a player go REALLY negative.
+   */
+  public void exodus() {
+    myFunctionExecutor.loseMoney(gameData.getCurrentPlayer(), 999999999);
+  }
+
+  /**
+   * Makes a player lose all their money.
+   */
+  public void bankrupt() {
+    gameData.getCurrentPlayer().setBalance(0);
+  }
+
+
 
   /**
    * Makes the player win the game.
@@ -85,7 +105,6 @@ public class CheatCodeManager {
        myFunctionExecutor.movePlayerToTile(gameData.getCurrentPlayer(),
            myTurnManager.getSelectedTile().getName());
      } catch (Exception e) {
-       e.printStackTrace();
      }
    }
 
@@ -96,7 +115,6 @@ public class CheatCodeManager {
      try {
        ((PropertyTileModel)myTurnManager.getSelectedTile()).getProperty().setOwner(gameData.getCurrentPlayer());
      } catch (Exception e) {
-       e.printStackTrace();
      }
   }
 
@@ -125,12 +143,20 @@ public class CheatCodeManager {
   /**
    *  Hard resets the turn if you press semicolon enough.
    */
-  public void bugggged() {
+  public void forceEndTurn() {
     numPress++;
-    if(numPress > 4) {
+    if (numPress > 4) {
       myTurnManager.endTurn();
       numPress = 0;
     }
+  }
+
+  /**
+   * Sends the current player to jail.
+   */
+  public void jail() {
+    myFunctionExecutor.goToJail(gameData.getCurrentPlayer());
+
   }
 
 }

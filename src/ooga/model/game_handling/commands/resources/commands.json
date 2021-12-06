@@ -91,12 +91,21 @@
     "numarg": 2,
     "argtype1":"ooga.model.data.player.Player",
     "argtype2": "java.lang.String"
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
   },
   "goToJail": {
     "method": "goToJail",
     "sourceclass": "ooga.model.game_handling.FunctionExecutor"
     "numarg": 1,
     "argtype1": "ooga.model.data.player.Player"
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
   }
 
 }
