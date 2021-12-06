@@ -69,7 +69,6 @@ public class EnterPlayersScreen extends Display {
    */
   public EnterPlayersScreen(Stage stage, DisplayManager displayManager,
       ResourceBundle langResource, String selectedTheme) {
-    variationName = "original";
     myStyle = selectedTheme;
     myLangResource = langResource;//ooga/display/resources/variation_image_paths
     myGameImages = ResourceBundle.getBundle(VARIATION_IMAGES);
@@ -90,7 +89,7 @@ public class EnterPlayersScreen extends Display {
 
   private Node makeRight() {
     VBox result = new VBox();
-    result.getChildren().add(myBuilder.makeTextButton("Continue", e -> myDisplayManager.startGame(variationName)));
+    result.getChildren().add(myBuilder.makeTextButton("Continue", e -> myDisplayManager.startGame()));
     result.getChildren().add(myBuilder.makeTextButton("GotoHome", e -> myDisplayManager.goStartMenu()));
     return result;
   }

@@ -125,6 +125,11 @@ public class GameCreatorScreen extends Display {
 
    */
 
+  private void setGame(){
+    myDisplayManager.setVariationName(gameName.getText());
+    myDisplayManager.goPlayerScreen();
+  }
+
   private Node startCreating() {
     VBox result = new VBox();
     result.setMaxWidth(400);
