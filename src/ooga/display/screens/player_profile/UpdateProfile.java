@@ -2,9 +2,10 @@ package ooga.display.screens.player_profile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,20 +19,15 @@ import ooga.display.DisplayManager;
 import ooga.display.popup.ExceptionPopUp;
 import ooga.display.ui_tools.UIBuilder;
 import ooga.exceptions.PlayerProfileException;
-import ooga.model.data.player.Player;
 import ooga.util.ProfileManager;
 
-
-/**
- * The Login Profile object
- *
- * @author Aaric Han
- */
-public class LoginProfile implements Profile {
+public class UpdateProfile implements Profile {
   private static final String DEFAULT_RESOURCE_PACKAGE =
       Display.class.getPackageName() + ".resources.";
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
-  private static final String DEFAULT_STYLE = STYLE_PACKAGE + "mainmenu.css";
+  private static final String DEFAULT_STYLE = STYLE_PACKAGE + "original.css";
+  private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
+  private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
 
   private DisplayManager myDisplayManager;
   private ProfileManager myProfileManager;
@@ -39,20 +35,24 @@ public class LoginProfile implements Profile {
   private Popup myPopup;
   private UIBuilder myUIBuilder;
   private ResourceBundle myResource;
-  private TextField myUsername;
+  private TextField myName;
+  private Label myUsername;
   private TextField myPassword;
+  private String myAvatar;
+  private VBox playerMenu;
 
   private final String AVATAR_DIR_PATH = "data/profiles/avatar-img/";
   private final File AVATAR_DIR = new File(AVATAR_DIR_PATH);
   private final String PROFILES_DIR = "data/profiles/playerProfiles.csv";
 
   /**
-   * Default Constructor to build the Login Profile object
-   * @param stage
-   * @param uiBuilder
-   * @param resourceBundle
+   * Instantiates a new Signup profile.
+   *
+   * @param stage          the stage
+   * @param uiBuilder      the ui builder
+   * @param resourceBundle the resource bundle
    */
-  public LoginProfile(Stage stage, UIBuilder uiBuilder, ResourceBundle resourceBundle, DisplayManager dm, ProfileManager pm) {
+  public UpdateProfile(Stage stage, UIBuilder uiBuilder, ResourceBundle resourceBundle, DisplayManager dm, ProfileManager pm) {
     myProfileManager = pm;
     myDisplayManager = dm;
     myStage = stage;
@@ -62,8 +62,8 @@ public class LoginProfile implements Profile {
   }
 
   /**
-   * Get the popup component
-   * @return myPopup
+   * Method to return the popup component
+   * @return
    */
   @Override
   public Popup getPopup() {
@@ -71,11 +71,15 @@ public class LoginProfile implements Profile {
   }
 
   /**
-   * The actions taken when the login button is pressed
+   * Actions that happen after the update button is pressed
    */
+
   private void buttonPressed() {
+    // TODO: Send information from textfields and file chooser to Jordan's backend
+    String name = myName.getText();
     String username = myUsername.getText();
     String password = myPassword.getText();
+    String avatar = myAvatar;
 
     String errorLabel = "";
     String errorContent = "";
@@ -90,49 +94,78 @@ public class LoginProfile implements Profile {
       errorLabel = "Invalid Fields";
       errorContent = String.format("%s\n%s", errorContent, myResource.getString("PleaseEnterNewPassword"));
     }
+    if (name.equals(myResource.getString("NameTextFieldID")) || name.isBlank()) {
+      errorLabel = "Invalid Fields";
+      errorContent = String.format("%s\n%s", errorContent, myResource.getString("PleaseEnterNewName"));
+    }
+    if (avatar == null) {
+      errorLabel = "Invalid Fields";
+      errorContent = String.format("%s\n%s", errorContent, myResource.getString("PleaseSelectAvatar"));
+    }
     if (!errorLabel.isBlank()) error = new ExceptionPopUp(errorLabel, errorContent, myResource);
     else {
-      String playerInfo[];
+      // TODO: Send info to Jordan's methods
+      String allProfiles[] = {username, password, avatar, name};
       try {
-        playerInfo = myProfileManager.loginPlayerProfile(username, password, PROFILES_DIR);
-      }
-      catch (FileNotFoundException e) {
+        myProfileManager.updatePlayerProfile(allProfiles, PROFILES_DIR);
+        myDisplayManager.updateUser(allProfiles);
+      } catch (IOException e) {
         ExceptionPopUp NoFile = new ExceptionPopUp("Player Data Storage Not Found", "Please check data/profiles/playerProfiles.csv", myResource);
         return;
-      }
-      catch (PlayerProfileException e) {
+      } catch (PlayerProfileException e) {
         ExceptionPopUp PlayerProfilesNotFound = new ExceptionPopUp("Cannot Find Player", "Please Signup", myResource);
         return;
       }
-      // Change the login status to logged in (true)
-      myDisplayManager.setLoggedIn(true);
-      myDisplayManager.updateUser(playerInfo);
       // Then:
       closePopup();
     }
   }
 
   /**
-   * Helper method to make the scene related to the popup
+   * Makes the components of the popup
    */
   private void makeScene() {
-    VBox playerMenu = new VBox();
+    playerMenu = new VBox();
     playerMenu.setPrefSize(400, 400);
     // Sign Up Label
-    playerMenu.getChildren().add(myUIBuilder.makeLabel("Login"));
+    playerMenu.getChildren().add(myUIBuilder.makeLabel("Update"));
     // Username textfield
-    playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("EnterUsernameLabel"));
-    myUsername = (TextField) myUIBuilder.makeTextField("UsernameTextFieldID");
+    playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("UsernameLabel"));
+    myUsername = new Label("");
     playerMenu.getChildren().add(myUsername);
     // Password textfield
     playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("EnterPasswordLabel"));
     myPassword = (TextField) myUIBuilder.makeTextField("PasswordTextFieldID");
     playerMenu.getChildren().add(myPassword);
+    // Profile Name textfield
+    playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("EnterNameLabel"));
+    myName = (TextField) myUIBuilder.makeTextField("NameTextFieldID");
+    playerMenu.getChildren().add(myName);
+    // Profile Avatar Image
+    playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("ChooseAvatarLabel"));
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setInitialDirectory(AVATAR_DIR);
+    HBox avatarBox = new HBox();
+    ImageView avatarName = new ImageView();
+    Button avatarButton = myUIBuilder.makeButton("ChooseAvatarButton", e-> {
+      File avatarfile = fileChooser.showOpenDialog(myStage);
+      if (avatarfile != null) {
+        myAvatar = avatarfile.getName();
+        avatarName.setImage(new Image("profiles/avatar-img/" + myAvatar));
+        avatarName.setFitHeight(40);
+        avatarName.setFitWidth(40);
+      }
+    });
+
+    avatarBox.getChildren().add(avatarButton);
+    avatarBox.getChildren().add(avatarName);
+    playerMenu.getChildren().add(avatarBox);
+
     // Signup Button
-    Button loginButton = myUIBuilder.makeButton("Login", e -> buttonPressed());
+    Button signupButton = myUIBuilder.makeButton("Update", e -> buttonPressed());
     // Close Button
     Button closeButton = myUIBuilder.makeButton("Close", e -> closePopup());
-    playerMenu.getChildren().add(myUIBuilder.makeButtonBox(loginButton, closeButton));
+    playerMenu.getChildren().add(myUIBuilder.makeButtonBox(signupButton, closeButton));
 
     playerMenu.setId("ProfileVBox");
     myPopup = new Popup();
@@ -140,11 +173,20 @@ public class LoginProfile implements Profile {
   }
 
   /**
-   * The action taken when the close button is pressed
+   * Action taken when the close popup button is pressed
    */
   private void closePopup() {
     myPopup.hide();
-    myUsername.setText(myResource.getString("UsernameTextFieldID"));
     myPassword.setText(myResource.getString("PasswordTextFieldID"));
+    myName.setText(myResource.getString("NameTextFieldID"));
+    myAvatar = "";
+  }
+
+  /**
+   * Update Username
+   */
+  public void updateUsername(String username) {
+    myUsername = (Label) myUIBuilder.makeSmallLabelNoID(username);
+    playerMenu.getChildren().set(2, myUsername);
   }
 }
