@@ -79,5 +79,25 @@ This is added to get the players colors and add them to the game data.
   }
 ```
 
-This 
+This is added to get the game data for testing purposes.
+
+**Complete Method for Change Theme** 
+```java
+/**
+   * Loops through all the available displays, changes theme.
+   * All future added displays will also be of said theme.
+   *
+   * @param theme the theme
+   */
+  public void changeTheme(String theme) {
+    selectedTheme = STYLESHEETS.get(theme);
+    for (Display display : allDisplays) {
+      Scene scene = display.getScene();
+      scene.getStylesheets().remove(0);
+      scene.getStylesheets().add(getClass().getResource(selectedTheme).toExternalForm());
+    }
+  }
+```
+
+This is added to support different themes.
 
