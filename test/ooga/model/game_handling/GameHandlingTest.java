@@ -18,7 +18,6 @@ import ooga.model.game_handling.board_manager.BoardManager;
 import ooga.model.game_handling.board_manager.OriginalBoardManager;
 import ooga.model.game_handling.commands.ActionSequence;
 import ooga.model.game_handling.commands.ActionSequenceExecutor;
-import ooga.model.game_handling.turn_manager.TurnManager;
 import org.junit.jupiter.api.BeforeEach;
 
 

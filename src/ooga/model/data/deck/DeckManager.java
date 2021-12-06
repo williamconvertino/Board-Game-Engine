@@ -1,7 +1,9 @@
 package ooga.model.data.deck;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import ooga.exceptions.DeckNotFoundException;
 
 /**
@@ -46,6 +48,16 @@ public class DeckManager {
    */
   public void addDeck(Deck deck){
     activeDecks.putIfAbsent(deck.getName(),deck);
+  }
+
+  /**
+   * Returns a random deck of cards.
+   *
+   * @return a random deck of cards.
+   */
+  public Deck getRandomDeck() {
+    Random rd = new Random();
+    return activeDecks.get(new ArrayList<>(activeDecks.keySet()).get(rd.nextInt(activeDecks.keySet().size())));
   }
 
 }

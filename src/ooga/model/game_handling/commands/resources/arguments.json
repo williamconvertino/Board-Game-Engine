@@ -12,6 +12,15 @@
   "rollDie":{
     "method": "getDieRoll"
   },
+  "RR":{
+    "method": "getNearestTile",
+    "arg1": "B&O Railroad",
+    "arg2": "Reading Railroad",
+    "arg3": "Pennsylvania Railroad",
+    "arg4": "Short Line",
+    "numarg": 1,
+    "argtype1": "java.lang.Integer"
+  },
 
   "rollDieX": {
     "multistep": true,
@@ -19,6 +28,13 @@
     "numarg": 1,
     "argtype1": "java.lang.Integer"
   },
+  "numPlayersX": {
+    "multistep": true,
+    "method":"numberOfPlayersTimesValue",
+    "numarg": 1,
+    "argtype1": "java.lang.Integer"
+  },
+
   "numHousesX": {
     "multistep": true,
     "method":"numHousesTimesValue",

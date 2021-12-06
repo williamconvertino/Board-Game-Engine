@@ -1,12 +1,16 @@
-package ooga.model.game_handling.turn_manager;
+package ooga.model.game_handling;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 import javafx.scene.input.KeyCode;
+import ooga.model.data.cards.Card;
+import ooga.model.data.deck.Deck;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
 import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
 import ooga.model.game_handling.FunctionExecutor;
+import ooga.model.game_handling.TurnManager;
 
 /**
  * A class to store cheat codes and their desired effects.
@@ -15,22 +19,15 @@ import ooga.model.game_handling.FunctionExecutor;
  */
 public class CheatCodeManager {
 
-  public static Map<KeyCode, Code> CODE_MAP =
+  public static Map<KeyCode, String> CODE_MAP =
       Map.of(
-          KeyCode.DIGIT1, Code.GIVE_MONEY,
-          KeyCode.DIGIT2, Code.WIN_GAME,
-          KeyCode.DIGIT3, Code.TELEPORT,
-          KeyCode.DIGIT4, Code.SET_OWNER,
-          KeyCode.DIGIT5, Code.BUY_ALL_PROPERTIES
+          KeyCode.DIGIT1, "giveMoney",
+          KeyCode.DIGIT2, "winGame",
+          KeyCode.DIGIT3, "teleportToSelectedTile",
+          KeyCode.DIGIT4, "setOwner",
+          KeyCode.DIGIT5, "buyAllProperties",
+          KeyCode.DIGIT6, "executeCard"
       );
-
-  public enum Code {
-    GIVE_MONEY,
-    WIN_GAME,
-    TELEPORT,
-    SET_OWNER,
-    BUY_ALL_PROPERTIES,
-  }
 
   private FunctionExecutor myFunctionExecutor;
 
@@ -45,46 +42,82 @@ public class CheatCodeManager {
   }
 
   /**
-   * Executes the specified cheat code.
+   * Executes the cheat with the specified keycode.
    *
-   * @param myCode the code to execute.
+   * @param code the keycode of the desired cheatcode.
    */
-  public void executeCheatCode(Code myCode) {
-    switch (myCode) {
-
-      case GIVE_MONEY -> myFunctionExecutor.addMoney(gameData.getCurrentPlayer(), 99999);
-
-      case WIN_GAME -> {
-        for (Player p: gameData.getPlayers()) {
-          if (p != gameData.getCurrentPlayer()) {
-            p.setActiveStatus(false);
-          }
-        }
-        myTurnManager.endTurn();
+  public void executeCheatCode(KeyCode code) {
+    if (CODE_MAP.containsKey(code)) {
+      try {
+        Method cheatMethod = getClass().getMethod(CODE_MAP.get(code));
+        cheatMethod.invoke(this);
+        System.out.println(CODE_MAP.get(code));
+      } catch (Exception e) {
+        e.printStackTrace();
       }
-
-      case TELEPORT ->  {
-        try {
-          myFunctionExecutor.movePlayerToTile(gameData.getCurrentPlayer(), myTurnManager.getSelectedTile().getName());
-        } catch (Exception e) {}
-      }
-
-      case SET_OWNER -> {
-        try {
-          ((PropertyTileModel)myTurnManager.getSelectedTile()).getProperty().setOwner(gameData.getCurrentPlayer());
-        } catch (Exception e) {}
-      }
-
-      case BUY_ALL_PROPERTIES -> {
-
-        for (TileModel tile: gameData.getBoard().getTiles()) {
-          if (tile instanceof PropertyTileModel) {
-            ((PropertyTileModel)tile).getProperty().setOwner(gameData.getCurrentPlayer());
-          }
-        }
-      }
-
     }
+  }
+
+  /**
+   * Gives the player $99,999.
+   */
+  public void giveMoney() {
+    myFunctionExecutor.addMoney(gameData.getCurrentPlayer(), 99999);
+  }
+
+  /**
+   * Makes the player win the game.
+   */
+  public void winGame(){
+    for (Player p: gameData.getPlayers()) {
+      if (p != gameData.getCurrentPlayer()) {
+        p.setActiveStatus(false);
+      }
+    }
+    myTurnManager.endTurn();
+  }
+
+  /**
+   * Teleports the player to the selected tile.
+   */
+   public void teleportToSelectedTile() {
+     try {
+       myFunctionExecutor.movePlayerToTile(gameData.getCurrentPlayer(),
+           myTurnManager.getSelectedTile().getName());
+     } catch (Exception e) {
+       e.printStackTrace();
+     }
+   }
+
+  /**
+   * Sets the owner of the selected tile to the player.
+   */
+  public void setOwner() {
+     try {
+       ((PropertyTileModel)myTurnManager.getSelectedTile()).getProperty().setOwner(gameData.getCurrentPlayer());
+     } catch (Exception e) {
+       e.printStackTrace();
+     }
+  }
+
+  /**
+   * Buys all the properties on the board.
+   */
+  public void buyAllProperties() {
+    for (TileModel tile: gameData.getBoard().getTiles()) {
+      if (tile instanceof PropertyTileModel) {
+        ((PropertyTileModel)tile).getProperty().setOwner(gameData.getCurrentPlayer());
+      }
+    }
+  }
+
+  /**
+   * Selects a random card to execute.
+   */
+  public void executeCard() {
+    Deck myDeck = gameData.getDecks().getRandomDeck();
+    Card myCard = myDeck.getRandomCard();
+    myCard.execute(gameData.getCurrentPlayer());
   }
 
 }

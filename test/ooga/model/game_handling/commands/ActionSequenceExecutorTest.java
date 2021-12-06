@@ -21,6 +21,13 @@ public class ActionSequenceExecutorTest extends GameHandlingTest {
   }
 
   @Test
+  void testParseCommand() {
+    String command = "advancePlayerTo p0 \"St. Charles Place\" please \"Or else!!\"";
+    String[] desired = {"advancePlayerTo", "p0", "St. Charles Place", "please", "Or else!!"};
+    assertArrayEquals(ASE.parseCommand(command), desired);
+  }
+
+  @Test
   void testSingleArgumentCommands() {
 
     try {
