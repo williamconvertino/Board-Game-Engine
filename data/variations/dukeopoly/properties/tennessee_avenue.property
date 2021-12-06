@@ -1,0 +1,9 @@
+Name=Tennessee Avenue
+Type=Regular
+Cost=180
+RentCost=14,70,200,550,750,950
+MaxHouses=4
+HouseCost=100
+Neighbors=St. James Place, New York Avenue
+Mortgage=90
+Color=orange
