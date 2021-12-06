@@ -19,7 +19,7 @@ import ooga.model.die.OriginalDice;
 import ooga.model.game_handling.FunctionExecutor;
 import ooga.model.game_handling.board_manager.BoardManager;
 import ooga.model.game_handling.board_manager.OriginalBoardManager;
-import ooga.model.game_handling.turn_manager.TurnManager;
+import ooga.model.game_handling.TurnManager;
 import org.junit.jupiter.api.Test;
 import ooga.util.DukeApplicationTest;
 
@@ -188,8 +188,7 @@ public class OptionsMenuTest extends DukeApplicationTest {
     myDie = new OriginalDice();
     myGameData = new GameData(myPlayers, myBoard, myDie);
     myDisplayComm = myDisplayComm = new DisplayComm(dm);
-    myFunctionExecutor = new FunctionExecutor();
-    myFunctionExecutor.initializeWithGameValues(myGameData, myDie, myDisplayComm);
+    myFunctionExecutor = new FunctionExecutor(myGameData, myDie, myDisplayComm);
     myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
     EventManager eh = new EventManager(myTurnManager);
 

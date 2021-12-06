@@ -35,7 +35,6 @@ public class BoardParser {
    * @throws IOException
    */
   public List<TileModel> parseBoard(String boardFilePath, Map<String,TileModel> tileMap) throws IOException {
-    System.out.println("HELLLOOO");
     List<TileModel> boardTileModels = new ArrayList<>();
     File file=new File(boardFilePath);
     System.out.println(file.getPath());

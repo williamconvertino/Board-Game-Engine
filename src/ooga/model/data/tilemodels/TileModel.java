@@ -13,14 +13,17 @@ import ooga.model.data.player.Player;
 public abstract class TileModel {
 
     private String myName;
+    private String myType;
 
     /**
-     * Constructs a new tile with the specified name.
+     * Constructs a new tile with the specified name and type.
      *
-     * @param myName the name of the tile.
+     * @param name the name of the tile.
+     * @param type the type of the tile.
      */
-    public TileModel(String myName) {
-        this.myName = myName;
+    public TileModel(String name, String type) {
+        this.myName = name;
+        this.myType = type;
     }
 
     /**
@@ -46,9 +49,13 @@ public abstract class TileModel {
         return myName;
     }
 
-
-    public String getString(){
-        return myName;
+    /**
+     * Returns the type of the tile.
+     *
+     * @return the type of the tile.
+     */
+    public String getMyType() {
+        return myType;
     }
 
 }

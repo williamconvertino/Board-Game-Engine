@@ -7,12 +7,14 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
 import ooga.display.communication.DisplayComm;
 import ooga.exceptions.InvalidFileFormatException;
+import ooga.exceptions.TileNotFoundException;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
+import ooga.model.data.properties.Property;
+import ooga.model.data.tilemodels.PropertyTileModel;
+import ooga.model.data.tilemodels.TileModel;
 import ooga.model.die.Die;
 import ooga.model.game_handling.FunctionExecutor;
 import org.json.simple.JSONObject;
@@ -59,11 +61,11 @@ public class ActionSequenceExecutor {
     this.functionExecutor = functions;
     this.gameData = gameData;
     this.myJSONParser = new JSONParser();
-
     try {
       myCommands = (JSONObject)myJSONParser.parse(new FileReader(String.format("%s%s", RESOURCE_DIRECTORY, COMMAND_DATA_FILENAME)));
       myArgs = (JSONObject)myJSONParser.parse(new FileReader(String.format("%s%s", RESOURCE_DIRECTORY, ARGUMENT_DATA_FILENAME)));
     } catch (Exception e) {
+      System.out.println("oops!");
       displayComm.showException(e);
     }
   }
@@ -75,9 +77,13 @@ public class ActionSequenceExecutor {
    */
   public void executeCommand(String command) throws InvalidFileFormatException {
 
-    String[] commandElements = command.split(" ");
+    if (command == null || command.strip().length() == 0) {
+      return;
+    }
 
     try {
+
+      String[] commandElements = parseCommand(command);
 
       //Find the JSON entry corresponding with the desired command.
       JSONObject fExecutorCommand = (JSONObject) myCommands.get(commandElements[0]);
@@ -90,10 +96,10 @@ public class ActionSequenceExecutor {
       Object[] fExecutorArgs = generateArgumentArrayFromJSONObject(fExecutorCommand, sourceClass,
           Arrays.copyOfRange(commandElements, 1, commandElements.length));
 
+
       fExecutorMethod.invoke(getInstanceOfClass(sourceClass), fExecutorArgs);
 
     } catch (Exception e) {
-      e.printStackTrace();
       throw new InvalidFileFormatException();
     }
 
@@ -166,6 +172,29 @@ public class ActionSequenceExecutor {
     }
   }
 
+  public String[] parseCommand(String command) {
+    List<String> elementList = new ArrayList<>();
+    String[] splitArray = command.split(" ");
+    for (int i = 0; i < splitArray.length; i++) {
+
+      if (splitArray[i].startsWith("\"")) {
+        String element = splitArray[i].substring(1);
+        while (!splitArray[i].endsWith("\"")) {
+          i++;
+          element += " " + splitArray[i];
+        }
+        elementList.add(element.substring(0, element.length()-1));
+      } else {
+        elementList.add(splitArray[i]);
+      }
+
+    }
+    String[] ret = new String[elementList.size()];
+    for (int i = 0; i < elementList.size(); i++) {
+      ret[i] = elementList.get(i);
+    }
+    return ret;
+  }
 
   public Object getRawValue(String value) {
     try {
@@ -204,12 +233,43 @@ public class ActionSequenceExecutor {
     return getDieRoll() * value;
   }
 
+  public Integer numberOfPlayersTimesValue(Integer value) {
+    return gameData.getPlayers().size() * value;
+  }
+
   public void loseMoneyForNumHouses(Player player, Integer amountPerHouse) {
     functionExecutor.loseMoney(player, player.getNumHouses() * amountPerHouse);
   }
 
   public void loseMoneyForNumHotels(Player player, Integer amountPerHotel) {
     functionExecutor.loseMoney(player, player.getNumHotels() * amountPerHotel);
+  }
+
+  public void advanceToPropertyAndPayX(Player player, String propertyName, Integer amount)
+      throws TileNotFoundException {
+    functionExecutor.movePlayerToTile(player, propertyName);
+    TileModel currentTile = gameData.getBoard().getTileAtIndex(player.getLocation());
+    if (currentTile instanceof PropertyTileModel) {
+      Property currentProperty = ((PropertyTileModel)currentTile).getProperty();
+      if (currentProperty.getOwner() != player && currentProperty.getOwner() != Property.NULL_OWNER) {
+        for (int i = 1; i < amount; i++) {
+          functionExecutor.loseMoney(player, currentProperty.getRentCost());
+          functionExecutor.addMoney(currentProperty.getOwner(), currentProperty.getRentCost());
+        }
+      }
+    }
+  }
+
+  public void advanceToTypeAndPayX(Player player, String type, Integer amount)
+      throws InvalidFileFormatException, TileNotFoundException {
+    TileModel myTile = gameData.getBoard().getClosestTileOfType(player, type);
+    advanceToPropertyAndPayX(player, myTile.getName(), amount);
+  }
+
+  public void advanceToType(Player player, String type)
+      throws TileNotFoundException, InvalidFileFormatException {
+    TileModel myTile = gameData.getBoard().getClosestTileOfType(player, type);
+    functionExecutor.advancePlayerToTile(player, myTile.getName());
   }
 
 

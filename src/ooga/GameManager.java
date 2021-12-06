@@ -9,7 +9,7 @@ import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.game_handling.FunctionExecutor;
-import ooga.model.game_handling.turn_manager.TurnManager;
+import ooga.model.game_handling.TurnManager;
 import ooga.model.game_initialization.GameDataInitializer;
 
 /**
@@ -49,8 +49,7 @@ public class GameManager {
         myDisplayComm = new DisplayComm(display);
         try {
             myGameData = (new GameDataInitializer()).generateGameData(variationName, myDisplayComm);
-            myFunctionExecutor = new FunctionExecutor();
-            myFunctionExecutor.initializeWithGameValues(myGameData, myGameData.getDie(), myDisplayComm);
+            myFunctionExecutor = new FunctionExecutor(myGameData, myGameData.getDie(), myDisplayComm);
             myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
             myEventManager = new EventManager(myTurnManager);
 

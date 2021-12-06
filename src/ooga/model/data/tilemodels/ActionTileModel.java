@@ -20,25 +20,23 @@ public class ActionTileModel extends TileModel {
   private ActionSequence myLandOnActions;
 
   /**
-   * Constructs a new tile with the specified name.
-   *
-   * @param myName the name of the tile.
+   * @see TileModel#TileModel(String, String)
    */
-  public ActionTileModel(String myName) {
-    super(myName);
+  public ActionTileModel(String name, String type) {
+    super(name, type);
   }
 
   /**
    * Constructs a new ActionTile with the specified name, pass-through commands, and land-on commands.
    *
-   * @param myName the name of the tile.
-   * @param myPassThroughActions a list of commands to execute when the tile is passed through.
-   * @param myLandOnActions a list of commands to execute when the tile is landed on.
+   * @param name the name of the tile.
+   * @param passThroughActions a list of commands to execute when the tile is passed through.
+   * @param landOnActions a list of commands to execute when the tile is landed on.
    */
-  public ActionTileModel(String myName, ActionSequence myPassThroughActions, ActionSequence myLandOnActions) {
-    this(myName);
-    this.myPassThroughActions = myPassThroughActions;
-    this.myLandOnActions = myLandOnActions;
+  public ActionTileModel(String name, ActionSequence passThroughActions, ActionSequence landOnActions) {
+    this(name, "Action");
+    this.myPassThroughActions = passThroughActions;
+    this.myLandOnActions = landOnActions;
   }
 
   /**
@@ -46,7 +44,9 @@ public class ActionTileModel extends TileModel {
    */
   @Override
   public void executePassThrough(Player player) {
-    myPassThroughActions.execute(player);
+    if (myPassThroughActions != null) {
+      myPassThroughActions.execute(player);
+    }
   }
 
   /**
@@ -54,6 +54,8 @@ public class ActionTileModel extends TileModel {
    */
   @Override
   public void executeLandOn(Player player) {
-    myLandOnActions.execute(player);
+    if (myLandOnActions != null) {
+      myLandOnActions.execute(player);
+    }
   }
 }

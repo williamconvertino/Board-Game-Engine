@@ -73,9 +73,8 @@ public class GameCreatorScreenTest extends DukeApplicationTest {
     createLuxuryTax();
     createIncomeTax();
 
-
     TimeUnit.SECONDS.sleep(4);
-    //assertEquals(2, dm.getCurrDisplayIndex());
+    assertEquals(3, dm.getCurrDisplayIndex());
   }
 
   public void createFreeParking(){

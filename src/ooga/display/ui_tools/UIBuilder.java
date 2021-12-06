@@ -171,6 +171,16 @@ public class UIBuilder {
   }
 
   /**
+   * Creates label using name
+   *
+   * @param name name for label
+   * @return appropriate label using name
+   */
+  public Node makeLabelNoID(String name) {
+    return new Label(name);
+  }
+
+  /**
    * Creates label using id
    *
    * @param id name for label

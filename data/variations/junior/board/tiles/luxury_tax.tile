@@ -3,4 +3,4 @@ Type=Action
 Description=PAY $100
 Image=
 PassThroughActionSequence=[]
-LandOnActionSequence=[]
+LandOnActionSequence=[loseMoney p0 100]

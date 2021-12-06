@@ -31,7 +31,7 @@ public class ParserTest extends GameHandlingTest {
     propertyList = new ArrayList<>();
     propertyList = propertyParser.parseProperties("variations/original/properties");
     gameData = new GameData();
-    FunctionExecutor functionExecutor = new FunctionExecutor();
+    FunctionExecutor functionExecutor = new FunctionExecutor(gameData, gameData.getDie(), myDisplayComm);
     //create parsers
     actionSequenceParser = new ActionSequenceExecutor(functionExecutor,gameData, myDisplayComm);
     cardParser = new CardParser(actionSequenceParser,myDisplayComm);

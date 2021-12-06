@@ -20,8 +20,7 @@ import ooga.display.screens.OptionsMenu;
 import ooga.display.screens.StartMenu;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
-import ooga.model.game_handling.turn_manager.CheatCodeManager;
-import ooga.model.game_handling.turn_manager.CheatCodeManager.Code;
+import ooga.model.game_handling.CheatCodeManager;
 import ooga.util.ProfileManager;
 
 /**
@@ -72,6 +71,7 @@ public class DisplayManager {
    * 1: Options Menu
    * 2: Player Screen (created later)
    * 3: Game Creator Screen (created later)
+   * 4: Game Screen
    */
   public DisplayManager(Stage stage) {
     myProfileManager = new ProfileManager();
@@ -116,18 +116,9 @@ public class DisplayManager {
 
   private void establishCheatCodes() {
     Scene myScene = myStage.getScene();
-    myScene.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent e)-> {
-      try {
-        //TODO: Replace with log
-        Code myCode = CheatCodeManager.CODE_MAP.get(e.getCode());
-        if (myCode != null) {
-          System.out.println(myCode);
-          myEventMap.get(EVENT_NAMES.CHEAT_CODE).execute(CheatCodeManager.CODE_MAP.get(e.getCode()));
-          e.consume();
-        }
-      } catch (Exception exception) {}
-
-    });
+    myScene.addEventFilter(KeyEvent.KEY_PRESSED,
+        (KeyEvent e) -> myEventMap.get(EVENT_NAMES.CHEAT_CODE)
+            .execute(e.getCode()));
   }
 
   private void setPlayerNames() {

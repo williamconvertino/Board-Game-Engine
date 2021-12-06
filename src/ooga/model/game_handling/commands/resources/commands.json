@@ -20,6 +20,13 @@
     "argtype1": "ooga.model.data.player.Player",
     "argtype2":"java.lang.Integer"
   },
+  "loseMoneyToMultiple": {
+    "method": "loseMoney",
+    "sourceclass": "ooga.model.game_handling.FunctionExecutor",
+    "numarg": 2,
+    "argtype1": "java.util.List",
+    "argtype2":"java.lang.Integer"
+  },
   "advanceToTile": {
     "method": "advancePlayerToTile",
     "sourceclass": "ooga.model.game_handling.FunctionExecutor",
@@ -61,7 +68,37 @@
     "numarg": 2,
     "argtype1":"ooga.model.data.player.Player",
     "argtype2": "java.lang.Integer"
-  }
+  },
+  "advanceToPropertyAndPayX": {
+    "method":"advanceToPropertyAndPayX",
+    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceExecutor",
+    "numarg": 3,
+    "argtype1":"ooga.model.data.player.Player",
+    "argtype2": "java.lang.String",
+    "argtype3": "java.lang.Integer"
+  },
+  "advanceToTypeAndPayX": {
+    "method":"advanceToTypeAndPayX",
+    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceExecutor",
+    "numarg": 3,
+    "argtype1":"ooga.model.data.player.Player",
+    "argtype2": "java.lang.String",
+    "argtype3": "java.lang.Integer"
+  },
+  "advanceToType": {
+    "method":"advanceToType",
+    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceExecutor",
+    "numarg": 2,
+    "argtype1":"ooga.model.data.player.Player",
+    "argtype2": "java.lang.String"
 
+  },
+  "goToJail": {
+    "method": "goToJail",
+    "sourceclass": "ooga.model.game_handling.FunctionExecutor",
+    "numarg": 1,
+    "argtype1": "ooga.model.data.player.Player"
+
+  }
 
 }

@@ -116,7 +116,7 @@ public class EnterPlayersScreen extends Display {
 
   private Node makeColorSelection() {
     myColorSelectionVBox = new VBox();
-    for (int i = 1; i < 5; i++) {
+    for (int i = 0; i < 4; i++) {
       myColorSelectionVBox.getChildren()
           .add(myBuilder.makeLabel(String.format("%s", SELECT_COLORLABEL)));
       ComboBox colorSelectorBox = new ComboBox();
@@ -125,7 +125,8 @@ public class EnterPlayersScreen extends Display {
               "BLACK", "RED", "GREEN", "BLUE", "YELLOW", "VIOLET"
           );
       colorSelectorBox.setItems(options);
-      colorSelectorBox.setId(String.format("%s%d", myLangResource.getString(SELECT_COLOR), i));
+      colorSelectorBox.setId(String.format("%s%d", myLangResource.getString(SELECT_COLOR), i+1));
+      colorSelectorBox.getSelectionModel().select(i);
       myColorSelectionVBox.getChildren().add(colorSelectorBox);
     }
     return myColorSelectionVBox;
@@ -169,13 +170,11 @@ public class EnterPlayersScreen extends Display {
    */
   //FIXME: error with getting player colors
   public List<Node> getPlayerColors() {
+    int i = 0;
     List<Node> colorsComboBoxes = new ArrayList<>();
     for (Node nodeCheck : myColorSelectionVBox.getChildren()) {
       if (nodeCheck.getId() != null && nodeCheck.getId().contains(SELECT_COLOR)) {
         colorsComboBoxes.add(nodeCheck);
-      }
-      else {
-        //System.out.println("error getting color? see getPlayerColors()");
       }
     }
     return colorsComboBoxes;

@@ -36,7 +36,7 @@ public class BoardParserTest extends ParserTest {
     }};
 
 
-    List<TileModel> tiles = boardParser.parseBoard("data/original/board/original.board",tileModelMap);
+    List<TileModel> tiles = boardParser.parseBoard("data/variations/original/board/original.board",tileModelMap);
     assertEquals(40,tiles.size());
     assertEquals("Go",tiles.get(0).getName());
     assertEquals("Boardwalk",tiles.get(39).getName());
