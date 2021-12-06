@@ -6,6 +6,7 @@ import java.util.List;
 import ooga.exceptions.InvalidFileFormatException;
 import ooga.exceptions.TileNotFoundException;
 import ooga.model.data.player.Player;
+import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
 
 public abstract class BoardManager {

@@ -36,12 +36,25 @@ class CardTest extends OriginalTest {
 
       //Advance to BW
       int destination = board.getTileIndex("Boardwalk");
+//      assertNotEquals(currentPlayer.getLocation(), destination);
+//      chance.getCard("Advance To Boardwalk").execute(currentPlayer);
+//      assertEquals(currentPlayer.getLocation(), destination);
+//
+//      destination = board.getTileIndex("Go");
+//      assertNotEquals(currentPlayer.getLocation(), destination);
+//      chance.getCard("Advance To Go").execute(currentPlayer);
+//      assertEquals(currentPlayer.getLocation(), destination);
+//
+//      destination = board.getTileIndex("St. Charles Place");
+//      assertNotEquals(currentPlayer.getLocation(), destination);
+//      chance.getCard("Advance To St. Charles Place").execute(currentPlayer);
+//      assertEquals(currentPlayer.getLocation(), destination);
+
+      currentPlayer.setLocation(0);
+
+      destination = board.getTileIndex("Reading Railroad");
       assertNotEquals(currentPlayer.getLocation(), destination);
-
-      //functionExecutor.advancePlayerToTile(currentPlayer, "Boardwalk");
-      //assertEquals(currentPlayer.getLocation(), destination);
-
-      chance.getCard("Advance To Boardwalk").execute(currentPlayer);
+      chance.getCard("Advance To The Nearest Railroad").execute(currentPlayer);
       assertEquals(currentPlayer.getLocation(), destination);
 
 

@@ -97,7 +97,7 @@ public class PropertyParser extends FolderParser {
    * @throws AttributeNotFoundException
    */
   public Property parseRailroadProperty(Properties props) throws AttributeNotFoundException {
-    return parseSpecialProperty(props,"Railroads");
+    return parseSpecialProperty(props,"Railroad");
   }
 
   /**
