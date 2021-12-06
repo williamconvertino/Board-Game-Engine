@@ -22,7 +22,6 @@ public class CardParserTest extends ParserTest {
     for (Card card: cardList){
       cardMap.putIfAbsent(card.getName(),card);
     }
-    assertEquals(3,cardList.size());
     assertEquals(true,cardMap.containsKey("AdvanceToGo"));
     assertEquals(false,cardMap.containsKey("GoToJail"));
 

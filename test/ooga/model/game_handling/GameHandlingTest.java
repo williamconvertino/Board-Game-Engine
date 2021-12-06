@@ -95,7 +95,7 @@ public class GameHandlingTest {
     t3 = new EmptyTileModel("t3");
     t4 = new EmptyTileModel("t4");
     prop1 = new Property("Property 1", "Regular",100, new int[]{5,20,40},10, new ArrayList<>(), 60, "blue" );
-    t5 = new PropertyTileModel("prop1", prop1, new ActionSequence(myActionSequenceParser, myDisplayComm), myDisplayComm);
+    t5 = new PropertyTileModel("prop1","Property", prop1, new ActionSequence(myActionSequenceParser, myDisplayComm), myDisplayComm);
     t6 = new EmptyTileModel("t6");
     t7 = new EmptyTileModel("t7");
     t8 = new EmptyTileModel("t8");
