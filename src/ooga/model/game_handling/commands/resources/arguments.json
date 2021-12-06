@@ -39,7 +39,8 @@
     "numarg": 2,
     "argtype2":"ooga.model.data.player.Player",
     "argtype1": "java.lang.Integer"
-  }
+  },
+
 
 
 

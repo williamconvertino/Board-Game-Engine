@@ -86,6 +86,45 @@ public abstract class BoardManager {
   }
 
   /**
+   * Returns the tile with the specified name that is closest to the
+   * specified location.
+   *
+   * @param location the location to use as reference.
+   * @param tileName the name of the desired tile.
+   * @return the tile with the specified name that is closest to the specified location.
+   * @throws TileNotFoundException if the tile cannot be found.
+   */
+  public TileModel findNextClosestTile(int location, String tileName) throws TileNotFoundException {
+    Player simPlayer = new Player("");
+    simPlayer.setLocation(location);
+    return findNextClosestTile(simPlayer, tileName);
+  }
+
+  /**
+   * Returns the first tile found with the given name.
+   *
+   * @param tileName the name of the desired tile.
+   * @return the first tile found with the given name.
+   * @throws TileNotFoundException if the tile cannot be found.
+   */
+  public TileModel getTile(String tileName) throws TileNotFoundException {
+    return findNextClosestTile(0, tileName);
+  }
+
+  /**
+   * Returns the index of the first tile found with the given name.
+   *
+   * @param tileName the name of the desired tile.
+   * @return the index of the first tile found with the given name.
+   * @throws TileNotFoundException if the tile cannot be found.
+   */
+  public int getTileIndex(String tileName) throws TileNotFoundException {
+    Player playerSim = new Player("");
+    playerSim.setLocation(0);
+    return findNextClosestTileIndex(playerSim, tileName);
+  }
+
+  /**
    * Returns a list of all the tiles with the specified type.
    *
    * @param type the type of tile to return.
@@ -149,5 +188,6 @@ public abstract class BoardManager {
     sortedTiles.removeIf(e->!e.getName().equals(tileName));
     return (sortedTiles.size() != 0);
   }
+
 
 }

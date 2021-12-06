@@ -1,20 +1,5 @@
 ## API Changes
 
-**Template for API changes document (***DELETE BEFORE TURNING IN***):**
-
-```java
-    @Deprecated
-    public void winGame() {
-      this.winGame();
-    }
-    
-    public void winGame() {
-      this.loseGame();
-    }
-```
-
-This has to be changed because winGame should actually lose the game instead for some reason.
-
 **Update Property Pop-Up information on gameboard.**
 
 ```java
@@ -121,3 +106,82 @@ The display manager holds the boolean of whether or not a player is logged in an
 ```
 
 The display manager stores the Profile Manager and the start menu buttons will need to use the Profile Manager
+
+
+**Added getTile, getTileIndex, getAllTilesOfType, and getClosestTileOfType to BoardManager**
+
+```java
+
+/**
+ * Returns the first tile found with the given name.
+ *
+ * @param tileName the name of the desired tile.
+ * @return the first tile found with the given name.
+ * @throws TileNotFoundException if the tile cannot be found.
+ */
+public TileModel getTile(String tileName) throws TileNotFoundException {
+    return findNextClosestTile(0, tileName);
+    }
+
+/**
+ * Returns the index of the first tile found with the given name.
+ *
+ * @param tileName the name of the desired tile.
+ * @return the index of the first tile found with the given name.
+ * @throws TileNotFoundException if the tile cannot be found.
+ */
+public int getTileIndex(String tileName) throws TileNotFoundException {
+    Player playerSim = new Player("");
+    playerSim.setLocation(0);
+    return findNextClosestTileIndex(playerSim, tileName);
+    }
+
+/**
+ * Returns a list of all the tiles with the specified type.
+ *
+ * @param type the type of tile to return.
+ * @return a list of all the tiles with the specified type.
+ */
+public List<TileModel> getAllTilesOfType(String type) {
+    List<TileModel> tiles = new ArrayList<>(getTiles());
+    tiles.removeIf(e->!e.getMyType().equals(type));
+    return tiles;
+    }
+
+/**
+ * Returns the closest tile to the given player of the given type.
+ *
+ * @param player the player to use for reference.
+ * @param type the type of tile to search for.
+ * @return the closest tile to the given player of the given type.
+ * @throws InvalidFileFormatException if the tile type cannot be found.
+ */
+public TileModel getClosestTileOfType(Player player, String type)
+    throws InvalidFileFormatException {
+    List<TileModel> possibleTiles = getAllTilesOfType(type);
+    TileModel desiredTile = possibleTiles.stream().reduce( (a,b) ->
+    {
+    try {
+    return
+    getDistance(player.getLocation(), findNextClosestTileIndex(player, a.getName()))
+< getDistance(player.getLocation(), findNextClosestTileIndex(player, b.getName()))
+    ? a : b;
+
+    } catch (TileNotFoundException e) {
+    return null;
+    }
+    }
+    ).get();
+
+    if (desiredTile == null) {
+    throw new InvalidFileFormatException();
+    }
+    return desiredTile;
+    }
+
+
+```
+
+These methods are all utility functions for the BoardManager to help retrieve data in different ways.
+I implemented them mostly for their use in testing, but they could also have useful applications in the actual code.
+
