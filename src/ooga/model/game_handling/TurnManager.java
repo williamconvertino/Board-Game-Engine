@@ -41,9 +41,6 @@ public class TurnManager {
     //The tile that the player has selected.
     private TileModel selectedTile;
 
-    //The maximum number of rolls that a player can roll this turn.
-    private int maxRolls;
-
     //The class that executes the functions.
     private FunctionExecutor functionExecutor;
 
@@ -60,7 +57,6 @@ public class TurnManager {
         this.gameData = gameData;
         this.functionExecutor = functionExecutor;
         this.displayComm = displayComm;
-        this.maxRolls = 1;
         this.cheatCodeManager = new CheatCodeManager(this, functionExecutor, gameData);
     }
 
@@ -99,7 +95,7 @@ public class TurnManager {
     public void roll() {
 
         //Check to see if the player has already rolled the max # of times, if so throw an error.
-        if (gameData.getNumRolls() >= maxRolls) {
+        if (gameData.getNumRolls() >= gameData.getMaxRolls()) {
             displayComm.showException(new MaxRollsReachedException());
             return;
         }
@@ -125,7 +121,7 @@ public class TurnManager {
             if (gameData.getCurrentPlayer().isInJail()) {
                 gameData.getCurrentPlayer().setJailStatus(false);
             } else {
-                maxRolls++;
+                gameData.incrementMaxRolls();
                 displayComm.signalState(READY_TO_ROLL);
             }
         }
