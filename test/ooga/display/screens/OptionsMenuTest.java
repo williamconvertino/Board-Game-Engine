@@ -19,7 +19,7 @@ import ooga.model.die.OriginalDice;
 import ooga.model.game_handling.FunctionExecutor;
 import ooga.model.game_handling.board_manager.BoardManager;
 import ooga.model.game_handling.board_manager.OriginalBoardManager;
-import ooga.model.game_handling.turn_manager.TurnManager;
+import ooga.model.game_handling.TurnManager;
 import org.junit.jupiter.api.Test;
 import ooga.util.DukeApplicationTest;
 

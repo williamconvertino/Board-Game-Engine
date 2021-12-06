@@ -2,12 +2,9 @@ package ooga.display.communication;
 
 import java.util.HashMap;
 import java.util.Map;
-import javafx.event.EventHandler;
-import ooga.model.data.properties.Property;
+import javafx.scene.input.KeyCode;
 import ooga.model.data.tilemodels.TileModel;
-import ooga.model.game_handling.turn_manager.CheatCodeManager;
-import ooga.model.game_handling.turn_manager.CheatCodeManager.Code;
-import ooga.model.game_handling.turn_manager.TurnManager;
+import ooga.model.game_handling.TurnManager;
 import static ooga.display.communication.EventManager.EVENT_NAMES.*;
 /**
  * This class creates the buttons for the game and send them to the DisplayManager

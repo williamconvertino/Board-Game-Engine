@@ -1,6 +1,8 @@
 package ooga.model.game_handling;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import ooga.display.communication.DisplayComm;
 import ooga.exceptions.TileNotFoundException;
@@ -40,11 +42,11 @@ public class FunctionExecutor {
      * Initializes the function executor with the specified gamedata, die, and display communication
      * module.
      *
-     * @param gamedata the gamedata to act on.
-     * @param die the die to use.
+     * @param gamedata    the gamedata to act on.
+     * @param die         the die to use.
      * @param displayComm the display communication module for the current game.
      */
-    public void initializeWithGameValues(GameData gamedata, Die die, DisplayComm displayComm){
+    public void initializeWithGameValues(GameData gamedata, Die die, DisplayComm displayComm) {
         this.gamedata = gamedata;
         this.myDie = die;
         this.displayComm = displayComm;
@@ -53,7 +55,7 @@ public class FunctionExecutor {
     /**
      * Moves the player to the specified location.
      *
-     * @param player the player to move.
+     * @param player   the player to move.
      * @param location the location at which the player should be moved.
      */
     public void movePlayerToIndex(Player player, Integer location) {
@@ -63,7 +65,7 @@ public class FunctionExecutor {
     /**
      * Moves the specified player to the next tile with the given name.
      *
-     * @param player the player to move.
+     * @param player   the player to move.
      * @param tileName the name of the tile to which the player should be moved.
      * @throws TileNotFoundException if the tile with the given name cannot be found.
      */
@@ -77,10 +79,10 @@ public class FunctionExecutor {
     }
 
     /**
-     * Advances the player to the nearest tile with the specified name. This executes any
-     * pass-through commands of tiles that it advances through.
+     * Advances the player to the nearest tile with the specified name. This executes any pass-through
+     * commands of tiles that it advances through.
      *
-     * @param player the player to move.
+     * @param player   the player to move.
      * @param tileName the name of the tile to which the player should be moved.
      * @throws TileNotFoundException if the tile with the given name cannot be found.
      */
@@ -91,6 +93,37 @@ public class FunctionExecutor {
             displayComm.showException(e);
             throw e;
         }
+    }
+
+    /**
+     * Advances the specified player to the nearest tile with a name matching any of
+     * the specified names. This executes any pass-through commands of tiles that it advances through.
+     *
+     * @param player the player to advance.
+     * @param tileNames an array of the names of tiles that are acceptable.
+     */
+    public void advancePlayerToTile(Player player, String[] tileNames)
+        throws TileNotFoundException {
+
+        String closestTileName = Arrays.stream(tileNames).reduce(
+                (a, b) ->
+                {
+                    try {
+                        return gamedata.getBoard().findNextClosestTileIndex(player, a)
+                            > gamedata.getBoard().findNextClosestTileIndex(player, b) ? a : b;
+                    } catch (TileNotFoundException e) {
+
+                    }
+                    return null;
+                }
+            )
+            .get();
+
+        if (closestTileName == null) {
+            throw new TileNotFoundException("");
+        }
+        advancePlayerToTile(player, closestTileName);
+
     }
 
     /**

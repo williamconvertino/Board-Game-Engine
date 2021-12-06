@@ -61,7 +61,22 @@
     "numarg": 2,
     "argtype1":"ooga.model.data.player.Player",
     "argtype2": "java.lang.Integer"
+  },
+  "advanceAndPayX": {
+    "method":"advanceAndPayX",
+    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceExecutor",
+    "numarg": 3,
+    "argtype1":"ooga.model.data.player.Player",
+    "argtype2": "java.lang.String",
+    "argtype3": "java.lang.Integer"
+  },
+  "advanceToTypeAndPayX": {
+    "method":"advanceToTypeAndPayX",
+    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceExecutor",
+    "numarg": 3,
+    "argtype1":"ooga.model.data.player.Player",
+    "argtype2": "java.lang.String",
+    "argtype3": "java.lang.Integer"
   }
-
 
 }
