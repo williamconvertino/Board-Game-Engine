@@ -121,7 +121,7 @@ public class GameBoardDisplay extends Display {
   public void buyProp() {
     myEventMap.get(EVENT_NAMES.BUY_PROPERTY).execute(myGameData.getBoard().getTileAtIndex(myGameData.getCurrentPlayer().getLocation()));
     theBoard.updatePropertyPopups();
-    updateLeftInfo(); // FIXME: This is breaking causing next lines to not execute
+    updateLeftInfo();
   }
 
   /**

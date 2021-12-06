@@ -192,7 +192,7 @@ public class GameBoard {
     allPropInfoPopups.add(myPropPopup);
     stackPane.setOnMouseClicked(e -> {
       eventMap.get(SELECT_TILE).execute(gameData.getBoard().getTileAtIndex(tileIndex));
-      myPropPopup.showPopup(myDisplayManager.getMyStage());
+      allPropInfoPopups.get(tileIndex).showPopup(myDisplayManager.getMyStage());
     });
     stackPane.getChildren().addAll(rect, propName);
     tileStackPaneIndexMap.put(tileIndex, stackPane);
