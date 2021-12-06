@@ -244,7 +244,7 @@ public class ActionSequenceExecutor {
     functionExecutor.loseMoney(player, player.getNumHotels() * amountPerHotel);
   }
 
-  public void advanceAndPayX(Player player, String propertyName, Integer amount)
+  public void advanceToPropertyAndPayX(Player player, String propertyName, Integer amount)
       throws TileNotFoundException {
     functionExecutor.movePlayerToTile(player, propertyName);
     TileModel currentTile = gameData.getBoard().getTileAtIndex(player.getLocation());
@@ -259,8 +259,16 @@ public class ActionSequenceExecutor {
     }
   }
 
-  public void advanceToTypeAndPayX(Player player, String type, Integer amount) {
-    //advanceAndPayX(player, , amount);
+  public void advanceToTypeAndPayX(Player player, String type, Integer amount)
+      throws InvalidFileFormatException, TileNotFoundException {
+    TileModel myTile = gameData.getBoard().getClosestTileOfType(player, type);
+    advanceToPropertyAndPayX(player, myTile.getName(), amount);
+  }
+
+  public void advanceToType(Player player, String type)
+      throws TileNotFoundException, InvalidFileFormatException {
+    TileModel myTile = gameData.getBoard().getClosestTileOfType(player, type);
+    functionExecutor.advancePlayerToTile(player, myTile.getName());
   }
 
 

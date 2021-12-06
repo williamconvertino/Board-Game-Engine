@@ -3,6 +3,7 @@ package ooga.model.game_handling.board_manager;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import ooga.exceptions.InvalidFileFormatException;
 import ooga.exceptions.TileNotFoundException;
 import ooga.model.data.player.Player;
 import ooga.model.data.tilemodels.TileModel;
@@ -82,6 +83,58 @@ public abstract class BoardManager {
   public TileModel findNextClosestTile(Player p, String tileName) throws TileNotFoundException {
     int index = findNextClosestTileIndex(p,tileName);
     return getTileAtIndex(index);
+  }
+
+  /**
+   * Returns a list of all the tiles with the specified type.
+   *
+   * @param type the type of tile to return.
+   * @return a list of all the tiles with the specified type.
+   */
+  public List<TileModel> getAllTilesOfType(String type) {
+    List<TileModel> tiles = new ArrayList<>(getTiles());
+    tiles.removeIf(e->!e.getMyType().equals(type));
+    return tiles;
+  }
+
+  /**
+   * Returns the closest tile to the given player of the given type.
+   *
+   * @param player the player to use for reference.
+   * @param type the type of tile to search for.
+   * @return the closest tile to the given player of the given type.
+   * @throws InvalidFileFormatException if the tile type cannot be found.
+   */
+  public TileModel getClosestTileOfType(Player player, String type)
+      throws InvalidFileFormatException {
+    List<TileModel> possibleTiles = getAllTilesOfType(type);
+    TileModel desiredTile = possibleTiles.stream().reduce( (a,b) ->
+        {
+          try {
+            return
+                getDistance(player.getLocation(), findNextClosestTileIndex(player, a.getName()))
+                < getDistance(player.getLocation(), findNextClosestTileIndex(player, b.getName()))
+                    ? a : b;
+
+          } catch (TileNotFoundException e) {
+            return null;
+          }
+        }
+    ).get();
+
+    if (desiredTile == null) {
+      throw new InvalidFileFormatException();
+    }
+    return desiredTile;
+  }
+
+  //Returns the one-way distance between two locations.
+  private int getDistance(int location1, int location2) {
+    if (location2 >= location1) {
+      return location2 - location1;
+    } else {
+      return location2 + location1;
+    }
   }
 
   /**

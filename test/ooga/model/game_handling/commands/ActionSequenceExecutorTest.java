@@ -133,5 +133,44 @@ public class ActionSequenceExecutorTest extends GameHandlingTest {
 
   }
 
+  @Test
+  public void moveByType() {
+
+    try {
+      Player currentPlayer = myGameData.getCurrentPlayer();
+      List<Player> playerList = new ArrayList<>(myGameData.getPlayers());
+
+      assertNotEquals(currentPlayer.getLocation(), 5);
+      ASE.executeCommand("advanceToType p0 Property");
+      assertEquals(currentPlayer.getLocation(), 5);
+
+      ASE.executeCommand("advanceToType p0 Empty");
+      assertEquals(currentPlayer.getLocation(), 6);
+      ASE.executeCommand("advanceToType p0 Property");
+      assertEquals(currentPlayer.getLocation(), 5);
+
+      currentPlayer.giveProperty(prop1);
+      myTurnManager.endTurn();
+
+      Player newCurrentPlayer = myGameData.getCurrentPlayer();
+      if (currentPlayer == newCurrentPlayer) {
+        return;
+      }
+
+
+      assertEquals(newCurrentPlayer.getBalance(), 1500);
+
+      ASE.executeCommand("advanceToTypeAndPayX p0 Property 2");
+      assertEquals(newCurrentPlayer.getLocation(), 5);
+
+      assertEquals(newCurrentPlayer.getBalance(), 1480);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      assertTrue(false);
+    }
+
+  }
+
 
 }
