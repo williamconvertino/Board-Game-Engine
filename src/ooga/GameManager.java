@@ -54,6 +54,7 @@ public class GameManager {
             myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
             myEventManager = new EventManager(myTurnManager);
         } catch (Exception e) {
+            e.printStackTrace();
             myDisplayComm.showException(e);
         }
     }
