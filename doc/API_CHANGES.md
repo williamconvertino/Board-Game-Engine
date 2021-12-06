@@ -251,3 +251,20 @@ I implemented them mostly for their use in testing, but they could also have use
 These methods allow for additional ways to access the data in the deck.
 I implemented them mostly for testing purposes, but they also have potential applications
 in the program itself.
+
+**Added displayCard method to DisplayCommunicator** 
+
+```java
+
+/**
+   *  Displays the specified card.
+   *
+   * @param card the card to display.
+   */
+  public void displayCard(Card card) {
+    //Todo: replace with display
+    System.out.println(String.format("Card drawn: [%s]", card.getDescription()));
+  }
+```
+
+Our cards previously printed all the values directly. Now they call this method, which handles the card display.
