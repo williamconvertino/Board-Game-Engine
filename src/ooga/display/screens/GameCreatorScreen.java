@@ -3,6 +3,7 @@ package ooga.display.screens;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Locale;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -127,9 +128,9 @@ public class GameCreatorScreen extends Display {
 
     HBox createPropertyButtons = new HBox();
 
-    createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddRegularProperty",e -> createRegularPropertyPopUp()));
-    createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddRailroadProperty",e -> createRailroadPropertyPopUp()));
-    createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddUtilitiesProperty",e -> createUtilitiesPropertyPopUp()));
+    createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddRegularProperty",e -> createPropertyPopUp("Regular")));
+    createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddRailroadProperty",e -> createPropertyPopUp("Railroad")));
+    createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddUtilitiesProperty",e -> createPropertyPopUp("Utilities")));
 
 
     result.getChildren().add(createPropertyButtons);
@@ -151,40 +152,43 @@ public class GameCreatorScreen extends Display {
     System.out.println("Die Set To: " + dieType);
   }
 
-  private void createRegularPropertyPopUp(){
-
-
+  private void createPropertyPopUp(String type){
+    String myType = type.toLowerCase(Locale.ROOT);
     propertyName = (TextField) myBuilder.makeTextField("EnterPropertyName");
     propertyCost = (TextField) myBuilder.makeTextField("EnterCost");
     propertyRentCosts = (TextField) myBuilder.makeTextField("EnterRentCosts");
-    propertyHouseCost = (TextField) myBuilder.makeTextField("EnterHouseCost");
     propertyNeighbors = (TextField) myBuilder.makeTextField("EnterNeighbors");
     propertyMortgage = (TextField) myBuilder.makeTextField("EnterMortgagePrice");
-    propertyColor = (TextField) myBuilder.makeTextField("EnterColor");
 
-    //propBox.setPrefSize(200, 300);
     propBox.getChildren().add(myBuilder.makeLabel("EnterPropertyName"));
     propBox.getChildren().add(propertyName);
     propBox.getChildren().add(myBuilder.makeLabel("EnterCost"));
     propBox.getChildren().add(propertyCost);
     propBox.getChildren().add(myBuilder.makeLabel("EnterRentCosts"));
     propBox.getChildren().add(propertyRentCosts);
-    propBox.getChildren().add(myBuilder.makeLabel("EnterHouseCost"));
-    propBox.getChildren().add(propertyHouseCost);
-    propBox.getChildren().add(myBuilder.makeLabel("EnterNeighbors"));
-    propBox.getChildren().add(propertyNeighbors);
     propBox.getChildren().add(myBuilder.makeLabel("EnterMortgagePrice"));
     propBox.getChildren().add(propertyMortgage);
-    propBox.getChildren().add(myBuilder.makeLabel("EnterColor"));
-    propBox.getChildren().add(propertyColor);
-    propBox.getChildren().add(myBuilder.makeTextButton("SaveProperty",e -> {
-      try {
-        saveRegularProperty();
-      } catch (IOException ex) {
-        ex.printStackTrace();
-      }
-    }));
-    propBox.setId("ProfileVBox");
+
+    switch (myType){
+      case "regular":
+        propertyHouseCost = (TextField) myBuilder.makeTextField("EnterHouseCost");
+        propertyColor = (TextField) myBuilder.makeTextField("EnterColor");
+        propBox.getChildren().add(myBuilder.makeLabel("EnterHouseCost"));
+        propBox.getChildren().add(propertyHouseCost);
+        propBox.getChildren().add(myBuilder.makeLabel("EnterColor"));
+        propBox.getChildren().add(propertyColor);
+        propBox.getChildren().add(myBuilder.makeTextButton("SaveProperty",e -> { try { saveRegularProperty();} catch (IOException ex) {ex.printStackTrace();}}));
+        break;
+
+
+      case "railroad": case "utilities":
+        propertyImage = (TextField) myBuilder.makeTextField("EnterImage");
+        propBox.getChildren().add(myBuilder.makeLabel("EnterImage"));
+        propBox.getChildren().add(propertyImage);
+        propBox.getChildren().add(myBuilder.makeTextButton("SaveProperty",e -> {try {saveSpecialProperty(myType);} catch (IOException ex) {ex.printStackTrace();}}));
+        break;
+    }
+    propBox.setId("propertyVBox");
     PropertyPopUp.getContent().add(propBox);
     PropertyPopUp.show(myStage);
   }
@@ -194,77 +198,6 @@ public class GameCreatorScreen extends Display {
     tileCounter--;
     counter.setText(""+ tileCounter);
   }
-
-  private void createRailroadPropertyPopUp(){
-
-
-    propertyName = (TextField) myBuilder.makeTextField("EnterPropertyName");
-    propertyCost = (TextField) myBuilder.makeTextField("EnterCost");
-    propertyRentCosts = (TextField) myBuilder.makeTextField("EnterRentCosts");
-    propertyNeighbors = (TextField) myBuilder.makeTextField("EnterNeighbors");
-    propertyMortgage = (TextField) myBuilder.makeTextField("EnterMortgagePrice");
-    propertyImage = (TextField) myBuilder.makeTextField("EnterImage");
-
-    //propBox.setPrefSize(200, 300);
-    propBox.getChildren().add(myBuilder.makeLabel("EnterPropertyName"));
-    propBox.getChildren().add(propertyName);
-    propBox.getChildren().add(myBuilder.makeLabel("EnterCost"));
-    propBox.getChildren().add(propertyCost);
-    propBox.getChildren().add(myBuilder.makeLabel("EnterRentCosts"));
-    propBox.getChildren().add(propertyRentCosts);
-    propBox.getChildren().add(myBuilder.makeLabel("EnterNeighbors"));
-    propBox.getChildren().add(propertyNeighbors);
-    propBox.getChildren().add(myBuilder.makeLabel("EnterMortgagePrice"));
-    propBox.getChildren().add(propertyMortgage);
-    propBox.getChildren().add(myBuilder.makeLabel("EnterImage"));
-    propBox.getChildren().add(propertyImage);
-    propBox.getChildren().add(myBuilder.makeTextButton("SaveProperty",e -> {
-      try {
-        saveRailroadProperty();
-      } catch (IOException ex) {
-        ex.printStackTrace();
-      }
-    }));
-    propBox.setId("ProfileVBox");
-    PropertyPopUp.getContent().add(propBox);
-    PropertyPopUp.show(myStage);
-  }
-
-  private void createUtilitiesPropertyPopUp(){
-
-
-    propertyName = (TextField) myBuilder.makeTextField("EnterPropertyName");
-    propertyCost = (TextField) myBuilder.makeTextField("EnterCost");
-    propertyRentCosts = (TextField) myBuilder.makeTextField("EnterRentCosts");
-    propertyNeighbors = (TextField) myBuilder.makeTextField("EnterNeighbors");
-    propertyMortgage = (TextField) myBuilder.makeTextField("EnterMortgagePrice");
-    propertyImage = (TextField) myBuilder.makeTextField("EnterImage");
-
-    //propBox.setPrefSize(200, 300);
-    propBox.getChildren().add(myBuilder.makeLabel("EnterPropertyName"));
-    propBox.getChildren().add(propertyName);
-    propBox.getChildren().add(myBuilder.makeLabel("EnterCost"));
-    propBox.getChildren().add(propertyCost);
-    propBox.getChildren().add(myBuilder.makeLabel("EnterRentCosts"));
-    propBox.getChildren().add(propertyRentCosts);
-    propBox.getChildren().add(myBuilder.makeLabel("EnterNeighbors"));
-    propBox.getChildren().add(propertyNeighbors);
-    propBox.getChildren().add(myBuilder.makeLabel("EnterMortgagePrice"));
-    propBox.getChildren().add(propertyMortgage);
-    propBox.getChildren().add(myBuilder.makeLabel("EnterImage"));
-    propBox.getChildren().add(propertyImage);
-    propBox.getChildren().add(myBuilder.makeTextButton("SaveProperty",e -> {
-      try {
-        saveUtilitiesProperty();
-      } catch (IOException ex) {
-        ex.printStackTrace();
-      }
-    }));
-    propBox.setId("ProfileVBox");
-    PropertyPopUp.getContent().add(propBox);
-    PropertyPopUp.show(myStage);
-  }
-
 
 
   private void showOptions(){
@@ -281,27 +214,21 @@ public class GameCreatorScreen extends Display {
     board.getChildren().add(createBoardSpace(propertyName.getText(),propertyColor.getText()));
   }
 
-  private void saveRailroadProperty() throws IOException {
-    writeRailroadPropertyFile(propertyName.getText(),propertyCost.getText(),propertyRentCosts.getText(), propertyNeighbors.getText(), propertyMortgage.getText(),propertyImage.getText());
+  private void saveSpecialProperty(String type) throws IOException {
+    writeSpecialPropertyFile(propertyName.getText(),type,propertyCost.getText(),propertyRentCosts.getText(), propertyNeighbors.getText(), propertyMortgage.getText(),propertyImage.getText());
     PropertyPopUp.hide();
     propBox = new VBox();
     PropertyPopUp = new Popup();
     tileCounter--;
     counter.setText("" + tileCounter);
-    board.getChildren().add(createBoardSpace(propertyName.getText(),"white"));
+    if(type.equals("railroad")){
+      board.getChildren().add(createBoardSpace(new Image("images/railroad.png")));
+    }
+    else{
+      board.getChildren().add(createBoardSpace(new Image("images/waterworks.png")));
+    }
+
   }
-
-  private void saveUtilitiesProperty() throws IOException {
-    writeRailroadPropertyFile(propertyName.getText(),propertyCost.getText(),propertyRentCosts.getText(), propertyNeighbors.getText(), propertyMortgage.getText(),propertyImage.getText());
-    PropertyPopUp.hide();
-    propBox = new VBox();
-    PropertyPopUp = new Popup();
-    tileCounter--;
-    counter.setText("" + tileCounter);
-    board.getChildren().add(createBoardSpace(propertyName.getText(),"white"));
-  }
-
-
 
   private void writeRegularPropertyFile(String name, String cost, String rentcosts, String housecost, String neighbors, String mortgage, String color)
       throws IOException {
@@ -317,48 +244,22 @@ public class GameCreatorScreen extends Display {
     fw.write("Neighbors=" + neighbors + "\n");
     fw.write("Mortgage=" + mortgage + "\n");
     fw.write("Color=" + color);
-
     fw.close();
-
-    System.out.println("hi!");
     property.createNewFile();
   }
 
-  private void writeRailroadPropertyFile(String name, String cost, String rentcosts, String neighbors, String mortgage, String image)
+  private void writeSpecialPropertyFile(String name, String type, String cost, String rentcosts, String neighbors, String mortgage, String image)
       throws IOException {
     File property = new File("data/variations/" + gameName.getText().replace(" ","_") + "/properties/" + name + ".property");
-
     FileWriter fw = new FileWriter(property);
     fw.write("Name=" + name + "\n");
-    fw.write("Type=" + "Railroad" + "\n");
+    fw.write("Type=" + type + "\n");
     fw.write("Cost=" + cost + "\n");
     fw.write("RentCost=" + rentcosts + "\n");
     fw.write("Neighbors=" + neighbors + "\n");
     fw.write("Mortgage=" + mortgage + "\n");
     fw.write("Image=" + image);
-
     fw.close();
-
-    System.out.println("hi!");
-    property.createNewFile();
-  }
-
-  private void writeUtilitiesPropertyFile(String name, String cost, String rentcosts, String neighbors, String mortgage, String image)
-      throws IOException {
-    File property = new File("data/variations/" + gameName.getText().replace(" ","_") + "/properties/" + name + ".property");
-
-    FileWriter fw = new FileWriter(property);
-    fw.write("Name=" + name + "\n");
-    fw.write("Type=" + "Utilities" + "\n");
-    fw.write("Cost=" + cost + "\n");
-    fw.write("RentCost=" + rentcosts + "\n");
-    fw.write("Neighbors=" + neighbors + "\n");
-    fw.write("Mortgage=" + mortgage + "\n");
-    fw.write("Image=" + image);
-
-    fw.close();
-
-    System.out.println("hi!");
     property.createNewFile();
   }
 
