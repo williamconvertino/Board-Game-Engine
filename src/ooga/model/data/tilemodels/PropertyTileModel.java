@@ -34,18 +34,29 @@ public class PropertyTileModel extends TileModel {
      * @param myName the name of the tile.
      */
     public PropertyTileModel(String myName) {
-        super(myName);
+        super(myName, "Property");
+    }
+
+    /**
+     * Constructs a new tile with the specified name.
+     *
+     * @param myName the name of the tile.
+     * @param type the type of the tile.
+     */
+    public PropertyTileModel(String myName, String type) {
+        super(myName, type);
     }
 
     /**
      * Constructs a new tile with the specified name and property.
      *
      * @param name the name of the tile.
+     * @param type the type of the tile.
      * @param property the property associated with this tile.
      * @param landOnPropertySequence the action sequence to execute when this tile has been landed on.
      */
-    public PropertyTileModel(String name, Property property, ActionSequence landOnPropertySequence, DisplayComm displayComm) {
-        this(name);
+    public PropertyTileModel(String name, String type, Property property, ActionSequence landOnPropertySequence, DisplayComm displayComm) {
+        this(name, type);
         this.myProperty = property;
         this.landOnPropertySequence = landOnPropertySequence;
         this.displayComm = displayComm;

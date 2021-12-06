@@ -20,7 +20,7 @@ public class CardTileModel extends TileModel {
      * @param myName the name of the tile.
      */
     public CardTileModel(String myName) {
-        super(myName);
+        super(myName, "Card");
     }
 
     public CardTileModel(String myName, Deck myDeck) {
