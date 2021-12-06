@@ -74,12 +74,16 @@ public class GameCreatorScreen extends Display {
   private File variationConfigFile;
   private File variationBoardFile;
   private File variationTiles;
+  private File variationChanceCards;
+  private File variationCommunityChestCards;
 
   private Button jailButton;
   private Button goToJailButton;
 
   private HBox createSpecialTileButtons;
 
+  private Path src;
+  private Path des;
 
 
   /**
@@ -143,6 +147,10 @@ public class GameCreatorScreen extends Display {
     variationBoardFile = new File("data/variations/" + gameName.getText() + "/board/" + gameName.getText() +  ".board");
     variationConfigFile = new File("data/variations/" + gameName.getText() + "/config.properties");
     variationTiles = new File("data/variations/" + gameName.getText() + "/board/tiles");
+    variationChanceCards =new File("data/variations/" + gameName.getText() + "/cards/chance");
+    variationCommunityChestCards =new File("data/variations/" + gameName.getText() + "/cards/community_chest");
+    variationCommunityChestCards.mkdirs();
+    variationChanceCards.mkdirs();
     variationTiles.mkdirs();
     variationFolder.mkdirs();
     variationCards.mkdirs();
@@ -151,31 +159,51 @@ public class GameCreatorScreen extends Display {
     variationConfigFile.createNewFile();
     variationBoardFile.createNewFile();
     copyTileFiles();
+    copyConfigFile();
+    copyCardFiles();
 
-    File chanceFile = new File("data/variations/" + gameName.getText() + "/board/tiles/"+ "chance.tile");
-    chanceFile.createNewFile();
-    Path src = Paths.get("data/variations/original/board/tiles/chance.tile");
-    Path des = Paths.get("data/variations/" + gameName.getText() + "/board/tiles/"+ "chance.tile");
-    Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
+
 
   }
 
   private void copyTileFiles() throws IOException {
-    Path src = Paths.get("data/variations/original/board/tiles/chance.tile");
-    Path des = Paths.get("data/variations/" + gameName.getText() + "/board/tiles/"+ "chance.tile");
-    Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
     String tileName;
     File fileFolder = new File("data/variations/original/board/tiles");
     for(File file: fileFolder.listFiles()){
       tileName= file.getPath().substring(37);
       new File("data/variations/" + gameName.getText() + "/board/tiles/"+ tileName).createNewFile();
-      System.out.println(tileName);
       src = Paths.get(file.getPath());
       des = Paths.get("data/variations/" + gameName.getText() + "/board/tiles/"+ tileName);
       Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
     }
   }
 
+  private void copyConfigFile() throws IOException {
+    //data/variations/original/config.properties
+    src = Paths.get("data/variations/original/config.properties");
+    des = Paths.get("data/variations/" + gameName.getText() + "/config.properties");
+    Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
+  }
+
+  private void copyCardFiles() throws IOException {
+    String tileName;
+    File fileFolder = new File("data/variations/original/cards/chance");
+    for(File file: fileFolder.listFiles()){
+      tileName= file.getPath().substring(38);
+      new File("data/variations/"+ gameName.getText() + "/cards/chance/" + tileName).createNewFile();
+      src = Paths.get(file.getPath());
+      des = Paths.get("data/variations/"+ gameName.getText() + "/cards/chance/" + tileName);
+      Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
+    }
+    fileFolder = new File("data/variations/original/cards/community_chest");
+    for(File file: fileFolder.listFiles()){
+      tileName= file.getPath().substring(47);
+      new File("data/variations/"+ gameName.getText() + "/cards/community_chest/" + tileName).createNewFile();
+      src = Paths.get(file.getPath());
+      des = Paths.get("data/variations/"+ gameName.getText() + "/cards/community_chest/" + tileName);
+      Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
+    }
+  }
 
   private void triggerGameCreation() throws IOException {
     makeDirectories();
@@ -272,7 +300,6 @@ public class GameCreatorScreen extends Display {
 
 
   private void setDie(String dieType){
-    System.out.println("Die Set To: " + dieType);
   }
 
   private void createPropertyPopUp(String type){
@@ -289,6 +316,8 @@ public class GameCreatorScreen extends Display {
     propBox.getChildren().add(propertyCost);
     propBox.getChildren().add(myBuilder.makeLabel("EnterRentCosts"));
     propBox.getChildren().add(propertyRentCosts);
+    propBox.getChildren().add(myBuilder.makeLabel("EnterNeighbors"));
+    propBox.getChildren().add(propertyNeighbors);
     propBox.getChildren().add(myBuilder.makeLabel("EnterMortgagePrice"));
     propBox.getChildren().add(propertyMortgage);
 

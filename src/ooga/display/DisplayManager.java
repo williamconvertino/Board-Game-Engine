@@ -98,7 +98,6 @@ public class DisplayManager {
    */
   public void startGame(String variationName) {
     myGame = new GameManager(this, variationName);
-    System.out.println("Variation:"  + variationName);
     myGameData = myGame.getGameData();
     myEventMap = myGame.getEventMap();
     setPlayerNames();

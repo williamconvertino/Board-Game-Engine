@@ -76,8 +76,6 @@ public class UIBuilder {
   }
 
   public Button makeImageButton(String id, EventHandler<ActionEvent> response, String imagePath,int width, int height){
-    System.out.println(imagePath);
-    System.out.println(id);
     ImageView image = new ImageView(new Image(imagePath));
     image.setId(id);
     Button button = new Button();
