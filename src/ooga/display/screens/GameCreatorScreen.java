@@ -288,13 +288,13 @@ public class GameCreatorScreen extends Display {
 
 
   private void createCardTile(String name) throws IOException {
-    board.getChildren().add(createBoardSpace(name, new Image(myGameImages.getString(name))));
+    board.getChildren().add(createSpecialTile(name, new Image(myGameImages.getString(name))));
     tileCounter--;
     counter.setText(""+ tileCounter);
   }
 
   private void createSingleCardTile(String name, Button jail) throws IOException {
-    board.getChildren().add(createBoardSpace(name, new Image(myGameImages.getString(name))));
+    board.getChildren().add(createSpecialTile(name, new Image(myGameImages.getString(name))));
     createSpecialTileButtons.getChildren().remove(jail);
     tileCounter--;
     counter.setText(""+ tileCounter);
@@ -411,7 +411,7 @@ public class GameCreatorScreen extends Display {
   }
 
   private VBox createBoardSpace(String name,String color) throws IOException {
-    writeLineToBoard(myLangResource.getString(name));
+    writeLineToBoard(name);
     VBox stackPane = new VBox();
     stackPane.setId("creatorTile");
     Label tilename = new Label(name);
@@ -432,8 +432,12 @@ public class GameCreatorScreen extends Display {
     return stackPane;
   }
 
+  private VBox createSpecialTile(String name, Image image) throws IOException {
+    return createBoardSpace(myLangResource.getString(name),image);
+  }
+
   private VBox createBoardSpace(String name, Image image) throws IOException {
-    writeLineToBoard(myLangResource.getString(name));
+    writeLineToBoard(name);
     VBox stackPane = new VBox();
     stackPane.setId("creatorTile");
     ImageView view = new ImageView(image);
@@ -453,14 +457,6 @@ public class GameCreatorScreen extends Display {
     stackPane.setTranslateX(colJumper);
     return stackPane;
   }
-
-
-
-
-
-
-
-
 
   private void makeScene() {
     scene = new Scene(startMenu, 800, 600);

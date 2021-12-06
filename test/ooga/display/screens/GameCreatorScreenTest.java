@@ -34,7 +34,8 @@ public class GameCreatorScreenTest extends DukeApplicationTest {
     Button start = lookup("#CreateNewGame").query();
     clickOn(start);
     createFreeParking();
-    //createRegularProperty("Boardwalk","400","20,40,60","150","Park Place","200","blue");
+    createRegularProperty("Boardwalk","400","20,40,60","150","Park Place","200","blue");
+    createRailroadProperty("Reading Railroad","200","50,100,150,200","B&O Railroad","100","null");
     TimeUnit.SECONDS.sleep(4);
     //assertEquals(2, dm.getCurrDisplayIndex());
   }
@@ -63,6 +64,24 @@ public class GameCreatorScreenTest extends DukeApplicationTest {
     writeInputTo(player1Name, color);
     creator = lookup("#SaveProperty").query();
     clickOn(creator);
+  }
 
+  public void createRailroadProperty(String name, String cost, String rentcosts, String neighbors,String mortgage, String image){
+    Button creator = lookup("#AddRailroadProperty").query();
+    clickOn(creator);
+    TextField player1Name = lookup("#EnterPropertyName").query();
+    writeInputTo(player1Name, name);
+    player1Name = lookup("#EnterCost").query();
+    writeInputTo(player1Name, cost);
+    player1Name = lookup("#EnterRentCosts").query();
+    writeInputTo(player1Name, rentcosts);
+    player1Name = lookup("#EnterNeighbors").query();
+    writeInputTo(player1Name, neighbors);
+    player1Name = lookup("#EnterMortgagePrice").query();
+    writeInputTo(player1Name, mortgage);
+    player1Name = lookup("#EnterImage").query();
+    writeInputTo(player1Name, image);
+    creator = lookup("#SaveProperty").query();
+    clickOn(creator);
   }
 }
