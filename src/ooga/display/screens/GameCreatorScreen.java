@@ -68,6 +68,7 @@ public class GameCreatorScreen extends Display {
   private File variationProperties;
   private File variationPlayers;
   private File variationConfigFile;
+  private File variationBoardFile;
 
   private Button jailButton;
   private Button goToJailButton;
@@ -123,16 +124,18 @@ public class GameCreatorScreen extends Display {
   private void makeDirectories() throws IOException {
     variationFolder = new File("data/variations/" + gameName.getText().replace(" ","_"));
     variationBoard = new File("data/variations/" + gameName.getText() + "/board");
+    variationBoard.mkdirs();
     variationCards = new File("data/variations/" + gameName.getText() + "/cards");
     variationProperties = new File("data/variations/" + gameName.getText() + "/properties");
     variationPlayers = new File("data/variations/" + gameName.getText() + "/players");
+    variationBoardFile = new File("data/variations/" + gameName.getText() + "/board/" + gameName.getText() +  ".board");
     variationConfigFile = new File("data/variations/" + gameName.getText() + "/config.properties");
     variationFolder.mkdirs();
-    variationBoard.mkdirs();
     variationCards.mkdirs();
     variationProperties.mkdirs();
     variationPlayers.mkdirs();
     variationConfigFile.createNewFile();
+    variationBoardFile.createNewFile();
   }
 
 
@@ -155,15 +158,10 @@ public class GameCreatorScreen extends Display {
 
     createSpecialTileButtons = new HBox();
 
-    jailButton = myBuilder.makeImageButton("Jail",e -> createSingleCardTile("jail", jailButton), myGameImages.getString("jail"),50,50);
-    createSpecialTileButtons.getChildren().add(jailButton);
+    createTileButtons();
 
-    goToJailButton = myBuilder.makeImageButton("GoToJail",e -> createSingleCardTile("gotojail", goToJailButton), myGameImages.getString("gotojail"),50,50);
-    createSpecialTileButtons.getChildren().add(goToJailButton);
 
-    createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("Chance",e -> createCardTile("chance"), myGameImages.getString("chance"),50,50));
-    createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("CommunityChest",e -> createCardTile("chest"), myGameImages.getString("chest"),50,50));
-    createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("FreeParking",e -> createCardTile("freeparking"), myGameImages.getString("freeparking"),50,50));
+
 
 
     result.getChildren().add(createSpecialTileButtons);
@@ -183,18 +181,52 @@ public class GameCreatorScreen extends Display {
 
    result.getChildren().add(board);
 
-    board.getChildren().add(createBoardSpace(new Image(myGameImages.getString("go"))));
+    board.getChildren().add(createBoardSpace("Go",new Image(myGameImages.getString("go"))));
+  }
+
+  private void createTileButtons() throws IOException{
+
+      jailButton = myBuilder.makeImageButton("Jail",e -> tryCreateSingleCardTile("jail", jailButton), myGameImages.getString("jail"),50,50);
+      createSpecialTileButtons.getChildren().add(jailButton);
+
+      goToJailButton = myBuilder.makeImageButton("GoToJail",e -> tryCreateSingleCardTile("gotojail", goToJailButton), myGameImages.getString("gotojail"),50,50);
+      createSpecialTileButtons.getChildren().add(goToJailButton);
+
+      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("Chance",e -> tryCreateCardTile("chance"), myGameImages.getString("chance"),50,50));
+      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("CommunityChest",e -> tryCreateCardTile("chest"), myGameImages.getString("chest"),50,50));
+      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("FreeParking",e -> tryCreateCardTile("freeparking"), myGameImages.getString("freeparking"),50,50));
+
+
+
+  }
+
+  private void tryCreateSingleCardTile(String name, Button button){
+    try{
+      createSingleCardTile(name,button);
+    }
+    catch(Exception e){
+      e.printStackTrace();
+    }
+  }
+
+  private void tryCreateCardTile(String name){
+    try{
+      createCardTile(name);
+    }
+    catch (Exception e){
+      e.printStackTrace();
+    }
   }
 
 
-  private void createCardTile(String name){
-    board.getChildren().add(createBoardSpace(new Image(myGameImages.getString(name))));
+  private void createCardTile(String name) throws IOException {
+    board.getChildren().add(createBoardSpace(name, new Image(myGameImages.getString(name))));
     tileCounter--;
     counter.setText(""+ tileCounter);
   }
 
-  private void createSingleCardTile(String name, Button jail){
-    board.getChildren().add(createBoardSpace(new Image(myGameImages.getString(name))));
+  private void createSingleCardTile(String name, Button jail) throws IOException {
+    board.getChildren().add(createBoardSpace(name, new Image(myGameImages.getString(name))));
     createSpecialTileButtons.getChildren().remove(jail);
     tileCounter--;
     counter.setText(""+ tileCounter);
@@ -256,7 +288,7 @@ public class GameCreatorScreen extends Display {
 
       case "utilities": case "railroad":
         writeSpecialPropertyFile(propertyName.getText(),type,propertyCost.getText(),propertyRentCosts.getText(), propertyNeighbors.getText(), propertyMortgage.getText(),propertyImage.getText());
-        board.getChildren().add(createBoardSpace(new Image(myGameImages.getString(type))));
+        board.getChildren().add(createBoardSpace(propertyName.getText(),new Image(myGameImages.getString(type))));
         break;
     }
     PropertyPopUp.hide();
@@ -265,6 +297,15 @@ public class GameCreatorScreen extends Display {
     tileCounter--;
     counter.setText("" + tileCounter);
   }
+
+
+  private void writeLineToBoard(String tileName) throws IOException {
+    FileWriter fw = new FileWriter(variationBoardFile,true);
+    fw.write(tileName+ "\n");
+    fw.close();
+  }
+
+
 
 
   private void writeRegularPropertyFile(String name, String cost, String rentcosts, String housecost, String neighbors, String mortgage, String color)
@@ -300,7 +341,8 @@ public class GameCreatorScreen extends Display {
     property.createNewFile();
   }
 
-  private VBox createBoardSpace(String name,String color){
+  private VBox createBoardSpace(String name,String color) throws IOException {
+    writeLineToBoard(name);
     VBox stackPane = new VBox();
     stackPane.setId("creatorTile");
     Label tilename = new Label(name);
@@ -321,7 +363,8 @@ public class GameCreatorScreen extends Display {
     return stackPane;
   }
 
-  private VBox createBoardSpace(Image image){
+  private VBox createBoardSpace(String name, Image image) throws IOException {
+    writeLineToBoard(name);
     VBox stackPane = new VBox();
     stackPane.setId("creatorTile");
     ImageView view = new ImageView(image);
