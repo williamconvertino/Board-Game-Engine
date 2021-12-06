@@ -45,7 +45,7 @@ public class EnterPlayersScreen extends Display {
       Display.class.getPackageName() + ".resources.";
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
   private static final String DEFAULT_STYLE = STYLE_PACKAGE + "original.css";
-  private static final String VARIATION_IMAGES = DEFAULT_RESOURCE_PACKAGE + "variation_image_paths";
+  private static final String VARIATION_IMAGES = DEFAULT_RESOURCE_PACKAGE + "stock_variation_images";
   private static final String DEFAULT_DATA_PACKAGE = "data/";
   private static final String VARIATION_FOLDER_NAME = "variations/";
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
@@ -59,6 +59,7 @@ public class EnterPlayersScreen extends Display {
   private Scene scene;
   private String myStyle = DEFAULT_STYLE;
   private String variationName;
+
 
   /**
    * Default constructor for the Player Customization Screen
