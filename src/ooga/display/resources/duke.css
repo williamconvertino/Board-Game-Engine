@@ -17,6 +17,12 @@
     -fx-padding: 10px;
 }
 
+#ProfileVBox {
+    -fx-border-color: #000000;
+    -fx-border-width: 3px;
+    -fx-padding: 10px;
+}
+
 #propdisptilename {
     -fx-font-size: 80%;
     -fx-padding: 2px;

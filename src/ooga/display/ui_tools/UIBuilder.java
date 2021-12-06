@@ -55,6 +55,7 @@ public class UIBuilder {
     return holder;
   }
 
+
   /**
    * creates a button with proper label and OnAction values
    *
@@ -142,6 +143,16 @@ public class UIBuilder {
   }
 
   /**
+   * Creates label using name
+   *
+   * @param name name for label
+   * @return appropriate label using name
+   */
+  public Node makeLabelNoID(String name) {
+    return new Label(name);
+  }
+
+  /**
    * Creates label using id
    *
    * @param id name for label
@@ -149,6 +160,18 @@ public class UIBuilder {
    */
   public Node makeSmallLabel(String id) {
     Label smallLabel = new Label(langResource.getString(id));
+    smallLabel.getStyleClass().add("small-label");
+    return smallLabel;
+  }
+
+  /**
+   * Creates label with String
+   *
+   * @param string for the label
+   * @return appropriate label using id
+   */
+  public Node makeSmallLabelNoID(String string) {
+    Label smallLabel = new Label(string);
     smallLabel.getStyleClass().add("small-label");
     return smallLabel;
   }

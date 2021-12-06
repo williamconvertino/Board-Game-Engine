@@ -1,18 +1,26 @@
 package ooga.display.screens.player_profile;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLOutput;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import ooga.display.Display;
+import ooga.display.DisplayManager;
 import ooga.display.popup.ExceptionPopUp;
 import ooga.display.ui_tools.UIBuilder;
+import ooga.exceptions.PlayerProfileException;
+import ooga.util.ProfileManager;
 
 /**
  * This class is the sign up screen
@@ -25,6 +33,8 @@ public class SignupProfile implements Profile {
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
 
+  private DisplayManager myDisplayManager;
+  private ProfileManager myProfileManager;
   private Stage myStage;
   private Popup myPopup;
   private UIBuilder myUIBuilder;
@@ -36,6 +46,7 @@ public class SignupProfile implements Profile {
 
   private final String AVATAR_DIR_PATH = "data/profiles/avatar-img/";
   private final File AVATAR_DIR = new File(AVATAR_DIR_PATH);
+  private final String PROFILES_DIR = "data/profiles/playerProfiles.csv";
 
   /**
    * Instantiates a new Signup profile.
@@ -44,7 +55,9 @@ public class SignupProfile implements Profile {
    * @param uiBuilder      the ui builder
    * @param resourceBundle the resource bundle
    */
-  public SignupProfile(Stage stage, UIBuilder uiBuilder, ResourceBundle resourceBundle) {
+  public SignupProfile(Stage stage, UIBuilder uiBuilder, ResourceBundle resourceBundle, DisplayManager dm, ProfileManager pm) {
+    myProfileManager = pm;
+    myDisplayManager = dm;
     myStage = stage;
     myUIBuilder = uiBuilder;
     myResource = resourceBundle;
@@ -52,6 +65,7 @@ public class SignupProfile implements Profile {
   }
 
   /**
+   * The method to get the popup component
    * @return
    */
   @Override
@@ -60,10 +74,9 @@ public class SignupProfile implements Profile {
   }
 
   /**
-   *
+   * triggers actons after the signup button is pressed
    */
-  @Override
-  public void buttonPressed() {
+  private void buttonPressed() {
     // TODO: Send information from textfields and file chooser to Jordan's backend
     String name = myName.getText();
     String username = myUsername.getText();
@@ -75,11 +88,11 @@ public class SignupProfile implements Profile {
 
     ExceptionPopUp error;
 
-    if (username.equals(myResource.getString("UsernameTextFieldID")) || username.isBlank()) {
+    if (username.equals(myResource.getString("UsernameTextFieldID")) || username.isBlank() || username.contains(" ")) {
       errorLabel = "Invalid Fields";
       errorContent = String.format("%s\n%s", errorContent, myResource.getString("PleaseEnterNewUsername"));
     }
-    if (password.equals(myResource.getString("PasswordTextFieldID")) || password.isBlank()) {
+    if (password.equals(myResource.getString("PasswordTextFieldID")) || password.isBlank() || password.contains(" ")) {
       errorLabel = "Invalid Fields";
       errorContent = String.format("%s\n%s", errorContent, myResource.getString("PleaseEnterNewPassword"));
     }
@@ -94,12 +107,26 @@ public class SignupProfile implements Profile {
     if (!errorLabel.isBlank()) error = new ExceptionPopUp(errorLabel, errorContent, myResource);
     else {
       // TODO: Send info to Jordan's methods
-
+      try {
+        String allProfiles[] = {username, password, avatar, name};
+        myProfileManager.createNewPlayerProfile(allProfiles, PROFILES_DIR);
+      }
+      catch (IOException e) {
+        ExceptionPopUp NoFile = new ExceptionPopUp("Player Data Storage Not Found", "Please check data/profiles/playerProfiles.csv", myResource);
+        return;
+      }
+      catch (PlayerProfileException e) {
+        ExceptionPopUp PlayerProfilesNotFound = new ExceptionPopUp("Cannot Find Player", "Please Signup", myResource);
+        return;
+      }
       // Then:
       closePopup();
     }
   }
 
+  /**
+   * Makes the pop up scene and populates it with node components
+   */
   private void makeScene() {
     VBox playerMenu = new VBox();
     playerMenu.setPrefSize(400, 400);
@@ -121,12 +148,21 @@ public class SignupProfile implements Profile {
     playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("ChooseAvatarLabel"));
     FileChooser fileChooser = new FileChooser();
     fileChooser.setInitialDirectory(AVATAR_DIR);
-    playerMenu.getChildren().add(myUIBuilder.makeButton("ChooseAvatarButton", e-> {
+    HBox avatarBox = new HBox();
+    ImageView avatarName = new ImageView();
+    Button avatarButton = myUIBuilder.makeButton("ChooseAvatarButton", e-> {
       File avatarfile = fileChooser.showOpenDialog(myStage);
-      if (!(avatarfile == null)) {
+      if (avatarfile != null) {
         myAvatar = avatarfile.getName();
+        avatarName.setImage(new Image("profiles/avatar-img/" + myAvatar));
+        avatarName.setFitHeight(40);
+        avatarName.setFitWidth(40);
       }
-    }));
+    });
+
+    avatarBox.getChildren().add(avatarButton);
+    avatarBox.getChildren().add(avatarName);
+    playerMenu.getChildren().add(avatarBox);
 
     // Signup Button
     Button signupButton = myUIBuilder.makeButton("Signup", e -> buttonPressed());
@@ -139,7 +175,14 @@ public class SignupProfile implements Profile {
     myPopup.getContent().add(playerMenu);
   }
 
+  /**
+   * Action performed when the close button is pressed
+   */
   private void closePopup() {
     myPopup.hide();
+    myUsername.setText(myResource.getString("UsernameTextFieldID"));
+    myPassword.setText(myResource.getString("PasswordTextFieldID"));
+    myName.setText(myResource.getString("NameTextFieldID"));
+    myAvatar = "";
   }
 }

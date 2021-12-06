@@ -9,7 +9,7 @@ import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.game_handling.FunctionExecutor;
-import ooga.model.game_handling.turn_manager.TurnManager;
+import ooga.model.game_handling.TurnManager;
 import ooga.model.game_initialization.GameDataInitializer;
 
 /**

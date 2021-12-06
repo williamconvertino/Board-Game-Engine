@@ -18,7 +18,7 @@ public class EmptyTileModel extends TileModel {
    * @param myName the name of the tile.
    */
   public EmptyTileModel(String myName) {
-    super(myName);
+    super(myName, "Empty");
   }
 
   /**

@@ -18,7 +18,6 @@ import ooga.model.game_handling.board_manager.BoardManager;
 import ooga.model.game_handling.board_manager.OriginalBoardManager;
 import ooga.model.game_handling.commands.ActionSequence;
 import ooga.model.game_handling.commands.ActionSequenceExecutor;
-import ooga.model.game_handling.turn_manager.TurnManager;
 import org.junit.jupiter.api.BeforeEach;
 
 
@@ -45,6 +44,25 @@ public class GameHandlingTest {
 
   public Die myDie;
 
+
+  public Property prop1;
+
+  TileModel t0;
+  TileModel t1;
+  TileModel t2;
+  TileModel t3;
+  TileModel t4;
+  public TileModel t5;
+  TileModel t6;
+  TileModel t7;
+  TileModel t8;
+  TileModel t9;
+  TileModel t10;
+  TileModel t11;
+  TileModel t12;
+  TileModel t13;
+  TileModel t14;
+
   @BeforeEach
   void initGamestate() {
     p1 = new Player("p1");
@@ -52,23 +70,8 @@ public class GameHandlingTest {
     p3 = new Player("p3");
     p4 = new Player("p4");
 
-    TileModel t0;
-    TileModel t1;
-    TileModel t2;
-    TileModel t3;
-    TileModel t4;
-    TileModel t5;
-    TileModel t6;
-    TileModel t7;
-    TileModel t8;
-    TileModel t9;
-    TileModel t10;
-    TileModel t11;
-    TileModel t12;
-    TileModel t13;
-    TileModel t14;
 
-    Property prop1;
+
 
 
     ArrayList<Player> playerlist = new ArrayList<>();
@@ -91,8 +94,8 @@ public class GameHandlingTest {
     t2 = new EmptyTileModel("t2");
     t3 = new EmptyTileModel("t3");
     t4 = new EmptyTileModel("t4");
-    Property property1 = new Property("Property 1", "Regular",100, new int[]{5,20,40},10, new ArrayList<>(), 60, "blue" );
-    t5 = new PropertyTileModel("prop1", property1, new ActionSequence(myActionSequenceParser, myDisplayComm), myDisplayComm);
+    prop1 = new Property("Property 1", "Regular",100, new int[]{5,20,40},10, new ArrayList<>(), 60, "blue" );
+    t5 = new PropertyTileModel("prop1","Property", prop1, new ActionSequence(myActionSequenceParser, myDisplayComm), myDisplayComm);
     t6 = new EmptyTileModel("t6");
     t7 = new EmptyTileModel("t7");
     t8 = new EmptyTileModel("t8");

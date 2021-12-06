@@ -1,4 +1,4 @@
-package ooga.model.game_handling.turn_manager;
+package ooga.model.game_handling;
 
 import static ooga.display.communication.DisplayStateSignaler.State.BUY_HOUSES;
 import static ooga.display.communication.DisplayStateSignaler.State.GO_TO_JAIL;
@@ -9,6 +9,7 @@ import static ooga.display.communication.DisplayStateSignaler.State.SELL_HOUSES;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.input.KeyCode;
 import ooga.display.communication.DisplayComm;
 import ooga.exceptions.InsufficientBalanceException;
 import ooga.exceptions.MaxRollsReachedException;
@@ -21,7 +22,6 @@ import ooga.model.data.player.Player;
 import ooga.model.data.properties.Property;
 import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
-import ooga.model.game_handling.FunctionExecutor;
 
 /**
  * This class manages the actions that a player can do on their turn.
@@ -107,12 +107,19 @@ public class TurnManager {
             return;
         }
 
+        if (!gameData.getCurrentPlayer().isInJail() || gameData.getDie().lastRollDouble()) {
+            functionExecutor.movePlayerFd(gameData.getCurrentPlayer(),myRoll);
+        }
+
         //If the roll is a double, increase the maximum number of rolls by one.
         if (gameData.getDie().lastRollDouble()) {
-            maxRolls++;
-            displayComm.signalState(READY_TO_ROLL);
+            if (gameData.getCurrentPlayer().isInJail()) {
+                gameData.getCurrentPlayer().setJailStatus(false);
+            } else {
+                maxRolls++;
+                displayComm.signalState(READY_TO_ROLL);
+            }
         }
-        functionExecutor.movePlayerFd(gameData.getCurrentPlayer(), myRoll);
     }
 
     /**
@@ -187,6 +194,17 @@ public class TurnManager {
     }
 
     /**
+     * Buys a house on the currently selected tile.
+     */
+    public void buyHouse() {
+        try {
+            buyHouse(((PropertyTileModel)selectedTile).getProperty());
+        } catch (Exception e) {
+            displayComm.showException(new TileNotAPropertyException());
+        }
+    }
+
+    /**
      * Makes the current player sell a house on the selected property.
      *
      * @param property the property on which the houses should be sold.
@@ -207,10 +225,10 @@ public class TurnManager {
     /**
      * Executes the cheat associated with the given code.
      *
-     * @param myCode the cheat code to use.
+     * @param button the button pressed by the user.
      */
-    public void executeCheatCode(CheatCodeManager.Code myCode) {
-        cheatCodeManager.executeCheatCode(myCode);
+    public void executeCheatCode(KeyCode button) {
+        cheatCodeManager.executeCheatCode(button);
     }
 
 

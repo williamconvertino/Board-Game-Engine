@@ -200,11 +200,40 @@ public class Player {
     }
 
     /**
+     * Returns the number of houses that the player owns.
+     *
+     * @return the number of houses that the player owns.
+     */
+    public int getNumHouses() {
+        return getProperties().stream().mapToInt(e->e.getNumHouses()).sum();
+    }
+
+
+    /**
+     * Returns the number of hotels that the player owns.
+     *
+     * @return the number of hotels that the player owns.
+     */
+    public int getNumHotels() {
+        return getProperties().stream().mapToInt(e->e.getNumHotels()).sum();
+    }
+
+    /**
      * Sets the name of the player
      * @param text
      */
     public void setName(String text) {
         myName = text;
+    }
+
+
+    /**
+     *  Sets the player's balance to the value specified.
+     *
+     * @param newBalance the balance to which the player's current balance should be set.
+     */
+    public void setBalance(int newBalance) {
+        this.myBalance = newBalance;
     }
 
     /**
@@ -226,4 +255,5 @@ public class Player {
     public Color getColor() {
         return myColor;
     }
+
 }

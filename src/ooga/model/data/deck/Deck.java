@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import ooga.model.data.cards.Card;
 
 /**
@@ -72,6 +73,16 @@ public class Deck {
      */
     public String getName() {
         return myName;
+    }
+
+    /**
+     * Returns a random card from this deck.
+     *
+     * @return a random card from this deck.
+     */
+    public Card getRandomCard() {
+        Random rd = new Random();
+        return myCardList.get(rd.nextInt(myCardList.size()));
     }
 
 }

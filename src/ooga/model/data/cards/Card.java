@@ -22,6 +22,9 @@ public class Card {
     //An action sequence to execute.
     private ActionSequence myActionSequence;
 
+    //The execution message to print (temporary, while card display is unavailable)
+    private static final String printMessage = "Card drawn: [%s]";
+
     public Card(String myName, String myDescription, ActionSequence actionSequence) {
         this.myName = myName;
         this.myDescription = myDescription;
@@ -35,6 +38,7 @@ public class Card {
      */
     public void execute(Player player) {
         myActionSequence.execute(player);
+        System.out.println(String.format(printMessage,myDescription));
     }
 
     /**

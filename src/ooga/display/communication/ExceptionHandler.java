@@ -12,6 +12,9 @@ import org.apache.logging.log4j.Logger;
 public class ExceptionHandler {
 
   private static final Logger LOG = LogManager.getLogger(ExceptionHandler.class);
+  static {
+    
+  }
 
   public ExceptionHandler() {
 

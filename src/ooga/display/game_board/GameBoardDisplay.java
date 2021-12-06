@@ -14,6 +14,7 @@ import ooga.display.DisplayManager;
 import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
 import ooga.display.game_board.board.Board;
+import ooga.display.game_board.board.GameBoard;
 import ooga.display.game_board.bottom.Bottom;
 import ooga.display.game_board.left.Left;
 import ooga.display.game_board.right.Right;
@@ -38,7 +39,7 @@ public class GameBoardDisplay extends Display {
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
 
   private BorderPane theGameBoard;
-  private Board theBoard;
+  private GameBoard theBoard;
   private Top theTop;
   private Right theRight;
   private Left theLeft;
@@ -71,7 +72,7 @@ public class GameBoardDisplay extends Display {
     theRight = new Right(this, myLanguage, eventMap, gameData);
     theLeft = new Left(myLanguage, eventMap, gameData);
     theBottom = new Bottom(myLanguage);
-    theBoard = new Board(myDisplayManager, myLanguage, gameData, eventMap, theme);
+    theBoard = new GameBoard(myDisplayManager, myLanguage, gameData, eventMap, theme);
 
     theGameBoard = new BorderPane();
     theGameBoard.setCenter(theBoard.getComponent());
@@ -84,8 +85,8 @@ public class GameBoardDisplay extends Display {
   }
 
   private void makeScene() {
-    scene = new Scene(theGameBoard, 1280, 800);
-    scene.getStylesheets().add(myStyle);
+    scene = new Scene(theGameBoard, 1200, 1000);
+    scene.getStylesheets().add(DEFAULT_STYLE);
   }
 
   /**
@@ -120,7 +121,7 @@ public class GameBoardDisplay extends Display {
   public void buyProp() {
     myEventMap.get(EVENT_NAMES.BUY_PROPERTY).execute(myGameData.getBoard().getTileAtIndex(myGameData.getCurrentPlayer().getLocation()));
     theBoard.updatePropertyPopups();
-    updateLeftInfo(); // FIXME: This is breaking causing next lines to not execute
+    updateLeftInfo();
   }
 
   /**

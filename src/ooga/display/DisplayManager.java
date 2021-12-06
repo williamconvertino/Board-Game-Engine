@@ -19,8 +19,8 @@ import ooga.display.screens.OptionsMenu;
 import ooga.display.screens.StartMenu;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
-import ooga.model.game_handling.turn_manager.CheatCodeManager;
-import ooga.model.game_handling.turn_manager.CheatCodeManager.Code;
+import ooga.model.game_handling.CheatCodeManager;
+import ooga.util.ProfileManager;
 
 /**
  * This class manages the display elements of the program.
@@ -31,11 +31,6 @@ import ooga.model.game_handling.turn_manager.CheatCodeManager.Code;
  * @since 0.0.1
  */
 public class DisplayManager {
-
-
-
-
-
   private ResourceBundle languageResource;
 
   private Display currDisplay;
@@ -61,17 +56,21 @@ public class DisplayManager {
   private Map<EVENT_NAMES, TMEvent> myEventMap;
   private EnterPlayersScreen myEnterPlayerScreen;
   private GameManager myGame;
-
-
+  private boolean userLoggedIn;
+  private ProfileManager myProfileManager;
+  private StartMenu myStartMenu;
+  private String[] userData;
 
 
   /**
    * Default constructor
    */
   public DisplayManager(Stage stage) {
+    myProfileManager = new ProfileManager();
     myStage = stage;
     languageResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
-    allDisplays.add(new StartMenu(myStage, this, languageResource));
+    myStartMenu = new StartMenu(myStage, this, languageResource);
+    allDisplays.add(myStartMenu);
     allDisplays.add(new OptionsMenu(myStage, this, languageResource));
     currDisplay = allDisplays.get(0);
     myStage.setScene(currDisplay.getScene());
@@ -106,18 +105,9 @@ public class DisplayManager {
 
   private void establishCheatCodes() {
     Scene myScene = myStage.getScene();
-    myScene.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent e)-> {
-      try {
-        //TODO: Replace with log
-        Code myCode = CheatCodeManager.CODE_MAP.get(e.getCode());
-        if (myCode != null) {
-          System.out.println(myCode);
-          myEventMap.get(EVENT_NAMES.CHEAT_CODE).execute(CheatCodeManager.CODE_MAP.get(e.getCode()));
-          e.consume();
-        }
-      } catch (Exception exception) {}
-
-    });
+    myScene.addEventFilter(KeyEvent.KEY_PRESSED,
+        (KeyEvent e) -> myEventMap.get(EVENT_NAMES.CHEAT_CODE)
+            .execute(e.getCode()));
   }
 
   private void setPlayerNames() {
@@ -163,7 +153,8 @@ public class DisplayManager {
   public void changeLanguage(String language) {
     languageResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     allDisplays.clear();
-    allDisplays.add(new StartMenu(myStage, this, languageResource));
+    myStartMenu = new StartMenu(myStage, this, languageResource);
+    allDisplays.add(myStartMenu);
     allDisplays.add(new OptionsMenu(myStage, this, languageResource));
     currDisplay = allDisplays.get(1);
     myStage.setScene(currDisplay.getScene());
@@ -228,5 +219,41 @@ public class DisplayManager {
    */
   public ResourceBundle getLanguageResource() {
     return languageResource;
+  }
+
+  /**
+   * Set Logged In
+   */
+  public void setLoggedIn(boolean loggedIn) {
+    userLoggedIn = loggedIn;
+  }
+
+  /**
+   * Check Logged In
+   */
+  public boolean checkLoggedIn() {
+    return userLoggedIn;
+  }
+
+  /**
+   * Set User Profile
+   */
+  public void setUserLoggedIn(String[] userdata) {
+    userdata = userData;
+  }
+
+  /**
+   * Return Profile Manager
+   */
+  public ProfileManager getProfileManager() {
+    return myProfileManager;
+  }
+
+  /**
+   * Update username
+   */
+  public void updateUser(String[] userdata) {
+    userData = userdata;
+    myStartMenu.setUpdateProfile(userData[0], userData[2], userData[3]);
   }
 }
