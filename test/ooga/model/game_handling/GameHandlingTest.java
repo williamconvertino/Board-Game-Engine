@@ -128,8 +128,7 @@ public class GameHandlingTest {
     myDie = new OriginalDice();
     myGameData = new GameData(myPlayers, myBoard, myDie);
 
-    myFunctionExecutor = new FunctionExecutor();
-    myFunctionExecutor.initializeWithGameValues(myGameData, myDie, myDisplayComm);
+    myFunctionExecutor = new FunctionExecutor(myGameData, myDie, myDisplayComm);
     myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
 
   }

@@ -67,9 +67,7 @@ public class GameDataInitializer {
 
     String variationFilePath = directoryBundle.getString("variationPath") + variationName;
 
-    //create GameData and FunctionExecutor objects
-    GameData gameData = new GameData();
-    FunctionExecutor functionExecutor = new FunctionExecutor();
+
 
     //unpack config properties file
     ResourceBundle modelConfig = ResourceBundle.getBundle(variationFilePath + directoryBundle.getString("configPath"));//).replaceAll("/", ".") );
@@ -77,7 +75,12 @@ public class GameDataInitializer {
     String currentFile = null;
 
     try {
+      //create the game die
+      Die myDie = (Die) Class.forName(modelConfig.getString(configValueBundle.getString("die"))).getConstructor().newInstance();
 
+      //create GameData and FunctionExecutor objects
+      GameData gameData = new GameData();
+      FunctionExecutor functionExecutor = new FunctionExecutor(gameData, myDie, displayComm);
 
       //create parsers
       propertyParser = new PropertyParser();
@@ -126,8 +129,6 @@ public class GameDataInitializer {
       BoardManager myBoardManager = (BoardManager) Class.forName(modelConfig.getString(
           configValueBundle.getString("boardManager"))).getConstructor(List.class).newInstance(myTiles);
 
-      //create the game die
-      Die myDie = (Die) Class.forName(modelConfig.getString(configValueBundle.getString("die"))).getConstructor().newInstance();
 
       //set necessary information in gameData
       gameData.setGameData((PlayerManager)playerManager, myBoardManager, myDie);

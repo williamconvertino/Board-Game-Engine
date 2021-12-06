@@ -133,7 +133,11 @@ public class OriginalBoardManager extends BoardManager {
 
       //If the whole board_manager has been checked, throw an error.
       if (index == p.getLocation()) {
-        throw new TileNotFoundException(tileName);
+        if (myTiles.get(index).getName().equals(tileName)) {
+          return index;
+        } else {
+          throw new TileNotFoundException(tileName);
+        }
       }
     }
     return index;

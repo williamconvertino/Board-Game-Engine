@@ -26,7 +26,8 @@ public class CheatCodeManager {
           KeyCode.DIGIT3, "teleportToSelectedTile",
           KeyCode.DIGIT4, "setOwner",
           KeyCode.DIGIT5, "buyAllProperties",
-          KeyCode.DIGIT6, "executeCard"
+          KeyCode.DIGIT6, "executeCard",
+          KeyCode.SEMICOLON, "bugggged"
       );
 
   private FunctionExecutor myFunctionExecutor;
@@ -51,7 +52,6 @@ public class CheatCodeManager {
       try {
         Method cheatMethod = getClass().getMethod(CODE_MAP.get(code));
         cheatMethod.invoke(this);
-        System.out.println(CODE_MAP.get(code));
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -118,6 +118,19 @@ public class CheatCodeManager {
     Deck myDeck = gameData.getDecks().getRandomDeck();
     Card myCard = myDeck.getRandomCard();
     myCard.execute(gameData.getCurrentPlayer());
+  }
+
+  private int numPress = 0;
+
+  /**
+   *  Hard resets the turn if you press semicolon enough.
+   */
+  public void bugggged() {
+    numPress++;
+    if(numPress > 4) {
+      myTurnManager.endTurn();
+      numPress = 0;
+    }
   }
 
 }

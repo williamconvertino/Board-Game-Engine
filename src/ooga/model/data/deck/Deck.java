@@ -5,7 +5,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import ooga.exceptions.CardNotFoundException;
 import ooga.model.data.cards.Card;
+import ooga.util.ImmutTool;
 
 /**
  * A data structure that stores a list of executable cards.
@@ -83,6 +85,33 @@ public class Deck {
     public Card getRandomCard() {
         Random rd = new Random();
         return myCardList.get(rd.nextInt(myCardList.size()));
+    }
+
+    /**
+     *  Finds and returns the card with the given name. If the card cannot be found,
+     *  throws a CardNotFoundException.
+     *
+     * @param cardName the name of the desired card.
+     * @return the card with the specified name.
+     * @throws CardNotFoundException if the card cannot be found.
+     */
+    public Card getCard(String cardName) throws CardNotFoundException {
+
+        for (Card c: myCardList) {
+            if (c.getName().equals(cardName)) {
+                return c;
+            }
+        }
+        throw new CardNotFoundException(cardName);
+    }
+
+    /**
+     * Returns all the cards in this deck.
+     *
+     * @return an immutable list containing all the cards in this deck.
+     */
+    public List<Card> getCards() {
+        return ImmutTool.getImmutableList(myCardList);
     }
 
 }

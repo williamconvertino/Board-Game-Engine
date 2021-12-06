@@ -190,8 +190,7 @@ public class PropertyInfoPopUpTest extends DukeApplicationTest {
     myDie = new OriginalDice();
     myGameData = new GameData(myPlayers, myBoard, myDie);
     myDisplayComm = myDisplayComm = new DisplayComm(dm);
-    myFunctionExecutor = new FunctionExecutor();
-    myFunctionExecutor.initializeWithGameValues(myGameData, myDie, myDisplayComm);
+    myFunctionExecutor = new FunctionExecutor(myGameData, myDie, myDisplayComm);
     myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
     EventManager eh = new EventManager(myTurnManager);
 

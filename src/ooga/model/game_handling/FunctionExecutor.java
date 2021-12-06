@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import ooga.display.communication.DisplayComm;
+import ooga.display.communication.DisplayStateSignaler;
+import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.exceptions.TileNotFoundException;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
@@ -33,21 +35,16 @@ public class FunctionExecutor {
     private DisplayComm displayComm;
 
     /**
-     * Constructs an empty FunctionExecutor. Note: This must be initialized before use.
-     */
-    public FunctionExecutor() {
-    }
-
-    /**
-     * Initializes the function executor with the specified gamedata, die, and display communication
+     * Creates a new FunctionExecutor and initializes it
+     * with the specified gamedata, die, and display communication
      * module.
      *
-     * @param gamedata    the gamedata to act on.
+     * @param gameData    the gamedata to act on.
      * @param die         the die to use.
      * @param displayComm the display communication module for the current game.
      */
-    public void initializeWithGameValues(GameData gamedata, Die die, DisplayComm displayComm) {
-        this.gamedata = gamedata;
+    public FunctionExecutor(GameData gameData, Die die, DisplayComm displayComm) {
+        this.gamedata = gameData;
         this.myDie = die;
         this.displayComm = displayComm;
     }
@@ -166,9 +163,10 @@ public class FunctionExecutor {
     }
 
     /**
-     * TODO: Add docs
-     * @param players
-     * @param amount
+     * Adds the specified amount of money to each player in the specified list.
+     *
+     * @param players a list of the players to whom the money should be added.
+     * @param amount the amount of money to add.
      */
     public void addMoney(List<Player> players, Integer amount) {
         for (Player p: players) {
@@ -182,14 +180,22 @@ public class FunctionExecutor {
      *
      * @param player the player who is to lose the money.
      * @param amount the amount of money that player should lose.
-     * @return the amount of debt the player takes on after this loss of money.
      */
-    public int loseMoney(Player player, Integer amount) {
+    public void loseMoney(Player player, Integer amount) {
         player.addMoney(-1 * amount);
-        if (player.getBalance() < 0) {
-            return (-1 * player.getBalance());
+    }
+
+    /**
+     * Takes away a specified amount of money from the specified player and returns
+     * any debt that player takes on.
+     *
+     * @param players the players who are to lose the money.
+     * @param amount the amount of money that each player should lose.
+     */
+    public void loseMoney(List<Player> players, Integer amount) {
+        for (Player p: players) {
+            p.addMoney(-1 * amount);
         }
-        return 0;
     }
 
     /**

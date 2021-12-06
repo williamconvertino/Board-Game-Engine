@@ -125,7 +125,7 @@ public class Property {
      * @return the properties' type.
      */
     public String getType() {
-        return name;
+        return type;
     }
 
     /**
