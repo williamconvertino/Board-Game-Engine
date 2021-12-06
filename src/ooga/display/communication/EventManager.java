@@ -45,7 +45,8 @@ public class EventManager {
         myEvents.put(END_TURN, e ->turnManager.endTurn());
         myEvents.put(SELECT_TILE, e->turnManager.setSelectedTile((TileModel)e[0]));
         myEvents.put(BUY_PROPERTY, e->turnManager.buyProperty((TileModel) e[0]));
-        myEvents.put(CHEAT_CODE, e->turnManager.executeCheatCode((KeyCode)e[0]));
+        myEvents.put(CHEAT_CODE, e->turnManager.executeCheatCode((Code)e[0]));
+        myEvents.put(BUY_HOUSE,e->turnManager.buyHouse());
     }
 
     /**
