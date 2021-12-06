@@ -96,8 +96,11 @@ public class FunctionExecutor {
     }
 
     /**
-     * @param player
-     * @param tileNames
+     * Advances the specified player to the nearest tile with a name matching any of
+     * the specified names. This executes any pass-through commands of tiles that it advances through.
+     *
+     * @param player the player to advance.
+     * @param tileNames an array of the names of tiles that are acceptable.
      */
     public void advancePlayerToTile(Player player, String[] tileNames)
         throws TileNotFoundException {

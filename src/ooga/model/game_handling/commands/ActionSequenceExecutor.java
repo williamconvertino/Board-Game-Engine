@@ -227,10 +227,6 @@ public class ActionSequenceExecutor {
     return myDie.roll();
   }
 
-  public String getNearestTile(Object[] tiles) {
-    return null;
-  }
-
   public Integer rollDieTimesValue(Integer value)
       throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
     return getDieRoll() * value;
@@ -263,8 +259,8 @@ public class ActionSequenceExecutor {
     }
   }
 
-  public void advanceToTypeAndPayX(Player player, String propertyType, Integer amount) {
-
+  public void advanceToTypeAndPayX(Player player, String type, Integer amount) {
+    //advanceAndPayX(player, , amount);
   }
 
 
