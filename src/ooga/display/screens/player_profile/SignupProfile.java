@@ -131,15 +131,15 @@ public class SignupProfile implements Profile {
     playerMenu.getChildren().add(myUIBuilder.makeLabel("Signup"));
     // Username textfield
     playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("EnterUsernameLabel"));
-    myUsername = (TextField) myUIBuilder.makeTextField("UsernameTextFieldID");
+    myUsername = (TextField) myUIBuilder.makePrefilledTextField("UsernameTextFieldID");
     playerMenu.getChildren().add(myUsername);
     // Password textfield
     playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("EnterPasswordLabel"));
-    myPassword = (TextField) myUIBuilder.makeTextField("PasswordTextFieldID");
+    myPassword = (TextField) myUIBuilder.makePrefilledTextField("PasswordTextFieldID");
     playerMenu.getChildren().add(myPassword);
     // Profile Name textfield
     playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("EnterNameLabel"));
-    myName = (TextField) myUIBuilder.makeTextField("NameTextFieldID");
+    myName = (TextField) myUIBuilder.makePrefilledTextField("NameTextFieldID");
     playerMenu.getChildren().add(myName);
     // Profile Avatar Image
     playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("ChooseAvatarLabel"));

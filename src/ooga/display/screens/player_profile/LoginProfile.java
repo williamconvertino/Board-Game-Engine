@@ -116,11 +116,11 @@ public class LoginProfile implements Profile {
     playerMenu.getChildren().add(myUIBuilder.makeLabel("Login"));
     // Username textfield
     playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("EnterUsernameLabel"));
-    myUsername = (TextField) myUIBuilder.makeTextField("UsernameTextFieldID");
+    myUsername = (TextField) myUIBuilder.makePrefilledTextField("UsernameTextFieldID");
     playerMenu.getChildren().add(myUsername);
     // Password textfield
     playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("EnterPasswordLabel"));
-    myPassword = (TextField) myUIBuilder.makeTextField("PasswordTextFieldID");
+    myPassword = (TextField) myUIBuilder.makePrefilledTextField("PasswordTextFieldID");
     playerMenu.getChildren().add(myPassword);
     // Signup Button
     Button loginButton = myUIBuilder.makeTextButton("Login", e -> buttonPressed());

@@ -109,7 +109,7 @@ public class EnterPlayersScreen extends Display {
     for (int i = 1; i < 5; i++) {
       myTextAreaVBox.getChildren().add(myBuilder.makeLabel(String.format("%s%d", ENTER_NAME, i)));
       myTextAreaVBox.getChildren()
-          .add(myBuilder.makeTextField(String.format("%s%d", ENTER_NAME, i)));
+          .add(myBuilder.makePrefilledTextField(String.format("%s%d", ENTER_NAME, i)));
     }
     return myTextAreaVBox;
   }

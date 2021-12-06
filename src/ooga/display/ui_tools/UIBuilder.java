@@ -254,12 +254,23 @@ public class UIBuilder {
     return new TextArea(langResource.getString(id));
   }
 
+
+  /**
+   * @param id reference to find tab and what to name it
+   * @return textField
+   */
+  public Node makePrefilledTextField(String id) {
+    TextField textField = new TextField(langResource.getString(id));
+    textField.setId(id);
+    return textField;
+  }
+
   /**
    * @param id reference to find tab and what to name it
    * @return textField
    */
   public Node makeTextField(String id) {
-    TextField textField = new TextField(langResource.getString(id));
+    TextField textField = new TextField();
     textField.setId(id);
     return textField;
   }
