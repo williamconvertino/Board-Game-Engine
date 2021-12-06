@@ -32,8 +32,8 @@ import static ooga.display.communication.EventManager.EVENT_NAMES.*;
  * @author Henry Huynh
  */
 public class Board {
-  private static final int RECT_WIDTH = 70;
-  private static final int RECT_HEIGHT = 80;
+  private static final int RECT_WIDTH = 60;
+  private static final int RECT_HEIGHT = 70;
   private static final double PREF_WIDTH_BOARD = 800;
   private static final double PREF_HEIGHT_BOARD = 800;
   private static final int RADIUS = 10;
@@ -70,6 +70,7 @@ public class Board {
   );
 
   private String myStyle = ORIGINAL_STYLE;
+
 
   /**
    * Constructor for the game board
@@ -164,7 +165,6 @@ public class Board {
     }
 
     // Center Image
-
     gameBoard.getChildren().add(boardEdge);
     gameBoard.getChildren().add(createCenterImage(myStyle));
     boardComponent.getChildren().add(gameBoard);
@@ -190,7 +190,9 @@ public class Board {
     name.setId("propdisptilename");
     stackPane.getChildren().addAll(tile, name);
     allPropInfoPopups.add(new PropertyInfoPopUp(gameData.getBoard().getTileAtIndex(gameBoardTileCount), myBuilder, myLanguage));
-    stackPane.setOnMouseClicked(e -> allPropInfoPopups.get(gameBoardTileCount).showPopup(myDisplayManager.getMyStage()));
+    stackPane.setOnMouseClicked(e -> {
+      allPropInfoPopups.get(gameBoardTileCount).showPopup(myDisplayManager.getMyStage());
+    });
     return stackPane;
   }
 
