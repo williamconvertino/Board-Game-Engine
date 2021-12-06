@@ -247,22 +247,22 @@ public class GameCreatorScreen extends Display {
 
    result.getChildren().add(board);
 
-    board.getChildren().add(createBoardSpace("Go",new Image(myGameImages.getString("go"))));
+    board.getChildren().add(createBoardSpace("Go",new Image(myGameImages.getString("Go"))));
   }
 
   private void createTileButtons() throws IOException{
 
-      jailButton = myBuilder.makeImageButton("Jail",e -> tryCreateSingleCardTile("jail", jailButton), myGameImages.getString("jail"),50,50);
+      jailButton = myBuilder.makeImageButton("Jail",e -> tryCreateSingleCardTile("Jail", jailButton), myGameImages.getString("Jail"),50,50);
       createSpecialTileButtons.getChildren().add(jailButton);
 
-      goToJailButton = myBuilder.makeImageButton("GoToJail",e -> tryCreateSingleCardTile("go_to_jail", goToJailButton), myGameImages.getString("go_to_jail"),50,50);
+      goToJailButton = myBuilder.makeImageButton("GoToJail",e -> tryCreateSingleCardTile("GoToJail", goToJailButton), myGameImages.getString("GoToJail"),50,50);
       createSpecialTileButtons.getChildren().add(goToJailButton);
 
-      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("Chance",e -> tryCreateCardTile("Chance"), myGameImages.getString("chance"),50,50));
-      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("CommunityChest",e -> tryCreateCardTile("Community Chest"), myGameImages.getString("community_chest"),50,50));
+      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("Chance",e -> tryCreateCardTile("Chance"), myGameImages.getString("Chance"),50,50));
+      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("CommunityChest",e -> tryCreateCardTile("CommunityChest"), myGameImages.getString("CommunityChest"),50,50));
       createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("FreeParking",e -> tryCreateCardTile("FreeParking"), myGameImages.getString("FreeParking"),50,50));
-      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("LuxuryTax",e -> tryCreateCardTile("luxury_tax"), myGameImages.getString("luxury_tax"),50,50));
-      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("IncomeTax",e -> tryCreateCardTile("income_tax"), myGameImages.getString("income_tax"),50,50));
+      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("LuxuryTax",e -> tryCreateCardTile("LuxuryTax"), myGameImages.getString("LuxuryTax"),50,50));
+      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("IncomeTax",e -> tryCreateCardTile("IncomeTax"), myGameImages.getString("IncomeTax"),50,50));
 
 
 

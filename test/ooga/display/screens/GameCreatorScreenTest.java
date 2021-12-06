@@ -34,8 +34,16 @@ public class GameCreatorScreenTest extends DukeApplicationTest {
     Button start = lookup("#CreateNewGame").query();
     clickOn(start);
     createFreeParking();
-    createRegularProperty("Boardwalk","400","20,40,60","150","Park Place","200","blue");
-    createRailroadProperty("Reading Railroad","200","50,100,150,200","B&O Railroad","100","null");
+    createRegularProperty("Park Place","400","50,200,600,1400,1700,2000","200","Park Place","175","blue");
+    createRegularProperty("Boardwalk","350","35,175,500,1100,1300,1500","200","Park Place","200","blue");
+    createRailroadProperty("Reading Railroad","200","25,50,100,200","Pennsylvania Railroad, Short Line, B&O Railroad","100","null");
+    createRailroadProperty("B&O Railroad","200","25,50,100,200","Pennsylvania Railroad, Short Line, Reading Railroad","100","null");
+    createRailroadProperty("Short Line","200","25,50,100,200","Pennsylvania Railroad, B&O Railroad, Reading Railroad","100","null");
+    createRailroadProperty("Pennsylvania Railroad","200","25,50,100,200","Short Line, B&O Railroad, Reading Railroad","100","null");
+    createIncomeTax();
+    createGoToJail();
+
+
     TimeUnit.SECONDS.sleep(4);
     //assertEquals(2, dm.getCurrDisplayIndex());
   }
@@ -44,6 +52,38 @@ public class GameCreatorScreenTest extends DukeApplicationTest {
     Button creator = lookup("#FreeParking").query();
     clickOn(creator);
   }
+
+  public void createJail(){
+    Button creator = lookup("#Jail").query();
+    clickOn(creator);
+  }
+
+  public void createGoToJail(){
+    Button creator = lookup("#GoToJail").query();
+    clickOn(creator);
+  }
+
+  public void createLuxuryTax(){
+    Button creator = lookup("#LuxuryTax").query();
+    clickOn(creator);
+  }
+
+  public void createIncomeTax(){
+    Button creator = lookup("#IncomeTax").query();
+    clickOn(creator);
+  }
+
+  public void createChance(){
+    Button creator = lookup("#Chance").query();
+    clickOn(creator);
+  }
+
+  public void createCommunityChest(){
+    Button creator = lookup("#CommunityChest").query();
+    clickOn(creator);
+  }
+
+
 
   public void createRegularProperty(String name, String cost, String rentcosts, String housecost, String neighbors,String mortgage, String color){
     Button creator = lookup("#AddRegularProperty").query();

@@ -1,9 +1,9 @@
 Name=Boardwalk
 Type=Regular
-Cost=400
-RentCost=20,40,60
+Cost=350
+RentCost=35,175,500,1100,1300,1500
 MaxHouses=4
-HouseCost=150
+HouseCost=200
 Neighbors=Park Place
 Mortgage=200
 Color=blue
