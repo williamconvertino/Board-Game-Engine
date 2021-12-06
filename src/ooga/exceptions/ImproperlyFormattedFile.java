@@ -1,6 +1,6 @@
 package ooga.exceptions;
 
-public class ImproperlyFormattedFile extends Exception {
+public class ImproperlyFormattedFile extends GameError {
 
   private String filename;
 

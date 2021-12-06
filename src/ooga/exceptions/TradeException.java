@@ -7,5 +7,5 @@ package ooga.exceptions;
  *
  * @since 0.0.1
  */
-public class TradeException extends Exception {
+public class TradeException extends GameError {
 }

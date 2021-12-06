@@ -1,6 +1,7 @@
 package ooga.model.data.cards;
 
 
+import ooga.display.communication.DisplayComm;
 import ooga.model.data.player.Player;
 import ooga.model.game_handling.commands.ActionSequence;
 
@@ -22,13 +23,14 @@ public class Card {
     //An action sequence to execute.
     private ActionSequence myActionSequence;
 
-    //The execution message to print (temporary, while card display is unavailable)
-    private static final String printMessage = "Card drawn: [%s]";
+    //The display communication module of this class.
+    private DisplayComm displayComm;
 
-    public Card(String myName, String myDescription, ActionSequence actionSequence) {
+    public Card(String myName, String myDescription, ActionSequence actionSequence, DisplayComm displayComm) {
         this.myName = myName;
         this.myDescription = myDescription;
         this.myActionSequence = actionSequence;
+        this.displayComm = displayComm;
     }
 
     /**
@@ -38,7 +40,7 @@ public class Card {
      */
     public void execute(Player player) {
         myActionSequence.execute(player);
-        System.out.println(String.format(printMessage,myDescription));
+        displayComm.displayCard(this);
     }
 
     /**

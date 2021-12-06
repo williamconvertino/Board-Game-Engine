@@ -1,6 +1,6 @@
 package ooga.exceptions;
 
-public class AttributeNotFoundException extends Exception {
+public class AttributeNotFoundException extends GameError {
 
   String attributeName;
 
