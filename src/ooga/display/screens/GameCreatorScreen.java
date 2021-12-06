@@ -3,6 +3,10 @@ package ooga.display.screens;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Locale;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -69,6 +73,7 @@ public class GameCreatorScreen extends Display {
   private File variationPlayers;
   private File variationConfigFile;
   private File variationBoardFile;
+  private File variationTiles;
 
   private Button jailButton;
   private Button goToJailButton;
@@ -105,6 +110,13 @@ public class GameCreatorScreen extends Display {
     makeScene();
   }
 
+  /*
+  private void copyContent(){
+    Files.copy(src, dst, StandardCopyOption.REPLACE_EXISTING);
+  }
+
+   */
+
   private Node startCreating() {
     VBox result = new VBox();
     result.setMaxWidth(400);
@@ -130,12 +142,38 @@ public class GameCreatorScreen extends Display {
     variationPlayers = new File("data/variations/" + gameName.getText() + "/players");
     variationBoardFile = new File("data/variations/" + gameName.getText() + "/board/" + gameName.getText() +  ".board");
     variationConfigFile = new File("data/variations/" + gameName.getText() + "/config.properties");
+    variationTiles = new File("data/variations/" + gameName.getText() + "/board/tiles");
+    variationTiles.mkdirs();
     variationFolder.mkdirs();
     variationCards.mkdirs();
     variationProperties.mkdirs();
     variationPlayers.mkdirs();
     variationConfigFile.createNewFile();
     variationBoardFile.createNewFile();
+    copyTileFiles();
+
+    File chanceFile = new File("data/variations/" + gameName.getText() + "/board/tiles/"+ "chance.tile");
+    chanceFile.createNewFile();
+    Path src = Paths.get("data/variations/original/board/tiles/chance.tile");
+    Path des = Paths.get("data/variations/" + gameName.getText() + "/board/tiles/"+ "chance.tile");
+    Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
+
+  }
+
+  private void copyTileFiles() throws IOException {
+    Path src = Paths.get("data/variations/original/board/tiles/chance.tile");
+    Path des = Paths.get("data/variations/" + gameName.getText() + "/board/tiles/"+ "chance.tile");
+    Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
+    String tileName;
+    File fileFolder = new File("data/variations/original/board/tiles");
+    for(File file: fileFolder.listFiles()){
+      tileName= file.getPath().substring(37);
+      new File("data/variations/" + gameName.getText() + "/board/tiles/"+ tileName).createNewFile();
+      System.out.println(tileName);
+      src = Paths.get(file.getPath());
+      des = Paths.get("data/variations/" + gameName.getText() + "/board/tiles/"+ tileName);
+      Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
+    }
   }
 
 
@@ -189,12 +227,12 @@ public class GameCreatorScreen extends Display {
       jailButton = myBuilder.makeImageButton("Jail",e -> tryCreateSingleCardTile("jail", jailButton), myGameImages.getString("jail"),50,50);
       createSpecialTileButtons.getChildren().add(jailButton);
 
-      goToJailButton = myBuilder.makeImageButton("GoToJail",e -> tryCreateSingleCardTile("gotojail", goToJailButton), myGameImages.getString("gotojail"),50,50);
+      goToJailButton = myBuilder.makeImageButton("GoToJail",e -> tryCreateSingleCardTile("go_to_jail", goToJailButton), myGameImages.getString("go_to_jail"),50,50);
       createSpecialTileButtons.getChildren().add(goToJailButton);
 
       createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("Chance",e -> tryCreateCardTile("chance"), myGameImages.getString("chance"),50,50));
-      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("CommunityChest",e -> tryCreateCardTile("chest"), myGameImages.getString("chest"),50,50));
-      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("FreeParking",e -> tryCreateCardTile("freeparking"), myGameImages.getString("freeparking"),50,50));
+      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("CommunityChest",e -> tryCreateCardTile("community_chest"), myGameImages.getString("community_chest"),50,50));
+      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("FreeParking",e -> tryCreateCardTile("free_parking"), myGameImages.getString("free_parking"),50,50));
 
 
 
