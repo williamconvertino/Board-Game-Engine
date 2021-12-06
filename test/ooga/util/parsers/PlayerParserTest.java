@@ -23,7 +23,7 @@ public class PlayerParserTest {
       throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidFileFormatException, IOException {
 
     playerList = new ArrayList<>();
-    playerList = PlayerParser.getPlayersFromFile("data/variations/monopoly_original/players/players.info");
+    playerList = PlayerParser.getPlayersFromFile("data/variations/original/players/players.info");
 
     assertEquals("Will",playerList.get(0).getName());
     assertEquals("Henry",playerList.get(1).getName());

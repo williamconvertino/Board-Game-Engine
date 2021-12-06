@@ -91,8 +91,9 @@ public class DisplayManager {
   /**
    * Switch screens to the gameboard and starts game
    */
-  public void startGame() {
-    myGame = new GameManager(this, GameManager.DEFAULT_VARIATION_NAME);
+  public void startGame(String variationName) {
+    myGame = new GameManager(this, variationName);
+    System.out.println("Variation:"  + variationName);
     myGameData = myGame.getGameData();
     myEventMap = myGame.getEventMap();
     setPlayerNames();

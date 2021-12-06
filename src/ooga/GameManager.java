@@ -23,7 +23,7 @@ import ooga.model.game_initialization.GameDataInitializer;
 public class GameManager {
 
     //TODO: Replace this with a file-picker
-    public static final String DEFAULT_VARIATION_NAME = "monopoly_original";
+    public static final String DEFAULT_VARIATION_NAME = "original";
 
     //The display communication module of the game.
     private DisplayComm myDisplayComm;

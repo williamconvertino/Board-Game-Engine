@@ -68,7 +68,7 @@ public class EnterPlayersScreen extends Display {
    */
   public EnterPlayersScreen(Stage stage, DisplayManager displayManager,
       ResourceBundle langResource, String selectedTheme) {
-    variationName = "monopoly_original";
+    variationName = "original";
     myStyle = selectedTheme;
     myLangResource = langResource;//ooga/display/resources/variation_image_paths
     myGameImages = ResourceBundle.getBundle(VARIATION_IMAGES);
@@ -89,7 +89,7 @@ public class EnterPlayersScreen extends Display {
 
   private Node makeRight() {
     VBox result = new VBox();
-    result.getChildren().add(myBuilder.makeTextButton("Continue", e -> myDisplayManager.startGame()));
+    result.getChildren().add(myBuilder.makeTextButton("Continue", e -> myDisplayManager.startGame(variationName)));
     result.getChildren().add(myBuilder.makeTextButton("GotoHome", e -> myDisplayManager.goStartMenu()));
     return result;
   }
@@ -100,7 +100,7 @@ public class EnterPlayersScreen extends Display {
     result.getChildren().add(myBuilder.makeLabel("SelectEdition"));
     result.getChildren().add(makeVariationButtons());
     result.getChildren().add(myBuilder.makeLabel("Or"));
-    result.getChildren().add(myBuilder.makeLabel("CreateYourOwn"));
+    result.getChildren().add(myBuilder.makeTextButton("CreateYourOwn",e-> System.out.println("hi!")));
     return result;
   }
 
@@ -188,6 +188,7 @@ public class EnterPlayersScreen extends Display {
 
   private Node makeVariationButtons(){
     HBox result = new HBox();
+    result.setId("variationButtonBox");
     for (String image: myGameImages.keySet()){
       result.getChildren().add(myBuilder.makeImageHoverButton("variationButton",(e -> setVariationName(image)),myGameImages.getString(image),myLangResource.getString(image + "_" + "description")));
       }

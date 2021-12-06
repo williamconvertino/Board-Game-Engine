@@ -12,7 +12,7 @@ public class GameDataInitializerTest extends ParserTest {
 
   @Test
   void TestInitializeGameData() throws ImproperlyFormattedFile {
-    GameData data = (new GameDataInitializer()).generateGameData("monopoly_original",null);
+    GameData data = (new GameDataInitializer()).generateGameData("original",null);
     assertEquals(data.getBoard().getTiles().size(),40);
   }
 }

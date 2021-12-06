@@ -29,7 +29,7 @@ public class ParserTest extends GameHandlingTest {
       throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidFileFormatException {
     propertyParser = new PropertyParser();
     propertyList = new ArrayList<>();
-    propertyList = propertyParser.parseProperties("variations/monopoly_original/properties");
+    propertyList = propertyParser.parseProperties("variations/original/properties");
     gameData = new GameData();
     FunctionExecutor functionExecutor = new FunctionExecutor();
     //create parsers
@@ -40,9 +40,9 @@ public class ParserTest extends GameHandlingTest {
 
 
     Deck chanceDeck = new Deck("Chance",cardParser.parseCards(
-        "variations/monopoly_original/cards/chance"));
+        "variations/original/cards/chance"));
     Deck communityChestDeck = new Deck ("Community Chest",cardParser.parseCards(
-        "variations/monopoly_original/cards/community_chest"));
+        "variations/original/cards/community_chest"));
 
     //combine decks into list, and give to gameData
     List<Deck> deckList = new ArrayList<>();

@@ -84,8 +84,8 @@ public class UIBuilder {
     button.setOnAction(response);
     button.setId(id);
     button.setGraphic(image);
-    image.setFitHeight(50);
-    image.setFitWidth(50);
+    image.setFitHeight(100);
+    image.setFitWidth(100);
     Tooltip tt = new Tooltip();
     tt.setText("Text on Hover");
     tt.setShowDelay(new Duration(.0001));

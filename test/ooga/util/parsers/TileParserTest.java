@@ -30,7 +30,7 @@ public class TileParserTest extends ParserTest{
       throws AttributeNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InvalidFileFormatException {
 
     Map<String, TileModel> nonPropTileMap = new HashMap();
-    nonPropTileMap = tileParser.parseNonPropertyTiles("variations/monopoly_original/board/tiles");
+    nonPropTileMap = tileParser.parseNonPropertyTiles("variations/original/board/tiles");
 
     assertEquals(8,nonPropTileMap.size());
 
