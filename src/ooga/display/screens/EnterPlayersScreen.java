@@ -100,7 +100,7 @@ public class EnterPlayersScreen extends Display {
     result.getChildren().add(myBuilder.makeLabel("SelectEdition"));
     result.getChildren().add(makeVariationButtons());
     result.getChildren().add(myBuilder.makeLabel("Or"));
-    result.getChildren().add(myBuilder.makeTextButton("CreateYourOwn",e-> System.out.println("hi!")));
+    result.getChildren().add(myBuilder.makeTextButton("CreateYourOwn",e -> myDisplayManager.goGameCreatorScreen()));
     return result;
   }
 

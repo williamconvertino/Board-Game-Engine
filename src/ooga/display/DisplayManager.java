@@ -15,6 +15,7 @@ import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
 import ooga.display.game_board.GameBoardDisplay;
 import ooga.display.screens.EnterPlayersScreen;
+import ooga.display.screens.GameCreatorScreen;
 import ooga.display.screens.OptionsMenu;
 import ooga.display.screens.StartMenu;
 import ooga.model.data.gamedata.GameData;
@@ -64,7 +65,11 @@ public class DisplayManager {
 
 
   /**
-   * Default constructor
+   * Constructs display manager, creating a list of displays with list of displays with indices:
+   * 0: Start Menu
+   * 1: Options Menu
+   * 2: Player Screen (created later)
+   * 3: Game Creator Screen (created later)
    */
   public DisplayManager(Stage stage) {
     myProfileManager = new ProfileManager();
@@ -154,6 +159,15 @@ public class DisplayManager {
    */
   public void goStartMenu() {
     currDisplay = allDisplays.get(0);
+    myStage.setScene(currDisplay.getScene());
+  }
+
+  /**
+   * Switch screens to Game Creator screen
+   */
+  public void goGameCreatorScreen() {
+    allDisplays.add(new GameCreatorScreen(myStage, this, languageResource));
+    currDisplay = allDisplays.get(3);
     myStage.setScene(currDisplay.getScene());
   }
 
