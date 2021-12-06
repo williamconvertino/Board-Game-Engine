@@ -83,15 +83,24 @@ public class EnterPlayersScreen extends Display {
 
   private void makePlayerCustomizer() {
     HBox playerCustomizer = new HBox();
-    playerCustomizer.getChildren().addAll(makeTextAreas(), makeColorSelection(), makeRight());
+    playerCustomizer.getChildren().addAll(makeTextAreas(), makeColorSelection(), makeRight(),makeGameSelectorBox());
     playerMenu.getChildren().add(playerCustomizer);
   }
 
   private Node makeRight() {
     VBox result = new VBox();
-    result.getChildren().add(makeVariationButtons());
     result.getChildren().add(myBuilder.makeTextButton("Continue", e -> myDisplayManager.startGame()));
     result.getChildren().add(myBuilder.makeTextButton("GotoHome", e -> myDisplayManager.goStartMenu()));
+    return result;
+  }
+
+  private Node makeGameSelectorBox(){
+    VBox result = new VBox();
+    result.getChildren().add(myBuilder.makeLabel("ChooseGame"));
+    result.getChildren().add(myBuilder.makeLabel("SelectEdition"));
+    result.getChildren().add(makeVariationButtons());
+    result.getChildren().add(myBuilder.makeLabel("Or"));
+    result.getChildren().add(myBuilder.makeLabel("CreateYourOwn"));
     return result;
   }
 
@@ -180,7 +189,7 @@ public class EnterPlayersScreen extends Display {
   private Node makeVariationButtons(){
     HBox result = new HBox();
     for (String image: myGameImages.keySet()){
-      result.getChildren().add(myBuilder.makeImageButton("variationButton",(e -> setVariationName(image)),myGameImages.getString(image)));
+      result.getChildren().add(myBuilder.makeImageHoverButton("variationButton",(e -> setVariationName(image)),myGameImages.getString(image),myLangResource.getString(image + "_" + "description")));
       }
       return result;
     }

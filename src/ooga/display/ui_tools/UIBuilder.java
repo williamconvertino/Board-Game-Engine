@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 import ooga.display.Display;
 
 import java.util.HashMap;
@@ -74,10 +75,9 @@ public class UIBuilder {
     return button;
   }
 
-  public Node makeImageButton(String id, EventHandler<ActionEvent> response, String imagePath){
+  public Button makeImageButton(String id, EventHandler<ActionEvent> response, String imagePath){
     System.out.println(imagePath);
     System.out.println(id);
-    //data/images/variationimages/original.png
     ImageView image = new ImageView(new Image(imagePath));
     image.setId(id);
     Button button = new Button();
@@ -86,6 +86,23 @@ public class UIBuilder {
     button.setGraphic(image);
     image.setFitHeight(50);
     image.setFitWidth(50);
+    Tooltip tt = new Tooltip();
+    tt.setText("Text on Hover");
+    tt.setShowDelay(new Duration(.0001));
+    tt.setHideDelay(new Duration(.0001));
+
+    button.setTooltip(tt);
+    return button;
+  }
+
+  public Button makeImageHoverButton(String id, EventHandler<ActionEvent> response, String imagePath,String description){
+    Button button = makeImageButton(id,response,imagePath);
+    Tooltip tt = new Tooltip();
+    tt.setText(description);
+    tt.setShowDelay(new Duration(.0001));
+    tt.setHideDelay(new Duration(.0001));
+
+    button.setTooltip(tt);
     return button;
   }
 
