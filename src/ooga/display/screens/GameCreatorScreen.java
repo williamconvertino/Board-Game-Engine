@@ -5,10 +5,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import ooga.display.Display;
@@ -41,6 +47,7 @@ public class GameCreatorScreen extends Display {
   private TextField gameName;
   private Popup PropertyPopUp;
   private VBox propBox;
+  private int tileCounter;
 
   private TextField propertyName;
   private TextField propertyCost;
@@ -50,6 +57,8 @@ public class GameCreatorScreen extends Display {
   private TextField propertyMortgage;
   private TextField propertyColor;
   private TextField propertyImage;
+  private Label counter;
+  private HBox board;
 
   /**
    * Constructor for creating an option menu screen
@@ -61,16 +70,21 @@ public class GameCreatorScreen extends Display {
     PropertyPopUp = new Popup();
     propBox = new VBox();
     propBox.setId("propertyCreatorBox");
-
+    tileCounter = 40;
     myLangResource = langResource;
     myBuilder = new UIBuilder(langResource);
     myStage = stage;
     myDisplayManager = displayManager;
+    stage.setHeight(800);
+    stage.setWidth(1200);
 
 
 
     startMenu = new VBox();
     startMenu.getChildren().add(myBuilder.makeLabel("GameCreator"));
+    startMenu.getChildren().add(myBuilder.makeLabel("TilesLeft"));
+    counter = (Label) (myBuilder.makeLabel("TileCounter"));
+    startMenu.getChildren().add(counter);
     startMenu.getChildren().add(startCreating());
     makeScene();
   }
@@ -113,13 +127,22 @@ public class GameCreatorScreen extends Display {
 
     HBox createPropertyButtons = new HBox();
 
-    createPropertyButtons.getChildren().add(myBuilder.makeTextButton("MakeRegularProperty",e -> createRegularPropertyPopUp()));
-    createPropertyButtons.getChildren().add(myBuilder.makeTextButton("MakeRailroadProperty",e -> createRailroadPropertyPopUp()));
-    createPropertyButtons.getChildren().add(myBuilder.makeTextButton("MakeUtilitiesProperty",e -> createUtilitiesPropertyPopUp()));
+    createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddRegularProperty",e -> createRegularPropertyPopUp()));
+    createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddRailroadProperty",e -> createRailroadPropertyPopUp()));
+    createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddUtilitiesProperty",e -> createUtilitiesPropertyPopUp()));
+
 
     result.getChildren().add(createPropertyButtons);
 
+    result.getChildren().add(myBuilder.makeImageButton("Chance",e -> createCardTile(), "images/questionmark.png",50,50));
+
     startMenu.getChildren().add(result);
+
+
+   board = new HBox();
+
+   result.getChildren().add(board);
+
 
   }
 
@@ -166,7 +189,11 @@ public class GameCreatorScreen extends Display {
     PropertyPopUp.show(myStage);
   }
 
-
+  private void createCardTile(){
+    board.getChildren().add(createBoardSpace(new Image("images/questionmark.png")));
+    tileCounter--;
+    counter.setText(""+ tileCounter);
+  }
 
   private void createRailroadPropertyPopUp(){
 
@@ -249,6 +276,9 @@ public class GameCreatorScreen extends Display {
     PropertyPopUp.hide();
     propBox = new VBox();
     PropertyPopUp = new Popup();
+    tileCounter--;
+    counter.setText("" + tileCounter);
+    board.getChildren().add(createBoardSpace(propertyName.getText(),propertyColor.getText()));
   }
 
   private void saveRailroadProperty() throws IOException {
@@ -256,6 +286,9 @@ public class GameCreatorScreen extends Display {
     PropertyPopUp.hide();
     propBox = new VBox();
     PropertyPopUp = new Popup();
+    tileCounter--;
+    counter.setText("" + tileCounter);
+    board.getChildren().add(createBoardSpace(propertyName.getText(),"white"));
   }
 
   private void saveUtilitiesProperty() throws IOException {
@@ -263,6 +296,9 @@ public class GameCreatorScreen extends Display {
     PropertyPopUp.hide();
     propBox = new VBox();
     PropertyPopUp = new Popup();
+    tileCounter--;
+    counter.setText("" + tileCounter);
+    board.getChildren().add(createBoardSpace(propertyName.getText(),"white"));
   }
 
 
@@ -325,6 +361,38 @@ public class GameCreatorScreen extends Display {
     System.out.println("hi!");
     property.createNewFile();
   }
+
+  private VBox createBoardSpace(String name,String color){
+    VBox stackPane = new VBox();
+    stackPane.setId("creatorTile");
+    Label tilename = new Label(name);
+    tilename.setId("test");
+    tilename.setWrapText(true);
+    tilename.setMinWidth(50);
+    tilename.setMinHeight(50);
+    stackPane.setStyle("-fx-background-color:" + color + ";");
+    stackPane.getChildren().addAll(tilename);
+    stackPane.setMaxWidth(50);
+    stackPane.setMaxHeight(50);
+    return stackPane;
+  }
+
+  private VBox createBoardSpace(Image image){
+    VBox stackPane = new VBox();
+    stackPane.setId("creatorTile");
+    ImageView view = new ImageView(image);
+    view.setFitWidth(50);
+    view.setFitHeight(50);
+    stackPane.setStyle("-fx-background-color:" + "white" + ";");
+    stackPane.getChildren().addAll(view);
+    stackPane.setMaxWidth(50);
+    stackPane.setMaxHeight(50);
+    return stackPane;
+  }
+
+
+
+
 
 
 

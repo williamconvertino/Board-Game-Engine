@@ -75,7 +75,7 @@ public class UIBuilder {
     return button;
   }
 
-  public Button makeImageButton(String id, EventHandler<ActionEvent> response, String imagePath){
+  public Button makeImageButton(String id, EventHandler<ActionEvent> response, String imagePath,int width, int height){
     System.out.println(imagePath);
     System.out.println(id);
     ImageView image = new ImageView(new Image(imagePath));
@@ -84,19 +84,14 @@ public class UIBuilder {
     button.setOnAction(response);
     button.setId(id);
     button.setGraphic(image);
-    image.setFitHeight(100);
-    image.setFitWidth(100);
-    Tooltip tt = new Tooltip();
-    tt.setText("Text on Hover");
-    tt.setShowDelay(new Duration(.0001));
-    tt.setHideDelay(new Duration(.0001));
+    image.setFitHeight(height);
+    image.setFitWidth(width);
 
-    button.setTooltip(tt);
     return button;
   }
 
-  public Button makeImageHoverButton(String id, EventHandler<ActionEvent> response, String imagePath,String description){
-    Button button = makeImageButton(id,response,imagePath);
+  public Button makeImageHoverButton(String id, EventHandler<ActionEvent> response, String imagePath,int width, int height, String description){
+    Button button = makeImageButton(id,response,imagePath, width, height);
     Tooltip tt = new Tooltip();
     tt.setText(description);
     tt.setShowDelay(new Duration(.0001));

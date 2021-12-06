@@ -190,7 +190,7 @@ public class EnterPlayersScreen extends Display {
     HBox result = new HBox();
     result.setId("variationButtonBox");
     for (String image: myGameImages.keySet()){
-      result.getChildren().add(myBuilder.makeImageHoverButton("variationButton",(e -> setVariationName(image)),myGameImages.getString(image),myLangResource.getString(image + "_" + "description")));
+      result.getChildren().add(myBuilder.makeImageHoverButton("variationButton",(e -> setVariationName(image)),myGameImages.getString(image),100,100,myLangResource.getString(image + "_" + "description")));
       }
       return result;
     }
