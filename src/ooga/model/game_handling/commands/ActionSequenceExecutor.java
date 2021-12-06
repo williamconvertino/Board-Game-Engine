@@ -99,6 +99,7 @@ public class ActionSequenceExecutor {
       fExecutorMethod.invoke(getInstanceOfClass(sourceClass), fExecutorArgs);
 
     } catch (Exception e) {
+      e.printStackTrace();
       throw new InvalidFileFormatException();
     }
 
