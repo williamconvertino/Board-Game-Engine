@@ -59,9 +59,9 @@ public class Board {
   private static final String ORIGINAL_STYLE = STYLE_PACKAGE + "original.css";
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
-  private static final String ORIGINAL_IMG = "center_images/original.png";
-  private static final String DUKE_IMG = "center_images/duke.png";
-  private static final String MONO_IMG = "center_images/mono.png";
+  private static final String ORIGINAL_IMG = "images/center_images/original.png";
+  private static final String DUKE_IMG = "images/center_images/duke.png";
+  private static final String MONO_IMG = "images/center_images/mono.png";
 
   private static final Map<String, String> IMAGE_MAP = Map.of(
           ORIGINAL_STYLE, ORIGINAL_IMG,
