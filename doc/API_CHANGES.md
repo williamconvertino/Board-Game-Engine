@@ -79,5 +79,45 @@ This is added to get the players colors and add them to the game data.
   }
 ```
 
-This 
+Now the gameData isn't initialized until after the user starts the game
 
+**Add User Profile Functionality**
+```java
+  /**
+   * The profile popup can be accessed
+   */
+  public Popup getPopup();
+```
+
+We needed to add a player profiles functionality this method can get the popup for update, sign in, and register.
+
+**Check and edit Player Login status**
+```java
+  /**
+   * Set Logged In
+   */
+  public void setLoggedIn(boolean loggedIn) {
+    userLoggedIn = loggedIn;
+  }
+
+  /**
+   * Check Logged In
+   */
+  public boolean checkLoggedIn() {
+    return userLoggedIn;
+  }
+```
+
+The display manager holds the boolean of whether or not a player is logged in and these methods manipulate the data
+
+**Get Profile Manager and use it in the start menu**
+```java
+  /**
+   * Return Profile Manager
+   */
+  public ProfileManager getProfileManager() {
+    return myProfileManager;
+  }
+```
+
+The display manager stores the Profile Manager and the start menu buttons will need to use the Profile Manager

@@ -1,14 +1,20 @@
 package ooga.display.screens;
 
+import java.io.File;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ooga.display.Display;
 import ooga.display.DisplayManager;
+import ooga.display.popup.ExceptionPopUp;
 import ooga.display.screens.player_profile.LoginProfile;
 import ooga.display.screens.player_profile.SignupProfile;
+import ooga.display.screens.player_profile.UpdateProfile;
 import ooga.display.ui_tools.UIBuilder;
 import java.util.ResourceBundle;
 
@@ -20,12 +26,19 @@ public class StartMenu extends Display {
   private UIBuilder myBuilder;
   private ResourceBundle myResource;
   private Scene scene;
+  private UpdateProfile updateProfile;
+
   private static final String DEFAULT_RESOURCE_PACKAGE =
       Display.class.getPackageName() + ".resources.";
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
   private static final String DEFAULT_STYLE = STYLE_PACKAGE + "original.css";
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
+
+  private final String PROFILES_DIR = "data/profiles/playerProfiles.csv";
+  private final String AVATAR_DIR_PATH = "data/profiles/avatar-img/";
+  private final File AVATAR_DIR = new File(AVATAR_DIR_PATH);
+
 
   /**
    * Constructor for creating a start menu screen
@@ -51,11 +64,25 @@ public class StartMenu extends Display {
     VBox result = new VBox();
     result.getChildren().add(myBuilder.makeButton("Start", e -> myDisplayManager.goPlayerScreen()));
     result.getChildren().add(myBuilder.makeButton("Options", e -> myDisplayManager.goOptions()));
-    SignupProfile signup = new SignupProfile(myStage, myBuilder, myResource);
-    result.getChildren().add(myBuilder.makeButton("Signup", e -> signup.getPopup().show(myStage)));
-    LoginProfile login = new LoginProfile(myStage, myBuilder, myResource);
+    SignupProfile signup = new SignupProfile(myStage, myBuilder, myResource, myDisplayManager,
+        myDisplayManager.getProfileManager());
+    result.getChildren().add(myBuilder.makeButton("Signup", e -> {
+      signup.getPopup().show(myStage);
+    }));
+    LoginProfile login = new LoginProfile(myStage, myBuilder, myResource, myDisplayManager, myDisplayManager.getProfileManager());
     result.getChildren().add(myBuilder.makeButton("Login", e -> login.getPopup().show(myStage)));
+    updateProfile = new UpdateProfile(myStage, myBuilder, myResource, myDisplayManager, myDisplayManager.getProfileManager());
+    result.getChildren().add(myBuilder.makeButton("Update", e -> {
+      notLoggedInException(updateProfile);
+    }));
     return result;
+  }
+
+  private void notLoggedInException(UpdateProfile update) {
+    ExceptionPopUp notLoggedIn;
+    if (!myDisplayManager.checkLoggedIn())
+      notLoggedIn = new ExceptionPopUp("Not logged in", "Please login first.", myResource);
+    else update.getPopup().show(myStage);
   }
 
   private void makeScene() {
@@ -73,5 +100,18 @@ public class StartMenu extends Display {
   @Override
   public Scene getScene() {
     return scene;
+  }
+
+  /**
+   * Set updated profile info
+   */
+  public void setUpdateProfile(String username, String image, String DisplayName) {
+    updateProfile.updateUsername(username);
+    ImageView avatar = new ImageView();
+    avatar.setImage(new Image("profiles/avatar-img/" + image));
+    avatar.setFitWidth(40);
+    avatar.setFitHeight(40);
+    startMenu.setRight(new VBox(new Label(DisplayName), avatar));
+
   }
 }

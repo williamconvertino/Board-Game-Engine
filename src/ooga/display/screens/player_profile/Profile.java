@@ -9,5 +9,4 @@ import javafx.stage.Popup;
  */
 public interface Profile {
   public Popup getPopup();
-  public void buttonPressed();
 }
