@@ -94,7 +94,7 @@ public class Left {
     if (myGameData.getPlayers().get(playerIndex).getProperties().isEmpty()) {
       return (Label) myUIBuilder.makeLabel(NONE);
     }
-    return (Label) myUIBuilder.makeLabel(
+    return (Label) myUIBuilder.makeLabelNoID(
         String.valueOf(myGameData.getPlayers().get(playerIndex).getProperties()));
   }
 

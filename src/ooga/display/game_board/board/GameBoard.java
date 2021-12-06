@@ -212,6 +212,7 @@ public class GameBoard {
     StackPane stackPane = tileStackPaneIndexMap.get(playerPos);
     stackPane.getChildren().add(allCirclePieces.get(currPlayer));
     StackPane.setAlignment(allCirclePieces.get(currPlayer), positionMap.get(currPlayer));
+    updatePropertyPopups();
   }
 
   /**
