@@ -13,7 +13,6 @@ import ooga.display.Display;
 import ooga.display.DisplayManager;
 import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
-import ooga.display.game_board.board.Board;
 import ooga.display.game_board.board.GameBoard;
 import ooga.display.game_board.bottom.Bottom;
 import ooga.display.game_board.left.Left;
@@ -99,7 +98,7 @@ public class GameBoardDisplay extends Display {
   /**
    * Update left panel with new info
    */
-  public void updateLeftInfo() {
+  private void updateLeftInfo() {
     int currPlayer = myGameData.getPlayers().indexOf(myGameData.getCurrentPlayer());
     VBox leftComp = theLeft.getComponent();
     TabPane tabPane = (TabPane) leftComp.getChildren().get(0);
@@ -120,8 +119,7 @@ public class GameBoardDisplay extends Display {
    */
   public void buyProp() {
     myEventMap.get(EVENT_NAMES.BUY_PROPERTY).execute(myGameData.getBoard().getTileAtIndex(myGameData.getCurrentPlayer().getLocation()));
-    theBoard.updatePropertyPopups();
-    updateLeftInfo();
+    update();
   }
 
   /**
@@ -129,14 +127,32 @@ public class GameBoardDisplay extends Display {
    */
   public void endTurn() {
     myEventMap.get(EVENT_NAMES.END_TURN).execute();
+    update();
     theRight.endTurn();
+  }
+
+  /**
+   * Buys a house and updates board elements
+   */
+  public void buyHouse() {
+    myEventMap.get(EVENT_NAMES.BUY_HOUSE).execute();
+    update();
   }
 
   /**
    * Update player location
    */
-  public void updatePlayerLocation() {
+  private void updatePlayerLocation() {
     theBoard.updateLocation();
+  }
+
+  /**
+   * Main update method
+   */
+  public void update() {
+    updatePlayerLocation();
+    updateLeftInfo();
+    theBoard.updatePropertyPopups();
   }
 
   /**

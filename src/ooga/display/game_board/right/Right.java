@@ -51,18 +51,25 @@ public class Right {
 
   private void rollDice() {
     eventMap.get(ROLL).execute();
+    myGameBoardDisplay.update();
     int[] myRoll = gameData.getDie().diceResult();
     Label rolledVals = (Label) rightComponent.getChildren().get(2);
     rolledVals.setText(myRoll[0] + " " + myRoll[1]);
     rightComponent.getChildren().set(2, rolledVals);
-    myGameBoardDisplay.updatePlayerLocation();
-    myGameBoardDisplay.updateLeftInfo();
+    myGameBoardDisplay.update();
+    System.out.println(gameData.getNumRolls());
+    System.out.println(gameData.getMaxRolls());
     beginTurn();
   }
 
   private void beginTurn() {
     Button roll = (Button) rightComponent.getChildren().get(1);
-    roll.setDisable(true);
+    if(gameData.getMaxRolls() != gameData.getNumRolls()) {
+      roll.setDisable(false);
+    }
+    else {
+      roll.setDisable(true);
+    }
     TurnChoices turnChoices = new TurnChoices(myGameBoardDisplay, myLanguage, myBuilder);
     rightComponent.getChildren().set(3, turnChoices.getMyTurnChoices());
   }

@@ -40,11 +40,15 @@ public class GameData {
     //The die being used to generate player rolls.
     private Die myDie;
 
+    //The maximum number of rolls that a player can roll this turn.
+    private int maxRolls;
+
     /**
      * Constructs a new GameData.
      *
      */
     public GameData() {
+        this.maxRolls = 1;
     }
 
     /**
@@ -117,6 +121,7 @@ public class GameData {
     public void resetTurnData() {
         this.numRolls = 0;
         this.previousRoll = -1;
+        this.maxRolls = 1;
     }
 
     /**
@@ -135,6 +140,13 @@ public class GameData {
      */
     public int getNumRolls() {
         return numRolls;
+    }
+
+    public int getMaxRolls() {
+        return maxRolls;
+    }
+    public void incrementMaxRolls() {
+        maxRolls++;
     }
 
     /**
