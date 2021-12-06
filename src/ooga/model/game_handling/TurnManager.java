@@ -84,6 +84,15 @@ public class TurnManager {
     }
 
     /**
+     * Forces the turn to change (For debug use only).
+     */
+    public void hardEndTurn() {
+        this.selectedTile = null;
+        gameData.resetTurnData();
+        gameData.setNextPlayer();
+    }
+
+    /**
      * Makes the player roll the dice, and move accordingly. If they roll doubles, they are allowed to roll an additional time.
      * If they roll 3 times, they are sent to jail.
      */
