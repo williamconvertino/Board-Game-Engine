@@ -44,7 +44,9 @@ public class ActionTileModel extends TileModel {
    */
   @Override
   public void executePassThrough(Player player) {
-    myPassThroughActions.execute(player);
+    if (myPassThroughActions != null) {
+      myPassThroughActions.execute(player);
+    }
   }
 
   /**
@@ -52,6 +54,8 @@ public class ActionTileModel extends TileModel {
    */
   @Override
   public void executeLandOn(Player player) {
-    myLandOnActions.execute(player);
+    if (myLandOnActions != null) {
+      myLandOnActions.execute(player);
+    }
   }
 }
