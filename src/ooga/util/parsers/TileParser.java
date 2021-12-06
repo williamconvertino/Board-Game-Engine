@@ -59,7 +59,7 @@ public class TileParser extends FolderParser{
     Map<String,PropertyTileModel> result = new HashMap<>();
 
     for (Property prop: propertyList){
-      result.putIfAbsent(prop.getName(),new PropertyTileModel(prop.getName(), prop, new ActionSequence(actionSequenceParser, displayComm), displayComm));
+      result.putIfAbsent(prop.getName(),new PropertyTileModel(prop.getName(), (prop.getType()==null) ? "Property": prop.getType(), prop, new ActionSequence(actionSequenceParser, displayComm), displayComm));
     }
     return result;
   }
