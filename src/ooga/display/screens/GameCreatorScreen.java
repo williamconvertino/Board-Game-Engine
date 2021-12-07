@@ -3,10 +3,7 @@ package ooga.display.screens;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Locale;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -18,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -49,17 +45,7 @@ public class GameCreatorScreen extends Display {
   private static final int TILE_AMOUNT = 40;
   private static final String IMAGE_RESOURCE = DEFAULT_RESOURCE_PACKAGE + "image_paths";
   private static final String VARIATION_PATH = "data/variations/";
-  private static final String CARDS_PATH = "/cards";
-  private static final String CHANCE_PATH = "/chance";
-  private static final String COMMUNITY_CHEST_PATH = "/community_chest";
-  private static final String TILES_PATH = "/tiles";
-  private static final String CONFIG = "/config";
-  private static final String BOARD_PATH = "/board";
   private static final String PROPERTIES_PATH = "/properties";
-  private static final String DEFAULT_VARIATION_PATH = "/original";
-  private static final int TILE_SUBSTRING_CUTOFF = 37;
-  private static final int CHANCE_SUBSTRING_CUTOFF = 38;
-  private static final int COMMUNITY_CHEST_SUBSTRING_CUTOFF = 47;
   private static final int SELECTOR_MENU_WIDTH = 500;
   private static final int IMAGE_SIZE = 40;
   private static final int TILE_SIZE = 50;
@@ -103,25 +89,14 @@ public class GameCreatorScreen extends Display {
   private int rowJumper;
   private int colJumper;
 
-  private File variationFolder;
-  private File variationBoard;
-  private File variationCards;
-  private File variationProperties;
-  private File variationConfigFile;
-  private File variationBoardFile;
-  private File variationTiles;
-  private File variationChanceCards;
-  private File variationCommunityChestCards;
-
   private Button jailButton;
   private Button goToJailButton;
 
   private HBox createSpecialTileButtons;
 
-  private Path src;
-  private Path des;
-
   private HBox allElements;
+
+  private FolderFactory folderFactory;
 
 
   /**
@@ -142,8 +117,8 @@ public class GameCreatorScreen extends Display {
     myStage = stage;
     myDisplayManager = displayManager;
     myGameImages = ResourceBundle.getBundle(IMAGE_RESOURCE);
-
     allElements = new HBox();
+    folderFactory = new FolderFactory();
 
     selectorMenu = new VBox();
     selectorMenu.setMaxWidth(SELECTOR_MENU_WIDTH);
@@ -177,68 +152,9 @@ public class GameCreatorScreen extends Display {
     return result;
   }
 
-  //Creates all folders and files for the new variation, and copies all necessary information over
-  private void makeDirectories() throws IOException {
-    variationFolder = new File(VARIATION_PATH + gameName.getText().replace(" ","_"));
-    variationFolder.mkdirs();
-    variationBoard = new File(VARIATION_PATH + gameName.getText() + BOARD_PATH);
-    variationBoard.mkdirs();
-    variationCards = new File(VARIATION_PATH + gameName.getText() + CARDS_PATH);
-    variationCards.mkdirs();
-    variationProperties = new File(VARIATION_PATH + gameName.getText() + PROPERTIES_PATH);
-    variationProperties.mkdirs();
-    variationBoardFile = new File(VARIATION_PATH + gameName.getText() + BOARD_PATH + "/" + gameName.getText() +  BOARD_PATH.replace("/","."));
-    variationBoardFile.createNewFile();
-    variationConfigFile = new File(VARIATION_PATH + gameName.getText() + CONFIG + PROPERTIES_PATH.replace("/","."));
-    variationConfigFile.createNewFile();
-    variationTiles = new File(VARIATION_PATH + gameName.getText() + BOARD_PATH + TILES_PATH);
-    variationTiles.mkdirs();
-    variationChanceCards =new File(VARIATION_PATH + gameName.getText() + CARDS_PATH + CHANCE_PATH);
-    variationChanceCards.mkdirs();
-    variationCommunityChestCards =new File(VARIATION_PATH + gameName.getText() + CARDS_PATH  + COMMUNITY_CHEST_PATH);
-    variationCommunityChestCards.mkdirs();
-    copyTileFiles();
-    copyConfigFile();
-    copyCardFiles(CHANCE_PATH,CHANCE_SUBSTRING_CUTOFF);
-    copyCardFiles(COMMUNITY_CHEST_PATH,COMMUNITY_CHEST_SUBSTRING_CUTOFF);
-  }
-
-  //copies tile files from original variation to new variation
-  private void copyTileFiles() throws IOException {
-    String tileName;
-    File fileFolder = new File(VARIATION_PATH + DEFAULT_VARIATION_PATH + BOARD_PATH + TILES_PATH);
-    for(File file: fileFolder.listFiles()){
-      tileName= file.getPath().substring(TILE_SUBSTRING_CUTOFF);
-      new File(VARIATION_PATH + gameName.getText() + BOARD_PATH + TILES_PATH + tileName).createNewFile();
-      src = Paths.get(file.getPath());
-      des = Paths.get(VARIATION_PATH + gameName.getText() + BOARD_PATH + TILES_PATH + tileName);
-      Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
-    }
-  }
-
-  //copies configuration file from original variation to new variation
-  private void copyConfigFile() throws IOException {
-    src = Paths.get(VARIATION_PATH + DEFAULT_VARIATION_PATH + CONFIG + PROPERTIES_PATH.replace("/","."));
-    des = Paths.get(VARIATION_PATH + gameName.getText() + CONFIG + PROPERTIES_PATH.replace("/","."));
-    Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
-  }
-
-  //copies chance and community chest cards from original variation to new variation
-  private void copyCardFiles(String cardPath, int pathCutoff) throws IOException {
-    String tileName;
-    File fileFolder = new File(VARIATION_PATH + DEFAULT_VARIATION_PATH + CARDS_PATH + cardPath);
-    for(File file: fileFolder.listFiles()){
-      tileName= file.getPath().substring(pathCutoff);
-      new File(VARIATION_PATH + gameName.getText() + CARDS_PATH + cardPath + tileName).createNewFile();
-      src = Paths.get(file.getPath());
-      des = Paths.get(VARIATION_PATH + gameName.getText() + CARDS_PATH + cardPath + tileName);
-      Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
-    }
-  }
-
   //creates the variation folder hierarchy and displays the rest of the selector menu
   private void createFullSelectorMenu() throws IOException {
-    makeDirectories();
+    folderFactory.makeDirectories(gameName.getText());
     VBox rightElements = new VBox();
     rightElements.setId("RightElements");
     allElements.getChildren().add(rightElements);
@@ -419,12 +335,7 @@ public class GameCreatorScreen extends Display {
     counter.setText("" + tileCounter);
   }
 
-  //Writes a single tile name to the .board file in the variation folder
-  private void writeLineToBoard(String tileName) throws IOException {
-    FileWriter fw = new FileWriter(variationBoardFile,true);
-    fw.write(tileName+ "\n");
-    fw.close();
-  }
+
 
   //Writes a regular property file to the properties folder
   private void writeRegularPropertyFile(String name, String cost, String rentcosts, String housecost, String neighbors, String mortgage, String color)
@@ -463,7 +374,7 @@ public class GameCreatorScreen extends Display {
 
   //Creates a board space with given name and color.
   private VBox createBoardSpace(String name,String color) throws IOException {
-    writeLineToBoard(name);
+    folderFactory.writeLineToBoard(name);
     VBox tileBox = new VBox();
     tileBox.setId("creatorTile");
     Label tilename = new Label(name);
@@ -488,7 +399,7 @@ public class GameCreatorScreen extends Display {
 
   //creates a board space with given name and image
   private VBox createBoardSpace(String name, Image image) throws IOException {
-    writeLineToBoard(name);
+    folderFactory.writeLineToBoard(name);
     VBox stackPane = new VBox();
     stackPane.setId("creatorTile");
     ImageView view = new ImageView(image);
