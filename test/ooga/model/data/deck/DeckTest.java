@@ -21,9 +21,9 @@ class DeckTest extends GameHandlingTest {
   void resetCards() {
     ActionSequence mySequence = new ActionSequence(myActionSequenceParser, myDisplayComm);
     cardList = new ArrayList<Card>();
-    c1 = new Card("1", "first", mySequence);
-    c2 = new Card("2", "second", mySequence);
-    c3 = new Card("3", "third", mySequence);
+    c1 = new Card("1", "first", mySequence, myDisplayComm);
+    c2 = new Card("2", "second", mySequence, myDisplayComm);
+    c3 = new Card("3", "third", mySequence, myDisplayComm);
     cardList.add(c1);
     cardList.add(c2);
     cardList.add(c3);

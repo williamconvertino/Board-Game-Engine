@@ -35,7 +35,7 @@ public class PlayerTest extends GameHandlingTest {
   void testCardGiving() {
     Player p = new Player("p1");
     assertTrue(p.getCards().isEmpty());
-    Card card = new Card("c", "desc", new ActionSequence(myActionSequenceParser, myDisplayComm));
+    Card card = new Card("c", "desc", new ActionSequence(myActionSequenceParser, myDisplayComm), myDisplayComm);
     p.giveCard(card);
     assertTrue(p.getCards().contains(card));
     p.removeCard(card);

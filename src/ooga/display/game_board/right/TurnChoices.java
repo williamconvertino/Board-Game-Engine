@@ -31,6 +31,7 @@ public class TurnChoices {
   private void makeTurnButtons() {
     myTurnChoices = new VBox();
     buyProperty();
+    buyHouse();
     endTurn();
   }
   /**
@@ -45,6 +46,13 @@ public class TurnChoices {
    */
   private void endTurn() {
     myTurnChoices.getChildren().add(myBuilder.makeTextButton("EndTurn", e->myGameBoardDisplay.endTurn()));
+  }
+
+  /**
+   * Make buy house button
+   */
+  private void buyHouse() {
+    myTurnChoices.getChildren().add(myBuilder.makeTextButton("BuyHouse", e->myGameBoardDisplay.buyHouse()));
   }
 
   /**

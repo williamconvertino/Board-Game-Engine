@@ -2,6 +2,7 @@ package ooga.display.communication;
 
 import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayStateSignaler.State;
+import ooga.model.data.cards.Card;
 
 /**
  * The display communication which shows exceptions
@@ -36,6 +37,16 @@ public class DisplayComm {
    */
   public void signalState(State state) {
     signaler.signalDisplay(state);
+  }
+
+  /**
+   *  Displays the specified card.
+   *
+   * @param card the card to display.
+   */
+  public void displayCard(Card card) {
+    //Todo: replace with display
+    System.out.println(String.format("Card drawn: [%s]", card.getDescription()));
   }
 
 }

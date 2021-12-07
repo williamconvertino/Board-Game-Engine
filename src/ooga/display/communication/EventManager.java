@@ -40,7 +40,6 @@ public class EventManager {
     }
 
     private void initializeDefaultHandlers(TurnManager turnManager) {
-
         myEvents.put(ROLL, e ->turnManager.roll());
         myEvents.put(END_TURN, e ->turnManager.endTurn());
         myEvents.put(SELECT_TILE, e->turnManager.setSelectedTile((TileModel)e[0]));

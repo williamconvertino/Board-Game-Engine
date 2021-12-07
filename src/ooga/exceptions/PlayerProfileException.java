@@ -7,6 +7,6 @@ package ooga.exceptions;
  *
  * @since 0.0.1
  */
-public class PlayerProfileException extends Exception {
+public class PlayerProfileException extends GameError {
 }
 
