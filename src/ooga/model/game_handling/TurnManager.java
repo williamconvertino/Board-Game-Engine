@@ -238,6 +238,17 @@ public class TurnManager {
     }
 
     /**
+     * Sells a house on the currently selected tile.
+     */
+    public void sellHouse() {
+        try {
+            sellHouse(((PropertyTileModel)selectedTile).getProperty());
+        } catch (Exception e) {
+            displayComm.showException(new TileNotAPropertyException());
+        }
+    }
+
+    /**
      * Executes the cheat associated with the given code.
      *
      * @param button the button pressed by the user.

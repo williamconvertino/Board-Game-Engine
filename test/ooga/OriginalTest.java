@@ -4,9 +4,14 @@ import java.util.List;
 import ooga.display.communication.DisplayComm;
 import ooga.display.communication.DisplayStateSignaler;
 import ooga.display.communication.EventManager;
+import ooga.exceptions.CardNotFoundException;
+import ooga.exceptions.DeckNotFoundException;
+import ooga.exceptions.TileNotFoundException;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
 import ooga.model.data.player.PlayerManager;
+import ooga.model.data.properties.Property;
+import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.game_handling.FunctionExecutor;
 import ooga.model.game_handling.TurnManager;
 import ooga.model.game_handling.board_manager.BoardManager;
@@ -79,5 +84,47 @@ public class OriginalTest {
     //System.out.println(gameData.getBoard().getTiles());
   }
 
+
+  @Test
+  void testExceptions() {
+    try {
+      gameData.getDecks().getRandomDeck().getCard("bruh");
+      assertTrue(false);
+    } catch (CardNotFoundException c) {
+      assertTrue(true);
+    }
+    try {
+      gameData.getDecks().getDeck("bruh2");
+      assertTrue(false);
+    } catch ( DeckNotFoundException c) {
+      assertTrue(true);
+    }
+    Player currentPlayer = gameData.getCurrentPlayer();
+    try {
+      currentPlayer.giveProperty( ((PropertyTileModel) (board.getTile("Boardwalk"))).getProperty() );
+      turnManager.setSelectedTile(board.getTile("Boardwalk"));
+      turnManager.buyHouse();
+      turnManager.buyHouse(((PropertyTileModel) (board.getTile("Boardwalk"))).getProperty());
+      turnManager.sellHouse();
+      turnManager.sellHouse(((PropertyTileModel) (board.getTile("Boardwalk"))).getProperty());
+      currentPlayer.giveProperty( ((PropertyTileModel) (board.getTile("Park Place"))).getProperty() );
+      turnManager.sellHouse();
+      turnManager.setSelectedTile(board.getTile("Go"));
+      turnManager.buyHouse();
+      turnManager.sellHouse();
+
+      for (Player p: gameData.getPlayers()) {
+        p.setActiveStatus(false);
+      }
+      turnManager.endTurn();
+
+      assertTrue(true);
+    } catch (TileNotFoundException c) {
+      assertTrue(false);
+    }
+
+
+
+  }
 
 }
