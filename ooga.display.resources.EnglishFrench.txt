@@ -1,0 +1,112 @@
+Go To Jail
+Or
+Property Cost:
+Please login first!
+One Regular Die
+Go
+SelectColor
+Invalid Username
+Owner:
+Enter Property Name:
+Mono
+No Owner
+Username:
+Login
+OPTIONS
+Green
+Select Edition
+Red
+Close
+Houses:
+Enter Profile Name
+Enter Name:
+Monopoly for Kids!
+Player 3
+Player 2
+Player 1
+The Classic!
+Choose Your Dice:
+Save Property
+Create Regular Property
+Enter Image Path:
+French
+Violet
+Please enter a new name
+Set Rules
+Community Chest
+Player 4
+Change Language
+Please enter a new username
+39
+No Avatar Selected
+Create Utilities Property
+Enter Game Name
+Chance
+MONOPOLY
+Go To Home
+Luxury Tax
+
+Game Creator
+Theme
+Create Railroad Property
+None
+Select Color
+Enter Player Names
+Start
+Please enter a new password
+Enter Mortgage Price:
+Free Parking
+Black
+Update
+Create New Game
+Please select an avatar
+Invalid Name
+Test
+Monopoly with a Duke Twist!
+Enter Username:
+Jail
+Spanish
+Enter Username
+Cards:
+Select Avatar:
+Sign Up
+Select Avatar
+Enter Neighbors:
+Choose Game
+Player Color
+Enter Password
+Rent Cost:
+Irish
+Number of Players
+Buy House
+End Turn
+Roll Dice
+Board Tiles:
+Latin
+Yellow
+Enter House Cost:
+Balance:
+Enter Rent Costs:
+Player Name:
+Options
+Blue
+Income Tax
+Continue
+Properties:
+Tiles Left
+Player Customizer
+Set Game
+Buy Property
+Invalid Password
+Enter Cost:
+AvatarLabelID
+Duke
+House Cost:
+English
+Enter Password:
+Enter Color:
+Two Regular Dice
+Mortgage Value:
+Original
+Location:
+Create Your Own
