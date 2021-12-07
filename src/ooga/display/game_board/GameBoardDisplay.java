@@ -70,7 +70,7 @@ public class GameBoardDisplay extends Display {
     theTop = new Top(this, myDisplayManager, myLanguage);
     theRight = new Right(this, myLanguage, eventMap, gameData);
     theLeft = new Left(myLanguage, eventMap, gameData);
-    theBottom = new Bottom(myLanguage);
+    theBottom = new Bottom(myLanguage, myDisplayManager);
     theBoard = new GameBoard(myDisplayManager, myLanguage, gameData, eventMap, theme);
 
     theGameBoard = new BorderPane();

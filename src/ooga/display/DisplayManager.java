@@ -14,6 +14,7 @@ import ooga.GameManager;
 import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
 import ooga.display.game_board.GameBoardDisplay;
+import ooga.display.game_board.board.GameBoard;
 import ooga.display.screens.endgame.LossScreen;
 import ooga.display.screens.endgame.VictoryScreen;
 import ooga.display.screens.EnterPlayersScreen;
@@ -291,15 +292,24 @@ public class DisplayManager {
   }
 
   public void goLossScreen() {
-    if (allDisplays.size() < 5) {
-      allDisplays.add(new LossScreen(this, languageResource, selectedTheme, myGameData));
-    }
-    currDisplay = allDisplays.get(5);
+    allDisplays.add(new LossScreen(this, languageResource, selectedTheme, myGameData));
+    int size = allDisplays.size();
+    currDisplay = allDisplays.get(size - 1);
+    myStage.setScene(currDisplay.getScene());
   }
 
   public void goVictoryScreen() {
     allDisplays.add(new VictoryScreen(myStage, this, languageResource, selectedTheme, myGameData, myPlayerManager));
-    currDisplay = allDisplays.get(6);
+    int size = allDisplays.size();
+    currDisplay = allDisplays.get(size - 1);
+    myStage.setScene(currDisplay.getScene());
+  }
+
+  public void goToGame() {
+    if (currDisplay.getClass() == LossScreen.class) {
+      currDisplay = allDisplays.get(4);
+      myStage.setScene(currDisplay.getScene());
+    }
   }
 
 }

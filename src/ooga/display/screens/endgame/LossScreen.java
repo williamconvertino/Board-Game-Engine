@@ -48,7 +48,7 @@ public class LossScreen extends Display {
         myDisplayManager = displayManager;
         lossScreen = new BorderPane();
         lossScreen.setTop(playersWhoLostLabel());
-        lossScreen.setLeft(myBuilder.makeTextButton("GoBackHome", e -> myDisplayManager.goStartMenu()));
+        lossScreen.setLeft(myBuilder.makeTextButton("GoBackToGame", e -> myDisplayManager.goToGame()));
         makeScene();
     }
 
@@ -63,12 +63,23 @@ public class LossScreen extends Display {
             sb.append(" ");
             sb.append(name);
         }
-        return (Label) myBuilder.makeLabel(sb.toString());
+        return new Label(sb.toString());
     }
 
     private void makeScene() {
         scene = new Scene(lossScreen, 800, 600);
         scene.getStylesheets().add(myStyle);
     }
+
+    /**
+     * Get the scene
+     *
+     * @return scene
+     */
+    @Override
+    public Scene getScene() {
+        return scene;
+    }
+
 
 }

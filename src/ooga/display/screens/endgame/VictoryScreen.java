@@ -1,6 +1,7 @@
 package ooga.display.screens.endgame;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -63,7 +64,7 @@ public class VictoryScreen extends Display {
         myDisplayManager = displayManager;
         victoryScreen = new BorderPane();
         getWinnerName();
-        victoryScreen.setTop(myBuilder.makeLabel(winnerName + " YOU WON"));
+        victoryScreen.setTop(new Label(winnerName + " YOU WON"));
         victoryScreen.setLeft(myBuilder.makeTextButton("GoBackHome", e -> myDisplayManager.goStartMenu()));
         makeScene();
     }
@@ -79,6 +80,16 @@ public class VictoryScreen extends Display {
         scene = new Scene(victoryScreen, 800, 600);
         scene.getStylesheets().add(myStyle);
 
+    }
+
+    /**
+     * Get the scene
+     *
+     * @return scene
+     */
+    @Override
+    public Scene getScene() {
+        return scene;
     }
 
 }

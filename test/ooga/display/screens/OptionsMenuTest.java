@@ -187,7 +187,7 @@ public class OptionsMenuTest extends DukeApplicationTest {
     myBoard = new OriginalBoardManager(tileList);
     myDie = new OriginalDice();
     myGameData = new GameData(myPlayers, myBoard, myDie);
-    myDisplayComm = myDisplayComm = new DisplayComm(dm);
+    myDisplayComm = new DisplayComm(dm);
     myFunctionExecutor = new FunctionExecutor(myGameData, myDie, myDisplayComm);
     myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
     EventManager eh = new EventManager(myTurnManager);
@@ -207,16 +207,8 @@ public class OptionsMenuTest extends DukeApplicationTest {
   }
 
   /**
-   * Checks that clicking on the theme produces a
+   * Set the lang french and check if it works
    */
-  @Test
-  public void clickTheme() {
-    Button options = lookup("#Options").query();
-    clickOn(options);
-    ComboBox theme = lookup("#Theme").query();
-    select(theme, "");
-  }
-
   @Test
   public void setLangFrench() {
     Button options = lookup("#Options").query();
@@ -226,6 +218,9 @@ public class OptionsMenuTest extends DukeApplicationTest {
     assertEquals("ooga.display.resources.French", dm.getLanguageResource().getBaseBundleName());
   }
 
+  /**
+   * Set the lang spanish and check if it works
+   */
   @Test
   public void setLangSpanish() {
     Button options = lookup("#Options").query();
@@ -235,14 +230,42 @@ public class OptionsMenuTest extends DukeApplicationTest {
     assertEquals("ooga.display.resources.Spanish", dm.getLanguageResource().getBaseBundleName());
   }
 
+  /**
+   * Set theme to original and basic check if it works
+   */
   @Test
   public void setOriginal() {
-
+    Button options = lookup("#Options").query();
+    clickOn(options);
+    ComboBox theme = lookup("#Theme").query();
+    select(theme, "Mono");
+    select(theme, "Original");
+    assertEquals("Original", theme.getSelectionModel().getSelectedItem().toString());
   }
 
+  /**
+   * Set theme to mono and basic check if it works
+   */
   @Test
   public void setMono() {
+    Button options = lookup("#Options").query();
+    clickOn(options);
+    ComboBox theme = lookup("#Theme").query();
+    select(theme, "Mono");
+    assertEquals("Mono", theme.getSelectionModel().getSelectedItem().toString());
+  }
 
+
+  /**
+   * Set theme to duke and basic check if it works
+   */
+  @Test
+  public void setDuke() {
+    Button options = lookup("#Options").query();
+    clickOn(options);
+    ComboBox theme = lookup("#Theme").query();
+    select(theme, "Duke");
+    assertEquals("Duke", theme.getSelectionModel().getSelectedItem().toString());
   }
 
 }
