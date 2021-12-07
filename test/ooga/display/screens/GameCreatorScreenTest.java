@@ -35,12 +35,6 @@ public class GameCreatorScreenTest extends DukeApplicationTest {
       writeInputTo(player1Name, "monopolytestgame");
       Button start = lookup("#CreateNewGame").query();
       clickOn(start);
-      ComboBox dice = lookup("#ChooseDice").query();
-      select(dice, "DoubleDie");
-      ComboBox play = lookup("#ChoosePlayStyle").query();
-      select(play, "WinMorePlayerManager");
-      ComboBox board = lookup("#ChooseBoard").query();
-      select(board, "BackwardsBoardManager");
       createFreeParking();
       createRegularProperty("Casey Cavern","400","50,200,600,1400,1700,2000","200","Will Walkway","175","green");
       createChance();
@@ -82,7 +76,6 @@ public class GameCreatorScreenTest extends DukeApplicationTest {
       createIncomeTax();
       creator = lookup("#SetGame").query();
       clickOn(creator);
-      TimeUnit.SECONDS.sleep(4);
       assertEquals(2, dm.getCurrDisplayIndex());
     }
     catch(Exception e){
