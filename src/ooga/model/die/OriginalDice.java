@@ -1,6 +1,5 @@
 package ooga.model.die;
 
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -12,19 +11,11 @@ import java.util.Random;
  */
 public class OriginalDice extends Die {
 
-  //The random object with which this class's rolls are made.
-  protected Random myRandom;
-
-  //Keeps track of whether the previous roll was a double.
-  protected boolean lastRollDouble;
-
-  //The last
-  protected int[] myLastRoll;
-
   /**
    * Constructs a new OriginalDice.
    */
   public OriginalDice() {
+    super(2);
     this.myRandom = new Random();
     this.lastRollDouble = false;
     this.myLastRoll = new int[2];
@@ -48,20 +39,4 @@ public class OriginalDice extends Die {
     return r1 + r2;
   }
 
-  /**
-   * @see Die#lastRollDouble()
-   */
-  @Override
-  public boolean lastRollDouble() {
-    return lastRollDouble;
-  }
-
-  /**
-   * @see OriginalDice#diceResult()
-   */
-  @Override
-  public int[] diceResult() {
-    int[] copy = Arrays.copyOf(myLastRoll, myLastRoll.length);
-    return copy;
-  }
 }
