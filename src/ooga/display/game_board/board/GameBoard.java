@@ -126,7 +126,6 @@ public class GameBoard {
   }
 
   private void makeCenterImage(String theme) {
-    System.out.println(IMAGE_MAP.get(theme));
     ImageView imageView = new ImageView(IMAGE_MAP.get(theme));
     imageView.setFitHeight(CENTER_IMAGE_SIDE_LEN);
     imageView.setFitWidth(CENTER_IMAGE_SIDE_LEN);

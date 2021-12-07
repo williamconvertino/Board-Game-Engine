@@ -8,6 +8,7 @@ import ooga.model.data.cards.Card;
 import ooga.model.data.deck.Deck;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
+import ooga.model.data.properties.Property;
 import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
 import ooga.model.die.Die;
@@ -130,7 +131,9 @@ public class CheatCodeManager {
   public void buyAllProperties() {
     for (TileModel tile: gameData.getBoard().getTiles()) {
       if (tile instanceof PropertyTileModel) {
-        ((PropertyTileModel)tile).getProperty().setOwner(gameData.getCurrentPlayer());
+        gameData.getCurrentPlayer().giveProperty(((PropertyTileModel) tile).getProperty());
+        Property prop = ((PropertyTileModel) tile).getProperty();
+        prop.setMonopoly();
       }
     }
   }
