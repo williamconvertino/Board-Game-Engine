@@ -6,11 +6,20 @@ import java.util.List;
 import ooga.exceptions.InvalidFileFormatException;
 import ooga.exceptions.TileNotFoundException;
 import ooga.model.data.player.Player;
-import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
 
+/**
+ * A class
+ *
+ * @author William Convertino
+ */
 public abstract class BoardManager {
 
+  /**
+   * Constructs a new BoardManager with the specified tiles.
+   *
+   * @param myTiles the tiles in this board.
+   */
   public BoardManager(List<TileModel> myTiles) {
 
   }
