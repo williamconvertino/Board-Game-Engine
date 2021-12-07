@@ -57,7 +57,7 @@ public class EnterPlayersScreen extends Display {
   private static final String PLAYER_NAME = "PlayerNameLabel";
   private static final String ENTER_NAME = "EnterPlayerName";
   private static final int DISPLAY_HEIGHT = 600;
-  private static final int DISPLAY_WIDTH = 800;
+  private static final int DISPLAY_WIDTH = 1000;
   private static final int IMAGE_SIZE = 100;
 
   private ArrayList<Color> playerColors = new ArrayList<>();

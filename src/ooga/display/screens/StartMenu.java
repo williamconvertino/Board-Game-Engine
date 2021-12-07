@@ -37,6 +37,7 @@ public class StartMenu extends Display {
 
   private final String PROFILES_DIR = "data/profiles/playerProfiles.csv";
   private final String AVATAR_DIR_PATH = "data/profiles/avatar-img/";
+  private final String AVATAR_PATH = "profiles/avatar-img/";
   private final File AVATAR_DIR = new File(AVATAR_DIR_PATH);
 
 
@@ -108,7 +109,7 @@ public class StartMenu extends Display {
   public void setUpdateProfile(String username, String image, String DisplayName) {
     updateProfile.updateUsername(username);
     ImageView avatar = new ImageView();
-    avatar.setImage(new Image("profiles/avatar-img/" + image));
+    avatar.setImage(new Image(AVATAR_PATH + image));
     avatar.setFitWidth(40);
     avatar.setFitHeight(40);
     startMenu.setRight(new VBox(new Label(DisplayName), avatar));
