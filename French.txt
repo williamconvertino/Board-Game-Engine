@@ -1,13 +1,13 @@
 Aller en prison
 Ou
-Coût de la propriété :
+Coût de la propriété:
 S'il vous plait Connectez-vous d'abord!
 Un dé normal
 Aller
 Choisissez la couleur
 Nom d'utilisateur invalide
 Propriétaire:
-Entrez le nom de la propriété :
+Entrez le nom de la propriété:
 Mono
 Pas de propriétaire
 Nom d'utilisateur:
@@ -25,10 +25,10 @@ Joueur 3
 Joueur 2
 Joueur 1
 Le classique!
-Choisissez vos dés :
+Choisissez vos dés:
 Enregistrer la propriété
 Créer une propriété normale
-Entrez le chemin de l'image :
+Entrez le chemin de l'image:
 français
 Violet
 Veuillez saisir un nouveau nom
@@ -54,7 +54,7 @@ Choisissez la couleur
 Entrez les noms des joueurs
 Début
 Veuillez saisir un nouveau mot de passe
-Entrez le prix de l'hypothèque :
+Entrez le prix de l'hypothèque:
 Parking gratuit
 Le noir
 Mettre à jour
@@ -62,31 +62,32 @@ Créer un nouveau jeu
 Veuillez sélectionner un avatar
 Nom incorrect
 Test
-Monopoly avec un Duke Twist !
+Monopoly avec un Duke Twist!
 Saisissez votre nom d'utilisateur:
 Prison
 Espagnol
 Saisissez votre nom d'utilisateur
 Cartes:
-Sélectionnez Avatar :
+Sélectionnez Avatar:
 S'inscrire
 Sélectionnez Avatar
-Entrez les voisins :
+Entrez les voisins:
 Choisissez le jeu
+Hôtels:
 Couleur du joueur
 Entrer le mot de passe
-Coût du loyer :
+Coût du loyer:
 irlandais
 Nombre de joueurs
 Acheter une maison
 Fin de tour
 Roulez les dés
-Tuiles de plateau :
+Tuiles de plateau:
 Latin
 Jaune
-Entrez le coût de la maison :
+Entrez le coût de la maison:
 Équilibre:
-Entrez les coûts de location :
+Entrez les coûts de location:
 Nom de joueur:
 Options
 Bleu
@@ -98,13 +99,13 @@ Personnalisateur de joueur
 Définir le jeu
 Acheter une propriété
 Mot de passe incorrect
-Entrez le coût :
+Entrez le coût:
 Identifiant de l'étiquette d'avatar
 Duc
-Coût de la maison :
+Coût de la maison:
 Anglais
 Entrer le mot de passe:
-Entrez la couleur :
+Entrez la couleur:
 Deux dés réguliers
 Valeur hypothécaire:
 Original

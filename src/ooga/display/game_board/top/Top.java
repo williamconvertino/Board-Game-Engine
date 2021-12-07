@@ -38,7 +38,7 @@ public class Top {
 
   private void makeGoHomeButton() {
     Button homeButton = new Button();
-    homeButton.setText("Home");
+    homeButton.setText(myLanguage.getString("GotoHome"));
     homeButton.setOnAction(e -> pressedHomeButton());
     topComponent.getChildren().add(homeButton);
   }
@@ -46,8 +46,6 @@ public class Top {
   private void pressedHomeButton() {
     myDisplayManager.goStartMenu();
   }
-
-  private void pressedRotateButton() { myDisplayManager.rotateBoard();}
 
   /**
    * Gets the top component

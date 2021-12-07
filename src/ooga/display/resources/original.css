@@ -89,12 +89,38 @@
 }
 
 #creatorTile{
-    -fx-border-width: 1px;
+    -fx-border-width: 3px;
     -fx-background-color: white;
-    -fx-border-color:white;
+    -fx-border-color:black;
+    -fx-background-radius: 2px;
+    -fx-border-radius: 2px;
 }
 
-#test{
+#tileText{
     -fx-font-size: 10px !important;
+}
+
+#SetGame{
+    -fx-border-radius: 10px;
+}
+
+#EditorInstructions{
+    -fx-fill: tan;
+    -fx-background-color: tan;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-color:black;
+}
+
+#RightElements{
+    -fx-padding: 20px;
+}
+
+#ChooseDice, #ChoosePlayStyle, #ChooseBoard{
+    -fx-max-width: 100;
+}
+
+#EnterGameName{
+    -fx-max-width: 400;
 }
 

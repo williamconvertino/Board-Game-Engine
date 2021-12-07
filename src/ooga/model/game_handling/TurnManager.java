@@ -67,6 +67,7 @@ public class TurnManager {
     public void endTurn() {
         if (gameData.getCurrentPlayer().getBalance() < 0) {
             gameData.getCurrentPlayer().setActiveStatus(false);
+            displayComm.displayPlayerLose(gameData.getCurrentPlayer());
         }
         this.selectedTile = null;
         gameData.resetTurnData();
@@ -213,9 +214,9 @@ public class TurnManager {
      */
     public void buyHouse() {
         try {
-            buyHouse(((PropertyTileModel)selectedTile).getProperty());
+            buyHouse(((PropertyTileModel) selectedTile).getProperty());
         } catch (Exception e) {
-            displayComm.showException(new TileNotAPropertyException());
+            displayComm.showException(new PropertyNotMonopolyException());
         }
     }
 

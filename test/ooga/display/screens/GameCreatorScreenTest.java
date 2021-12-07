@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.concurrent.TimeUnit;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ooga.display.DisplayManager;
@@ -24,57 +25,70 @@ public class GameCreatorScreenTest extends DukeApplicationTest {
    * of List of Displays in DisplayManager go to 2 (PlayerName)
    */
   @Test
-  public void clickStartEnterPlayerNames() throws InterruptedException {
-    Button options = lookup("#Start").query();
-    clickOn(options);
-    Button creator = lookup("#CreateYourOwn").query();
-    clickOn(creator);
-    TextField player1Name = lookup("#EnterGameName").query();
-    writeInputTo(player1Name, "monopolytestgame");
-    Button start = lookup("#CreateNewGame").query();
-    clickOn(start);
-    createFreeParking();
-    createRegularProperty("Casey Cavern","400","50,200,600,1400,1700,2000","200","Will Walkway","175","green");
-    createChance();
-    createCommunityChest();
-    createRegularProperty("Will Walkway","350","35,175,500,1100,1300,1500","200","Casey Cavern","200","green");
-    createIncomeTax();
-    createRailroadProperty("Reading Railroad","200","25,50,100,200","Pennsylvania Railroad, Short Line, B&O Railroad","100","null");
-    createFreeParking();
-    createJail();
-    createGoToJail();
-    createRegularProperty("Aaric Avenue","600","35,175,500,1100,1300,1500","200","Jordan Junction, Henry Highway","200","blue");
-    createCommunityChest();
-    createCommunityChest();
-    createCommunityChest();
-    createRegularProperty("Jordan Junction","550","35,175,500,1100,1300,1500","200","Aaric Avenue, Henry Highway","200","blue");
-    createRegularProperty("Henry Highway","650","35,175,500,1100,1300,1500","200","Jordan Junction, Aaric Avenue","200","blue");
-    createFreeParking();
-    createLuxuryTax();
-    createFreeParking();
-    createRailroadProperty("Short Line","200","25,50,100,200","Pennsylvania Railroad, B&O Railroad, Reading Railroad","100","null");
-    createIncomeTax();
-    createLuxuryTax();
-    createIncomeTax();
-    createLuxuryTax();
-    createIncomeTax();
-    createLuxuryTax();
-    createIncomeTax();
-    createLuxuryTax();
-    createIncomeTax();
-    createUtilitiesProperty("Duke Energy","200","50,100","Solar Farm","100","null");
-    createIncomeTax();
-    createLuxuryTax();
-    createIncomeTax();
-    createLuxuryTax();
-    createUtilitiesProperty("Solar Farm","200","50,100","Duke Energy","100","null");
-    createLuxuryTax();
-    createIncomeTax();
-    createLuxuryTax();
-    createIncomeTax();
+  public void clickStartEnterPlayerNames(){
+    try{
+      Button options = lookup("#Start").query();
+      clickOn(options);
+      Button creator = lookup("#CreateYourOwn").query();
+      clickOn(creator);
+      TextField player1Name = lookup("#EnterGameName").query();
+      writeInputTo(player1Name, "monopolytestgame");
+      Button start = lookup("#CreateNewGame").query();
+      clickOn(start);
+      ComboBox dice = lookup("#ChooseDice").query();
+      select(dice, "DoubleDie");
+      ComboBox play = lookup("#ChoosePlayStyle").query();
+      select(play, "WinMorePlayerManager");
+      ComboBox board = lookup("#ChooseBoard").query();
+      select(board, "BackwardsBoardManager");
+      createFreeParking();
+      createRegularProperty("Casey Cavern","400","50,200,600,1400,1700,2000","200","Will Walkway","175","green");
+      createChance();
+      createCommunityChest();
+      createRegularProperty("Will Walkway","350","35,175,500,1100,1300,1500","200","Casey Cavern","200","green");
+      createIncomeTax();
+      createRailroadProperty("Reading Railroad","200","25,50,100,200","Pennsylvania Railroad, Short Line, B&O Railroad","100","null");
+      createFreeParking();
+      createJail();
+      createGoToJail();
+      createRegularProperty("Aaric Avenue","600","35,175,500,1100,1300,1500","200","Jordan Junction, Henry Highway","200","blue");
+      createCommunityChest();
+      createCommunityChest();
+      createCommunityChest();
+      createRegularProperty("Jordan Junction","550","35,175,500,1100,1300,1500","200","Aaric Avenue, Henry Highway","200","blue");
+      createRegularProperty("Henry Highway","650","35,175,500,1100,1300,1500","200","Jordan Junction, Aaric Avenue","200","blue");
+      createFreeParking();
+      createLuxuryTax();
+      createFreeParking();
+      createRailroadProperty("Short Line","200","25,50,100,200","Pennsylvania Railroad, B&O Railroad, Reading Railroad","100","null");
+      createIncomeTax();
+      createLuxuryTax();
+      createIncomeTax();
+      createLuxuryTax();
+      createIncomeTax();
+      createLuxuryTax();
+      createIncomeTax();
+      createLuxuryTax();
+      createIncomeTax();
+      createUtilitiesProperty("Duke Energy","200","50,100","Solar Farm","100","null");
+      createIncomeTax();
+      createLuxuryTax();
+      createIncomeTax();
+      createLuxuryTax();
+      createUtilitiesProperty("Solar Farm","200","50,100","Duke Energy","100","null");
+      createLuxuryTax();
+      createIncomeTax();
+      createLuxuryTax();
+      createIncomeTax();
+      creator = lookup("#SetGame").query();
+      clickOn(creator);
+      TimeUnit.SECONDS.sleep(4);
+      assertEquals(2, dm.getCurrDisplayIndex());
+    }
+    catch(Exception e){
+      e.printStackTrace();
+    }
 
-    TimeUnit.SECONDS.sleep(4);
-    assertEquals(3, dm.getCurrDisplayIndex());
   }
 
   public void createFreeParking(){

@@ -29,7 +29,7 @@ public class VictoryScreenTest extends DukeApplicationTest {
         Platform.runLater(new Runnable(){
             @Override
             public void run() {
-                dm.goVictoryScreen();
+                dm.showVictoryScreen();
                 assertEquals(5, dm.getCurrDisplayIndex());
             }
         });
