@@ -1,0 +1,3 @@
+Name=Grand Opera Opening
+Description=IT'S THE GRAND OPENING OF THE OPERA - COLLECT $50 FROM EACH PLAYER FOR OPENING NIGHT SEATS
+ActionSequence=[addMoney p0 numPlayersX 50],[loseMoneyToMultiple pa 50]

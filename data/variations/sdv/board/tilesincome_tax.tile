@@ -1,0 +1,6 @@
+Name=Income Tax
+Type=Action
+Description=PAY $200
+Image=
+PassThroughActionSequence=[]
+LandOnActionSequence=[loseMoney p0 200]

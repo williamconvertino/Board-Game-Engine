@@ -1,0 +1,3 @@
+Name=Bank Error
+Description=BANK ERROR IN YOUR FAVOR - COLLECT $200
+ActionSequence=[addMoney p0 200]

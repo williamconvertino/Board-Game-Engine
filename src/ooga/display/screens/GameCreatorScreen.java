@@ -16,7 +16,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import ooga.display.Display;
@@ -57,13 +60,17 @@ public class GameCreatorScreen extends Display {
   private static final int TILE_SUBSTRING_CUTOFF = 37;
   private static final int CHANCE_SUBSTRING_CUTOFF = 38;
   private static final int COMMUNITY_CHEST_SUBSTRING_CUTOFF = 47;
-  private static final int SELECTOR_MENU_WIDTH = 400;
-  private static final int IMAGE_SIZE = 50;
+  private static final int SELECTOR_MENU_WIDTH = 500;
+  private static final int IMAGE_SIZE = 40;
+  private static final int TILE_SIZE = 50;
   private static final int CREATOR_ROW_MAX = 10;
   private static final int TILE_X_TRANSLATION = -500;
   private static final int TILE_Y_TRANSLATION = 50;
   private static final int DISPLAY_HEIGHT = 600;
   private static final int DISPLAY_WIDTH = 800;
+  private static final int SET_GAME_BUTTON_WIDTH=150;
+  private static final int SET_GAME_BUTTON_HEIGHT=75;
+
 
   private Scene scene;
   private TextField gameName;
@@ -136,10 +143,10 @@ public class GameCreatorScreen extends Display {
 
     selectorMenu = new VBox();
     selectorMenu.setMaxWidth(SELECTOR_MENU_WIDTH);
+    selectorMenu.setMinWidth(SELECTOR_MENU_WIDTH);
     selectorMenu.getChildren().add(createInitialSelectorMenu());
 
     allElements.getChildren().add(selectorMenu);
-    allElements.getChildren().add(myBuilder.makeTextButton("SetGame", e -> setGame()));
     makeScene();
   }
 
@@ -226,38 +233,59 @@ public class GameCreatorScreen extends Display {
     }
   }
 
-  //displays the rest of the selector menu
+  //creates the variation folder hierarchy and displays the rest of the selector menu
   private void createFullSelectorMenu() throws IOException {
     makeDirectories();
-    VBox result = new VBox();
-    result.getChildren().add(myBuilder.makeLabel("SetRules"));
+    VBox rightside = new VBox();
+    rightside.setId("Right");
+    allElements.getChildren().add(rightside);
+
+    Button setGameButton = myBuilder.makeTextButton("SetGame", e -> setGame());
+    //setGameButton.setTranslateX(130);
+    //setGameButton.setTranslateY(505);
+    setGameButton.setTranslateX(60);
+    setGameButton.setTranslateY(20);
+    setGameButton.setPrefWidth(SET_GAME_BUTTON_WIDTH);
+    setGameButton.setPrefHeight(SET_GAME_BUTTON_HEIGHT);
+    StackPane instructions = new StackPane();
+    instructions.setMinWidth(260);
+    instructions.setMaxWidth(260);
+    instructions.setMaxHeight(460);
+    instructions.setMinHeight(460);
+    instructions.setId("EditorInstructions");
+    rightside.getChildren().add(instructions);
+    rightside.getChildren().add(setGameButton);
+    Text instructionText = new Text("Welcome to the Custom Game Creator! \n \n Please start by typing in your game name and setting your rules. \n \n Then, using our creator buttons, create your monopoly board! \n \n (Note: You are only able to use one Jail and one Go To Jail tile) \n \n When you have placed 40 tiles, please hit 'Set Game'. \n \n \n Enjoy!");
+    instructions.getChildren().add(instructionText);
+    instructionText.setWrappingWidth(220);
+
+    selectorMenu.getChildren().add(myBuilder.makeLabel("SetRules"));
 
     //create Die Selector
     List<String> dieOptions = new ArrayList<>(Arrays.asList("TwoRegularDice","OneRegularDie"));
-    result.getChildren().add(myBuilder.makeCombo("ChooseYourDice", dieOptions, e -> setDie(e)));
+    selectorMenu.getChildren().add(myBuilder.makeCombo("ChooseYourDice", dieOptions, e -> setDie(e)));
 
     HBox createPropertyButtons = new HBox();
 
     createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddRegularProperty",e -> createPropertyPopUp("Regular")));
     createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddRailroadProperty",e -> createPropertyPopUp("Railroad")));
     createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddUtilitiesProperty",e -> createPropertyPopUp("Utilities")));
-    result.getChildren().add(createPropertyButtons);
+    selectorMenu.getChildren().add(createPropertyButtons);
 
     createSpecialTileButtons = new HBox();
     createTileButtons();
-    result.getChildren().add(createSpecialTileButtons);
+    selectorMenu.getChildren().add(createSpecialTileButtons);
 
-    result.getChildren().add(myBuilder.makeLabel("BoardTiles"));
+    selectorMenu.getChildren().add(myBuilder.makeLabel("BoardTiles"));
 
     HBox tileCountBox = new HBox();
     counter = (Label) myBuilder.makeLabel("TileCounter");
     tileCountBox.getChildren().addAll(myBuilder.makeLabel("TilesLeft"),counter);
-    result.getChildren().add(tileCountBox);
+    selectorMenu.getChildren().add(tileCountBox);
 
-    selectorMenu.getChildren().add(result);
 
     board = new HBox();
-    result.getChildren().add(board);
+    selectorMenu.getChildren().add(board);
     board.getChildren().add(createBoardSpace("Go",new Image(myGameImages.getString("Go"))));
   }
 
@@ -423,26 +451,26 @@ public class GameCreatorScreen extends Display {
   //Creates a board space with given name and color.
   private VBox createBoardSpace(String name,String color) throws IOException {
     writeLineToBoard(name);
-    VBox stackPane = new VBox();
-    stackPane.setId("creatorTile");
+    VBox tileBox = new VBox();
+    tileBox.setId("creatorTile");
     Label tilename = new Label(name);
     tilename.setId("tileText");
     tilename.setWrapText(true);
-    tilename.setMinWidth(IMAGE_SIZE);
-    tilename.setMinHeight(IMAGE_SIZE);
-    stackPane.setStyle("-fx-background-color:" + color + ";");
-    stackPane.getChildren().addAll(tilename);
-    stackPane.setMaxWidth(IMAGE_SIZE);
-    stackPane.setMaxHeight(IMAGE_SIZE);
-    stackPane.setMinWidth(IMAGE_SIZE);
-    stackPane.setMinHeight(IMAGE_SIZE);
+    tilename.setMinWidth(TILE_SIZE);
+    tilename.setMinHeight(TILE_SIZE);
+    tileBox.setStyle("-fx-background-color:" + color + ";");
+    tileBox.getChildren().addAll(tilename);
+    tileBox.setMaxWidth(TILE_SIZE);
+    tileBox.setMaxHeight(TILE_SIZE);
+    tileBox.setMinWidth(TILE_SIZE);
+    tileBox.setMinHeight(TILE_SIZE);
     if(tileCounter % CREATOR_ROW_MAX == 0){
       colJumper += TILE_X_TRANSLATION;
       rowJumper += TILE_Y_TRANSLATION;
     }
-    stackPane.setTranslateY(rowJumper);
-    stackPane.setTranslateX(colJumper);
-    return stackPane;
+    tileBox.setTranslateY(rowJumper);
+    tileBox.setTranslateX(colJumper);
+    return tileBox;
   }
 
   //creates a board space with given name and image
@@ -455,10 +483,10 @@ public class GameCreatorScreen extends Display {
     view.setFitHeight(IMAGE_SIZE);
     stackPane.setStyle("-fx-background-color:" + "white" + ";");
     stackPane.getChildren().addAll(view);
-    stackPane.setMaxWidth(IMAGE_SIZE);
-    stackPane.setMaxHeight(IMAGE_SIZE);
-    stackPane.setMinWidth(IMAGE_SIZE);
-    stackPane.setMinHeight(IMAGE_SIZE);
+    stackPane.setMaxWidth(TILE_SIZE);
+    stackPane.setMaxHeight(TILE_SIZE);
+    stackPane.setMinWidth(TILE_SIZE);
+    stackPane.setMinHeight(TILE_SIZE);
     if(tileCounter % CREATOR_ROW_MAX == 0){
       colJumper += TILE_X_TRANSLATION;
       rowJumper += TILE_Y_TRANSLATION;

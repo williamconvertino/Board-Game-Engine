@@ -1,0 +1,3 @@
+Name=Advance To The Nearest Utility
+Description=ADVANCE TO THE NEAREST UTILITY - IF IT IS OWNED, ROLL THE DIE AND PAY THE OWNER 10x THE AMOUNT THROWN.
+ActionSequence=[advanceToTypeAndPayX p0 Utility 10]

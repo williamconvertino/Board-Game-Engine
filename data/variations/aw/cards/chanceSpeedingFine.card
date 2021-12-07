@@ -1,0 +1,3 @@
+Name=Speeding fine
+Description=SPEEDING FINE - PAY $15
+ActionSequence=[loseMoney p0 15]

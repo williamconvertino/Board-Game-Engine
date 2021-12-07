@@ -1,0 +1,3 @@
+Name=Take A Trip To Reading Railroad
+Description=TAKE A TRIP TO READING RAILROAD - IF YOU PASS GO, COLLECT $200
+ActionSequence=[advanceToTile p0 "Reading Railroad"]

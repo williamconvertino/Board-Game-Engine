@@ -1,0 +1,3 @@
+Name=Advance To The Nearest Railroad
+Description=ADVANCE TO THE NEAREST RAILROAD - IF IT IS OWNED, PAY THE OWNER TWICE THE RENT TO WHICH THEY ARE ENTITLED
+ActionSequence=[advanceToTypeAndPayX p0 Railroad 2]

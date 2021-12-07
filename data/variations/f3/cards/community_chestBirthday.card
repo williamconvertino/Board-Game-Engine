@@ -1,0 +1,3 @@
+Name=Its Your Birthday
+Description=IT'S YOUR BIRTHDAY - COLLECT $10 FROM EVERY PLAYER
+ActionSequence=[addMoney p0 numPlayersX 10],[loseMoneyToMultiple pa 10]

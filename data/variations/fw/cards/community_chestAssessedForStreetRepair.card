@@ -1,0 +1,3 @@
+Name=Assessed For Street Repair
+Description=YOU ARE ASSESSED FOR STREET REPAIR - PAY $40 PER HOUSE AND $115 PER HOTEL
+ActionSequence=[loseMoneyForNumHouses p0 45],[loseMoneyForNumHotels p0 115]
