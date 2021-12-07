@@ -1,0 +1,3 @@
+Name=Advance To Go
+Description=ADVANCE TO GO - IF YOU PASS GO, COLLECT $200
+ActionSequence=[advanceToTile p0 Go]

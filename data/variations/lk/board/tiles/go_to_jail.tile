@@ -1,0 +1,6 @@
+Name=Go To Jail
+Type=Action
+Description=
+Image=
+PassThroughActionSequence=[]
+LandOnActionSequence=[goToJail p0]

@@ -1,0 +1,3 @@
+Name=Make General Repairs
+Description=MAKE GENERAL REPAIRS - PAY $25 FOR EACH HOUSE AND $100 FOR EACH HOTEL
+ActionSequence=[loseMoneyForNumHouses p0 25],[loseMoneyForNumHotels p0 100]
