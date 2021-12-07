@@ -13,13 +13,13 @@ import java.util.Random;
 public class OriginalDice extends Die {
 
   //The random object with which this class's rolls are made.
-  private Random myRandom;
+  protected Random myRandom;
 
   //Keeps track of whether the previous roll was a double.
-  private boolean lastRollDouble;
+  protected boolean lastRollDouble;
 
   //The last
-  private int[] myLastRoll;
+  protected int[] myLastRoll;
 
   /**
    * Constructs a new OriginalDice.

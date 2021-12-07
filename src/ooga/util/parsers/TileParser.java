@@ -126,7 +126,7 @@ public class TileParser extends FolderParser{
     ActionSequence passThrough = parseActionSequence(tryProperty(props,"PassThroughActionSequence"));
     ActionSequence landOn = parseActionSequence(tryProperty(props,"LandOnActionSequence"));
 
-    return new ActionTileModel(tileName,passThrough,landOn);
+    return new ActionTileModel(tileName, tileDescription, passThrough,landOn, displayComm);
   }
 
   /**
