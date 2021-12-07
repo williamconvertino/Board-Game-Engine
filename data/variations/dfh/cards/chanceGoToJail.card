@@ -1,3 +1,0 @@
-Name=Go To Jail
-Description=GO DIRECTLY TO JAIL - DO NOT PASS GO - DO NOT COLLECT $200
-ActionSequence=[goToJail p0]

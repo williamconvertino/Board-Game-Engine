@@ -1,3 +1,0 @@
-Name=Doctors Fee
-Description=DOCTOR'S FEE - PAY $50
-ActionSequence=[loseMoney p0 50]

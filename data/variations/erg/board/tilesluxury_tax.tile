@@ -1,6 +1,0 @@
-Name=Luxury Tax
-Type=Action
-Description=PAY $100
-Image=
-PassThroughActionSequence=[]
-LandOnActionSequence=[loseMoney p0 75]
