@@ -29,6 +29,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * This class allows the user to create their own monopoly board from scratch, and adjust the game rules.
+ *
+ * @author Casey Goldstein
+ */
 public class GameCreatorScreen extends Display {
 
   private static final String DEFAULT_RESOURCE_PACKAGE =
@@ -91,7 +96,6 @@ public class GameCreatorScreen extends Display {
   private File variationBoard;
   private File variationCards;
   private File variationProperties;
-  private File variationPlayers;
   private File variationConfigFile;
   private File variationBoardFile;
   private File variationTiles;
@@ -110,7 +114,7 @@ public class GameCreatorScreen extends Display {
 
 
   /**
-   * Constructor for creating an option menu screen
+   * Constructor for creating a custom game
    * @param stage The stage
    * @param displayManager The display manager
    * @param langResource The language
@@ -139,12 +143,13 @@ public class GameCreatorScreen extends Display {
     makeScene();
   }
 
-
+  //Sets the proper variation name and changes back to Player Screen
   private void setGame(){
     myDisplayManager.setVariationName(gameName.getText());
     myDisplayManager.goPlayerScreen();
   }
 
+  //Creates the first elements shown on the selector menu
   private Node createInitialSelectorMenu() {
     VBox result = new VBox();
     result.setMaxWidth(SELECTOR_MENU_WIDTH);
@@ -161,6 +166,7 @@ public class GameCreatorScreen extends Display {
     return result;
   }
 
+  //Creates all folders and files for the new variation, and copies all necessary information over
   private void makeDirectories() throws IOException {
     variationFolder = new File(VARIATION_PATH + gameName.getText().replace(" ","_"));
     variationFolder.mkdirs();
@@ -186,6 +192,7 @@ public class GameCreatorScreen extends Display {
     copyCardFiles(COMMUNITY_CHEST_PATH,COMMUNITY_CHEST_SUBSTRING_CUTOFF);
   }
 
+  //copies tile files from original variation to new variation
   private void copyTileFiles() throws IOException {
     String tileName;
     File fileFolder = new File(VARIATION_PATH + DEFAULT_VARIATION_PATH + BOARD_PATH + TILES_PATH);
@@ -199,12 +206,14 @@ public class GameCreatorScreen extends Display {
     }
   }
 
+  //copies configuration file from original variation to new variation
   private void copyConfigFile() throws IOException {
     src = Paths.get(VARIATION_PATH + DEFAULT_VARIATION_PATH + CONFIG + PROPERTIES_PATH.replace("/","."));
     des = Paths.get(VARIATION_PATH + gameName.getText() + CONFIG + PROPERTIES_PATH.replace("/","."));
     Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
   }
 
+  //copies chance and community chest cards from original variation to new variation
   private void copyCardFiles(String cardPath, int pathCutoff) throws IOException {
     String tileName;
     File fileFolder = new File(VARIATION_PATH + DEFAULT_VARIATION_PATH + CARDS_PATH + cardPath);
@@ -217,6 +226,7 @@ public class GameCreatorScreen extends Display {
     }
   }
 
+  //displays the rest of the selector menu
   private void createFullSelectorMenu() throws IOException {
     makeDirectories();
     VBox result = new VBox();
@@ -251,6 +261,7 @@ public class GameCreatorScreen extends Display {
     board.getChildren().add(createBoardSpace("Go",new Image(myGameImages.getString("Go"))));
   }
 
+  //creates the special tile creator buttons
   private void createTileButtons() throws IOException{
       jailButton = myBuilder.makeImageButton("Jail",e -> tryCreateSingleCardTile("Jail", jailButton), myGameImages.getString("Jail"),IMAGE_SIZE,IMAGE_SIZE);
       createSpecialTileButtons.getChildren().add(jailButton);
@@ -263,30 +274,34 @@ public class GameCreatorScreen extends Display {
       createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("IncomeTax",e -> tryCreateCardTile("IncomeTax"), myGameImages.getString("IncomeTax"),IMAGE_SIZE,IMAGE_SIZE));
   }
 
+  //calls CreateSingleCardTime and catches IOExceptions
   private void tryCreateSingleCardTile(String name, Button button){
     try{
       createSingleCardTile(name,button);
     }
-    catch(Exception e){
+    catch(IOException e){
       e.printStackTrace();
     }
   }
 
+  //calls CreateCardTime and catches IOExceptions
   private void tryCreateCardTile(String name){
     try{
       createCardTile(name);
     }
-    catch (Exception e){
+    catch (IOException e){
       e.printStackTrace();
     }
   }
 
+  //Adds a special tile to the board, and decrements tile count
   private void createCardTile(String name) throws IOException {
     board.getChildren().add(createSpecialTile(name, new Image(myGameImages.getString(name))));
     tileCounter--;
     counter.setText(""+ tileCounter);
   }
 
+  //Adds a special, one-use-only tile to the board, and decrements tile count
   private void createSingleCardTile(String name, Button jail) throws IOException {
     board.getChildren().add(createSpecialTile(name, new Image(myGameImages.getString(name))));
     createSpecialTileButtons.getChildren().remove(jail);
@@ -294,9 +309,12 @@ public class GameCreatorScreen extends Display {
     counter.setText(""+ tileCounter);
   }
 
+  //Sets the die to whatever the user chooses
   private void setDie(String dieType){
+    //TODO: Enter this
   }
 
+  //Creates the property pop up screen for the user to input
   private void createPropertyPopUp(String type){
     String myType = type;
     propertyName = (TextField) myBuilder.makeTextField("EnterPropertyName");
@@ -338,7 +356,7 @@ public class GameCreatorScreen extends Display {
     PropertyPopUp.show(myStage);
   }
 
-
+  //Saves the inputted property information, adds it to the board, and writes it to the variation folder.
   private void saveProperty(String type) throws IOException {
     String myType = type;
     switch (myType){
@@ -360,14 +378,14 @@ public class GameCreatorScreen extends Display {
     counter.setText("" + tileCounter);
   }
 
-
+  //Writes a single tile name to the .board file in the variation folder
   private void writeLineToBoard(String tileName) throws IOException {
     FileWriter fw = new FileWriter(variationBoardFile,true);
     fw.write(tileName+ "\n");
     fw.close();
   }
 
-
+  //Writes a regular property file to the properties folder
   private void writeRegularPropertyFile(String name, String cost, String rentcosts, String housecost, String neighbors, String mortgage, String color)
       throws IOException {
     File property = new File(VARIATION_PATH + gameName.getText().replace(" ","_") + PROPERTIES_PATH + "/" + name.toLowerCase(Locale.ROOT).replace(" ","_") + PROPERTIES_PATH.replace("/","."));
@@ -386,6 +404,7 @@ public class GameCreatorScreen extends Display {
     property.createNewFile();
   }
 
+  //Writes a special property file to the properties folder
   private void writeSpecialPropertyFile(String name, String type, String cost, String rentcosts, String neighbors, String mortgage, String image)
       throws IOException {
     File property = new File(VARIATION_PATH + gameName.getText().replace(" ","_") + PROPERTIES_PATH + "/" + name.toLowerCase(Locale.ROOT).replace(" ","_") + PROPERTIES_PATH.replace("/","."));
@@ -401,6 +420,7 @@ public class GameCreatorScreen extends Display {
     property.createNewFile();
   }
 
+  //Creates a board space with given name and color.
   private VBox createBoardSpace(String name,String color) throws IOException {
     writeLineToBoard(name);
     VBox stackPane = new VBox();
@@ -425,10 +445,7 @@ public class GameCreatorScreen extends Display {
     return stackPane;
   }
 
-  private VBox createSpecialTile(String name, Image image) throws IOException {
-    return createBoardSpace(myLangResource.getString(name),image);
-  }
-
+  //creates a board space with given name and image
   private VBox createBoardSpace(String name, Image image) throws IOException {
     writeLineToBoard(name);
     VBox stackPane = new VBox();
@@ -451,6 +468,12 @@ public class GameCreatorScreen extends Display {
     return stackPane;
   }
 
+  //creates a special tile for the board with given name and image
+  private VBox createSpecialTile(String name, Image image) throws IOException {
+    return createBoardSpace(myLangResource.getString(name),image);
+  }
+
+  //creates scene
   private void makeScene() {
     scene = new Scene(allElements, DISPLAY_WIDTH, DISPLAY_HEIGHT);
     scene.getStylesheets().add(DEFAULT_STYLE);
