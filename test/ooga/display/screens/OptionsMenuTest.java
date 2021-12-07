@@ -207,19 +207,11 @@ public class OptionsMenuTest extends DukeApplicationTest {
   }
 
   @Test
-  public void clickNumPlayers() {
-    Button options = lookup("#Options").query();
-    clickOn(options);
-    ComboBox numPlayers = lookup("#NumberofPlayers").query();
-    select(numPlayers, "");
-  }
-
-  @Test
   public void clickTheme() {
     Button options = lookup("#Options").query();
     clickOn(options);
     ComboBox theme = lookup("#Theme").query();
-    select(theme, "");
+    select(theme, "Mono");
   }
 
   @Test
