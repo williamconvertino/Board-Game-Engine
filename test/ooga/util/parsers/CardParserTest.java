@@ -18,12 +18,12 @@ public class CardParserTest extends ParserTest {
       throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidFileFormatException {
 
     Map<String,Card>cardMap = new HashMap();
-    ArrayList<Card> cardList = cardParser.parseCards("variations/monopoly_original/cards/chance");
+    ArrayList<Card> cardList = cardParser.parseCards("variations/original/cards/chance");
     for (Card card: cardList){
       cardMap.putIfAbsent(card.getName(),card);
     }
     assertEquals(true,cardMap.containsKey("Advance To Go"));
-    assertEquals(false,cardMap.containsKey("Go To Jail"));
+    assertEquals(true,cardMap.containsKey("Go To Jail"));
 
   }
 }

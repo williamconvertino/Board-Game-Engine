@@ -1,0 +1,9 @@
+Name=Illinois Avenue
+Type=Regular
+Cost=240
+RentCost=20,100,300,750,925,1100
+MaxHouses=4
+HouseCost=150
+Neighbors=Indiana Avenue, Kentucky Avenue
+Mortgage=120
+Color=red

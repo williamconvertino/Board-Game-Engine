@@ -91,12 +91,14 @@
     "numarg": 2,
     "argtype1":"ooga.model.data.player.Player",
     "argtype2": "java.lang.String"
+
   },
   "goToJail": {
     "method": "goToJail",
     "sourceclass": "ooga.model.game_handling.FunctionExecutor",
     "numarg": 1,
     "argtype1": "ooga.model.data.player.Player"
+
   }
 
 }

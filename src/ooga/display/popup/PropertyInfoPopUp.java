@@ -1,15 +1,11 @@
 package ooga.display.popup;
 
 
-import java.awt.Color;
 import java.util.ResourceBundle;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
-import javafx.stage.PopupWindow;
-import javafx.stage.PopupWindow.AnchorLocation;
 import javafx.stage.Stage;
 import ooga.display.ui_tools.UIBuilder;
 import ooga.model.data.tilemodels.PropertyTileModel;
@@ -79,7 +75,7 @@ public class PropertyInfoPopUp {
     }
 
     // Index 7 or 1
-    Button closeButton = myUIBuilder.makeButton("Close", e -> hidePopup());
+    Button closeButton = myUIBuilder.makeTextButton("Close", e -> hidePopup());
     popUpVBox.getChildren().add(closeButton);
 
     myPopup.getContent().add(popUpVBox);

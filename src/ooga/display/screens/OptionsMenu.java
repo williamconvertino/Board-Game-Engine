@@ -62,7 +62,7 @@ public class OptionsMenu extends Display {
         .add(myBuilder.makeCombo("Theme", themes, e -> myDisplayManager.changeTheme(e)));
     myLanguageUI = new LanguageUI(myDisplayManager, myLangResource, LANGUAGES_LIST);
     result.getChildren().add(myLanguageUI);
-    result.getChildren().add(myBuilder.makeButton("GotoHome", e -> myDisplayManager.goStartMenu()));
+    result.getChildren().add(myBuilder.makeTextButton("GotoHome", e -> myDisplayManager.goStartMenu()));
     return result;
   }
 

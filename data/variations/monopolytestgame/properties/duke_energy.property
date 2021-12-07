@@ -1,0 +1,7 @@
+Name=Duke Energy
+Type=Utilities
+Cost=200
+RentCost=50,100
+Neighbors=Solar Farm
+Mortgage=100
+Image=null

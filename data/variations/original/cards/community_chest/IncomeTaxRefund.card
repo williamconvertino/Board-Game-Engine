@@ -1,0 +1,3 @@
+Name=Income Tax Refund
+Description=INCOME TAX REFUND - COLLECT 20
+ActionSequence=[addMoney p0 20]

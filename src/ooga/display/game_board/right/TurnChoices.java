@@ -38,21 +38,21 @@ public class TurnChoices {
    * Make buy property button
    */
   private void buyProperty() {
-    myTurnChoices.getChildren().add(myBuilder.makeButton("BuyProperty", e->myGameBoardDisplay.buyProp()));
+    myTurnChoices.getChildren().add(myBuilder.makeTextButton("BuyProperty", e->myGameBoardDisplay.buyProp()));
   }
 
   /**
    * Make end turn button
    */
   private void endTurn() {
-    myTurnChoices.getChildren().add(myBuilder.makeButton("EndTurn", e->myGameBoardDisplay.endTurn()));
+    myTurnChoices.getChildren().add(myBuilder.makeTextButton("EndTurn", e->myGameBoardDisplay.endTurn()));
   }
 
   /**
    * Make buy house button
    */
   private void buyHouse() {
-    myTurnChoices.getChildren().add(myBuilder.makeButton("BuyHouse", e->myGameBoardDisplay.buyHouse()));
+    myTurnChoices.getChildren().add(myBuilder.makeTextButton("BuyHouse", e->myGameBoardDisplay.buyHouse()));
   }
 
   /**
