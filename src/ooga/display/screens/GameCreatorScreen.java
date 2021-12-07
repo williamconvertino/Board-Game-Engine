@@ -8,6 +8,7 @@ import java.util.Locale;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -46,14 +47,14 @@ public class GameCreatorScreen extends Display {
   private static final String IMAGE_RESOURCE = DEFAULT_RESOURCE_PACKAGE + "image_paths";
   private static final String VARIATION_PATH = "data/variations/";
   private static final String PROPERTIES_PATH = "/properties";
-  private static final int SELECTOR_MENU_WIDTH = 500;
+  private static final int SELECTOR_MENU_WIDTH = 600;
   private static final int IMAGE_SIZE = 40;
   private static final int TILE_SIZE = 50;
   private static final int CREATOR_ROW_MAX = 10;
   private static final int TILE_X_TRANSLATION = -500;
   private static final int TILE_Y_TRANSLATION = 50;
   private static final int DISPLAY_HEIGHT = 600;
-  private static final int DISPLAY_WIDTH = 800;
+  private static final int DISPLAY_WIDTH = 900;
   private static final int SET_GAME_BUTTON_WIDTH=150;
   private static final int SET_GAME_BUTTON_HEIGHT=75;
   private static final int SET_GAME_BUTTON_X=60;
@@ -196,11 +197,18 @@ public class GameCreatorScreen extends Display {
     allElements.getChildren().add(createRightElements());
     selectorMenu.getChildren().add(myBuilder.makeLabel("SetRules"));
 
+    HBox ruleBox = new HBox();
     //create Die Selector
-    List<String> dieOptions = new ArrayList<>(Arrays.asList("OriginalDice","DoublesDie"));
-    selectorMenu.getChildren().add(myBuilder.makeCombo("ChooseYourDice", dieOptions, e -> setDie(e)));
+    List<String> dieOptions = new ArrayList<>(Arrays.asList("OriginalDice","DoublesDie","BowserDie","D20Die","TenCoins"));
+    ruleBox.getChildren().add(myBuilder.makeCombo("ChooseDice", dieOptions, e -> setDie(e)));
 
-    //List<String> playerOptions = new ArrayList<>(Arrays.asList("Original"));
+    List<String> playerOptions = new ArrayList<>(Arrays.asList("OriginalPlayerManager","RandomPlayerManager","WinMorePlayerManager","WorstFirstPlayerManager"));
+    ruleBox.getChildren().add(myBuilder.makeCombo("ChoosePlayStyle", playerOptions, e -> setPlayerManager(e)));
+
+    List<String> boardOptions = new ArrayList<>(Arrays.asList("OriginalBoardManager","BackwardsBoardManager"));
+    ruleBox.getChildren().add(myBuilder.makeCombo("ChooseBoard", boardOptions, e -> setBoardManager(e)));
+    selectorMenu.getChildren().add(ruleBox);
+
     HBox createPropertyButtons = new HBox();
     createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddRegularProperty",e -> createPropertyPopUp("Regular")));
     createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddRailroadProperty",e -> createPropertyPopUp("Railroad")));
@@ -221,6 +229,19 @@ public class GameCreatorScreen extends Display {
     board = new HBox();
     selectorMenu.getChildren().add(board);
     board.getChildren().add(createBoardSpace("Go",new Image(myGameImages.getString("Go"))));
+  }
+
+  //Sets the die to whatever the user chooses
+  private void setDie(String die){
+    dieType = die;
+  }
+
+  private void setPlayerManager(String playerType){
+    playerManagerType = playerType;
+  }
+
+  private void setBoardManager(String boardType){
+    boardManagerType = boardType;
   }
 
   //creates the special tile creator buttons
@@ -279,10 +300,6 @@ public class GameCreatorScreen extends Display {
     counter.setText(""+ tileCounter);
   }
 
-  //Sets the die to whatever the user chooses
-  private void setDie(String die){
-    dieType = die;
-  }
 
   //Creates the property pop up screen for the user to input
   private void createPropertyPopUp(String type){

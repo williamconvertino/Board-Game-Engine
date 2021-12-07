@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.concurrent.TimeUnit;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ooga.display.DisplayManager;
@@ -34,6 +35,12 @@ public class GameCreatorScreenTest extends DukeApplicationTest {
       writeInputTo(player1Name, "monopolytestgame");
       Button start = lookup("#CreateNewGame").query();
       clickOn(start);
+      ComboBox dice = lookup("#ChooseDice").query();
+      select(dice, "DoubleDie");
+      ComboBox play = lookup("#ChoosePlayStyle").query();
+      select(play, "WinMorePlayerManager");
+      ComboBox board = lookup("#ChooseBoard").query();
+      select(board, "BackwardsBoardManager");
       createFreeParking();
       createRegularProperty("Casey Cavern","400","50,200,600,1400,1700,2000","200","Will Walkway","175","green");
       createChance();
