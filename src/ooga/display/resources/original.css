@@ -124,3 +124,9 @@
     -fx-max-width: 400;
 }
 
+#VariationLoader{
+    -fx-background-color: #A23434;
+    -fx-border-color: #A23434;
+}
+
+
