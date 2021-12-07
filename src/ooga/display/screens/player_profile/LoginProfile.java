@@ -123,7 +123,7 @@ public class LoginProfile implements Profile {
     myPassword = (TextField) myUIBuilder.makePrefilledTextField("PasswordTextFieldID");
     playerMenu.getChildren().add(myPassword);
     // Signup Button
-    Button loginButton = myUIBuilder.makeTextButton("Login", e -> buttonPressed());
+    Button loginButton = myUIBuilder.makeTextButton("LoginNow", e -> buttonPressed());
     // Close Button
     Button closeButton = myUIBuilder.makeTextButton("Close", e -> closePopup());
     playerMenu.getChildren().add(myUIBuilder.makeButtonBox(loginButton, closeButton));

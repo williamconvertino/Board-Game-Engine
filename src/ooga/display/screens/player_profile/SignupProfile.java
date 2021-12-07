@@ -44,6 +44,7 @@ public class SignupProfile implements Profile {
   private final String AVATAR_DIR_PATH = "data/profiles/avatar-img/";
   private final File AVATAR_DIR = new File(AVATAR_DIR_PATH);
   private final String PROFILES_DIR = "data/profiles/playerProfiles.csv";
+  private final String DEFAULT_AVATAR = "boss.png";
 
   /**
    * Instantiates a new Signup profile.
@@ -58,6 +59,7 @@ public class SignupProfile implements Profile {
     myStage = stage;
     myUIBuilder = uiBuilder;
     myResource = resourceBundle;
+    myAvatar = DEFAULT_AVATAR;
     makeScene();
   }
 
@@ -162,7 +164,7 @@ public class SignupProfile implements Profile {
     playerMenu.getChildren().add(avatarBox);
 
     // Signup Button
-    Button signupButton = myUIBuilder.makeTextButton("Signup", e -> buttonPressed());
+    Button signupButton = myUIBuilder.makeTextButton("SignupNow", e -> buttonPressed());
     // Close Button
     Button closeButton = myUIBuilder.makeTextButton("Close", e -> closePopup());
     playerMenu.getChildren().add(myUIBuilder.makeButtonBox(signupButton, closeButton));

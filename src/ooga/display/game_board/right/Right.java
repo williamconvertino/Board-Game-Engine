@@ -53,7 +53,8 @@ public class Right {
     eventMap.get(ROLL).execute();
     int[] myRoll = gameData.getDie().diceResult();
     Label rolledVals = (Label) rightComponent.getChildren().get(2);
-    rolledVals.setText(myRoll[0] + " " + myRoll[1]);
+    if (myRoll.length == 2) rolledVals.setText(myRoll[0] + " " + myRoll[1]);
+    else rolledVals.setText(String.format("%s", myRoll[0]));
     rightComponent.getChildren().set(2, rolledVals);
     myGameBoardDisplay.update();
     beginTurn();
