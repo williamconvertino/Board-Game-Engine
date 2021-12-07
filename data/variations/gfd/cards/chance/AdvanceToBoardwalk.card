@@ -1,3 +1,0 @@
-Name=Advance To Boardwalk
-Description=ADVANCE TO BOARDWALK
-ActionSequence=[advanceToTile p0 Boardwalk]

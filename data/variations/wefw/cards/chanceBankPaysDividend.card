@@ -1,3 +1,0 @@
-Name=Bank Pays Dividend
-Description=BANK PAYS YOU DIVIDEND OF $50
-ActionSequence=[addMoney p0 50]

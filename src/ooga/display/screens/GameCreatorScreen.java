@@ -324,6 +324,10 @@ public class GameCreatorScreen extends Display {
 
   //Adds a special tile to the board, and decrements tile count
   private void createCardTile(String name) throws IOException {
+    if(tileCounter <= 0){
+      myBuilder.makeErrorAlert("Board Full","You Have Placed All Tiles. Please press 'Set Game'").showAndWait();
+      return;
+    }
     board.getChildren().add(createSpecialTile(name, new Image(myGameImages.getString(name))));
     tileCounter--;
     counter.setText(""+ tileCounter);
@@ -331,6 +335,10 @@ public class GameCreatorScreen extends Display {
 
   //Adds a special, one-use-only tile to the board, and decrements tile count
   private void createSingleCardTile(String name, Button jail) throws IOException {
+    if(tileCounter <= 0){
+      myBuilder.makeErrorAlert("Board Full","You Have Placed All Tiles. Please press 'Set Game'").showAndWait();
+      return;
+    }
     board.getChildren().add(createSpecialTile(name, new Image(myGameImages.getString(name))));
     createSpecialTileButtons.getChildren().remove(jail);
     tileCounter--;
@@ -386,6 +394,10 @@ public class GameCreatorScreen extends Display {
 
   //Saves the inputted property information, adds it to the board, and writes it to the variation folder.
   private void saveProperty(String type) throws IOException {
+    if(tileCounter <= 0){
+      myBuilder.makeErrorAlert("Board Full","You Have Placed All Tiles. Please press 'Set Game'").showAndWait();
+      return;
+    }
     String myType = type;
     switch (myType){
       case "Regular":

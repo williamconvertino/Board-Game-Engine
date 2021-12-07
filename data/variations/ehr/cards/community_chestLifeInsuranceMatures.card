@@ -1,3 +1,0 @@
-Name=Life Insurance Matures
-Description=LIFE INSURANCE MATURES - COLLECT $100
-ActionSequence=[addMoney p0 100]

@@ -1,3 +1,0 @@
-Name=Pay Hospital Fee
-Description=PAY HOSPITAL FEE OF $100
-ActionSequence=[loseMoney p0 100]

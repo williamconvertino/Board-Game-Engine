@@ -1,3 +1,0 @@
-Name=Advance To IllinoisAve
-Description=ADVANCE TO ILLINOIS AVE - IF YOU PASS GO, COLLECT 200
-ActionSequence=[advanceToTile p0 "Illinois Avenue"]

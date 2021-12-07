@@ -1,3 +1,0 @@
-Name=You Inherit $100
-Description=YOU INHERIT $100
-ActionSequence=[addMoney p0 100]
