@@ -17,7 +17,6 @@ import ooga.model.game_handling.commands.ActionSequenceExecutor;
  * Abstract Parser class used by PropertyParser and CardParser to parse multiple files in folder
  *
  * @author Casey Goldstein
- *
  * @since 0.0.1
  */
 public abstract class FolderParser {
@@ -31,7 +30,7 @@ public abstract class FolderParser {
    *
    * @param sequenceParser
    */
-  public FolderParser(ActionSequenceExecutor sequenceParser, DisplayComm displayComm){
+  public FolderParser(ActionSequenceExecutor sequenceParser, DisplayComm displayComm) {
     actionSequenceParser = sequenceParser;
     this.displayComm = displayComm;
   }
@@ -39,24 +38,23 @@ public abstract class FolderParser {
   /**
    * Default constructor for child classes
    */
-  public FolderParser(){
+  public FolderParser() {
   }
 
   //returns list of files in a given folder
-  protected File[] getFileList(String folderPath){
+  protected File[] getFileList(String folderPath) {
     File fileFolder = new File(DEFAULT_DATA_PACKAGE + folderPath);
     return fileFolder.listFiles();
   }
 
   //takes file and converts to Java property object. Shows error message if file doesn't work.
-  protected Properties convertToPropertiesObject (File propertiesFile){
+  protected Properties convertToPropertiesObject(File propertiesFile) {
     try {
       FileReader propertiesReader = new FileReader(propertiesFile);
       Properties properties = new Properties();
       properties.load(propertiesReader);
       return properties;
-    }
-    catch (IOException e){
+    } catch (IOException e) {
       Alert errorAlert = new Alert(AlertType.ERROR);
       errorAlert.setHeaderText("Incorrect Format");
       errorAlert.setContentText("Please check the format for file at path: " + propertiesFile);
@@ -67,10 +65,9 @@ public abstract class FolderParser {
 
   //tries to access the value for a given key in properties object. If null, throws exception.
   protected String tryProperty(Properties prop, String key) throws AttributeNotFoundException {
-    if (prop.getProperty(key) != null){
+    if (prop.getProperty(key) != null) {
       return prop.getProperty(key);
-    }
-    else{
+    } else {
       System.out.println("missing key: " + key);
       throw new AttributeNotFoundException(key);
     }
@@ -80,9 +77,9 @@ public abstract class FolderParser {
   protected ActionSequence parseActionSequence(String sequenceText)
       throws InvalidFileFormatException {
     ActionSequence result = new ActionSequence(actionSequenceParser, displayComm);
-    String [] sequenceArray = sequenceText.split(",");
-    for (String action: sequenceArray){
-      action = action.substring(1,action.length()-1);
+    String[] sequenceArray = sequenceText.split(",");
+    for (String action : sequenceArray) {
+      action = action.substring(1, action.length() - 1);
       result.add(action);
     }
     return result;

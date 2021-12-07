@@ -1,9 +1,9 @@
 package ooga.display.ui_tools;
 
-import javafx.scene.layout.VBox;
-import ooga.display.DisplayManager;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.scene.layout.VBox;
+import ooga.display.DisplayManager;
 
 /**
  * This class creates a language change box. Made it as a class as we need to create one in the
@@ -15,8 +15,8 @@ import java.util.ResourceBundle;
 public class LanguageUI extends VBox {
 
   private final String LANGUAGE = "ChangeLanguage";
-  private ResourceBundle myLangResource;
-  private List<String> myLanguages;
+  private final ResourceBundle myLangResource;
+  private final List<String> myLanguages;
 
   /**
    * Creates initial popup where user chooses language

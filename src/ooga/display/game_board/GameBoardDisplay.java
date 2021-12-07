@@ -1,6 +1,7 @@
 package ooga.display.game_board;
 
 import java.util.Map;
+import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -18,7 +19,6 @@ import ooga.display.game_board.bottom.Bottom;
 import ooga.display.game_board.left.Left;
 import ooga.display.game_board.right.Right;
 import ooga.display.game_board.top.Top;
-import java.util.ResourceBundle;
 import ooga.display.ui_tools.UIBuilder;
 import ooga.model.data.gamedata.GameData;
 
@@ -37,21 +37,21 @@ public class GameBoardDisplay extends Display {
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
 
-  private BorderPane theGameBoard;
-  private GameBoard theBoard;
-  private Top theTop;
-  private Right theRight;
-  private Left theLeft;
-  private Bottom theBottom;
+  private final BorderPane theGameBoard;
+  private final GameBoard theBoard;
+  private final Top theTop;
+  private final Right theRight;
+  private final Left theLeft;
+  private final Bottom theBottom;
 
-  private Stage myStage;
-  private DisplayManager myDisplayManager;
+  private final Stage myStage;
+  private final DisplayManager myDisplayManager;
   private Scene scene;
-  private GameData myGameData;
-  private UIBuilder myUIBuilder;
-  private Map<EVENT_NAMES, TMEvent> myEventMap;
+  private final GameData myGameData;
+  private final UIBuilder myUIBuilder;
+  private final Map<EVENT_NAMES, TMEvent> myEventMap;
 
-  private ResourceBundle myLanguage;
+  private final ResourceBundle myLanguage;
   private String myStyle = DEFAULT_STYLE;
 
   /**
@@ -104,7 +104,8 @@ public class GameBoardDisplay extends Display {
     TabPane tabPane = (TabPane) leftComp.getChildren().get(0);
     Tab currTab = tabPane.getTabs().get(currPlayer);
     VBox tempTabVBox = (VBox) currTab.getContent();
-    tempTabVBox.getChildren().set(2, new Circle(20, myGameData.getPlayers().get(currPlayer).getColor()));
+    tempTabVBox.getChildren()
+        .set(2, new Circle(20, myGameData.getPlayers().get(currPlayer).getColor()));
     tempTabVBox.getChildren().set(4, new Label(String.valueOf(
         myGameData.getBoard().getTileAtIndex(myGameData.getPlayers().get(currPlayer).getLocation())
             .getName())));
@@ -118,7 +119,8 @@ public class GameBoardDisplay extends Display {
    * Buys Property and updates the board elements
    */
   public void buyProp() {
-    myEventMap.get(EVENT_NAMES.BUY_PROPERTY).execute(myGameData.getBoard().getTileAtIndex(myGameData.getCurrentPlayer().getLocation()));
+    myEventMap.get(EVENT_NAMES.BUY_PROPERTY)
+        .execute(myGameData.getBoard().getTileAtIndex(myGameData.getCurrentPlayer().getLocation()));
     update();
   }
 
@@ -157,6 +159,7 @@ public class GameBoardDisplay extends Display {
 
   /**
    * Get the scene
+   *
    * @return scene
    */
   @Override
@@ -166,6 +169,7 @@ public class GameBoardDisplay extends Display {
 
   /**
    * Get the stage
+   *
    * @return myStage
    */
   public Stage getMyStage() {

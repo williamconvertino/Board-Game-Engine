@@ -3,136 +3,137 @@
 }*/
 
 .root {
-    -fx-font-family: "Rockwell";
-    /* define variables to avoid duplicating values */
-    text_color: #F8CE87;
-    -fx-background-color: #A23434;
+  -fx-font-family: "Rockwell";
+  /* define variables to avoid duplicating values */
+  text_color: #F8CE87;
+  -fx-background-color: #A23434;
 }
 
 #propertyVBox {
-    -fx-background-color: #A23434;
-    -fx-border-color: #000000;
-    -fx-border-width: 3px;
-    -fx-padding: 10px;
+  -fx-background-color: #A23434;
+  -fx-border-color: #000000;
+  -fx-border-width: 3px;
+  -fx-padding: 10px;
 }
 
 #ProfileVBox {
-    -fx-border-color: #000000;
-    -fx-border-width: 3px;
-    -fx-padding: 10px;
+  -fx-border-color: #000000;
+  -fx-border-width: 3px;
+  -fx-padding: 10px;
 }
 
 #propdisptilename {
-    -fx-font-size: 80%;
-    -fx-padding: 2px;
-    -fx-text-alignment: center;
+  -fx-font-size: 80%;
+  -fx-padding: 2px;
+  -fx-text-alignment: center;
 }
 
 .choice-box {
-    -fx-border-style: solid;
-    -fx-padding: 5px;
-    -fx-spacing: 2px;
+  -fx-border-style: solid;
+  -fx-padding: 5px;
+  -fx-spacing: 2px;
 }
 
 .radio-button {
-    -fx-text-fill: text_color;
+  -fx-text-fill: text_color;
 }
 
 .button-box {
-    -fx-alignment: center;
-    -fx-spacing: 8px;
+  -fx-alignment: center;
+  -fx-spacing: 8px;
 }
 
 .button {
-    -fx-text-fill: text_color;
-    -fx-background-color: floralwhite;
-    -fx-padding: 10px;
-    -fx-border-color: lightgrey;
+  -fx-text-fill: text_color;
+  -fx-background-color: floralwhite;
+  -fx-padding: 10px;
+  -fx-border-color: lightgrey;
 }
 
-#variationButton{
-    -fx-padding: 0px;
+#variationButton {
+  -fx-padding: 0px;
 }
 
-#variationButton:hover{
-    -fx-padding: 0px;
-    -fx-background-color: white;
+#variationButton:hover {
+  -fx-padding: 0px;
+  -fx-background-color: white;
 }
 
 .button:pressed {
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 20, 0.0, 0, 1);
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 20, 0.0, 0, 1);
 }
 
 .text-area {
-    -fx-border-color: lightgrey;
+  -fx-border-color: lightgrey;
 }
+
 .label {
-    -fx-font-size: 15;
-    -fx-text-fill: text_color;
-    -fx-alignment: center;
-    -fx-min-width: 10px;
-    -fx-padding: 10px;
+  -fx-font-size: 15;
+  -fx-text-fill: text_color;
+  -fx-alignment: center;
+  -fx-min-width: 10px;
+  -fx-padding: 10px;
 }
 
 .text-field {
-    -fx-text-fill: text_color;
-    -fx-background-color: floralwhite;
-    -fx-min-width: 200px;
+  -fx-text-fill: text_color;
+  -fx-background-color: floralwhite;
+  -fx-min-width: 200px;
 }
 
-#variationButtonBox{
-    -fx-spacing: 10px;
+#variationButtonBox {
+  -fx-spacing: 10px;
 }
 
-#propertyCreatorBox{
-    -fx-spacing: 10px;
+#propertyCreatorBox {
+  -fx-spacing: 10px;
 }
 
-#creatorTile{
-    -fx-border-width: 3px;
-    -fx-background-color: white;
-    -fx-border-color:black;
-    -fx-background-radius: 2px;
-    -fx-border-radius: 2px;
+#creatorTile {
+  -fx-border-width: 3px;
+  -fx-background-color: white;
+  -fx-border-color: black;
+  -fx-background-radius: 2px;
+  -fx-border-radius: 2px;
 }
 
-#tileText{
-    -fx-font-size: 10px !important;
+#tileText {
+  -fx-font-size: 10px !important;
 }
 
-#SetGame{
-    -fx-border-radius: 10px;
+#SetGame {
+  -fx-border-radius: 10px;
 }
 
-#EditorInstructions{
-    -fx-fill: tan;
-    -fx-background-color: tan;
-    -fx-background-radius: 20px;
-    -fx-border-radius: 20px;
-    -fx-border-color:black;
+#EditorInstructions {
+  -fx-fill: tan;
+  -fx-background-color: tan;
+  -fx-background-radius: 20px;
+  -fx-border-radius: 20px;
+  -fx-border-color: black;
 }
 
-#RightElements{
-    -fx-padding: 20px;
+#RightElements {
+  -fx-padding: 20px;
 }
 
-#ChooseDice, #ChoosePlayStyle, #ChooseBoard{
-    -fx-max-width: 100;
+#ChooseDice, #ChoosePlayStyle, #ChooseBoard {
+  -fx-max-width: 100;
 }
 
-#EnterGameName{
-    -fx-max-width: 400;
+#EnterGameName {
+  -fx-max-width: 400;
 }
 
-#VariationLoader{
-    -fx-background-color: #A23434;
-    -fx-border-color: #A23434;
+#VariationLoader {
+  -fx-background-color: #A23434;
+  -fx-border-color: #A23434;
 }
 
-#tileBox{
-    -fx-background-color: white;
-    -fx-border-color: black;
-    -fx-alignment: top-center;
+#tileBox {
+  -fx-background-color: white;
+  -fx-border-color: black;
+  -fx-alignment: top-center;
 }
 
 

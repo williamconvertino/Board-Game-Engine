@@ -4,7 +4,6 @@ package ooga.exceptions;
  * An error to throw if a tile name was specified but not found in the board_manager.
  *
  * @author William Convertino
- *
  * @since 0.0.1
  */
 public class TileNotFoundException extends GameError {

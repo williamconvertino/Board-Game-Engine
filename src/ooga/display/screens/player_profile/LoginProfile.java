@@ -22,17 +22,18 @@ import ooga.util.ProfileManager;
  * @author Aaric Han
  */
 public class LoginProfile implements Profile {
+
   private static final String DEFAULT_RESOURCE_PACKAGE =
       Display.class.getPackageName() + ".resources.";
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
   private static final String DEFAULT_STYLE = STYLE_PACKAGE + "mainmenu.css";
 
-  private DisplayManager myDisplayManager;
-  private ProfileManager myProfileManager;
-  private Stage myStage;
+  private final DisplayManager myDisplayManager;
+  private final ProfileManager myProfileManager;
+  private final Stage myStage;
   private Popup myPopup;
-  private UIBuilder myUIBuilder;
-  private ResourceBundle myResource;
+  private final UIBuilder myUIBuilder;
+  private final ResourceBundle myResource;
   private TextField myUsername;
   private TextField myPassword;
 
@@ -42,11 +43,13 @@ public class LoginProfile implements Profile {
 
   /**
    * Default Constructor to build the Login Profile object
+   *
    * @param stage
    * @param uiBuilder
    * @param resourceBundle
    */
-  public LoginProfile(Stage stage, UIBuilder uiBuilder, ResourceBundle resourceBundle, DisplayManager dm, ProfileManager pm) {
+  public LoginProfile(Stage stage, UIBuilder uiBuilder, ResourceBundle resourceBundle,
+      DisplayManager dm, ProfileManager pm) {
     myProfileManager = pm;
     myDisplayManager = dm;
     myStage = stage;
@@ -57,6 +60,7 @@ public class LoginProfile implements Profile {
 
   /**
    * Get the popup component
+   *
    * @return myPopup
    */
   @Override
@@ -76,26 +80,31 @@ public class LoginProfile implements Profile {
 
     ExceptionPopUp error;
 
-    if (username.equals(myResource.getString("UsernameTextFieldID")) || username.isBlank() || username.contains(" ")) {
+    if (username.equals(myResource.getString("UsernameTextFieldID")) || username.isBlank()
+        || username.contains(" ")) {
       errorLabel = "Invalid Fields";
-      errorContent = String.format("%s\n%s", errorContent, myResource.getString("PleaseEnterNewUsername"));
+      errorContent = String.format("%s\n%s", errorContent,
+          myResource.getString("PleaseEnterNewUsername"));
     }
-    if (password.equals(myResource.getString("PasswordTextFieldID")) || password.isBlank() || password.contains(" ")) {
+    if (password.equals(myResource.getString("PasswordTextFieldID")) || password.isBlank()
+        || password.contains(" ")) {
       errorLabel = "Invalid Fields";
-      errorContent = String.format("%s\n%s", errorContent, myResource.getString("PleaseEnterNewPassword"));
+      errorContent = String.format("%s\n%s", errorContent,
+          myResource.getString("PleaseEnterNewPassword"));
     }
-    if (!errorLabel.isBlank()) error = new ExceptionPopUp(errorLabel, errorContent, myResource);
-    else {
-      String playerInfo[];
+    if (!errorLabel.isBlank()) {
+      error = new ExceptionPopUp(errorLabel, errorContent, myResource);
+    } else {
+      String[] playerInfo;
       try {
         playerInfo = myProfileManager.loginPlayerProfile(username, password, PROFILES_DIR);
-      }
-      catch (FileNotFoundException e) {
-        ExceptionPopUp NoFile = new ExceptionPopUp("Player Data Storage Not Found", "Please check data/profiles/playerProfiles.csv", myResource);
+      } catch (FileNotFoundException e) {
+        ExceptionPopUp NoFile = new ExceptionPopUp("Player Data Storage Not Found",
+            "Please check data/profiles/playerProfiles.csv", myResource);
         return;
-      }
-      catch (PlayerProfileException e) {
-        ExceptionPopUp PlayerProfilesNotFound = new ExceptionPopUp("Cannot Find Player", "Please Signup", myResource);
+      } catch (PlayerProfileException e) {
+        ExceptionPopUp PlayerProfilesNotFound = new ExceptionPopUp("Cannot Find Player",
+            "Please Signup", myResource);
         return;
       }
       // Change the login status to logged in (true)

@@ -24,7 +24,6 @@ import org.json.simple.parser.JSONParser;
  * A utility that can execute action commands formatted as strings.
  *
  * @author William Convertino
- *
  * @since 0.0.2
  */
 
@@ -36,15 +35,15 @@ public class ActionSequenceExecutor {
   private static final String ARGUMENT_DATA_FILENAME = "arguments.json";
 
   //The FunctionExecutor that houses the commands to be run.
-  private FunctionExecutor functionExecutor;
+  private final FunctionExecutor functionExecutor;
 
   //The current game's gamedata.
-  private GameData gameData;
+  private final GameData gameData;
 
-  private ActionSequenceHelperCommands actionSequenceHelper;
+  private final ActionSequenceHelperCommands actionSequenceHelper;
 
   //The JSON parser of this class.
-  private JSONParser myJSONParser;
+  private final JSONParser myJSONParser;
 
   //A JSONObject containing all the commands and their associated data.
   private JSONObject myCommands;
@@ -56,16 +55,19 @@ public class ActionSequenceExecutor {
    * Constructs a new ActionSequenceParser.
    *
    * @param functions the functions with which this class can run.
-   * @param gameData a reference to the game's data.
+   * @param gameData  a reference to the game's data.
    */
-  public ActionSequenceExecutor(FunctionExecutor functions, GameData gameData, DisplayComm displayComm) {
+  public ActionSequenceExecutor(FunctionExecutor functions, GameData gameData,
+      DisplayComm displayComm) {
     this.functionExecutor = functions;
     this.gameData = gameData;
     this.actionSequenceHelper = new ActionSequenceHelperCommands(functions, gameData);
     this.myJSONParser = new JSONParser();
     try {
-      myCommands = (JSONObject)myJSONParser.parse(new FileReader(String.format("%s%s", RESOURCE_DIRECTORY, COMMAND_DATA_FILENAME)));
-      myArgs = (JSONObject)myJSONParser.parse(new FileReader(String.format("%s%s", RESOURCE_DIRECTORY, ARGUMENT_DATA_FILENAME)));
+      myCommands = (JSONObject) myJSONParser.parse(
+          new FileReader(String.format("%s%s", RESOURCE_DIRECTORY, COMMAND_DATA_FILENAME)));
+      myArgs = (JSONObject) myJSONParser.parse(
+          new FileReader(String.format("%s%s", RESOURCE_DIRECTORY, ARGUMENT_DATA_FILENAME)));
     } catch (Exception e) {
       displayComm.showException(e);
     }
@@ -89,14 +91,14 @@ public class ActionSequenceExecutor {
       //Find the JSON entry corresponding with the desired command.
       JSONObject fExecutorCommand = (JSONObject) myCommands.get(commandElements[0]);
 
-      Class sourceClass = Class.forName((String)fExecutorCommand.getOrDefault("sourceclass", "ooga.model.game_handling.FunctionExecutor"));
+      Class sourceClass = Class.forName((String) fExecutorCommand.getOrDefault("sourceclass",
+          "ooga.model.game_handling.FunctionExecutor"));
 
       Method fExecutorMethod = generateMethodFromJSONObject(fExecutorCommand, sourceClass);
 
       //
       Object[] fExecutorArgs = generateArgumentArrayFromJSONObject(fExecutorCommand, sourceClass,
           Arrays.copyOfRange(commandElements, 1, commandElements.length));
-
 
       fExecutorMethod.invoke(getInstanceOfClass(sourceClass), fExecutorArgs);
 
@@ -111,20 +113,23 @@ public class ActionSequenceExecutor {
       throws ClassNotFoundException, NoSuchMethodException {
 
     //Generate an array of the classes that the method takes in as an argument.
-    Class[] argumentClasses = new Class[((Long) jObject.getOrDefault("numarg", Long.valueOf(0))).intValue()];
+    Class[] argumentClasses = new Class[((Long) jObject.getOrDefault("numarg",
+        Long.valueOf(0))).intValue()];
     for (int i = 0; i < argumentClasses.length; i++) {
-        argumentClasses[i] = Class.forName((String)jObject.get(String.format("%s%s","argtype", i+1)));
+      argumentClasses[i] = Class.forName(
+          (String) jObject.get(String.format("%s%s", "argtype", i + 1)));
     }
 
     //Find the name of the method.
-    String methodName = (String)jObject.get("method");
+    String methodName = (String) jObject.get("method");
 
     //Find and return the method with the found name and argument type list.
     return sourceClass.getMethod(methodName, argumentClasses);
   }
 
   //TODO Add comment
-  private Object[] generateArgumentArrayFromJSONObject(JSONObject jObject, Class sourceClass, String[] commandElements)
+  private Object[] generateArgumentArrayFromJSONObject(JSONObject jObject, Class sourceClass,
+      String[] commandElements)
       throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, InvalidFileFormatException {
 
     List<Object> arguments = new ArrayList<>();
@@ -138,13 +143,17 @@ public class ActionSequenceExecutor {
         JSONObject argumentData = (JSONObject) myArgs.get(commandElements[i]);
 
         //Find the relevant argument generation function, and generate the argument.
-        Class generatorClass = Class.forName((String)argumentData.getOrDefault("sourceclass","ooga.model.game_handling.commands.ActionSequenceHelperCommands"));
+        Class generatorClass = Class.forName((String) argumentData.getOrDefault("sourceclass",
+            "ooga.model.game_handling.commands.ActionSequenceHelperCommands"));
         Method argumentGeneratorMethod = generateMethodFromJSONObject(argumentData, generatorClass);
-        Object[] argumentGeneratorArguments = generateArgumentArrayFromJSONObject(argumentData, generatorClass,
+        Object[] argumentGeneratorArguments = generateArgumentArrayFromJSONObject(argumentData,
+            generatorClass,
             Arrays.copyOfRange(commandElements, 1, commandElements.length));
 
         //Add this argument to the argument list.
-        arguments.add(argumentGeneratorMethod.invoke(getInstanceOfClass(argumentGeneratorMethod.getClass()),argumentGeneratorArguments));
+        arguments.add(
+            argumentGeneratorMethod.invoke(getInstanceOfClass(argumentGeneratorMethod.getClass()),
+                argumentGeneratorArguments));
 
       } else {
 
@@ -170,7 +179,7 @@ public class ActionSequenceExecutor {
       return functionExecutor;
     } else if (c.equals(ActionSequenceHelperCommands.class)) {
       return actionSequenceHelper;
-    }else {
+    } else {
       return actionSequenceHelper;
     }
 
@@ -187,7 +196,7 @@ public class ActionSequenceExecutor {
           i++;
           element += " " + splitArray[i];
         }
-        elementList.add(element.substring(0, element.length()-1));
+        elementList.add(element.substring(0, element.length() - 1));
       } else {
         elementList.add(splitArray[i]);
       }
@@ -223,7 +232,7 @@ public class ActionSequenceExecutor {
   public List<Player> getAllPlayersButCurrent() {
     List<Player> allPlayers = new ArrayList<>(gameData.getPlayers());
     allPlayers.remove(gameData.getCurrentPlayer());
-    return(allPlayers);
+    return (allPlayers);
   }
 
   public Integer getDieRoll()
@@ -254,8 +263,9 @@ public class ActionSequenceExecutor {
     functionExecutor.movePlayerToTile(player, propertyName);
     TileModel currentTile = gameData.getBoard().getTileAtIndex(player.getLocation());
     if (currentTile instanceof PropertyTileModel) {
-      Property currentProperty = ((PropertyTileModel)currentTile).getProperty();
-      if (currentProperty.getOwner() != player && currentProperty.getOwner() != Property.NULL_OWNER) {
+      Property currentProperty = ((PropertyTileModel) currentTile).getProperty();
+      if (currentProperty.getOwner() != player
+          && currentProperty.getOwner() != Property.NULL_OWNER) {
         for (int i = 1; i < amount; i++) {
           functionExecutor.loseMoney(player, currentProperty.getRentCost());
           functionExecutor.addMoney(currentProperty.getOwner(), currentProperty.getRentCost());

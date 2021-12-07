@@ -3,12 +3,10 @@ package ooga.model.die;
 import java.util.Random;
 
 /**
- * An implementation of the Die class that flips 10 coins and
- * moves based on the number of heads. Doubles are achieved if
- * at least half of them are heads.
+ * An implementation of the Die class that flips 10 coins and moves based on the number of heads.
+ * Doubles are achieved if at least half of them are heads.
  *
  * @author William Convertino
- *
  * @since 1.0.1
  */
 public class TenCoins extends Die {
@@ -34,7 +32,7 @@ public class TenCoins extends Die {
       total += flip;
       myLastRoll[i] = flip;
     }
-    lastRollDouble = total>=5;
+    lastRollDouble = total >= 5;
     return total;
   }
 

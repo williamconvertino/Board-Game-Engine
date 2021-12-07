@@ -3,12 +3,14 @@ package ooga.display.screens;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -24,13 +26,9 @@ import ooga.display.DisplayManager;
 import ooga.display.ui_tools.LanguageUI;
 import ooga.display.ui_tools.UIBuilder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
-
 /**
- * This class allows the user to create their own monopoly board from scratch, and adjust the game rules.
+ * This class allows the user to create their own monopoly board from scratch, and adjust the game
+ * rules.
  *
  * @author Casey Goldstein
  */
@@ -42,7 +40,8 @@ public class GameCreatorScreen extends Display {
   private static final String DEFAULT_STYLE = STYLE_PACKAGE + "original.css";
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
-  private static final List<String> LANGUAGES_LIST = List.of("English", "Spanish", "French", "Irish", "Latin");
+  private static final List<String> LANGUAGES_LIST = List.of("English", "Spanish", "French",
+      "Irish", "Latin");
   private static final int TILE_AMOUNT = 40;
   private static final String IMAGE_RESOURCE = DEFAULT_RESOURCE_PACKAGE + "image_paths";
   private static final String VARIATION_PATH = "data/variations/";
@@ -55,24 +54,24 @@ public class GameCreatorScreen extends Display {
   private static final int TILE_Y_TRANSLATION = 50;
   private static final int DISPLAY_HEIGHT = 600;
   private static final int DISPLAY_WIDTH = 900;
-  private static final int SET_GAME_BUTTON_WIDTH=150;
-  private static final int SET_GAME_BUTTON_HEIGHT=75;
-  private static final int SET_GAME_BUTTON_X=60;
-  private static final int SET_GAME_BUTTON_Y=20;
-  private static final int INSTRUCTIONS_WIDTH=260;
-  private static final int INSTRUCTIONS_HEIGHT=460;
-  private static final int INSTRUCTIONS_TEXT_WRAP_WIDTH=220;
+  private static final int SET_GAME_BUTTON_WIDTH = 150;
+  private static final int SET_GAME_BUTTON_HEIGHT = 75;
+  private static final int SET_GAME_BUTTON_X = 60;
+  private static final int SET_GAME_BUTTON_Y = 20;
+  private static final int INSTRUCTIONS_WIDTH = 260;
+  private static final int INSTRUCTIONS_HEIGHT = 460;
+  private static final int INSTRUCTIONS_TEXT_WRAP_WIDTH = 220;
 
   private Scene scene;
   private TextField gameName;
   private Popup PropertyPopUp;
   private VBox propBox;
   private int tileCounter;
-  private VBox selectorMenu;
-  private Stage myStage;
-  private DisplayManager myDisplayManager;
-  private UIBuilder myBuilder;
-  private ResourceBundle myLangResource;
+  private final VBox selectorMenu;
+  private final Stage myStage;
+  private final DisplayManager myDisplayManager;
+  private final UIBuilder myBuilder;
+  private final ResourceBundle myLangResource;
   private LanguageUI myLanguageUI;
 
   private TextField propertyName;
@@ -85,7 +84,7 @@ public class GameCreatorScreen extends Display {
   private TextField propertyImage;
   private Label counter;
   private HBox board;
-  private ResourceBundle myGameImages;
+  private final ResourceBundle myGameImages;
 
   private int rowJumper;
   private int colJumper;
@@ -95,9 +94,9 @@ public class GameCreatorScreen extends Display {
 
   private HBox createSpecialTileButtons;
 
-  private HBox allElements;
+  private final HBox allElements;
 
-  private FolderFactory folderFactory;
+  private final FolderFactory folderFactory;
 
   private String dieType;
   private String boardManagerType;
@@ -105,20 +104,22 @@ public class GameCreatorScreen extends Display {
 
   /**
    * Constructor for creating a custom game
-   * @param stage The stage
+   *
+   * @param stage          The stage
    * @param displayManager The display manager
-   * @param langResource The language
+   * @param langResource   The language
    */
-  public GameCreatorScreen(Stage stage, DisplayManager displayManager, ResourceBundle langResource) {
+  public GameCreatorScreen(Stage stage, DisplayManager displayManager,
+      ResourceBundle langResource) {
     rowJumper = 0;
     colJumper = 0;
     dieType = "OriginalDice";
-    boardManagerType="OriginalBoardManager";
-    playerManagerType="OriginalPlayerManager";
+    boardManagerType = "OriginalBoardManager";
+    playerManagerType = "OriginalPlayerManager";
     PropertyPopUp = new Popup();
     propBox = new VBox();
     propBox.setId("propertyCreatorBox");
-    tileCounter = TILE_AMOUNT-1; //The Go tile is already placed
+    tileCounter = TILE_AMOUNT - 1; //The Go tile is already placed
     myLangResource = langResource;
     myBuilder = new UIBuilder(langResource);
     myStage = stage;
@@ -136,11 +137,11 @@ public class GameCreatorScreen extends Display {
 
   //Sets the proper variation name and changes back to Player Screen
   private void setGame() throws IOException {
-    if (tileCounter!= 0){
-      myBuilder.makeErrorAlert("Board Incomplete","Please complete the board!").showAndWait();
+    if (tileCounter != 0) {
+      myBuilder.makeErrorAlert("Board Incomplete", "Please complete the board!").showAndWait();
       return;
     }
-    folderFactory.writeConfigFile(boardManagerType,playerManagerType,dieType);
+    folderFactory.writeConfigFile(boardManagerType, playerManagerType, dieType);
     myDisplayManager.setVariationName(gameName.getText());
     myDisplayManager.goPlayerScreen();
   }
@@ -162,7 +163,7 @@ public class GameCreatorScreen extends Display {
     return result;
   }
 
-  private VBox createRightElements(){
+  private VBox createRightElements() {
     VBox rightElements = new VBox();
     rightElements.setId("RightElements");
     rightElements.setId("RightElements");
@@ -199,20 +200,29 @@ public class GameCreatorScreen extends Display {
 
     HBox ruleBox = new HBox();
     //create Die Selector
-    List<String> dieOptions = new ArrayList<>(Arrays.asList("OriginalDice","DoublesDie","BowserDie","D20Die","TenCoins"));
+    List<String> dieOptions = new ArrayList<>(
+        Arrays.asList("OriginalDice", "DoublesDie", "BowserDie", "D20Die", "TenCoins"));
     ruleBox.getChildren().add(myBuilder.makeCombo("ChooseDice", dieOptions, e -> setDie(e)));
 
-    List<String> playerOptions = new ArrayList<>(Arrays.asList("OriginalPlayerManager","RandomPlayerManager","WinMorePlayerManager","WorstFirstPlayerManager"));
-    ruleBox.getChildren().add(myBuilder.makeCombo("ChoosePlayStyle", playerOptions, e -> setPlayerManager(e)));
+    List<String> playerOptions = new ArrayList<>(
+        Arrays.asList("OriginalPlayerManager", "RandomPlayerManager", "WinMorePlayerManager",
+            "WorstFirstPlayerManager"));
+    ruleBox.getChildren()
+        .add(myBuilder.makeCombo("ChoosePlayStyle", playerOptions, e -> setPlayerManager(e)));
 
-    List<String> boardOptions = new ArrayList<>(Arrays.asList("OriginalBoardManager","BackwardsBoardManager"));
-    ruleBox.getChildren().add(myBuilder.makeCombo("ChooseBoard", boardOptions, e -> setBoardManager(e)));
+    List<String> boardOptions = new ArrayList<>(
+        Arrays.asList("OriginalBoardManager", "BackwardsBoardManager"));
+    ruleBox.getChildren()
+        .add(myBuilder.makeCombo("ChooseBoard", boardOptions, e -> setBoardManager(e)));
     selectorMenu.getChildren().add(ruleBox);
 
     HBox createPropertyButtons = new HBox();
-    createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddRegularProperty",e -> createPropertyPopUp("Regular")));
-    createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddRailroadProperty",e -> createPropertyPopUp("Railroad")));
-    createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddUtilitiesProperty",e -> createPropertyPopUp("Utilities")));
+    createPropertyButtons.getChildren()
+        .add(myBuilder.makeTextButton("AddRegularProperty", e -> createPropertyPopUp("Regular")));
+    createPropertyButtons.getChildren()
+        .add(myBuilder.makeTextButton("AddRailroadProperty", e -> createPropertyPopUp("Railroad")));
+    createPropertyButtons.getChildren().add(
+        myBuilder.makeTextButton("AddUtilitiesProperty", e -> createPropertyPopUp("Utilities")));
     selectorMenu.getChildren().add(createPropertyButtons);
 
     createSpecialTileButtons = new HBox();
@@ -223,86 +233,99 @@ public class GameCreatorScreen extends Display {
 
     HBox tileCountBox = new HBox();
     counter = (Label) myBuilder.makeLabel("TileCounter");
-    tileCountBox.getChildren().addAll(myBuilder.makeLabel("TilesLeft"),counter);
+    tileCountBox.getChildren().addAll(myBuilder.makeLabel("TilesLeft"), counter);
     selectorMenu.getChildren().add(tileCountBox);
 
     board = new HBox();
     selectorMenu.getChildren().add(board);
-    board.getChildren().add(createBoardSpace("Go",new Image(myGameImages.getString("Go"))));
+    board.getChildren().add(createBoardSpace("Go", new Image(myGameImages.getString("Go"))));
   }
 
   //Sets the die to whatever the user chooses
-  private void setDie(String die){
+  private void setDie(String die) {
     dieType = die;
   }
 
-  private void setPlayerManager(String playerType){
+  private void setPlayerManager(String playerType) {
     playerManagerType = playerType;
   }
 
-  private void setBoardManager(String boardType){
+  private void setBoardManager(String boardType) {
     boardManagerType = boardType;
   }
 
   //creates the special tile creator buttons
-  private void createTileButtons() throws IOException{
-      jailButton = myBuilder.makeImageButton("Jail",e -> tryCreateSingleCardTile("Jail", jailButton), myGameImages.getString("Jail"),IMAGE_SIZE,IMAGE_SIZE);
-      createSpecialTileButtons.getChildren().add(jailButton);
-      goToJailButton = myBuilder.makeImageButton("GoToJail",e -> tryCreateSingleCardTile("GoToJail", goToJailButton), myGameImages.getString("GoToJail"),IMAGE_SIZE,IMAGE_SIZE);
-      createSpecialTileButtons.getChildren().add(goToJailButton);
-      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("Chance",e -> tryCreateCardTile("Chance"), myGameImages.getString("Chance"),IMAGE_SIZE,IMAGE_SIZE));
-      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("CommunityChest",e -> tryCreateCardTile("CommunityChest"), myGameImages.getString("CommunityChest"),IMAGE_SIZE,IMAGE_SIZE));
-      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("FreeParking",e -> tryCreateCardTile("FreeParking"), myGameImages.getString("FreeParking"),IMAGE_SIZE,IMAGE_SIZE));
-      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("LuxuryTax",e -> tryCreateCardTile("LuxuryTax"), myGameImages.getString("LuxuryTax"),IMAGE_SIZE,IMAGE_SIZE));
-      createSpecialTileButtons.getChildren().add(myBuilder.makeImageButton("IncomeTax",e -> tryCreateCardTile("IncomeTax"), myGameImages.getString("IncomeTax"),IMAGE_SIZE,IMAGE_SIZE));
+  private void createTileButtons() throws IOException {
+    jailButton = myBuilder.makeImageButton("Jail", e -> tryCreateSingleCardTile("Jail", jailButton),
+        myGameImages.getString("Jail"), IMAGE_SIZE, IMAGE_SIZE);
+    createSpecialTileButtons.getChildren().add(jailButton);
+    goToJailButton = myBuilder.makeImageButton("GoToJail",
+        e -> tryCreateSingleCardTile("GoToJail", goToJailButton),
+        myGameImages.getString("GoToJail"), IMAGE_SIZE, IMAGE_SIZE);
+    createSpecialTileButtons.getChildren().add(goToJailButton);
+    createSpecialTileButtons.getChildren().add(
+        myBuilder.makeImageButton("Chance", e -> tryCreateCardTile("Chance"),
+            myGameImages.getString("Chance"), IMAGE_SIZE, IMAGE_SIZE));
+    createSpecialTileButtons.getChildren().add(
+        myBuilder.makeImageButton("CommunityChest", e -> tryCreateCardTile("CommunityChest"),
+            myGameImages.getString("CommunityChest"), IMAGE_SIZE, IMAGE_SIZE));
+    createSpecialTileButtons.getChildren().add(
+        myBuilder.makeImageButton("FreeParking", e -> tryCreateCardTile("FreeParking"),
+            myGameImages.getString("FreeParking"), IMAGE_SIZE, IMAGE_SIZE));
+    createSpecialTileButtons.getChildren().add(
+        myBuilder.makeImageButton("LuxuryTax", e -> tryCreateCardTile("LuxuryTax"),
+            myGameImages.getString("LuxuryTax"), IMAGE_SIZE, IMAGE_SIZE));
+    createSpecialTileButtons.getChildren().add(
+        myBuilder.makeImageButton("IncomeTax", e -> tryCreateCardTile("IncomeTax"),
+            myGameImages.getString("IncomeTax"), IMAGE_SIZE, IMAGE_SIZE));
   }
 
   //calls CreateSingleCardTime and catches IOExceptions
-  private void tryCreateSingleCardTile(String name, Button button){
-    try{
-      createSingleCardTile(name,button);
-    }
-    catch(IOException e){
+  private void tryCreateSingleCardTile(String name, Button button) {
+    try {
+      createSingleCardTile(name, button);
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
   //calls CreateCardTime and catches IOExceptions
-  private void tryCreateCardTile(String name){
-    try{
+  private void tryCreateCardTile(String name) {
+    try {
       createCardTile(name);
-    }
-    catch (IOException e){
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
   //Adds a special tile to the board, and decrements tile count
   private void createCardTile(String name) throws IOException {
-    if(tileCounter <= 0){
-      myBuilder.makeErrorAlert("Board Full","You Have Placed All Tiles. Please press 'Set Game'").showAndWait();
+    if (tileCounter <= 0) {
+      myBuilder.makeErrorAlert("Board Full", "You Have Placed All Tiles. Please press 'Set Game'")
+          .showAndWait();
       return;
     }
     board.getChildren().add(createSpecialTile(name, new Image(myGameImages.getString(name))));
     tileCounter--;
-    counter.setText(""+ tileCounter);
+    counter.setText("" + tileCounter);
   }
 
   //Adds a special, one-use-only tile to the board, and decrements tile count
   private void createSingleCardTile(String name, Button jail) throws IOException {
-    if(tileCounter <= 0){
-      myBuilder.makeErrorAlert("Board Full","You Have Placed All Tiles. Please press 'Set Game'").showAndWait();
+    if (tileCounter <= 0) {
+      myBuilder.makeErrorAlert("Board Full", "You Have Placed All Tiles. Please press 'Set Game'")
+          .showAndWait();
       return;
     }
     board.getChildren().add(createSpecialTile(name, new Image(myGameImages.getString(name))));
     createSpecialTileButtons.getChildren().remove(jail);
     tileCounter--;
-    counter.setText(""+ tileCounter);
+    counter.setText("" + tileCounter);
   }
 
 
   //Creates the property pop up screen for the user to input
-  private void createPropertyPopUp(String type){
+  private void createPropertyPopUp(String type) {
     String myType = type;
     propertyName = (TextField) myBuilder.makeTextField("EnterPropertyName");
     propertyCost = (TextField) myBuilder.makeTextField("EnterCost");
@@ -321,7 +344,7 @@ public class GameCreatorScreen extends Display {
     propBox.getChildren().add(myBuilder.makeLabel("EnterMortgagePrice"));
     propBox.getChildren().add(propertyMortgage);
 
-    switch (myType){
+    switch (myType) {
       case "Regular":
         propertyHouseCost = (TextField) myBuilder.makeTextField("EnterHouseCost");
         propertyColor = (TextField) myBuilder.makeTextField("EnterColor");
@@ -331,13 +354,20 @@ public class GameCreatorScreen extends Display {
         propBox.getChildren().add(propertyColor);
         break;
 
-      case "Railroad": case "Utilities":
+      case "Railroad":
+      case "Utilities":
         propertyImage = (TextField) myBuilder.makeTextField("EnterImage");
         propBox.getChildren().add(myBuilder.makeLabel("EnterImage"));
         propBox.getChildren().add(propertyImage);
         break;
     }
-    propBox.getChildren().add(myBuilder.makeTextButton("SaveProperty",e -> { try { saveProperty(myType);} catch (IOException ex) {ex.printStackTrace();}}));
+    propBox.getChildren().add(myBuilder.makeTextButton("SaveProperty", e -> {
+      try {
+        saveProperty(myType);
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+    }));
     propBox.setId("propertyVBox");
     PropertyPopUp.getContent().add(propBox);
     PropertyPopUp.show(myStage);
@@ -345,20 +375,27 @@ public class GameCreatorScreen extends Display {
 
   //Saves the inputted property information, adds it to the board, and writes it to the variation folder.
   private void saveProperty(String type) throws IOException {
-    if(tileCounter <= 0){
-      myBuilder.makeErrorAlert("Board Full","You Have Placed All Tiles. Please press 'Set Game'").showAndWait();
+    if (tileCounter <= 0) {
+      myBuilder.makeErrorAlert("Board Full", "You Have Placed All Tiles. Please press 'Set Game'")
+          .showAndWait();
       return;
     }
     String myType = type;
-    switch (myType){
+    switch (myType) {
       case "Regular":
-        writeRegularPropertyFile(propertyName.getText(),propertyCost.getText(),propertyRentCosts.getText(),propertyHouseCost.getText(), propertyNeighbors.getText(), propertyMortgage.getText(),propertyColor.getText());
-        board.getChildren().add(createBoardSpace(propertyName.getText(),propertyColor.getText()));
+        writeRegularPropertyFile(propertyName.getText(), propertyCost.getText(),
+            propertyRentCosts.getText(), propertyHouseCost.getText(), propertyNeighbors.getText(),
+            propertyMortgage.getText(), propertyColor.getText());
+        board.getChildren().add(createBoardSpace(propertyName.getText(), propertyColor.getText()));
         break;
 
-      case "Utilities": case "Railroad":
-        writeSpecialPropertyFile(propertyName.getText(),type,propertyCost.getText(),propertyRentCosts.getText(), propertyNeighbors.getText(), propertyMortgage.getText(),propertyImage.getText());
-        board.getChildren().add(createBoardSpace(propertyName.getText(),new Image(myGameImages.getString(type))));
+      case "Utilities":
+      case "Railroad":
+        writeSpecialPropertyFile(propertyName.getText(), type, propertyCost.getText(),
+            propertyRentCosts.getText(), propertyNeighbors.getText(), propertyMortgage.getText(),
+            propertyImage.getText());
+        board.getChildren()
+            .add(createBoardSpace(propertyName.getText(), new Image(myGameImages.getString(type))));
         break;
     }
 
@@ -370,11 +407,13 @@ public class GameCreatorScreen extends Display {
   }
 
 
-
   //Writes a regular property file to the properties folder
-  private void writeRegularPropertyFile(String name, String cost, String rentcosts, String housecost, String neighbors, String mortgage, String color)
+  private void writeRegularPropertyFile(String name, String cost, String rentcosts,
+      String housecost, String neighbors, String mortgage, String color)
       throws IOException {
-    File property = new File(VARIATION_PATH + gameName.getText().replace(" ","_") + PROPERTIES_PATH + "/" + name.toLowerCase(Locale.ROOT).replace(" ","_") + PROPERTIES_PATH.replace("/","."));
+    File property = new File(
+        VARIATION_PATH + gameName.getText().replace(" ", "_") + PROPERTIES_PATH + "/"
+            + name.toLowerCase(Locale.ROOT).replace(" ", "_") + PROPERTIES_PATH.replace("/", "."));
 
     FileWriter fw = new FileWriter(property);
     fw.write("Name=" + name + "\n");
@@ -391,9 +430,12 @@ public class GameCreatorScreen extends Display {
   }
 
   //Writes a special property file to the properties folder
-  private void writeSpecialPropertyFile(String name, String type, String cost, String rentcosts, String neighbors, String mortgage, String image)
+  private void writeSpecialPropertyFile(String name, String type, String cost, String rentcosts,
+      String neighbors, String mortgage, String image)
       throws IOException {
-    File property = new File(VARIATION_PATH + gameName.getText().replace(" ","_") + PROPERTIES_PATH + "/" + name.toLowerCase(Locale.ROOT).replace(" ","_") + PROPERTIES_PATH.replace("/","."));
+    File property = new File(
+        VARIATION_PATH + gameName.getText().replace(" ", "_") + PROPERTIES_PATH + "/"
+            + name.toLowerCase(Locale.ROOT).replace(" ", "_") + PROPERTIES_PATH.replace("/", "."));
     FileWriter fw = new FileWriter(property);
     fw.write("Name=" + name + "\n");
     fw.write("Type=" + type + "\n");
@@ -407,7 +449,7 @@ public class GameCreatorScreen extends Display {
   }
 
   //Creates a board space with given name and color.
-  private VBox createBoardSpace(String name,String color) throws IOException {
+  private VBox createBoardSpace(String name, String color) throws IOException {
     folderFactory.writeLineToBoard(name);
     VBox tileBox = new VBox();
     tileBox.setId("creatorTile");
@@ -422,7 +464,7 @@ public class GameCreatorScreen extends Display {
     tileBox.setMaxHeight(TILE_SIZE);
     tileBox.setMinWidth(TILE_SIZE);
     tileBox.setMinHeight(TILE_SIZE);
-    if(tileCounter % CREATOR_ROW_MAX == 0){
+    if (tileCounter % CREATOR_ROW_MAX == 0) {
       colJumper += TILE_X_TRANSLATION;
       rowJumper += TILE_Y_TRANSLATION;
     }
@@ -445,7 +487,7 @@ public class GameCreatorScreen extends Display {
     stackPane.setMaxHeight(TILE_SIZE);
     stackPane.setMinWidth(TILE_SIZE);
     stackPane.setMinHeight(TILE_SIZE);
-    if(tileCounter % CREATOR_ROW_MAX == 0){
+    if (tileCounter % CREATOR_ROW_MAX == 0) {
       colJumper += TILE_X_TRANSLATION;
       rowJumper += TILE_Y_TRANSLATION;
     }
@@ -456,7 +498,7 @@ public class GameCreatorScreen extends Display {
 
   //creates a special tile for the board with given name and image
   private VBox createSpecialTile(String name, Image image) throws IOException {
-    return createBoardSpace(myLangResource.getString(name),image);
+    return createBoardSpace(myLangResource.getString(name), image);
   }
 
   //creates scene

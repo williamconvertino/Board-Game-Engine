@@ -3,20 +3,15 @@ package ooga.display.game_board.board;
 import static ooga.display.communication.EventManager.EVENT_NAMES.SELECT_TILE;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Stack;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -40,17 +35,18 @@ import ooga.model.data.tilemodels.PropertyTileModel;
  * @author Henry Huynh
  */
 public class GameBoard {
+
   private static final String DEFAULT_RESOURCE_PACKAGE =
       Display.class.getPackageName() + ".resources.";
   private static final int RECT_WIDTH = 60;
   private static final int RECT_HEIGHT = 70;
-  private static final double PREF_BOARD_SIDE_LEN = 2*RECT_HEIGHT + 9*RECT_WIDTH;
+  private static final double PREF_BOARD_SIDE_LEN = 2 * RECT_HEIGHT + 9 * RECT_WIDTH;
   private static final int RADIUS = 10;
-  private ResourceBundle myGameImages;
+  private final ResourceBundle myGameImages;
   private static final String IMAGE_RESOURCE = DEFAULT_RESOURCE_PACKAGE + "image_paths";
-  private DisplayManager myDisplayManager;
-  private ResourceBundle myLanguage;
-  private UIBuilder myBuilder;
+  private final DisplayManager myDisplayManager;
+  private final ResourceBundle myLanguage;
+  private final UIBuilder myBuilder;
   private final int BOARD_SIZE = 11;
   private final int SIDE_LENGTH = 9;
   private final int CENTER_IMAGE_SIDE_LEN = 300;
@@ -59,13 +55,13 @@ public class GameBoard {
   private final int PROP_COLOR_BAR_WIDTH_FIX = 2;
 
 
+  private final ArrayList<Circle> allCirclePieces = new ArrayList<Circle>();
 
-  private ArrayList<Circle> allCirclePieces = new ArrayList<Circle>();
-
-  private BorderPane boardComponent;
-  private GameData gameData;
-  private Map<EventManager.EVENT_NAMES, TMEvent> eventMap;
-  private ArrayList<PropertyInfoPopUp> allPropInfoPopups = new ArrayList<>(2*BOARD_SIZE + 2*SIDE_LENGTH);
+  private final BorderPane boardComponent;
+  private final GameData gameData;
+  private final Map<EventManager.EVENT_NAMES, TMEvent> eventMap;
+  private final ArrayList<PropertyInfoPopUp> allPropInfoPopups = new ArrayList<>(
+      2 * BOARD_SIZE + 2 * SIDE_LENGTH);
 
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
   private static final String ORIGINAL_STYLE = STYLE_PACKAGE + "original.css";
@@ -83,9 +79,9 @@ public class GameBoard {
 
   private String myStyle = ORIGINAL_STYLE;
 
-  private Map<Integer, StackPane> tileStackPaneIndexMap = new HashMap<>();
+  private final Map<Integer, StackPane> tileStackPaneIndexMap = new HashMap<>();
 
-  private Map<Integer, Pos> positionMap = new HashMap<>();
+  private final Map<Integer, Pos> positionMap = new HashMap<>();
 
   public GameBoard(DisplayManager displayManager, ResourceBundle language, GameData gameData,
       Map<EVENT_NAMES, TMEvent> eventMap, String theme) {
@@ -127,7 +123,7 @@ public class GameBoard {
 
   private void startPieces() {
     StackPane stackPane = tileStackPaneIndexMap.get(0);
-    for(int i = 0; i < gameData.getPlayers().size(); i++) {
+    for (int i = 0; i < gameData.getPlayers().size(); i++) {
       allCirclePieces.add(new Circle(RADIUS, gameData.getPlayers().get(i).getColor()));
       stackPane.getChildren().add(allCirclePieces.get(i));
       StackPane.setAlignment(allCirclePieces.get(i), positionMap.get(i));
@@ -148,8 +144,7 @@ public class GameBoard {
     for (int i = 0; i < BOARD_SIZE; i++) {
       if (i == 0 || i == BOARD_SIZE - 1) {
         top.getChildren().add(makeGameBoardTile(RECT_HEIGHT, RECT_HEIGHT, i));
-      }
-      else {
+      } else {
         top.getChildren().add(makeGameBoardTile(RECT_WIDTH, RECT_HEIGHT, i));
       }
     }
@@ -167,11 +162,10 @@ public class GameBoard {
   private void makeBottomProperties() {
     HBox bottom = new HBox(0);
     bottom.setAlignment(Pos.CENTER);
-    for (int i = BOARD_SIZE*2+8; i >= BOARD_SIZE + 9; i--) {
-      if (i == BOARD_SIZE*2+8 || i == BOARD_SIZE + 9) {
+    for (int i = BOARD_SIZE * 2 + 8; i >= BOARD_SIZE + 9; i--) {
+      if (i == BOARD_SIZE * 2 + 8 || i == BOARD_SIZE + 9) {
         bottom.getChildren().add(makeGameBoardTile(RECT_HEIGHT, RECT_HEIGHT, i));
-      }
-      else {
+      } else {
         bottom.getChildren().add(makeGameBoardTile(RECT_WIDTH, RECT_HEIGHT, i));
       }
     }
@@ -188,7 +182,7 @@ public class GameBoard {
 
   private StackPane makeGameBoardTile(int width, int height, int tileIndex) {
     StackPane stackPane = new StackPane();
-    stackPane.setId(String.format("Tile%d",tileIndex));
+    stackPane.setId(String.format("Tile%d", tileIndex));
     stackPane.setPrefSize(width, height);
     VBox tileBox = new VBox();
     tileBox.setId("tileBox");
@@ -199,33 +193,34 @@ public class GameBoard {
     String tileName = gameData.getBoard().getTileAtIndex(tileIndex).getName();
     String tileType = gameData.getBoard().getTileAtIndex(tileIndex).getMyType();
     Label propName = new Label(tileName);
-      if (tileType.equals("Regular")){
-        Rectangle rect = new Rectangle(width-PROP_COLOR_BAR_WIDTH_FIX, PROP_COLOR_BAR_HEIGHT);
-        rect.setStroke(Color.BLACK);
-        rect.setStyle("-fx-fill: " + ((PropertyTileModel)gameData.getBoard().getTileAtIndex(tileIndex)).getProperty().getColor()+";");
-        tileBox.getChildren().addAll(rect, propName);
-        stackPane.getChildren().add(tileBox);
-      }
-      else if (tileType.equals("Action") || tileType.equals("Card")){
-        ImageView view = new ImageView(new Image(myGameImages.getString(tileName.replace(" ",""))));
-        view.setFitWidth(IMAGE_SIZE);
-        view.setFitHeight(IMAGE_SIZE);
-        tileBox.getChildren().addAll(propName,view);
-        stackPane.getChildren().add(tileBox);
-      }
-      //For Railroads and Utilities
-      else{
-        ImageView view = new ImageView(new Image(myGameImages.getString(tileType)));
-        view.setFitWidth(IMAGE_SIZE);
-        view.setFitHeight(IMAGE_SIZE);
-        tileBox.getChildren().addAll(propName,view);
-        stackPane.getChildren().add(tileBox);
-      }
+    if (tileType.equals("Regular")) {
+      Rectangle rect = new Rectangle(width - PROP_COLOR_BAR_WIDTH_FIX, PROP_COLOR_BAR_HEIGHT);
+      rect.setStroke(Color.BLACK);
+      rect.setStyle("-fx-fill: " + ((PropertyTileModel) gameData.getBoard()
+          .getTileAtIndex(tileIndex)).getProperty().getColor() + ";");
+      tileBox.getChildren().addAll(rect, propName);
+      stackPane.getChildren().add(tileBox);
+    } else if (tileType.equals("Action") || tileType.equals("Card")) {
+      ImageView view = new ImageView(new Image(myGameImages.getString(tileName.replace(" ", ""))));
+      view.setFitWidth(IMAGE_SIZE);
+      view.setFitHeight(IMAGE_SIZE);
+      tileBox.getChildren().addAll(propName, view);
+      stackPane.getChildren().add(tileBox);
+    }
+    //For Railroads and Utilities
+    else {
+      ImageView view = new ImageView(new Image(myGameImages.getString(tileType)));
+      view.setFitWidth(IMAGE_SIZE);
+      view.setFitHeight(IMAGE_SIZE);
+      tileBox.getChildren().addAll(propName, view);
+      stackPane.getChildren().add(tileBox);
+    }
 
     propName.setId("propdisptilename");
     propName.setWrapText(true);
     propName.setMaxWidth(Math.min(height, width));
-    PropertyInfoPopUp myPropPopup = new PropertyInfoPopUp(gameData.getBoard().getTileAtIndex(tileIndex), myBuilder, myLanguage);
+    PropertyInfoPopUp myPropPopup = new PropertyInfoPopUp(
+        gameData.getBoard().getTileAtIndex(tileIndex), myBuilder, myLanguage);
     allPropInfoPopups.add(myPropPopup);
     stackPane.setOnMouseClicked(e -> {
       eventMap.get(SELECT_TILE).execute(gameData.getBoard().getTileAtIndex(tileIndex));
@@ -258,7 +253,8 @@ public class GameBoard {
    */
   public void updatePropertyPopups() {
     for (int i = 0; i < gameData.getBoard().getTiles().size(); i++) {
-      allPropInfoPopups.set(i, new PropertyInfoPopUp(gameData.getBoard().getTileAtIndex(i), myBuilder, myLanguage));
+      allPropInfoPopups.set(i,
+          new PropertyInfoPopUp(gameData.getBoard().getTileAtIndex(i), myBuilder, myLanguage));
     }
   }
 }

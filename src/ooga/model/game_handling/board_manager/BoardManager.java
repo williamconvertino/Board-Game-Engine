@@ -42,15 +42,15 @@ public abstract class BoardManager {
   /**
    * Moves a player forward the specified number of spaces.
    *
-   * @param p the player to move.
+   * @param p      the player to move.
    * @param spaces the number of spaces to move the player.
    */
   public abstract void movePlayerFd(Player p, int spaces);
 
   /**
-   *  Moves a player backward the specified number of spaces.
+   * Moves a player backward the specified number of spaces.
    *
-   * @param p the player to move.
+   * @param p      the player to move.
    * @param spaces the number of spaces to move the player.
    */
   public abstract void movePlayerBk(Player p, int spaces);
@@ -58,46 +58,50 @@ public abstract class BoardManager {
   /**
    * Moves a player to the specified tile index.
    *
-   * @param p the player to move.
-   * @param index the index of the desired tile.
-   * @param doPassThrough states whether the player should pass through the intermediate tiles or not.
+   * @param p             the player to move.
+   * @param index         the index of the desired tile.
+   * @param doPassThrough states whether the player should pass through the intermediate tiles or
+   *                      not.
    */
   public abstract void movePlayerToIndex(Player p, int index, boolean doPassThrough);
 
   /**
    * Moves a player to the next closest tile with the specified name.
    *
-   * @param p the player to move.
-   * @param tileName the name of the tile to which the player should move.
-   * @param doPassThrough states whether the player should pass through the intermediate tiles or not.
+   * @param p             the player to move.
+   * @param tileName      the name of the tile to which the player should move.
+   * @param doPassThrough states whether the player should pass through the intermediate tiles or
+   *                      not.
    */
-  public void movePlayerToTile(Player p, String tileName, boolean doPassThrough) throws TileNotFoundException{
+  public void movePlayerToTile(Player p, String tileName, boolean doPassThrough)
+      throws TileNotFoundException {
     int index = findNextClosestTileIndex(p, tileName);
     movePlayerToIndex(p, index, doPassThrough);
   }
 
   /**
-   * Finds the index of the next closest tile, with the specified tile name, to the specified player.
+   * Finds the index of the next closest tile, with the specified tile name, to the specified
+   * player.
    *
-   * @param p the player to use as a starting point.
+   * @param p        the player to use as a starting point.
    * @param tileName the name of the tile to find.
    */
-  public abstract int findNextClosestTileIndex(Player p, String tileName) throws TileNotFoundException;
+  public abstract int findNextClosestTileIndex(Player p, String tileName)
+      throws TileNotFoundException;
 
   /**
    * Finds the next closest tile, with the specified tile name, to the specified player.
    *
-   * @param p the player to use as a starting point.
+   * @param p        the player to use as a starting point.
    * @param tileName the name of the tile to find.
    */
   public TileModel findNextClosestTile(Player p, String tileName) throws TileNotFoundException {
-    int index = findNextClosestTileIndex(p,tileName);
+    int index = findNextClosestTileIndex(p, tileName);
     return getTileAtIndex(index);
   }
 
   /**
-   * Returns the tile with the specified name that is closest to the
-   * specified location.
+   * Returns the tile with the specified name that is closest to the specified location.
    *
    * @param location the location to use as reference.
    * @param tileName the name of the desired tile.
@@ -142,7 +146,7 @@ public abstract class BoardManager {
    */
   public List<TileModel> getAllTilesOfType(String type) {
     List<TileModel> tiles = new ArrayList<>(getTiles());
-    tiles.removeIf(e->!e.getMyType().equals(type));
+    tiles.removeIf(e -> !e.getMyType().equals(type));
     return tiles;
   }
 
@@ -150,19 +154,19 @@ public abstract class BoardManager {
    * Returns the closest tile to the given player of the given type.
    *
    * @param player the player to use for reference.
-   * @param type the type of tile to search for.
+   * @param type   the type of tile to search for.
    * @return the closest tile to the given player of the given type.
    * @throws InvalidFileFormatException if the tile type cannot be found.
    */
   public TileModel getClosestTileOfType(Player player, String type)
       throws InvalidFileFormatException {
     List<TileModel> possibleTiles = getAllTilesOfType(type);
-    TileModel desiredTile = possibleTiles.stream().reduce( (a,b) ->
+    TileModel desiredTile = possibleTiles.stream().reduce((a, b) ->
         {
           try {
             return
                 getDistance(player.getLocation(), findNextClosestTileIndex(player, a.getName()))
-                < getDistance(player.getLocation(), findNextClosestTileIndex(player, b.getName()))
+                    < getDistance(player.getLocation(), findNextClosestTileIndex(player, b.getName()))
                     ? a : b;
 
           } catch (TileNotFoundException e) {
@@ -195,7 +199,7 @@ public abstract class BoardManager {
   protected boolean hasTile(String tileName) {
     List<TileModel> sortedTiles = new ArrayList<>();
     Collections.copy(getTiles(), sortedTiles);
-    sortedTiles.removeIf(e->!e.getName().equals(tileName));
+    sortedTiles.removeIf(e -> !e.getName().equals(tileName));
     return (sortedTiles.size() != 0);
   }
 

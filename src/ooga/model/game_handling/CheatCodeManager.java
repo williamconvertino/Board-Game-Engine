@@ -1,7 +1,6 @@
 package ooga.model.game_handling;
 
 import java.lang.reflect.Method;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import javafx.scene.input.KeyCode;
 import ooga.model.data.cards.Card;
@@ -13,8 +12,6 @@ import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
 import ooga.model.die.Die;
 import ooga.model.die.DoublesDie;
-import ooga.model.game_handling.FunctionExecutor;
-import ooga.model.game_handling.TurnManager;
 
 /**
  * A class to store cheat codes and their desired effects.
@@ -24,29 +21,30 @@ import ooga.model.game_handling.TurnManager;
 public class CheatCodeManager {
 
   public static Map<KeyCode, String> CODE_MAP = Map.ofEntries(
-    Map.entry(KeyCode.DIGIT1, "giveMoney"),
-    Map.entry(KeyCode.DIGIT2,"bankrupt"),
-    Map.entry(KeyCode.DIGIT3,"exodus"),
-    Map.entry(KeyCode.DIGIT4, "setOwner"),
-    Map.entry(KeyCode.DIGIT5, "buyAllProperties"),
-    Map.entry(KeyCode.DIGIT6, "buyHouse"),
-    Map.entry(KeyCode.DIGIT7,"executeCard"),
-      Map.entry(KeyCode.DIGIT8,"jail"),
+      Map.entry(KeyCode.DIGIT1, "giveMoney"),
+      Map.entry(KeyCode.DIGIT2, "bankrupt"),
+      Map.entry(KeyCode.DIGIT3, "exodus"),
+      Map.entry(KeyCode.DIGIT4, "setOwner"),
+      Map.entry(KeyCode.DIGIT5, "buyAllProperties"),
+      Map.entry(KeyCode.DIGIT6, "buyHouse"),
+      Map.entry(KeyCode.DIGIT7, "executeCard"),
+      Map.entry(KeyCode.DIGIT8, "jail"),
       Map.entry(KeyCode.DIGIT9, "winGame"),
-    Map.entry(KeyCode.DIGIT0, "teleportToSelectedTile"),
+      Map.entry(KeyCode.DIGIT0, "teleportToSelectedTile"),
       Map.entry(KeyCode.SEMICOLON, "forceEndTurn"),
-      Map.entry(KeyCode.COMMA, "rollDoubles" )
+      Map.entry(KeyCode.COMMA, "rollDoubles")
   );
 
-  private FunctionExecutor myFunctionExecutor;
+  private final FunctionExecutor myFunctionExecutor;
 
-  private GameData gameData;
+  private final GameData gameData;
 
-  private TurnManager myTurnManager;
+  private final TurnManager myTurnManager;
 
-  private Die doublesDie;
+  private final Die doublesDie;
 
-  public CheatCodeManager (TurnManager turnManager, FunctionExecutor myFunctionExecutor, GameData gameData) {
+  public CheatCodeManager(TurnManager turnManager, FunctionExecutor myFunctionExecutor,
+      GameData gameData) {
     this.myFunctionExecutor = myFunctionExecutor;
     this.gameData = gameData;
     this.myTurnManager = turnManager;
@@ -91,12 +89,11 @@ public class CheatCodeManager {
   }
 
 
-
   /**
    * Makes the player win the game.
    */
-  public void winGame(){
-    for (Player p: gameData.getPlayers()) {
+  public void winGame() {
+    for (Player p : gameData.getPlayers()) {
       if (p != gameData.getCurrentPlayer()) {
         p.setActiveStatus(false);
       }
@@ -107,29 +104,30 @@ public class CheatCodeManager {
   /**
    * Teleports the player to the selected tile.
    */
-   public void teleportToSelectedTile() {
-     try {
-       myFunctionExecutor.movePlayerToTile(gameData.getCurrentPlayer(),
-           myTurnManager.getSelectedTile().getName());
-     } catch (Exception e) {
-     }
-   }
+  public void teleportToSelectedTile() {
+    try {
+      myFunctionExecutor.movePlayerToTile(gameData.getCurrentPlayer(),
+          myTurnManager.getSelectedTile().getName());
+    } catch (Exception e) {
+    }
+  }
 
   /**
    * Sets the owner of the selected tile to the player.
    */
   public void setOwner() {
-     try {
-       ((PropertyTileModel)myTurnManager.getSelectedTile()).getProperty().setOwner(gameData.getCurrentPlayer());
-     } catch (Exception e) {
-     }
+    try {
+      ((PropertyTileModel) myTurnManager.getSelectedTile()).getProperty()
+          .setOwner(gameData.getCurrentPlayer());
+    } catch (Exception e) {
+    }
   }
 
   /**
    * Buys all the properties on the board.
    */
   public void buyAllProperties() {
-    for (TileModel tile: gameData.getBoard().getTiles()) {
+    for (TileModel tile : gameData.getBoard().getTiles()) {
       if (tile instanceof PropertyTileModel) {
         gameData.getCurrentPlayer().giveProperty(((PropertyTileModel) tile).getProperty());
         Property prop = ((PropertyTileModel) tile).getProperty();
@@ -150,7 +148,7 @@ public class CheatCodeManager {
   private int numPress = 0;
 
   /**
-   *  Hard resets the turn if you press semicolon enough.
+   * Hard resets the turn if you press semicolon enough.
    */
   public void forceEndTurn() {
     numPress++;
@@ -170,7 +168,7 @@ public class CheatCodeManager {
   /**
    * Rolls with a special die that always gets doubles.
    */
-  public void rollDoubles(){
+  public void rollDoubles() {
     myTurnManager.rollWithDie(doublesDie);
   }
 

@@ -13,19 +13,21 @@ import ooga.model.data.tilemodels.TileModel;
 
 /**
  * PopUp for each property
+ *
  * @author Aaric Han
  */
 public class PropertyInfoPopUp {
 
-  private Popup myPopup;
-  private TileModel myPropertyTileModel;
-  private UIBuilder myUIBuilder;
-  private ResourceBundle myResource;
+  private final Popup myPopup;
+  private final TileModel myPropertyTileModel;
+  private final UIBuilder myUIBuilder;
+  private final ResourceBundle myResource;
 
   /**
    * Constructor for property info pop-up
    */
-  public PropertyInfoPopUp(TileModel propertyTileModel, UIBuilder uiBuilder, ResourceBundle resource) {
+  public PropertyInfoPopUp(TileModel propertyTileModel, UIBuilder uiBuilder,
+      ResourceBundle resource) {
     myPopup = new Popup();
     myPropertyTileModel = propertyTileModel;
     myUIBuilder = uiBuilder;
@@ -46,23 +48,28 @@ public class PropertyInfoPopUp {
     if (myPropertyTileModel instanceof PropertyTileModel) {
       PropertyTileModel propertyTileModel = (PropertyTileModel) myPropertyTileModel;
       // index 1
-      Label cost = new Label(String.format("%s %d", myResource.getString("propCostLabel"), propertyTileModel.getProperty().getCost()));
+      Label cost = new Label(String.format("%s %d", myResource.getString("propCostLabel"),
+          propertyTileModel.getProperty().getCost()));
       popUpVBox.getChildren().add(cost);
 
       // index 2
-      Label rentCost = new Label(String.format("%s %d", myResource.getString("rentCostLabel"), propertyTileModel.getProperty().getRentCost()));
+      Label rentCost = new Label(String.format("%s %d", myResource.getString("rentCostLabel"),
+          propertyTileModel.getProperty().getRentCost()));
       popUpVBox.getChildren().add(rentCost);
 
       // index 3
-      Label numHouses = new Label(String.format("%s %d", myResource.getString("houseLabel"), propertyTileModel.getProperty().getNumHouses()));
+      Label numHouses = new Label(String.format("%s %d", myResource.getString("houseLabel"),
+          propertyTileModel.getProperty().getNumHouses()));
       popUpVBox.getChildren().add(numHouses);
 
       // index 3
-      Label numHotels = new Label(String.format("%s %d", myResource.getString("hotelLabel"), propertyTileModel.getProperty().getNumHotels()));
+      Label numHotels = new Label(String.format("%s %d", myResource.getString("hotelLabel"),
+          propertyTileModel.getProperty().getNumHotels()));
       popUpVBox.getChildren().add(numHotels);
 
       // index 4
-      Label houseCost = new Label(String.format("%s %d", myResource.getString("houseCostLabel"), propertyTileModel.getProperty().getHouseCost()));
+      Label houseCost = new Label(String.format("%s %d", myResource.getString("houseCostLabel"),
+          propertyTileModel.getProperty().getHouseCost()));
       popUpVBox.getChildren().add(houseCost);
 
       // index 5
@@ -70,11 +77,14 @@ public class PropertyInfoPopUp {
       if (ownerNameCheck.equals("Null")) {
         ownerNameCheck = myResource.getString("noOwnerString");
       }
-      Label owner = new Label(String.format("%s %s", myResource.getString("ownerLabel"), ownerNameCheck));
+      Label owner = new Label(
+          String.format("%s %s", myResource.getString("ownerLabel"), ownerNameCheck));
       popUpVBox.getChildren().add(owner);
 
       // index 6
-      Label mortgageValue = new Label(String.format("%s %d", myResource.getString("mortgageValueLabel"), propertyTileModel.getProperty().getMortgageValue()));
+      Label mortgageValue = new Label(
+          String.format("%s %d", myResource.getString("mortgageValueLabel"),
+              propertyTileModel.getProperty().getMortgageValue()));
       popUpVBox.getChildren().add(mortgageValue);
     }
 
@@ -87,6 +97,7 @@ public class PropertyInfoPopUp {
 
   /**
    * Show popup for the property
+   *
    * @param stage
    */
   public void showPopup(Stage stage) {

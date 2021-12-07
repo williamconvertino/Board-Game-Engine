@@ -25,41 +25,44 @@ import ooga.model.game_handling.commands.ActionSequenceExecutor;
  * Parser class responsible for creating all TileModel elements.
  *
  * @author Casey Goldstein
- *
  * @since 0.0.1
  */
-public class TileParser extends FolderParser{
+public class TileParser extends FolderParser {
 
   public static final String PARSE_TILE_METHOD_PREFIX = "parse";
   public static final String PARSE_TILE_METHOD_SUFFIX = "Tile";
 
   private Deck chance;
   private Deck communityChest;
-  private GameData myData;
-  private DisplayComm displayComm;
+  private final GameData myData;
+  private final DisplayComm displayComm;
 
   /**
    * Creates TileParser
+   *
    * @param sequenceParser
-   * @param data containing card decks
+   * @param data           containing card decks
    */
-  public TileParser(ActionSequenceExecutor sequenceParser, GameData data, DisplayComm displayComm){
+  public TileParser(ActionSequenceExecutor sequenceParser, GameData data, DisplayComm displayComm) {
     super(sequenceParser, displayComm);
     this.myData = data;
     this.displayComm = displayComm;
   }
 
   /**
-   * Takes list of properties and returns a map with key: propertyTileName and value: propertyTileModel
+   * Takes list of properties and returns a map with key: propertyTileName and value:
+   * propertyTileModel
    *
    * @param propertyList
    * @return
    */
-  public Map<String,PropertyTileModel> parsePropertyTiles (List<Property> propertyList){
-    Map<String,PropertyTileModel> result = new HashMap<>();
+  public Map<String, PropertyTileModel> parsePropertyTiles(List<Property> propertyList) {
+    Map<String, PropertyTileModel> result = new HashMap<>();
 
-    for (Property prop: propertyList){
-      result.putIfAbsent(prop.getName(),new PropertyTileModel(prop.getName(), (prop.getType()==null) ? "Property": prop.getType(), prop, new ActionSequence(actionSequenceParser, displayComm), displayComm));
+    for (Property prop : propertyList) {
+      result.putIfAbsent(prop.getName(), new PropertyTileModel(prop.getName(),
+          (prop.getType() == null) ? "Property" : prop.getType(), prop,
+          new ActionSequence(actionSequenceParser, displayComm), displayComm));
     }
     return result;
   }
@@ -74,7 +77,7 @@ public class TileParser extends FolderParser{
   public Map<String, TileModel> parseNonPropertyTiles(String tileFolderPath)
       throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException, InvalidFileFormatException {
 
-    Map<String,TileModel> result = new HashMap<>();
+    Map<String, TileModel> result = new HashMap<>();
 
     File[] filesList = getFileList(tileFolderPath);
     for (File file : filesList) {
@@ -91,20 +94,22 @@ public class TileParser extends FolderParser{
    * @return
    * @throws AttributeNotFoundException
    */
-  public HashMap<String,TileModel> parseTileFile(File propertyFile)
+  public HashMap<String, TileModel> parseTileFile(File propertyFile)
       throws AttributeNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InvalidFileFormatException {
 
     Properties tileProperties = convertToPropertiesObject(propertyFile);
 
-    String tileName = tryProperty(tileProperties,"Name");
-    String tileType = tryProperty(tileProperties,"Type");
+    String tileName = tryProperty(tileProperties, "Name");
+    String tileType = tryProperty(tileProperties, "Type");
 
     //get proper parsing method based off tile type
-    Method parseMethod = this.getClass().getMethod(PARSE_TILE_METHOD_PREFIX + tileType + PARSE_TILE_METHOD_SUFFIX,Properties.class);
-    TileModel tileModel = (TileModel) parseMethod.invoke(this,tileProperties);
+    Method parseMethod = this.getClass()
+        .getMethod(PARSE_TILE_METHOD_PREFIX + tileType + PARSE_TILE_METHOD_SUFFIX,
+            Properties.class);
+    TileModel tileModel = (TileModel) parseMethod.invoke(this, tileProperties);
 
     return new HashMap<String, TileModel>() {{
-      put(tileName,tileModel);
+      put(tileName, tileModel);
     }};
   }
 
@@ -119,14 +124,15 @@ public class TileParser extends FolderParser{
   public ActionTileModel parseActionTile(Properties props)
       throws AttributeNotFoundException, InvalidFileFormatException {
 
-    String tileName = tryProperty(props,"Name");
-    String tileDescription = tryProperty(props,"Description");
-    String tileImage = tryProperty(props,"Image");
+    String tileName = tryProperty(props, "Name");
+    String tileDescription = tryProperty(props, "Description");
+    String tileImage = tryProperty(props, "Image");
 
-    ActionSequence passThrough = parseActionSequence(tryProperty(props,"PassThroughActionSequence"));
-    ActionSequence landOn = parseActionSequence(tryProperty(props,"LandOnActionSequence"));
+    ActionSequence passThrough = parseActionSequence(
+        tryProperty(props, "PassThroughActionSequence"));
+    ActionSequence landOn = parseActionSequence(tryProperty(props, "LandOnActionSequence"));
 
-    return new ActionTileModel(tileName, tileDescription, passThrough,landOn, displayComm);
+    return new ActionTileModel(tileName, tileDescription, passThrough, landOn, displayComm);
   }
 
   /**
@@ -137,22 +143,19 @@ public class TileParser extends FolderParser{
    * @throws AttributeNotFoundException
    */
   public CardTileModel parseCardTile(Properties props)
-      throws AttributeNotFoundException,DeckNotFoundException {
+      throws AttributeNotFoundException, DeckNotFoundException {
 
-    String tileName = tryProperty(props,"Name");
-    String tileImage = tryProperty(props,"Image");
+    String tileName = tryProperty(props, "Name");
+    String tileImage = tryProperty(props, "Image");
 
-    if (tileName.equals("Community Chest")){
-      return new CardTileModel(tileName,myData.getDecks().getDeck("Community Chest"));
-    }
-
-    else if (tileName.equals("Chance")){
-      return new CardTileModel(tileName,myData.getDecks().getDeck("Chance"));
+    if (tileName.equals("Community Chest")) {
+      return new CardTileModel(tileName, myData.getDecks().getDeck("Community Chest"));
+    } else if (tileName.equals("Chance")) {
+      return new CardTileModel(tileName, myData.getDecks().getDeck("Chance"));
     }
 
     return new CardTileModel(tileName);
   }
-
 
 
 }

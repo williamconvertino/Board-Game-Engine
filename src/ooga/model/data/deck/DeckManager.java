@@ -11,13 +11,12 @@ import ooga.exceptions.DeckNotFoundException;
  *
  * @author William Convertino
  * @author Casey Goldstein
- *
  * @since 0.0.1
  */
 public class DeckManager {
 
   //A map of all the active decks and their names.
-  private Map<String, Deck> activeDecks;
+  private final Map<String, Deck> activeDecks;
 
   /**
    * Constructs an empty DeckManager.
@@ -46,8 +45,8 @@ public class DeckManager {
    *
    * @param deck
    */
-  public void addDeck(Deck deck){
-    activeDecks.putIfAbsent(deck.getName(),deck);
+  public void addDeck(Deck deck) {
+    activeDecks.putIfAbsent(deck.getName(), deck);
   }
 
   /**
@@ -57,7 +56,8 @@ public class DeckManager {
    */
   public Deck getRandomDeck() {
     Random rd = new Random();
-    return activeDecks.get(new ArrayList<>(activeDecks.keySet()).get(rd.nextInt(activeDecks.keySet().size())));
+    return activeDecks.get(
+        new ArrayList<>(activeDecks.keySet()).get(rd.nextInt(activeDecks.keySet().size())));
   }
 
 }

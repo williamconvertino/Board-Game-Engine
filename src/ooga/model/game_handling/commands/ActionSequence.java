@@ -10,19 +10,18 @@ import ooga.model.data.player.Player;
  * This class stores a sequence of commands and runs the sequence when prompted.
  *
  * @author William Convertino
- *
  * @since 0.0.1
  */
 public class ActionSequence {
 
   //A list of the commands to be run.
-  private List<String> mySequence;
+  private final List<String> mySequence;
 
   //The action sequence parser with which the commands should be executed.
-  private ActionSequenceExecutor myParser;
+  private final ActionSequenceExecutor myParser;
 
   //The display communication module of the sequence.
-  private DisplayComm displayComm;
+  private final DisplayComm displayComm;
 
   /**
    * Constructs an empty ActionSequence.
@@ -47,7 +46,7 @@ public class ActionSequence {
    */
   public void execute(Player p) {
     try {
-      for (String command: mySequence) {
+      for (String command : mySequence) {
         myParser.executeCommand(command);
       }
     } catch (Exception e) {
@@ -62,7 +61,8 @@ public class ActionSequence {
    * @return true if the sequence is empty.
    */
   public boolean isEmpty() {
-    return this.mySequence.isEmpty() || (this.mySequence.size() == 1 && this.mySequence.get(0).length() == 0);
+    return this.mySequence.isEmpty() || (this.mySequence.size() == 1
+        && this.mySequence.get(0).length() == 0);
   }
 
 }

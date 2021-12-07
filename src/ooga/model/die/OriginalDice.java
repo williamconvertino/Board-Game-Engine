@@ -6,7 +6,6 @@ import java.util.Random;
  * An implementation of the die class that rolls two 6-sided dice.
  *
  * @author William Convertino
- *
  * @since 0.0.1
  */
 public class OriginalDice extends Die {

@@ -1,25 +1,33 @@
 package ooga.display.ui_tools;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.function.Consumer;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import ooga.display.Display;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.function.Consumer;
-
 /**
- * UI building tools for the display
- * NOTE: These many components require language support from language resource property packages.
+ * UI building tools for the display NOTE: These many components require language support from
+ * language resource property packages.
  *
  * @author Henry Huynh
  * @author Aaric Han
@@ -75,7 +83,8 @@ public class UIBuilder {
     return button;
   }
 
-  public Button makeImageButton(String id, EventHandler<ActionEvent> response, String imagePath,int width, int height){
+  public Button makeImageButton(String id, EventHandler<ActionEvent> response, String imagePath,
+      int width, int height) {
     ImageView image = new ImageView(new Image(imagePath));
     image.setId(id);
     Button button = new Button();
@@ -88,8 +97,9 @@ public class UIBuilder {
     return button;
   }
 
-  public Button makeImageHoverButton(String id, EventHandler<ActionEvent> response, String imagePath,int width, int height, String description){
-    Button button = makeImageButton(id,response,imagePath, width, height);
+  public Button makeImageHoverButton(String id, EventHandler<ActionEvent> response,
+      String imagePath, int width, int height, String description) {
+    Button button = makeImageButton(id, response, imagePath, width, height);
     Tooltip tt = new Tooltip();
     tt.setText(description);
     tt.setShowDelay(new Duration(.0001));

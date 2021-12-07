@@ -1,104 +1,101 @@
 {
   "addMoney": {
-    "method":"addMoney",
+    "method": "addMoney",
     "sourceclass": "ooga.model.game_handling.FunctionExecutor",
     "numarg": 2,
     "argtype1": "ooga.model.data.player.Player",
-    "argtype2":"java.lang.Integer"
+    "argtype2": "java.lang.Integer"
   },
   "addMoneyToMultiple": {
     "method": "addMoney",
     "sourceclass": "ooga.model.game_handling.FunctionExecutor",
     "numarg": 2,
     "argtype1": "java.util.List",
-    "argtype2":"java.lang.Integer"
+    "argtype2": "java.lang.Integer"
   },
   "loseMoney": {
-    "method":"loseMoney",
+    "method": "loseMoney",
     "sourceclass": "ooga.model.game_handling.FunctionExecutor",
     "numarg": 2,
     "argtype1": "ooga.model.data.player.Player",
-    "argtype2":"java.lang.Integer"
+    "argtype2": "java.lang.Integer"
   },
   "loseMoneyToMultiple": {
     "method": "loseMoney",
     "sourceclass": "ooga.model.game_handling.FunctionExecutor",
     "numarg": 2,
     "argtype1": "java.util.List",
-    "argtype2":"java.lang.Integer"
+    "argtype2": "java.lang.Integer"
   },
   "advanceToTile": {
     "method": "advancePlayerToTile",
     "sourceclass": "ooga.model.game_handling.FunctionExecutor",
     "numarg": 2,
     "argtype1": "ooga.model.data.player.Player",
-    "argtype2":"java.lang.String"
+    "argtype2": "java.lang.String"
   },
   "moveToTile": {
     "method": "movePlayerToTile",
     "sourceclass": "ooga.model.game_handling.FunctionExecutor",
     "numarg": 2,
     "argtype1": "ooga.model.data.player.Player",
-    "argtype2":"java.lang.String"
+    "argtype2": "java.lang.String"
   },
   "moveFd": {
     "method": "movePlayerFd",
     "sourceclass": "ooga.model.game_handling.FunctionExecutor",
     "numarg": 2,
     "argtype1": "ooga.model.data.player.Player",
-    "argtype2":"java.lang.Integer"
+    "argtype2": "java.lang.Integer"
   },
   "moveBk": {
     "method": "movePlayerBk",
     "sourceclass": "ooga.model.game_handling.FunctionExecutor",
     "numarg": 2,
     "argtype1": "ooga.model.data.player.Player",
-    "argtype2":"java.lang.Integer"
+    "argtype2": "java.lang.Integer"
   },
   "loseMoneyForNumHouses": {
-    "method":"loseMoneyForNumHouses",
+    "method": "loseMoneyForNumHouses",
     "numarg": 2,
     "sourceclass": "ooga.model.game_handling.commands.ActionSequenceHelperCommands",
-    "argtype1":"ooga.model.data.player.Player",
+    "argtype1": "ooga.model.data.player.Player",
     "argtype2": "java.lang.Integer"
   },
   "loseMoneyForNumHotels": {
-    "method":"loseMoneyForNumHotels",
+    "method": "loseMoneyForNumHotels",
     "sourceclass": "ooga.model.game_handling.commands.ActionSequenceHelperCommands",
     "numarg": 2,
-    "argtype1":"ooga.model.data.player.Player",
+    "argtype1": "ooga.model.data.player.Player",
     "argtype2": "java.lang.Integer"
   },
   "advanceToPropertyAndPayX": {
-    "method":"advanceToPropertyAndPayX",
+    "method": "advanceToPropertyAndPayX",
     "sourceclass": "ooga.model.game_handling.commands.ActionSequenceHelperCommands",
     "numarg": 3,
-    "argtype1":"ooga.model.data.player.Player",
+    "argtype1": "ooga.model.data.player.Player",
     "argtype2": "java.lang.String",
     "argtype3": "java.lang.Integer"
   },
   "advanceToTypeAndPayX": {
-    "method":"advanceToTypeAndPayX",
+    "method": "advanceToTypeAndPayX",
     "sourceclass": "ooga.model.game_handling.commands.ActionSequenceHelperCommands",
     "numarg": 3,
-    "argtype1":"ooga.model.data.player.Player",
+    "argtype1": "ooga.model.data.player.Player",
     "argtype2": "java.lang.String",
     "argtype3": "java.lang.Integer"
   },
   "advanceToType": {
-    "method":"advanceToType",
+    "method": "advanceToType",
     "sourceclass": "ooga.model.game_handling.commands.ActionSequenceHelperCommands",
     "numarg": 2,
-    "argtype1":"ooga.model.data.player.Player",
+    "argtype1": "ooga.model.data.player.Player",
     "argtype2": "java.lang.String"
-
   },
   "goToJail": {
     "method": "goToJail",
     "sourceclass": "ooga.model.game_handling.FunctionExecutor",
     "numarg": 1,
     "argtype1": "ooga.model.data.player.Player"
-
   }
-
 }

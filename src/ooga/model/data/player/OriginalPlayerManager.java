@@ -7,17 +7,16 @@ import ooga.exceptions.NoRemainingPlayersException;
 import ooga.util.ImmutTool;
 
 /**
- * An implementation of the PlayerManager class that has players take their turns in a fixed loop. In this
- * loop, each player takes one turn and then must wait for every other player to go.
+ * An implementation of the PlayerManager class that has players take their turns in a fixed loop.
+ * In this loop, each player takes one turn and then must wait for every other player to go.
  *
  * @author William Convertino
- *
  * @since 0.0.1
  */
 public class OriginalPlayerManager extends PlayerManager {
 
   //Keeps track of all the players in the game.
-  private List<Player> myPlayers;
+  private final List<Player> myPlayers;
 
   //Keeps track of the index of the current active player.
   private int nextPlayerIndex;
@@ -71,7 +70,7 @@ public class OriginalPlayerManager extends PlayerManager {
   @Override
   public List<Player> getActivePlayers() {
     List<Player> activePlayers = new ArrayList<>(myPlayers);
-    activePlayers.removeIf(e->!e.isActive());
+    activePlayers.removeIf(e -> !e.isActive());
     return activePlayers;
   }
 
