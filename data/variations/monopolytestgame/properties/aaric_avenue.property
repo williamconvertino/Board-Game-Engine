@@ -1,0 +1,9 @@
+Name=Aaric Avenue
+Type=Regular
+Cost=600
+RentCost=35,175,500,1100,1300,1500
+MaxHouses=4
+HouseCost=200
+Neighbors=Jordan Junction, Henry Highway
+Mortgage=200
+Color=blue
