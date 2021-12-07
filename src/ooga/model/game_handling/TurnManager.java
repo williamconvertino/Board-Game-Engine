@@ -213,9 +213,9 @@ public class TurnManager {
      */
     public void buyHouse() {
         try {
-            buyHouse(((PropertyTileModel)selectedTile).getProperty());
+            buyHouse(((PropertyTileModel) selectedTile).getProperty());
         } catch (Exception e) {
-            displayComm.showException(new TileNotAPropertyException());
+            displayComm.showException(new PropertyNotMonopolyException());
         }
     }
 

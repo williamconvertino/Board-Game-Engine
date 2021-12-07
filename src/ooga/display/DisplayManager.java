@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -43,6 +45,8 @@ public class DisplayManager {
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
   private static final String DEFAULT_VARIATION_NAME = "original";
+  private static final String VICTORY_MESSAGE = "Congrats! %s has won the game!";
+  private static final String NO_VICTOR = "This is awkward... there was no winner!";
 
   private String selectedTheme = ORIGINAL_STYLE;
 
@@ -286,5 +290,33 @@ public class DisplayManager {
     variationName = name;
   }
 
+  /**
+   * Displays an alert on the screen.
+   *
+   * @param type the type of alert to show.
+   * @param message the message displayed.
+   */
+  public void showAlert(String message, AlertType type) {
+    Alert myAlert = new Alert(type);
+    myAlert.setContentText(message);
+    myAlert.show();
+  }
+
+  /**
+   * Shows the victory screen.
+   */
+  public void showVictoryScreen() {
+    Player victor = null;
+    for (Player p: getGameData().getPlayers()) {
+      if (p.isActive()) {
+        victor = p;
+      }
+    }
+    if (victor != null) {
+      showAlert(String.format("%s%s", VICTORY_MESSAGE, victor.getName()), AlertType.INFORMATION);
+    } else {
+      showAlert(NO_VICTOR,AlertType.ERROR);
+    }
+  }
 
 }

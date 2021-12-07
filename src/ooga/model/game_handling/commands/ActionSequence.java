@@ -56,4 +56,13 @@ public class ActionSequence {
 
   }
 
+  /**
+   * Indicated whether the sequence is empty.
+   *
+   * @return true if the sequence is empty.
+   */
+  public boolean isEmpty() {
+    return this.mySequence.isEmpty() || (this.mySequence.size() == 1 && this.mySequence.get(0).length() == 0);
+  }
+
 }

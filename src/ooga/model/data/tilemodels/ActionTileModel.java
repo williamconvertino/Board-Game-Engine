@@ -63,10 +63,11 @@ public class ActionTileModel extends TileModel {
    */
   @Override
   public void executeLandOn(Player player) {
-    myDisplayComm.displayActionTile(this);
-    if (myLandOnActions != null) {
-      myLandOnActions.execute(player);
+    if (myLandOnActions == null || myLandOnActions.isEmpty()) {
+      return;
     }
+    myDisplayComm.displayActionTile(this);
+    myLandOnActions.execute(player);
   }
 
   /**
