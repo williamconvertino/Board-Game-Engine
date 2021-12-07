@@ -1,0 +1,9 @@
+Name=Bro
+Type=Regular
+Cost=50
+RentCost=30
+MaxHouses=4
+HouseCost=1000
+Neighbors=Bord
+Mortgage=30
+Color=

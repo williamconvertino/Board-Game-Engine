@@ -1,0 +1,3 @@
+Name=Advance To St. Charles Place
+Description=ADVANCE TO ST CHARLES PLACE - IF YOU PASS GO, COLLECT $200
+ActionSequence=[advanceToTile p0 "St. Charles Place"]
