@@ -10,7 +10,7 @@ import ooga.model.data.player.Player;
 /**
  * This class keeps track of the data associated with any given property.
  * 
- * @author William Convertino, Jordan Castleman
+ * @author William Convertino, Jordan Castleman, Aaric Han
  * 
  * @since 0.0.1
  */
@@ -60,6 +60,9 @@ public class Property {
     //Color of property.
     private String color;
 
+    // monopoly? 0 = not monopoly, 1 = monopoly
+    private int monopoly;
+
     /**
      * Constructs a new regular property with the specified data.
      *
@@ -84,6 +87,7 @@ public class Property {
         this.numHouses = 0;
         this.isMortgaged = false;
         this.color = color;
+        this.monopoly = 0;
     }
 
     /**
@@ -243,6 +247,9 @@ public class Property {
      * @return true if this property is part of a monopoly, and false otherwise.
      */
     public boolean isMonopoly() {
+        if (monopoly == 1) {
+            return true;
+        }
         if (owner == NULL_OWNER) {
             return false;
         }
@@ -250,7 +257,21 @@ public class Property {
         for (Property prop: owner.getProperties()) {
             requiredProperties.removeIf(e->e.equals(prop.getName()));
         }
-        return requiredProperties.isEmpty();
+        if (requiredProperties.isEmpty()) {
+            monopoly = 1;
+            return true;
+        }
+        else {
+            monopoly = 0;
+            return false;
+        }
+    }
+
+    /**
+     * Sets the monopoly value
+     */
+    public void setMonopoly() {
+        monopoly = 1;
     }
 
     /**
