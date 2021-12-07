@@ -93,4 +93,12 @@ public class EnterPlayersScreenTest extends DukeApplicationTest {
     options = lookup("#variationButton").query();
     clickOn(options);
   }
+
+  @Test
+  public void selectFolder(){
+    Button options = lookup("#Start").query();
+    clickOn(options);
+     options = lookup("#VariationLoader").query();
+    clickOn(options);
+  }
 }

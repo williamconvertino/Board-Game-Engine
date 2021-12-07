@@ -267,7 +267,7 @@ public class EnterPlayersScreen extends Display {
     }
   }
 
-  //sets the
+  //sets the variation name in DisplayManager, and updates the label on screen
   private void setVariationName(String name){
     myDisplayManager.setVariationName(name);
     variationNameLabel.setText(myDisplayManager.getVariationName());
