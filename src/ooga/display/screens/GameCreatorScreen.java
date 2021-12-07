@@ -3,14 +3,12 @@ package ooga.display.screens;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Locale;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -18,7 +16,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -49,28 +46,22 @@ public class GameCreatorScreen extends Display {
   private static final int TILE_AMOUNT = 40;
   private static final String IMAGE_RESOURCE = DEFAULT_RESOURCE_PACKAGE + "image_paths";
   private static final String VARIATION_PATH = "data/variations/";
-  private static final String CARDS_PATH = "/cards";
-  private static final String CHANCE_PATH = "/chance";
-  private static final String COMMUNITY_CHEST_PATH = "/community_chest";
-  private static final String TILES_PATH = "/tiles";
-  private static final String CONFIG = "/config";
-  private static final String BOARD_PATH = "/board";
   private static final String PROPERTIES_PATH = "/properties";
-  private static final String DEFAULT_VARIATION_PATH = "/original";
-  private static final int TILE_SUBSTRING_CUTOFF = 37;
-  private static final int CHANCE_SUBSTRING_CUTOFF = 38;
-  private static final int COMMUNITY_CHEST_SUBSTRING_CUTOFF = 47;
-  private static final int SELECTOR_MENU_WIDTH = 500;
+  private static final int SELECTOR_MENU_WIDTH = 600;
   private static final int IMAGE_SIZE = 40;
   private static final int TILE_SIZE = 50;
   private static final int CREATOR_ROW_MAX = 10;
   private static final int TILE_X_TRANSLATION = -500;
   private static final int TILE_Y_TRANSLATION = 50;
   private static final int DISPLAY_HEIGHT = 600;
-  private static final int DISPLAY_WIDTH = 800;
+  private static final int DISPLAY_WIDTH = 900;
   private static final int SET_GAME_BUTTON_WIDTH=150;
   private static final int SET_GAME_BUTTON_HEIGHT=75;
-
+  private static final int SET_GAME_BUTTON_X=60;
+  private static final int SET_GAME_BUTTON_Y=20;
+  private static final int INSTRUCTIONS_WIDTH=260;
+  private static final int INSTRUCTIONS_HEIGHT=460;
+  private static final int INSTRUCTIONS_TEXT_WRAP_WIDTH=220;
 
   private Scene scene;
   private TextField gameName;
@@ -99,26 +90,18 @@ public class GameCreatorScreen extends Display {
   private int rowJumper;
   private int colJumper;
 
-  private File variationFolder;
-  private File variationBoard;
-  private File variationCards;
-  private File variationProperties;
-  private File variationConfigFile;
-  private File variationBoardFile;
-  private File variationTiles;
-  private File variationChanceCards;
-  private File variationCommunityChestCards;
-
   private Button jailButton;
   private Button goToJailButton;
 
   private HBox createSpecialTileButtons;
 
-  private Path src;
-  private Path des;
-
   private HBox allElements;
 
+  private FolderFactory folderFactory;
+
+  private String dieType;
+  private String boardManagerType;
+  private String playerManagerType;
 
   /**
    * Constructor for creating a custom game
@@ -129,6 +112,9 @@ public class GameCreatorScreen extends Display {
   public GameCreatorScreen(Stage stage, DisplayManager displayManager, ResourceBundle langResource) {
     rowJumper = 0;
     colJumper = 0;
+    dieType = "OriginalDice";
+    boardManagerType="OriginalBoardManager";
+    playerManagerType="OriginalPlayerManager";
     PropertyPopUp = new Popup();
     propBox = new VBox();
     propBox.setId("propertyCreatorBox");
@@ -138,20 +124,23 @@ public class GameCreatorScreen extends Display {
     myStage = stage;
     myDisplayManager = displayManager;
     myGameImages = ResourceBundle.getBundle(IMAGE_RESOURCE);
-
     allElements = new HBox();
-
+    folderFactory = new FolderFactory();
     selectorMenu = new VBox();
     selectorMenu.setMaxWidth(SELECTOR_MENU_WIDTH);
     selectorMenu.setMinWidth(SELECTOR_MENU_WIDTH);
     selectorMenu.getChildren().add(createInitialSelectorMenu());
-
     allElements.getChildren().add(selectorMenu);
     makeScene();
   }
 
   //Sets the proper variation name and changes back to Player Screen
-  private void setGame(){
+  private void setGame() throws IOException {
+    if (tileCounter!= 0){
+      myBuilder.makeErrorAlert("Board Incomplete","Please complete the board!").showAndWait();
+      return;
+    }
+    folderFactory.writeConfigFile(boardManagerType,playerManagerType,dieType);
     myDisplayManager.setVariationName(gameName.getText());
     myDisplayManager.goPlayerScreen();
   }
@@ -173,100 +162,54 @@ public class GameCreatorScreen extends Display {
     return result;
   }
 
-  //Creates all folders and files for the new variation, and copies all necessary information over
-  private void makeDirectories() throws IOException {
-    variationFolder = new File(VARIATION_PATH + gameName.getText().replace(" ","_"));
-    variationFolder.mkdirs();
-    variationBoard = new File(VARIATION_PATH + gameName.getText() + BOARD_PATH);
-    variationBoard.mkdirs();
-    variationCards = new File(VARIATION_PATH + gameName.getText() + CARDS_PATH);
-    variationCards.mkdirs();
-    variationProperties = new File(VARIATION_PATH + gameName.getText() + PROPERTIES_PATH);
-    variationProperties.mkdirs();
-    variationBoardFile = new File(VARIATION_PATH + gameName.getText() + BOARD_PATH + "/" + gameName.getText() +  BOARD_PATH.replace("/","."));
-    variationBoardFile.createNewFile();
-    variationConfigFile = new File(VARIATION_PATH + gameName.getText() + CONFIG + PROPERTIES_PATH.replace("/","."));
-    variationConfigFile.createNewFile();
-    variationTiles = new File(VARIATION_PATH + gameName.getText() + BOARD_PATH + TILES_PATH);
-    variationTiles.mkdirs();
-    variationChanceCards =new File(VARIATION_PATH + gameName.getText() + CARDS_PATH + CHANCE_PATH);
-    variationChanceCards.mkdirs();
-    variationCommunityChestCards =new File(VARIATION_PATH + gameName.getText() + CARDS_PATH  + COMMUNITY_CHEST_PATH);
-    variationCommunityChestCards.mkdirs();
-    copyTileFiles();
-    copyConfigFile();
-    copyCardFiles(CHANCE_PATH,CHANCE_SUBSTRING_CUTOFF);
-    copyCardFiles(COMMUNITY_CHEST_PATH,COMMUNITY_CHEST_SUBSTRING_CUTOFF);
-  }
-
-  //copies tile files from original variation to new variation
-  private void copyTileFiles() throws IOException {
-    String tileName;
-    File fileFolder = new File(VARIATION_PATH + DEFAULT_VARIATION_PATH + BOARD_PATH + TILES_PATH);
-    for(File file: fileFolder.listFiles()){
-      tileName= file.getPath().substring(TILE_SUBSTRING_CUTOFF);
-      System.out.println(tileName);
-      new File(VARIATION_PATH + gameName.getText() + BOARD_PATH + TILES_PATH + tileName).createNewFile();
-      src = Paths.get(file.getPath());
-      des = Paths.get(VARIATION_PATH + gameName.getText() + BOARD_PATH + TILES_PATH + tileName);
-      Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
-    }
-  }
-
-  //copies configuration file from original variation to new variation
-  private void copyConfigFile() throws IOException {
-    src = Paths.get(VARIATION_PATH + DEFAULT_VARIATION_PATH + CONFIG + PROPERTIES_PATH.replace("/","."));
-    des = Paths.get(VARIATION_PATH + gameName.getText() + CONFIG + PROPERTIES_PATH.replace("/","."));
-    Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
-  }
-
-  //copies chance and community chest cards from original variation to new variation
-  private void copyCardFiles(String cardPath, int pathCutoff) throws IOException {
-    String tileName;
-    File fileFolder = new File(VARIATION_PATH + DEFAULT_VARIATION_PATH + CARDS_PATH + cardPath);
-    for(File file: fileFolder.listFiles()){
-      tileName= file.getPath().substring(pathCutoff);
-      new File(VARIATION_PATH + gameName.getText() + CARDS_PATH + cardPath + tileName).createNewFile();
-      src = Paths.get(file.getPath());
-      des = Paths.get(VARIATION_PATH + gameName.getText() + CARDS_PATH + cardPath + tileName);
-      Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
-    }
+  private VBox createRightElements(){
+    VBox rightElements = new VBox();
+    rightElements.setId("RightElements");
+    rightElements.setId("RightElements");
+    Button setGameButton = myBuilder.makeTextButton("SetGame", e -> {
+      try {
+        setGame();
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+    });
+    setGameButton.setTranslateX(SET_GAME_BUTTON_X);
+    setGameButton.setTranslateY(SET_GAME_BUTTON_Y);
+    setGameButton.setPrefWidth(SET_GAME_BUTTON_WIDTH);
+    setGameButton.setPrefHeight(SET_GAME_BUTTON_HEIGHT);
+    StackPane instructions = new StackPane();
+    instructions.setMinWidth(INSTRUCTIONS_WIDTH);
+    instructions.setMaxWidth(INSTRUCTIONS_WIDTH);
+    instructions.setMaxHeight(INSTRUCTIONS_HEIGHT);
+    instructions.setMinHeight(INSTRUCTIONS_HEIGHT);
+    instructions.setId("EditorInstructions");
+    rightElements.getChildren().add(instructions);
+    rightElements.getChildren().add(setGameButton);
+    Text instructionText = new Text(myLangResource.getString("EditorInstructions"));
+    instructions.getChildren().add(instructionText);
+    instructionText.setWrappingWidth(INSTRUCTIONS_TEXT_WRAP_WIDTH);
+    return rightElements;
   }
 
   //creates the variation folder hierarchy and displays the rest of the selector menu
   private void createFullSelectorMenu() throws IOException {
-    makeDirectories();
-    VBox rightside = new VBox();
-    rightside.setId("Right");
-    allElements.getChildren().add(rightside);
-
-    Button setGameButton = myBuilder.makeTextButton("SetGame", e -> setGame());
-    //setGameButton.setTranslateX(130);
-    //setGameButton.setTranslateY(505);
-    setGameButton.setTranslateX(60);
-    setGameButton.setTranslateY(20);
-    setGameButton.setPrefWidth(SET_GAME_BUTTON_WIDTH);
-    setGameButton.setPrefHeight(SET_GAME_BUTTON_HEIGHT);
-    StackPane instructions = new StackPane();
-    instructions.setMinWidth(260);
-    instructions.setMaxWidth(260);
-    instructions.setMaxHeight(460);
-    instructions.setMinHeight(460);
-    instructions.setId("EditorInstructions");
-    rightside.getChildren().add(instructions);
-    rightside.getChildren().add(setGameButton);
-    Text instructionText = new Text("Welcome to the Custom Game Creator! \n \n Please start by typing in your game name and setting your rules. \n \n Then, using our creator buttons, create your monopoly board! \n \n (Note: You are only able to use one Jail and one Go To Jail tile) \n \n When you have placed 40 tiles, please hit 'Set Game'. \n \n \n Enjoy!");
-    instructions.getChildren().add(instructionText);
-    instructionText.setWrappingWidth(220);
-
+    folderFactory.makeDirectories(gameName.getText());
+    allElements.getChildren().add(createRightElements());
     selectorMenu.getChildren().add(myBuilder.makeLabel("SetRules"));
 
+    HBox ruleBox = new HBox();
     //create Die Selector
-    List<String> dieOptions = new ArrayList<>(Arrays.asList("TwoRegularDice","OneRegularDie"));
-    selectorMenu.getChildren().add(myBuilder.makeCombo("ChooseYourDice", dieOptions, e -> setDie(e)));
+    List<String> dieOptions = new ArrayList<>(Arrays.asList("OriginalDice","DoublesDie","BowserDie","D20Die","TenCoins"));
+    ruleBox.getChildren().add(myBuilder.makeCombo("ChooseDice", dieOptions, e -> setDie(e)));
+
+    List<String> playerOptions = new ArrayList<>(Arrays.asList("OriginalPlayerManager","RandomPlayerManager","WinMorePlayerManager","WorstFirstPlayerManager"));
+    ruleBox.getChildren().add(myBuilder.makeCombo("ChoosePlayStyle", playerOptions, e -> setPlayerManager(e)));
+
+    List<String> boardOptions = new ArrayList<>(Arrays.asList("OriginalBoardManager","BackwardsBoardManager"));
+    ruleBox.getChildren().add(myBuilder.makeCombo("ChooseBoard", boardOptions, e -> setBoardManager(e)));
+    selectorMenu.getChildren().add(ruleBox);
 
     HBox createPropertyButtons = new HBox();
-
     createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddRegularProperty",e -> createPropertyPopUp("Regular")));
     createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddRailroadProperty",e -> createPropertyPopUp("Railroad")));
     createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddUtilitiesProperty",e -> createPropertyPopUp("Utilities")));
@@ -283,10 +226,22 @@ public class GameCreatorScreen extends Display {
     tileCountBox.getChildren().addAll(myBuilder.makeLabel("TilesLeft"),counter);
     selectorMenu.getChildren().add(tileCountBox);
 
-
     board = new HBox();
     selectorMenu.getChildren().add(board);
     board.getChildren().add(createBoardSpace("Go",new Image(myGameImages.getString("Go"))));
+  }
+
+  //Sets the die to whatever the user chooses
+  private void setDie(String die){
+    dieType = die;
+  }
+
+  private void setPlayerManager(String playerType){
+    playerManagerType = playerType;
+  }
+
+  private void setBoardManager(String boardType){
+    boardManagerType = boardType;
   }
 
   //creates the special tile creator buttons
@@ -345,10 +300,6 @@ public class GameCreatorScreen extends Display {
     counter.setText(""+ tileCounter);
   }
 
-  //Sets the die to whatever the user chooses
-  private void setDie(String dieType){
-    //TODO: Enter this
-  }
 
   //Creates the property pop up screen for the user to input
   private void createPropertyPopUp(String type){
@@ -418,12 +369,7 @@ public class GameCreatorScreen extends Display {
     counter.setText("" + tileCounter);
   }
 
-  //Writes a single tile name to the .board file in the variation folder
-  private void writeLineToBoard(String tileName) throws IOException {
-    FileWriter fw = new FileWriter(variationBoardFile,true);
-    fw.write(tileName+ "\n");
-    fw.close();
-  }
+
 
   //Writes a regular property file to the properties folder
   private void writeRegularPropertyFile(String name, String cost, String rentcosts, String housecost, String neighbors, String mortgage, String color)
@@ -462,7 +408,7 @@ public class GameCreatorScreen extends Display {
 
   //Creates a board space with given name and color.
   private VBox createBoardSpace(String name,String color) throws IOException {
-    writeLineToBoard(name);
+    folderFactory.writeLineToBoard(name);
     VBox tileBox = new VBox();
     tileBox.setId("creatorTile");
     Label tilename = new Label(name);
@@ -487,7 +433,7 @@ public class GameCreatorScreen extends Display {
 
   //creates a board space with given name and image
   private VBox createBoardSpace(String name, Image image) throws IOException {
-    writeLineToBoard(name);
+    folderFactory.writeLineToBoard(name);
     VBox stackPane = new VBox();
     stackPane.setId("creatorTile");
     ImageView view = new ImageView(image);

@@ -82,4 +82,12 @@ public class EnterPlayersScreenTest extends DukeApplicationTest {
     clickOn(Continue);
     assertEquals(Color.YELLOW, dm.getGameData().getPlayers().get(0).getColor());
   }
+
+  @Test
+  public void selectDefault(){
+    Button options = lookup("#Start").query();
+    clickOn(options);
+    options = lookup("#variationButton").query();
+    clickOn(options);
+  }
 }

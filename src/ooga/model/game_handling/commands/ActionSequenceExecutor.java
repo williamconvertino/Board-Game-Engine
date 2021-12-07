@@ -67,7 +67,6 @@ public class ActionSequenceExecutor {
       myCommands = (JSONObject)myJSONParser.parse(new FileReader(String.format("%s%s", RESOURCE_DIRECTORY, COMMAND_DATA_FILENAME)));
       myArgs = (JSONObject)myJSONParser.parse(new FileReader(String.format("%s%s", RESOURCE_DIRECTORY, ARGUMENT_DATA_FILENAME)));
     } catch (Exception e) {
-      System.out.println("oops!");
       displayComm.showException(e);
     }
   }

@@ -112,7 +112,15 @@
     -fx-border-color:black;
 }
 
-#Right{
+#RightElements{
     -fx-padding: 20px;
+}
+
+#ChooseDice, #ChoosePlayStyle, #ChooseBoard{
+    -fx-max-width: 100;
+}
+
+#EnterGameName{
+    -fx-max-width: 400;
 }
 
