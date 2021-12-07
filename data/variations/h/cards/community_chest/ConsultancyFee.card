@@ -1,0 +1,3 @@
+Name=Receive Consultancy Fee
+Description=RECEIVE $25 CONSULTANCY FEE
+ActionSequence=[addMoney p0 25]

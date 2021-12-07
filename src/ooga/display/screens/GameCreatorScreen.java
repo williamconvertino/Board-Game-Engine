@@ -31,12 +31,6 @@ import java.util.ResourceBundle;
 
 public class GameCreatorScreen extends Display {
 
-  private VBox startMenu;
-  private Stage myStage;
-  private DisplayManager myDisplayManager;
-  private UIBuilder myBuilder;
-  private ResourceBundle myLangResource;
-  private LanguageUI myLanguageUI;
   private static final String DEFAULT_RESOURCE_PACKAGE =
       Display.class.getPackageName() + ".resources.";
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
@@ -44,12 +38,25 @@ public class GameCreatorScreen extends Display {
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
   private static final List<String> LANGUAGES_LIST = List.of("English", "Spanish", "French", "Irish", "Latin");
-  private Scene scene;
+  private static final int TILE_AMOUNT = 40;
+  private static final String IMAGE_RESOURCE = DEFAULT_RESOURCE_PACKAGE + "image_paths";
+  private static final String VARIATION_PATH = "data/variations/";
+  private static final String CARDS_PATH = "/cards";
+  private static final String CHANCE_PATH = "/chance";
+  private static final String BOARD_PATH = "/board";
+  private static final int SELECTOR_MENU_WIDTH = 400;
 
+  private Scene scene;
   private TextField gameName;
   private Popup PropertyPopUp;
   private VBox propBox;
   private int tileCounter;
+  private VBox selectorMenu;
+  private Stage myStage;
+  private DisplayManager myDisplayManager;
+  private UIBuilder myBuilder;
+  private ResourceBundle myLangResource;
+  private LanguageUI myLanguageUI;
 
   private TextField propertyName;
   private TextField propertyCost;
@@ -85,7 +92,7 @@ public class GameCreatorScreen extends Display {
   private Path src;
   private Path des;
 
-  private HBox contents;
+  private HBox allElements;
 
 
   /**
@@ -95,50 +102,44 @@ public class GameCreatorScreen extends Display {
    * @param langResource The language
    */
   public GameCreatorScreen(Stage stage, DisplayManager displayManager, ResourceBundle langResource) {
-
     rowJumper = 0;
     colJumper = 0;
     PropertyPopUp = new Popup();
     propBox = new VBox();
     propBox.setId("propertyCreatorBox");
-    tileCounter = 39;
+    tileCounter = TILE_AMOUNT-1; //The Go tile is already placed
     myLangResource = langResource;
     myBuilder = new UIBuilder(langResource);
     myStage = stage;
     myDisplayManager = displayManager;
-    myGameImages = ResourceBundle.getBundle("ooga/display/resources/image_paths");
-    contents  = new HBox();
+    myGameImages = ResourceBundle.getBundle(IMAGE_RESOURCE);
 
-    startMenu = new VBox();
-    startMenu.setMaxWidth(400);
-    startMenu.getChildren().add(myBuilder.makeLabel("GameCreator"));
-    startMenu.getChildren().add(startCreating());
-    contents.getChildren().add(startMenu);
-    contents.getChildren().add(myBuilder.makeTextButton("SetGame", e -> setGame()));
+    allElements = new HBox();
+
+    selectorMenu = new VBox();
+    selectorMenu.setMaxWidth(SELECTOR_MENU_WIDTH);
+    selectorMenu.getChildren().add(createInitialSelectorMenu());
+
+    allElements.getChildren().add(selectorMenu);
+    allElements.getChildren().add(myBuilder.makeTextButton("SetGame", e -> setGame()));
     makeScene();
   }
 
-  /*
-  private void copyContent(){
-    Files.copy(src, dst, StandardCopyOption.REPLACE_EXISTING);
-  }
-
-   */
 
   private void setGame(){
     myDisplayManager.setVariationName(gameName.getText());
     myDisplayManager.goPlayerScreen();
   }
 
-  private Node startCreating() {
+  private Node createInitialSelectorMenu() {
     VBox result = new VBox();
-    result.setMaxWidth(400);
+    result.setMaxWidth(SELECTOR_MENU_WIDTH);
     gameName = (TextField) myBuilder.makePrefilledTextField("EnterGameName");
-
+    result.getChildren().add(myBuilder.makeLabel("GameCreator"));
     result.getChildren().add(gameName);
     result.getChildren().add(myBuilder.makeTextButton(("CreateNewGame"), e -> {
       try {
-        triggerGameCreation();
+        createFullSelectorMenu();
       } catch (IOException ex) {
         ex.printStackTrace();
       }
@@ -147,32 +148,29 @@ public class GameCreatorScreen extends Display {
   }
 
   private void makeDirectories() throws IOException {
-    variationFolder = new File("data/variations/" + gameName.getText().replace(" ","_"));
-    variationBoard = new File("data/variations/" + gameName.getText() + "/board");
-    variationBoard.mkdirs();
-    variationCards = new File("data/variations/" + gameName.getText() + "/cards");
-    variationProperties = new File("data/variations/" + gameName.getText() + "/properties");
-    variationPlayers = new File("data/variations/" + gameName.getText() + "/players");
-    variationBoardFile = new File("data/variations/" + gameName.getText() + "/board/" + gameName.getText() +  ".board");
-    variationConfigFile = new File("data/variations/" + gameName.getText() + "/config.properties");
-    variationTiles = new File("data/variations/" + gameName.getText() + "/board/tiles");
-    variationChanceCards =new File("data/variations/" + gameName.getText() + "/cards/chance");
-    variationCommunityChestCards =new File("data/variations/" + gameName.getText() + "/cards/community_chest");
-    variationCommunityChestCards.mkdirs();
-    variationChanceCards.mkdirs();
-    variationTiles.mkdirs();
+    variationFolder = new File(VARIATION_PATH + gameName.getText().replace(" ","_"));
     variationFolder.mkdirs();
+    variationBoard = new File(VARIATION_PATH + gameName.getText() + BOARD_PATH);
+    variationBoard.mkdirs();
+    variationCards = new File(VARIATION_PATH + gameName.getText() + CARDS_PATH);
     variationCards.mkdirs();
+    variationProperties = new File(VARIATION_PATH + gameName.getText() + "/properties");
     variationProperties.mkdirs();
+    variationPlayers = new File(VARIATION_PATH + gameName.getText() + "/players");
     variationPlayers.mkdirs();
-    variationConfigFile.createNewFile();
+    variationBoardFile = new File(VARIATION_PATH + gameName.getText() + BOARD_PATH + "/" + gameName.getText() +  BOARD_PATH.replace("/","."));
     variationBoardFile.createNewFile();
+    variationConfigFile = new File(VARIATION_PATH + gameName.getText() + "/config.properties");
+    variationConfigFile.createNewFile();
+    variationTiles = new File(VARIATION_PATH + gameName.getText() + BOARD_PATH + "/tiles");
+    variationTiles.mkdirs();
+    variationChanceCards =new File(VARIATION_PATH + gameName.getText() + CARDS_PATH + CHANCE_PATH);
+    variationChanceCards.mkdirs();
+    variationCommunityChestCards =new File(VARIATION_PATH + gameName.getText() + CARDS_PATH  + "/community_chest");
+    variationCommunityChestCards.mkdirs();
     copyTileFiles();
     copyConfigFile();
     copyCardFiles();
-
-
-
   }
 
   private void copyTileFiles() throws IOException {
@@ -214,7 +212,7 @@ public class GameCreatorScreen extends Display {
     }
   }
 
-  private void triggerGameCreation() throws IOException {
+  private void createFullSelectorMenu() throws IOException {
     makeDirectories();
     VBox result = new VBox();
     result.getChildren().add(myBuilder.makeLabel("SetRules"));
@@ -249,7 +247,7 @@ public class GameCreatorScreen extends Display {
 
     result.getChildren().add(tileCountBox);
 
-    startMenu.getChildren().add(result);
+    selectorMenu.getChildren().add(result);
 
 
    board = new HBox();
@@ -470,7 +468,7 @@ public class GameCreatorScreen extends Display {
   }
 
   private void makeScene() {
-    scene = new Scene(contents, 800, 600);
+    scene = new Scene(allElements, 800, 600);
     scene.getStylesheets().add(DEFAULT_STYLE);
   }
 
