@@ -22,6 +22,7 @@ import ooga.model.data.player.Player;
 import ooga.model.data.properties.Property;
 import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
+import ooga.model.die.Die;
 
 /**
  * This class manages the actions that a player can do on their turn.
@@ -97,7 +98,16 @@ public class TurnManager {
      * If they roll 3 times, they are sent to jail.
      */
     public void roll() {
+        rollWithDie(gameData.getDie());
+    }
 
+    /**
+     * Makes the player roll the specified dice, and move accordingly. If they roll doubles, they are allowed to roll an additional time.
+     * If they roll 3 times, they are sent to jail.
+     *
+     * @param die
+     */
+    public void rollWithDie(Die die) {
         //Check to see if the player has already rolled the max # of times, if so throw an error.
         if (gameData.getNumRolls() >= maxRolls) {
             displayComm.showException(new MaxRollsReachedException());
@@ -105,7 +115,7 @@ public class TurnManager {
         }
 
         //Roll the die.
-        int myRoll = gameData.getDie().roll();
+        int myRoll = die.roll();
         gameData.addRoll();
 
         //If the roll is the third of the turn, send the player to jail.
@@ -116,12 +126,12 @@ public class TurnManager {
             return;
         }
 
-        if (!gameData.getCurrentPlayer().isInJail() || gameData.getDie().lastRollDouble()) {
+        if (!gameData.getCurrentPlayer().isInJail() || die.lastRollDouble()) {
             functionExecutor.movePlayerFd(gameData.getCurrentPlayer(),myRoll);
         }
 
         //If the roll is a double, increase the maximum number of rolls by one.
-        if (gameData.getDie().lastRollDouble()) {
+        if (die.lastRollDouble()) {
             if (gameData.getCurrentPlayer().isInJail()) {
                 gameData.getCurrentPlayer().setJailStatus(false);
             } else {
