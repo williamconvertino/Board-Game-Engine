@@ -3,6 +3,8 @@ package ooga.display.communication;
 import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.model.data.cards.Card;
+import ooga.model.data.tilemodels.ActionTileModel;
+import ooga.model.data.tilemodels.TileModel;
 
 /**
  * The display communication which shows exceptions
@@ -47,6 +49,16 @@ public class DisplayComm {
   public void displayCard(Card card) {
     //Todo: replace with display
     System.out.println(String.format("Card drawn: [%s]", card.getDescription()));
+  }
+
+  /**
+   * Displays the specified tile.
+   *
+   * @param tile the tile to display.
+   */
+  public void displayActionTile(ActionTileModel tile) {
+    //Todo: replace with display
+    System.out.println(String.format("[%s] - %s", tile.getName(), tile.getDescription()));
   }
 
 }

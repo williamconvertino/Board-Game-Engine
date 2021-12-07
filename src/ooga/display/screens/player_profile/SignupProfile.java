@@ -2,11 +2,8 @@ package ooga.display.screens.player_profile;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ResourceBundle;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -134,15 +131,15 @@ public class SignupProfile implements Profile {
     playerMenu.getChildren().add(myUIBuilder.makeLabel("Signup"));
     // Username textfield
     playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("EnterUsernameLabel"));
-    myUsername = (TextField) myUIBuilder.makeTextField("UsernameTextFieldID");
+    myUsername = (TextField) myUIBuilder.makePrefilledTextField("UsernameTextFieldID");
     playerMenu.getChildren().add(myUsername);
     // Password textfield
     playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("EnterPasswordLabel"));
-    myPassword = (TextField) myUIBuilder.makeTextField("PasswordTextFieldID");
+    myPassword = (TextField) myUIBuilder.makePrefilledTextField("PasswordTextFieldID");
     playerMenu.getChildren().add(myPassword);
     // Profile Name textfield
     playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("EnterNameLabel"));
-    myName = (TextField) myUIBuilder.makeTextField("NameTextFieldID");
+    myName = (TextField) myUIBuilder.makePrefilledTextField("NameTextFieldID");
     playerMenu.getChildren().add(myName);
     // Profile Avatar Image
     playerMenu.getChildren().add(myUIBuilder.makeSmallLabel("ChooseAvatarLabel"));
@@ -150,7 +147,7 @@ public class SignupProfile implements Profile {
     fileChooser.setInitialDirectory(AVATAR_DIR);
     HBox avatarBox = new HBox();
     ImageView avatarName = new ImageView();
-    Button avatarButton = myUIBuilder.makeButton("ChooseAvatarButton", e-> {
+    Button avatarButton = myUIBuilder.makeTextButton("ChooseAvatarButton", e-> {
       File avatarfile = fileChooser.showOpenDialog(myStage);
       if (avatarfile != null) {
         myAvatar = avatarfile.getName();
@@ -165,9 +162,9 @@ public class SignupProfile implements Profile {
     playerMenu.getChildren().add(avatarBox);
 
     // Signup Button
-    Button signupButton = myUIBuilder.makeButton("Signup", e -> buttonPressed());
+    Button signupButton = myUIBuilder.makeTextButton("Signup", e -> buttonPressed());
     // Close Button
-    Button closeButton = myUIBuilder.makeButton("Close", e -> closePopup());
+    Button closeButton = myUIBuilder.makeTextButton("Close", e -> closePopup());
     playerMenu.getChildren().add(myUIBuilder.makeButtonBox(signupButton, closeButton));
 
     playerMenu.setId("ProfileVBox");

@@ -20,7 +20,7 @@ public class PropertyParserTest extends GameHandlingTest {
     PropertyParser myParser = new PropertyParser();
     Map<String,Property> propList = new HashMap();
     ArrayList<Property> propertyList = myParser.parseProperties(
-        "variations/monopoly_original/properties");
+        "variations/original/properties");
     for (Property prop: propertyList){
       propList.putIfAbsent(prop.getName(),prop);
     }
@@ -34,7 +34,7 @@ public class PropertyParserTest extends GameHandlingTest {
   void testParsePropertyName()
       throws AttributeNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     PropertyParser myParser = new PropertyParser();
-    Property testProperty = myParser.parsePropertyFile(new File("data/variations/monopoly_original/properties/mediterranean_avenue.property"));
+    Property testProperty = myParser.parsePropertyFile(new File("data/variations/original/properties/mediterranean_avenue.property"));
     assertEquals(testProperty.getName(),"Mediterranean Avenue");
   }
 

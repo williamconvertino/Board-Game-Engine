@@ -15,6 +15,7 @@ import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
 import ooga.display.game_board.GameBoardDisplay;
 import ooga.display.screens.EnterPlayersScreen;
+import ooga.display.screens.GameCreatorScreen;
 import ooga.display.screens.OptionsMenu;
 import ooga.display.screens.StartMenu;
 import ooga.model.data.gamedata.GameData;
@@ -41,6 +42,7 @@ public class DisplayManager {
   private static final String ORIGINAL_STYLE = STYLE_PACKAGE + "original.css";
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
+  private static final String DEFAULT_VARIATION_NAME = "original";
 
   private String selectedTheme = ORIGINAL_STYLE;
 
@@ -60,18 +62,28 @@ public class DisplayManager {
   private ProfileManager myProfileManager;
   private StartMenu myStartMenu;
   private String[] userData;
+  private String variationName;
 
 
   /**
-   * Default constructor
+   * Constructs display manager, creating a list of displays with list of displays with indices:
+   * 0: Start Menu
+   * 1: Options Menu
+   * 2: Player Screen (created later)
+   * 3: Game Creator Screen (created later)
+   * 4: Game Screen
    */
   public DisplayManager(Stage stage) {
     myProfileManager = new ProfileManager();
+    variationName = DEFAULT_VARIATION_NAME;
     myStage = stage;
     languageResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "English");
     myStartMenu = new StartMenu(myStage, this, languageResource);
     allDisplays.add(myStartMenu);
     allDisplays.add(new OptionsMenu(myStage, this, languageResource));
+    myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource, selectedTheme);
+    allDisplays.add(myEnterPlayerScreen);
+    allDisplays.add(new GameCreatorScreen(myStage, this, languageResource));
     currDisplay = allDisplays.get(0);
     myStage.setScene(currDisplay.getScene());
 
@@ -81,8 +93,7 @@ public class DisplayManager {
    * Switches to the player name screen
    */
   public void goPlayerScreen() {
-    myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource, selectedTheme);
-    allDisplays.add(myEnterPlayerScreen);
+    //myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource, selectedTheme);
     currDisplay = allDisplays.get(2);
     myStage.setScene(currDisplay.getScene());
   }
@@ -91,13 +102,13 @@ public class DisplayManager {
    * Switch screens to the gameboard and starts game
    */
   public void startGame() {
-    myGame = new GameManager(this, GameManager.DEFAULT_VARIATION_NAME);
+    myGame = new GameManager(this, variationName);
     myGameData = myGame.getGameData();
     myEventMap = myGame.getEventMap();
     setPlayerNames();
     setPlayerColors();
     allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData, selectedTheme));
-    currDisplay = allDisplays.get(3);
+    currDisplay = allDisplays.get(4);
     myStage.setScene(currDisplay.getScene());
 
     establishCheatCodes();
@@ -146,6 +157,15 @@ public class DisplayManager {
    */
   public void goStartMenu() {
     currDisplay = allDisplays.get(0);
+    myStage.setScene(currDisplay.getScene());
+  }
+
+  /**
+   * Switch screens to Game Creator screen
+   */
+  public void goGameCreatorScreen() {
+    //allDisplays.add(new GameCreatorScreen(myStage, this, languageResource));
+    currDisplay = allDisplays.get(3);
     myStage.setScene(currDisplay.getScene());
   }
 
@@ -259,4 +279,10 @@ public class DisplayManager {
     userData = userdata;
     myStartMenu.setUpdateProfile(userData[0], userData[2], userData[3]);
   }
+
+  public void setVariationName(String name){
+    variationName = name;
+  }
+
+
 }

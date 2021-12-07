@@ -1,6 +1,0 @@
-Name=Go To Jail
-Type=Action
-Description=
-Image=
-PassThroughActionSequence=[]
-LandOnActionSequence=[advanceToTile p0 Jail]

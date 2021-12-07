@@ -23,7 +23,7 @@ import ooga.model.game_initialization.GameDataInitializer;
 public class GameManager {
 
     //TODO: Replace this with a file-picker
-    public static final String DEFAULT_VARIATION_NAME = "monopoly_original";
+    public static final String DEFAULT_VARIATION_NAME = "original";
 
     //The display communication module of the game.
     private DisplayComm myDisplayComm;
@@ -34,7 +34,7 @@ public class GameManager {
     //The function executor with which the game is run.
     private FunctionExecutor myFunctionExecutor;
 
-    //The turn manager that dicates the turn structure of a game.
+    //The turn manager that dictates the turn structure of a game.
     private TurnManager myTurnManager;
 
     //The event manager of the game.
@@ -52,7 +52,9 @@ public class GameManager {
             myFunctionExecutor = new FunctionExecutor(myGameData, myGameData.getDie(), myDisplayComm);
             myTurnManager = new TurnManager(myGameData, myFunctionExecutor, myDisplayComm);
             myEventManager = new EventManager(myTurnManager);
+
         } catch (Exception e) {
+            e.printStackTrace();
             myDisplayComm.showException(e);
         }
     }

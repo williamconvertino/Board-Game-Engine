@@ -5,7 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 import ooga.display.Display;
 
 import java.util.HashMap;
@@ -63,7 +66,7 @@ public class UIBuilder {
    * @param response is the action event the button should have
    * @return new button with properly initialized
    */
-  public Button makeButton(String id, EventHandler<ActionEvent> response) {
+  public Button makeTextButton(String id, EventHandler<ActionEvent> response) {
     Button button = new Button();
     button.setOnAction(response);
     button.setText(langResource.getString(id));
@@ -71,6 +74,31 @@ public class UIBuilder {
     button.getStyleClass().add("button");
     return button;
   }
+
+  public Button makeImageButton(String id, EventHandler<ActionEvent> response, String imagePath,int width, int height){
+    ImageView image = new ImageView(new Image(imagePath));
+    image.setId(id);
+    Button button = new Button();
+    button.setOnAction(response);
+    button.setId(id);
+    button.setGraphic(image);
+    image.setFitHeight(height);
+    image.setFitWidth(width);
+
+    return button;
+  }
+
+  public Button makeImageHoverButton(String id, EventHandler<ActionEvent> response, String imagePath,int width, int height, String description){
+    Button button = makeImageButton(id,response,imagePath, width, height);
+    Tooltip tt = new Tooltip();
+    tt.setText(description);
+    tt.setShowDelay(new Duration(.0001));
+    tt.setHideDelay(new Duration(.0001));
+
+    button.setTooltip(tt);
+    return button;
+  }
+
 
   /**
    * creates a slider
@@ -229,13 +257,25 @@ public class UIBuilder {
     return new TextArea(langResource.getString(id));
   }
 
+
+  /**
+   * @param id reference to find tab and what to name it
+   * @return textField
+   */
+  public Node makePrefilledTextField(String id) {
+    TextField textField = new TextField(langResource.getString(id));
+    textField.setId(id);
+    return textField;
+  }
+
   /**
    * @param id reference to find tab and what to name it
    * @return textField
    */
   public Node makeTextField(String id) {
-    TextField textField = new TextField(langResource.getString(id));
+    TextField textField = new TextField();
     textField.setId(id);
     return textField;
   }
+
 }

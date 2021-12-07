@@ -52,7 +52,7 @@ public class EnterPlayersScreenTest extends DukeApplicationTest {
     clickOn(options);
     Button GoHome = lookup("#Continue").query();
     clickOn(GoHome);
-    assertEquals(3, dm.getCurrDisplayIndex());
+    assertEquals(4, dm.getCurrDisplayIndex());
   }
 
   /**

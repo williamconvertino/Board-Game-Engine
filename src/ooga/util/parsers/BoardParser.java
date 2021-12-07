@@ -36,9 +36,9 @@ public class BoardParser {
    */
   public List<TileModel> parseBoard(String boardFilePath, Map<String,TileModel> tileMap) throws IOException {
     List<TileModel> boardTileModels = new ArrayList<>();
-
     File file=new File(boardFilePath);
-    FileReader fileReader =new FileReader("data/variations/monopoly_original/board/monopoly_original.board");
+    System.out.println(file.getPath());
+    FileReader fileReader =new FileReader(file);
     BufferedReader bufferedReader = new BufferedReader(fileReader);
     String line;
     while((line = bufferedReader.readLine())!=null)

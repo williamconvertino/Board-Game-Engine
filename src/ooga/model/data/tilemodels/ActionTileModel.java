@@ -1,5 +1,6 @@
 package ooga.model.data.tilemodels;
 
+import ooga.display.communication.DisplayComm;
 import ooga.model.data.player.Player;
 import ooga.model.game_handling.commands.ActionSequence;
 
@@ -19,6 +20,12 @@ public class ActionTileModel extends TileModel {
   //The action sequence to execute when the player lands on this tile.
   private ActionSequence myLandOnActions;
 
+  //The display communication module of this class.
+  private DisplayComm myDisplayComm;
+
+  //The description of this tile.
+  private String myDescription;
+
   /**
    * @see TileModel#TileModel(String, String)
    */
@@ -33,10 +40,12 @@ public class ActionTileModel extends TileModel {
    * @param passThroughActions a list of commands to execute when the tile is passed through.
    * @param landOnActions a list of commands to execute when the tile is landed on.
    */
-  public ActionTileModel(String name, ActionSequence passThroughActions, ActionSequence landOnActions) {
+  public ActionTileModel(String name, String description, ActionSequence passThroughActions, ActionSequence landOnActions, DisplayComm displayComm) {
     this(name, "Action");
     this.myPassThroughActions = passThroughActions;
     this.myLandOnActions = landOnActions;
+    this.myDisplayComm = displayComm;
+    this.myDescription = description;
   }
 
   /**
@@ -54,8 +63,18 @@ public class ActionTileModel extends TileModel {
    */
   @Override
   public void executeLandOn(Player player) {
+    myDisplayComm.displayActionTile(this);
     if (myLandOnActions != null) {
       myLandOnActions.execute(player);
     }
+  }
+
+  /**
+   *  Returns the description of the tile.
+   *
+   * @return this tile's description.
+   */
+  public String getDescription() {
+    return myDescription;
   }
 }

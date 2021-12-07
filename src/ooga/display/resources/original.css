@@ -50,6 +50,19 @@
     -fx-border-color: lightgrey;
 }
 
+#variationButton{
+    -fx-padding: 0px;
+}
+
+#variationButton:hover{
+    -fx-padding: 0px;
+    -fx-background-color: white;
+}
+
+.button:pressed {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 20, 0.0, 0, 1);
+}
+
 .text-area {
     -fx-border-color: lightgrey;
 }
@@ -66,3 +79,22 @@
     -fx-background-color: floralwhite;
     -fx-min-width: 200px;
 }
+
+#variationButtonBox{
+    -fx-spacing: 10px;
+}
+
+#propertyCreatorBox{
+    -fx-spacing: 10px;
+}
+
+#creatorTile{
+    -fx-border-width: 1px;
+    -fx-background-color: white;
+    -fx-border-color:white;
+}
+
+#test{
+    -fx-font-size: 10px !important;
+}
+

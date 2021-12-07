@@ -63,9 +63,9 @@ public class GameBoard {
   private static final String ORIGINAL_STYLE = STYLE_PACKAGE + "original.css";
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
-  private static final String ORIGINAL_IMG = "center_images/original.png";
-  private static final String DUKE_IMG = "center_images/duke.png";
-  private static final String MONO_IMG = "center_images/mono.png";
+  private static final String ORIGINAL_IMG = "images/center_images/original.png";
+  private static final String DUKE_IMG = "images/center_images/duke.png";
+  private static final String MONO_IMG = "images/center_images/mono.png";
 
   private static final Map<String, String> IMAGE_MAP = Map.of(
       ORIGINAL_STYLE, ORIGINAL_IMG,
@@ -126,6 +126,7 @@ public class GameBoard {
   }
 
   private void makeCenterImage(String theme) {
+    System.out.println(IMAGE_MAP.get(theme));
     ImageView imageView = new ImageView(IMAGE_MAP.get(theme));
     imageView.setFitHeight(CENTER_IMAGE_SIDE_LEN);
     imageView.setFitWidth(CENTER_IMAGE_SIDE_LEN);

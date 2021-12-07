@@ -10,6 +10,8 @@ import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
 import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
+import ooga.model.die.Die;
+import ooga.model.die.DoublesDie;
 import ooga.model.game_handling.FunctionExecutor;
 import ooga.model.game_handling.TurnManager;
 
@@ -31,7 +33,8 @@ public class CheatCodeManager {
       Map.entry(KeyCode.DIGIT8,"jail"),
       Map.entry(KeyCode.DIGIT9, "winGame"),
     Map.entry(KeyCode.DIGIT0, "teleportToSelectedTile"),
-      Map.entry(KeyCode.SEMICOLON, "forceEndTurn")
+      Map.entry(KeyCode.SEMICOLON, "forceEndTurn"),
+      Map.entry(KeyCode.COMMA, "rollDoubles" )
   );
 
   private FunctionExecutor myFunctionExecutor;
@@ -40,10 +43,13 @@ public class CheatCodeManager {
 
   private TurnManager myTurnManager;
 
+  private Die doublesDie;
+
   public CheatCodeManager (TurnManager turnManager, FunctionExecutor myFunctionExecutor, GameData gameData) {
     this.myFunctionExecutor = myFunctionExecutor;
     this.gameData = gameData;
     this.myTurnManager = turnManager;
+    doublesDie = new DoublesDie();
   }
 
   /**
@@ -156,7 +162,13 @@ public class CheatCodeManager {
    */
   public void jail() {
     myFunctionExecutor.goToJail(gameData.getCurrentPlayer());
+  }
 
+  /**
+   * Rolls with a special die that always gets doubles.
+   */
+  public void rollDoubles(){
+    myTurnManager.rollWithDie(doublesDie);
   }
 
 }
