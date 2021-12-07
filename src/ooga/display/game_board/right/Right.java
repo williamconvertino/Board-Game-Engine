@@ -57,8 +57,6 @@ public class Right {
     rolledVals.setText(myRoll[0] + " " + myRoll[1]);
     rightComponent.getChildren().set(2, rolledVals);
     myGameBoardDisplay.update();
-    System.out.println(gameData.getNumRolls());
-    System.out.println(gameData.getMaxRolls());
     beginTurn();
   }
 
@@ -92,6 +90,4 @@ public class Right {
   public VBox getComponent() {
     return rightComponent;
   }
-
-
 }
