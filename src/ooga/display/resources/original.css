@@ -129,4 +129,10 @@
     -fx-border-color: #A23434;
 }
 
+#tileBox{
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-alignment: top-center;
+}
+
 

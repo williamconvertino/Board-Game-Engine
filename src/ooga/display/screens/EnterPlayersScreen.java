@@ -54,6 +54,7 @@ public class EnterPlayersScreen extends Display {
   private static final String VARIATION_IMAGES = DEFAULT_RESOURCE_PACKAGE + "stock_variation_images";
   private static final String DEFAULT_DATA_PACKAGE = "data/";
   private static final String VARIATION_FOLDER_NAME = "variations/";
+  private static final String DEFAULT_VARIATION_NAME = "original";
   private final String VARIATION_NAMES_FOLDER = "data/variation_names";
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
@@ -258,10 +259,15 @@ public class EnterPlayersScreen extends Display {
     FileChooser GameChooser = new FileChooser();
     GameChooser.setInitialDirectory(new File(VARIATION_NAMES_FOLDER));
     File gameFile = GameChooser.showOpenDialog(getScene().getWindow());
-    return gameFile.toString();
+    if(gameFile!=null){
+      return gameFile.toString();
+    }
+    else {
+      return "/" + DEFAULT_VARIATION_NAME;
+    }
   }
 
-  //sets the
+  //sets the variation name in DisplayManager, and updates the label on screen
   private void setVariationName(String name){
     myDisplayManager.setVariationName(name);
     variationNameLabel.setText(myDisplayManager.getVariationName());
