@@ -212,6 +212,7 @@ public class OptionsMenuTest extends DukeApplicationTest {
     clickOn(options);
     ComboBox theme = lookup("#Theme").query();
     select(theme, "Mono");
+    assertEquals("Mono", theme.getSelectionModel().getSelectedItem().toString());
   }
 
   @Test
@@ -230,6 +231,44 @@ public class OptionsMenuTest extends DukeApplicationTest {
     ComboBox lang = lookup("#ChangeLanguage").query();
     select(lang, "Spanish");
     assertEquals("ooga.display.resources.Spanish", dm.getLanguageResource().getBaseBundleName());
+  }
+
+  /**
+   * Set theme to original and basic check if it works
+   */
+  @Test
+  public void setOriginal() {
+    Button options = lookup("#Options").query();
+    clickOn(options);
+    ComboBox theme = lookup("#Theme").query();
+    select(theme, "Mono");
+    select(theme, "Original");
+    assertEquals("Original", theme.getSelectionModel().getSelectedItem().toString());
+  }
+
+  /**
+   * Set theme to mono and basic check if it works
+   */
+  @Test
+  public void setMono() {
+    Button options = lookup("#Options").query();
+    clickOn(options);
+    ComboBox theme = lookup("#Theme").query();
+    select(theme, "Mono");
+    assertEquals("Mono", theme.getSelectionModel().getSelectedItem().toString());
+  }
+
+
+  /**
+   * Set theme to duke and basic check if it works
+   */
+  @Test
+  public void setDuke() {
+    Button options = lookup("#Options").query();
+    clickOn(options);
+    ComboBox theme = lookup("#Theme").query();
+    select(theme, "Duke");
+    assertEquals("Duke", theme.getSelectionModel().getSelectedItem().toString());
   }
 
 }
