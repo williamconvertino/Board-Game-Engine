@@ -14,6 +14,7 @@ import ooga.display.DisplayManager;
 import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
 import ooga.display.game_board.board.GameBoard;
+import ooga.display.game_board.bottom.Bottom;
 import ooga.display.game_board.left.Left;
 import ooga.display.game_board.right.Right;
 import ooga.display.game_board.top.Top;
@@ -41,6 +42,7 @@ public class GameBoardDisplay extends Display {
   private Top theTop;
   private Right theRight;
   private Left theLeft;
+  private Bottom theBottom;
 
   private Stage myStage;
   private DisplayManager myDisplayManager;
@@ -68,6 +70,7 @@ public class GameBoardDisplay extends Display {
     theTop = new Top(this, myDisplayManager, myLanguage);
     theRight = new Right(this, myLanguage, eventMap, gameData);
     theLeft = new Left(myLanguage, eventMap, gameData);
+    theBottom = new Bottom(myLanguage, myDisplayManager);
     theBoard = new GameBoard(myDisplayManager, myLanguage, gameData, eventMap, theme);
 
     theGameBoard = new BorderPane();
@@ -75,6 +78,7 @@ public class GameBoardDisplay extends Display {
     theGameBoard.setRight(theRight.getComponent());
     theGameBoard.setLeft(theLeft.getComponent());
     theGameBoard.setTop(theTop.getTopComponent());
+    theGameBoard.setBottom(theBottom.getComponent());
 
     makeScene();
   }

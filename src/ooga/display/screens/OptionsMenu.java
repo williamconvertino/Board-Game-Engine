@@ -15,16 +15,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * @author Henry Huynh
+ * The Options menu.
+ */
 public class OptionsMenu extends Display {
 
-  private BorderPane startMenu;
+  private BorderPane optionsMenu;
   private Stage myStage;
   private DisplayManager myDisplayManager;
   private UIBuilder myBuilder;
   private ResourceBundle myLangResource;
   private LanguageUI myLanguageUI;
   private static final String DEFAULT_RESOURCE_PACKAGE =
-      Display.class.getPackageName() + ".resources.";
+          Display.class.getPackageName() + ".resources.";
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
   private static final String DEFAULT_STYLE = STYLE_PACKAGE + "original.css";
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
@@ -43,21 +47,20 @@ public class OptionsMenu extends Display {
     myBuilder = new UIBuilder(langResource);
     myStage = stage;
     myDisplayManager = displayManager;
-    startMenu = new BorderPane();
-    startMenu.setTop(myBuilder.makeLabel("OPTIONS"));
-    startMenu.setLeft(optionsPanel());
+    optionsMenu = new BorderPane();
+    optionsMenu.setTop(myBuilder.makeLabel("OPTIONS"));
+    optionsMenu.setLeft(optionsPanel());
     makeScene();
   }
 
   /**
-   * Make the panel with buttons to screens or go to settings
+   * Make the panel with options
    */
   private Node optionsPanel() {
     VBox result = new VBox();
-    List<String> placeHolder = new ArrayList<>();
     List<String> themes = new ArrayList<>(Arrays.asList("Original", "Mono", "Duke"));
     result.getChildren()
-        .add(myBuilder.makeCombo("Theme", themes, e -> myDisplayManager.changeTheme(e)));
+            .add(myBuilder.makeCombo("Theme", themes, e -> myDisplayManager.changeTheme(e)));
     myLanguageUI = new LanguageUI(myDisplayManager, myLangResource, LANGUAGES_LIST);
     result.getChildren().add(myLanguageUI);
     result.getChildren().add(myBuilder.makeTextButton("GotoHome", e -> myDisplayManager.goStartMenu()));
@@ -65,7 +68,7 @@ public class OptionsMenu extends Display {
   }
 
   private void makeScene() {
-    scene = new Scene(startMenu, 800, 600);
+    scene = new Scene(optionsMenu, 800, 600);
     scene.getStylesheets().add(DEFAULT_STYLE);
   }
 
