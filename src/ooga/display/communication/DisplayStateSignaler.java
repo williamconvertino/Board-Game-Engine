@@ -31,17 +31,19 @@ public class DisplayStateSignaler {
 
   /**
    * Constructor for the DisplayStateSignaler which stores a display manager
+   *
    * @param displayManager
    */
-  public DisplayStateSignaler (DisplayManager displayManager) {
+  public DisplayStateSignaler(DisplayManager displayManager) {
     myDisplayManager = displayManager;
   }
 
   /**
    * Signal Display with a state
+   *
    * @param s
    */
-  public void signalDisplay (State s) {
+  public void signalDisplay(State s) {
     if (s.equals(State.PLAYER_WIN)) {
       myDisplayManager.showVictoryScreen();
     }

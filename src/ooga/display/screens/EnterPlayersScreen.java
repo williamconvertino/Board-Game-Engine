@@ -2,6 +2,8 @@ package ooga.display.screens;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -14,17 +16,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import ooga.display.Display;
 import ooga.display.DisplayManager;
 import ooga.display.ui_tools.LanguageUI;
 import ooga.display.ui_tools.UIBuilder;
-
-import java.util.List;
-import java.util.ResourceBundle;
 
 
 /**
@@ -37,12 +34,12 @@ import java.util.ResourceBundle;
  */
 public class EnterPlayersScreen extends Display {
 
-  private VBox playerMenu;
-  private Stage myStage;
-  private DisplayManager myDisplayManager;
-  private UIBuilder myBuilder;
-  private ResourceBundle myLangResource;
-  private ResourceBundle myGameImages;
+  private final VBox playerMenu;
+  private final Stage myStage;
+  private final DisplayManager myDisplayManager;
+  private final UIBuilder myBuilder;
+  private final ResourceBundle myLangResource;
+  private final ResourceBundle myGameImages;
   private LanguageUI myLanguageUI;
   private VBox myTextAreaVBox;
   private VBox myColorSelectionVBox;
@@ -51,7 +48,8 @@ public class EnterPlayersScreen extends Display {
       Display.class.getPackageName() + ".resources.";
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
   private static final String DEFAULT_STYLE = STYLE_PACKAGE + "original.css";
-  private static final String VARIATION_IMAGES = DEFAULT_RESOURCE_PACKAGE + "stock_variation_images";
+  private static final String VARIATION_IMAGES =
+      DEFAULT_RESOURCE_PACKAGE + "stock_variation_images";
   private static final String DEFAULT_DATA_PACKAGE = "data/";
   private static final String VARIATION_FOLDER_NAME = "variations/";
   private static final String DEFAULT_VARIATION_NAME = "original";
@@ -68,13 +66,14 @@ public class EnterPlayersScreen extends Display {
   private static final int IMAGE_SIZE = 100;
   private Label variationNameLabel;
 
-  private ArrayList<Color> playerColors = new ArrayList<>();
+  private final ArrayList<Color> playerColors = new ArrayList<>();
   private Scene scene;
   private String myStyle = DEFAULT_STYLE;
 
 
   /**
    * Default constructor for the Player Customization Screen
+   *
    * @param stage
    * @param displayManager
    * @param langResource
@@ -96,7 +95,8 @@ public class EnterPlayersScreen extends Display {
   //Creates all elements for player customization
   private void makePlayerCustomizer() {
     HBox playerCustomizer = new HBox();
-    playerCustomizer.getChildren().addAll(makeTextAreas(), makeColorSelection(),makeGameSelectorBox(),makeRight());
+    playerCustomizer.getChildren()
+        .addAll(makeTextAreas(), makeColorSelection(), makeGameSelectorBox(), makeRight());
     playerMenu.getChildren().add(playerCustomizer);
   }
 
@@ -104,13 +104,15 @@ public class EnterPlayersScreen extends Display {
   private Node makeRight() {
     VBox result = new VBox();
     result.getChildren().add(makeSelectedVariationBox());
-    result.getChildren().add(myBuilder.makeTextButton("Continue", e -> myDisplayManager.startGame()));
-    result.getChildren().add(myBuilder.makeTextButton("GotoHome", e -> myDisplayManager.goStartMenu()));
+    result.getChildren()
+        .add(myBuilder.makeTextButton("Continue", e -> myDisplayManager.startGame()));
+    result.getChildren()
+        .add(myBuilder.makeTextButton("GotoHome", e -> myDisplayManager.goStartMenu()));
     return result;
   }
 
   //creates dynamic variation selected box label
-  private HBox makeSelectedVariationBox(){
+  private HBox makeSelectedVariationBox() {
     HBox chosenVariationBox = new HBox();
     Label chosenVariation = (Label) myBuilder.makeLabel("SelectedVariation");
     chosenVariation.setTranslateX(0);
@@ -123,7 +125,7 @@ public class EnterPlayersScreen extends Display {
   }
 
   //creates game selector elements
-  private Node makeGameSelectorBox(){
+  private Node makeGameSelectorBox() {
     VBox result = new VBox();
     result.getChildren().add(myBuilder.makeLabel("ChooseGame"));
     result.getChildren().add(myBuilder.makeLabel("SelectEdition"));
@@ -132,7 +134,8 @@ public class EnterPlayersScreen extends Display {
     result.getChildren().add(myBuilder.makeLabel("LoadVariation"));
     result.getChildren().add(makeLoadButton());
     result.getChildren().add(myBuilder.makeLabel("Or"));
-    result.getChildren().add(myBuilder.makeTextButton("CreateYourOwn",e -> myDisplayManager.goGameCreatorScreen()));
+    result.getChildren().add(
+        myBuilder.makeTextButton("CreateYourOwn", e -> myDisplayManager.goGameCreatorScreen()));
     return result;
   }
 
@@ -159,7 +162,7 @@ public class EnterPlayersScreen extends Display {
               "BLACK", "RED", "GREEN", "BLUE", "YELLOW", "VIOLET"
           );
       colorSelectorBox.setItems(options);
-      colorSelectorBox.setId(String.format("%s%d", myLangResource.getString(SELECT_COLOR), i+1));
+      colorSelectorBox.setId(String.format("%s%d", myLangResource.getString(SELECT_COLOR), i + 1));
       colorSelectorBox.getSelectionModel().select(i);
       myColorSelectionVBox.getChildren().add(colorSelectorBox);
     }
@@ -221,14 +224,17 @@ public class EnterPlayersScreen extends Display {
   }
 
   //creates images for stock variations
-  private Node makeVariationButtons(){
+  private Node makeVariationButtons() {
     HBox result = new HBox();
     result.setId("variationButtonBox");
-    for (String image: myGameImages.keySet()){
-      result.getChildren().add(myBuilder.makeImageHoverButton("variationButton",(e -> setVariationName(image)),myGameImages.getString(image),IMAGE_SIZE,IMAGE_SIZE,myLangResource.getString(image + "_" + "description")));
-      }
-      return result;
+    for (String image : myGameImages.keySet()) {
+      result.getChildren().add(
+          myBuilder.makeImageHoverButton("variationButton", (e -> setVariationName(image)),
+              myGameImages.getString(image), IMAGE_SIZE, IMAGE_SIZE,
+              myLangResource.getString(image + "_" + "description")));
     }
+    return result;
+  }
 
   //Makes dynamic game loader folder button
   private Button makeLoadButton() {
@@ -248,27 +254,26 @@ public class EnterPlayersScreen extends Display {
     });
     result.setOnAction(event -> {
       String path = loadGame();
-      myDisplayManager.setVariationName(path.substring(path.lastIndexOf("/")+1));
+      myDisplayManager.setVariationName(path.substring(path.lastIndexOf("/") + 1));
       variationNameLabel.setText(myDisplayManager.getVariationName());
     });
     return result;
   }
 
   //loads file dialog for game choosing
-  private String loadGame(){
+  private String loadGame() {
     FileChooser GameChooser = new FileChooser();
     GameChooser.setInitialDirectory(new File(VARIATION_NAMES_FOLDER));
     File gameFile = GameChooser.showOpenDialog(getScene().getWindow());
-    if(gameFile!=null){
+    if (gameFile != null) {
       return gameFile.toString();
-    }
-    else {
+    } else {
       return "/" + DEFAULT_VARIATION_NAME;
     }
   }
 
   //sets the variation name in DisplayManager, and updates the label on screen
-  private void setVariationName(String name){
+  private void setVariationName(String name) {
     myDisplayManager.setVariationName(name);
     variationNameLabel.setText(myDisplayManager.getVariationName());
   }

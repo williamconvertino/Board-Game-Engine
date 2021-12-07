@@ -23,7 +23,6 @@ import ooga.display.screens.StartMenu;
 import ooga.display.screens.endgame.LossScreen;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
-import ooga.model.game_handling.CheatCodeManager;
 import ooga.util.ProfileManager;
 
 /**
@@ -35,11 +34,12 @@ import ooga.util.ProfileManager;
  * @since 0.0.1
  */
 public class DisplayManager {
+
   private ResourceBundle languageResource;
 
   private Display currDisplay;
   private static final String DEFAULT_RESOURCE_PACKAGE =
-          Display.class.getPackageName() + ".resources.";
+      Display.class.getPackageName() + ".resources.";
 
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
   private static final String ORIGINAL_STYLE = STYLE_PACKAGE + "original.css";
@@ -52,31 +52,28 @@ public class DisplayManager {
   private String selectedTheme = ORIGINAL_STYLE;
 
   private static final Map<String, String> STYLESHEETS = Map.of(
-          "Original", ORIGINAL_STYLE,
-          "Mono", MONO_STYLE,
-          "Duke", DUKE_STYLE
+      "Original", ORIGINAL_STYLE,
+      "Mono", MONO_STYLE,
+      "Duke", DUKE_STYLE
   );
 
-  private Stage myStage;
-  private ArrayList<Display> allDisplays = new ArrayList<>();
+  private final Stage myStage;
+  private final ArrayList<Display> allDisplays = new ArrayList<>();
   private GameData myGameData;
   private Map<EVENT_NAMES, TMEvent> myEventMap;
-  private EnterPlayersScreen myEnterPlayerScreen;
+  private final EnterPlayersScreen myEnterPlayerScreen;
   private GameManager myGame;
   private boolean userLoggedIn;
-  private ProfileManager myProfileManager;
+  private final ProfileManager myProfileManager;
   private StartMenu myStartMenu;
   private String[] userData;
   private String variationName;
 
 
   /**
-   * Constructs display manager, creating a list of displays with list of displays with indices:
-   * 0: Start Menu
-   * 1: Options Menu
-   * 2: Player Screen (created later)
-   * 3: Game Creator Screen (created later)
-   * 4: Game Screen
+   * Constructs display manager, creating a list of displays with list of displays with indices: 0:
+   * Start Menu 1: Options Menu 2: Player Screen (created later) 3: Game Creator Screen (created
+   * later) 4: Game Screen
    */
   public DisplayManager(Stage stage) {
     myProfileManager = new ProfileManager();
@@ -91,7 +88,6 @@ public class DisplayManager {
     allDisplays.add(new GameCreatorScreen(myStage, this, languageResource));
     currDisplay = allDisplays.get(0);
     myStage.setScene(currDisplay.getScene());
-
 
 
   }
@@ -114,7 +110,8 @@ public class DisplayManager {
     myEventMap = myGame.getEventMap();
     setPlayerNames();
     setPlayerColors();
-    allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData, selectedTheme));
+    allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData,
+        selectedTheme));
     currDisplay = allDisplays.get(4);
     myStage.setScene(currDisplay.getScene());
 
@@ -178,6 +175,7 @@ public class DisplayManager {
 
   /**
    * Changes the language of the app
+   *
    * @param language
    */
   public void changeLanguage(String language) {
@@ -193,10 +191,7 @@ public class DisplayManager {
   }
 
   /**
-   * Get index of currDisplay from allDisplays
-   * 0 - Start Menu
-   * 1 - Options Menu
-   * 2 - Player Name Menu
+   * Get index of currDisplay from allDisplays 0 - Start Menu 1 - Options Menu 2 - Player Name Menu
    * 3 - Game Board
    *
    * @return the currDisplay index
@@ -211,8 +206,8 @@ public class DisplayManager {
 
 
   /**
-   * Loops through all the available displays, changes theme.
-   * All future added displays will also be of said theme.
+   * Loops through all the available displays, changes theme. All future added displays will also be
+   * of said theme.
    *
    * @param theme the theme
    */
@@ -231,6 +226,7 @@ public class DisplayManager {
 
   /**
    * Get stage
+   *
    * @return myStage
    */
   public Stage getMyStage() {
@@ -239,6 +235,7 @@ public class DisplayManager {
 
   /**
    * Get GameData for testing
+   *
    * @return myGameData
    */
   public GameData getGameData() {
@@ -247,6 +244,7 @@ public class DisplayManager {
 
   /**
    * Get the language resource bundle
+   *
    * @return languageResource
    */
   public ResourceBundle getLanguageResource() {
@@ -289,18 +287,18 @@ public class DisplayManager {
     myStartMenu.setUpdateProfile(userData[0], userData[2], userData[3]);
   }
 
-  public void setVariationName(String name){
+  public void setVariationName(String name) {
     variationName = name;
   }
 
-  public String getVariationName(){
+  public String getVariationName() {
     return variationName;
   }
 
   /**
    * Displays an alert on the screen.
    *
-   * @param type the type of alert to show.
+   * @param type    the type of alert to show.
    * @param message the message displayed.
    */
   public void showAlert(String message, AlertType type) {
@@ -314,7 +312,7 @@ public class DisplayManager {
    */
   public void showVictoryScreen() {
     Player victor = null;
-    for (Player p: getGameData().getPlayers()) {
+    for (Player p : getGameData().getPlayers()) {
       if (p.isActive()) {
         victor = p;
       }
@@ -322,7 +320,7 @@ public class DisplayManager {
     if (victor != null) {
       showAlert(String.format("%s%s", VICTORY_MESSAGE, victor.getName()), AlertType.INFORMATION);
     } else {
-      showAlert(NO_VICTOR,AlertType.ERROR);
+      showAlert(NO_VICTOR, AlertType.ERROR);
     }
   }
 

@@ -4,7 +4,6 @@ package ooga.model.die;
  * An implementation of the die class that rolls exclusively doubles on a 6-sided dice.
  *
  * @author William Convertino
- *
  * @since 0.0.1
  */
 public class DoublesDie extends Die {

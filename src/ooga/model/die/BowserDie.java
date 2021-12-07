@@ -4,13 +4,12 @@ package ooga.model.die;
  * An abstract class representing a roll-able die.
  *
  * @author William Convertino
- *
  * @since 1.0.1
  */
 public class BowserDie extends Die {
 
   //The possible values on the die.
-  private static int[] ROLLS = {1,1,1,8,9,10};
+  private static final int[] ROLLS = {1, 1, 1, 8, 9, 10};
 
   /**
    * Constructs a new BowserDie.

@@ -10,7 +10,6 @@ import ooga.exceptions.NoRemainingPlayersException;
  * roll each turn.
  *
  * @author William Convertino
- *
  * @since 1.0.1
  */
 public class WinMorePlayerManager extends OriginalPlayerManager {
@@ -30,8 +29,10 @@ public class WinMorePlayerManager extends OriginalPlayerManager {
   public Player getNextPlayer() throws NoRemainingPlayersException {
     List<Player> possiblePlayers = new ArrayList<>(getActivePlayers());
 
-    int maxValue = possiblePlayers.stream().max((a,b)-> a.getBalance() > b.getBalance() ? a.getBalance():b.getBalance()).get().getBalance();
-    possiblePlayers.removeIf(e->e.getBalance() != maxValue);
+    int maxValue = possiblePlayers.stream()
+        .max((a, b) -> a.getBalance() > b.getBalance() ? a.getBalance() : b.getBalance()).get()
+        .getBalance();
+    possiblePlayers.removeIf(e -> e.getBalance() != maxValue);
 
     if (possiblePlayers.size() == 0) {
       throw new NoRemainingPlayersException();

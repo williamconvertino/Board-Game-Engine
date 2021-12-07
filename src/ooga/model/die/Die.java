@@ -7,7 +7,6 @@ import java.util.Random;
  * An abstract class representing a roll-able die.
  *
  * @author William Convertino
- *
  * @since 0.0.1
  */
 public abstract class Die {

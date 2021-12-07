@@ -7,17 +7,16 @@ import ooga.model.data.tilemodels.TileModel;
 import ooga.util.ImmutTool;
 
 /**
- * An implementation of the BoardManager class in which the tiles are arranged in a circular pattern. When a player
- * reaches the last tile, they then move back to the first tile.
+ * An implementation of the BoardManager class in which the tiles are arranged in a circular
+ * pattern. When a player reaches the last tile, they then move back to the first tile.
  *
  * @author William Convertino
- *
  * @since 0.0.1
  */
 public class OriginalBoardManager extends BoardManager {
 
   //A list of the board_manager's tiles.
-  private List<TileModel> myTiles;
+  private final List<TileModel> myTiles;
 
   /**
    * Constructs a new OriginalBoardManager with the specified tiles.
@@ -46,9 +45,9 @@ public class OriginalBoardManager extends BoardManager {
   }
 
   /**
-   *  Moves the player forward the specified number of spaces. This triggers pass-through events.
+   * Moves the player forward the specified number of spaces. This triggers pass-through events.
    *
-   * @param p the player to move.
+   * @param p      the player to move.
    * @param spaces the number of spaces to move the player.
    */
   @Override
@@ -57,7 +56,7 @@ public class OriginalBoardManager extends BoardManager {
     int index = p.getLocation();
 
     //Execute the pass through functions of each tile the player passes.
-    for (int t = 0; t < spaces-1; t++) {
+    for (int t = 0; t < spaces - 1; t++) {
       index = (index + 1) % myTiles.size();
       p.setLocation(index);
       myTiles.get(index).executePassThrough(p);
@@ -71,9 +70,10 @@ public class OriginalBoardManager extends BoardManager {
   }
 
   /**
-   *  Moves the player forward the specified number of spaces. This does NOT trigger pass-through events.
+   * Moves the player forward the specified number of spaces. This does NOT trigger pass-through
+   * events.
    *
-   * @param p the player to move.
+   * @param p      the player to move.
    * @param spaces the number of spaces to move the player.
    */
   @Override
@@ -82,7 +82,7 @@ public class OriginalBoardManager extends BoardManager {
     int index = p.getLocation();
 
     //Execute the pass through functions of each tile the player passes.
-    for (int t = 0; t < spaces-1; t++) {
+    for (int t = 0; t < spaces - 1; t++) {
       index = index - 1;
       if (index < 0) {
         index = myTiles.size() - 1;
@@ -100,7 +100,7 @@ public class OriginalBoardManager extends BoardManager {
   }
 
   /**
-   * @see BoardManager#movePlayerToIndex(Player, int, boolean) 
+   * @see BoardManager#movePlayerToIndex(Player, int, boolean)
    */
   @Override
   public void movePlayerToIndex(Player p, int index, boolean doPassThrough) {
@@ -142,7 +142,6 @@ public class OriginalBoardManager extends BoardManager {
     }
     return index;
   }
-
 
 
 }

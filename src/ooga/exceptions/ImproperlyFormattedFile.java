@@ -2,7 +2,7 @@ package ooga.exceptions;
 
 public class ImproperlyFormattedFile extends GameError {
 
-  private String filename;
+  private final String filename;
 
   public ImproperlyFormattedFile(String filename) {
     this.filename = filename;

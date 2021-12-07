@@ -10,7 +10,6 @@ import ooga.exceptions.NoRemainingPlayersException;
  * roll each turn.
  *
  * @author William Convertino
- *
  * @since 1.0.1
  */
 public class WorstFirstPlayerManager extends OriginalPlayerManager {
@@ -30,8 +29,10 @@ public class WorstFirstPlayerManager extends OriginalPlayerManager {
   public Player getNextPlayer() throws NoRemainingPlayersException {
     List<Player> possiblePlayers = new ArrayList<>(getActivePlayers());
 
-    int minValue = possiblePlayers.stream().min((a,b)-> a.getBalance() < b.getBalance() ? a.getBalance():b.getBalance()).get().getBalance();
-    possiblePlayers.removeIf(e->e.getBalance() != minValue);
+    int minValue = possiblePlayers.stream()
+        .min((a, b) -> a.getBalance() < b.getBalance() ? a.getBalance() : b.getBalance()).get()
+        .getBalance();
+    possiblePlayers.removeIf(e -> e.getBalance() != minValue);
     if (possiblePlayers.size() == 0) {
       throw new NoRemainingPlayersException();
     }

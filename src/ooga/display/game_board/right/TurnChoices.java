@@ -13,14 +13,15 @@ import ooga.display.ui_tools.UIBuilder;
 public class TurnChoices {
 
   private VBox myTurnChoices;
-  private ResourceBundle myLanguage;
-  private UIBuilder myBuilder;
-  private GameBoardDisplay myGameBoardDisplay;
+  private final ResourceBundle myLanguage;
+  private final UIBuilder myBuilder;
+  private final GameBoardDisplay myGameBoardDisplay;
 
   /**
    * Constructor for the turn choices
    */
-  public TurnChoices(GameBoardDisplay gameBoardDisplay, ResourceBundle language, UIBuilder uiBuilder) {
+  public TurnChoices(GameBoardDisplay gameBoardDisplay, ResourceBundle language,
+      UIBuilder uiBuilder) {
     myLanguage = language;
     myBuilder = uiBuilder;
     myGameBoardDisplay = gameBoardDisplay;
@@ -34,25 +35,29 @@ public class TurnChoices {
     buyHouse();
     endTurn();
   }
+
   /**
    * Make buy property button
    */
   private void buyProperty() {
-    myTurnChoices.getChildren().add(myBuilder.makeTextButton("BuyProperty", e->myGameBoardDisplay.buyProp()));
+    myTurnChoices.getChildren()
+        .add(myBuilder.makeTextButton("BuyProperty", e -> myGameBoardDisplay.buyProp()));
   }
 
   /**
    * Make end turn button
    */
   private void endTurn() {
-    myTurnChoices.getChildren().add(myBuilder.makeTextButton("EndTurn", e->myGameBoardDisplay.endTurn()));
+    myTurnChoices.getChildren()
+        .add(myBuilder.makeTextButton("EndTurn", e -> myGameBoardDisplay.endTurn()));
   }
 
   /**
    * Make buy house button
    */
   private void buyHouse() {
-    myTurnChoices.getChildren().add(myBuilder.makeTextButton("BuyHouse", e->myGameBoardDisplay.buyHouse()));
+    myTurnChoices.getChildren()
+        .add(myBuilder.makeTextButton("BuyHouse", e -> myGameBoardDisplay.buyHouse()));
   }
 
   /**

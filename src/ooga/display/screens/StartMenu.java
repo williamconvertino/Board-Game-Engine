@@ -1,6 +1,7 @@
 package ooga.display.screens;
 
 import java.io.File;
+import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -16,15 +17,14 @@ import ooga.display.screens.player_profile.LoginProfile;
 import ooga.display.screens.player_profile.SignupProfile;
 import ooga.display.screens.player_profile.UpdateProfile;
 import ooga.display.ui_tools.UIBuilder;
-import java.util.ResourceBundle;
 
 public class StartMenu extends Display {
 
-  private BorderPane startMenu;
-  private Stage myStage;
-  private DisplayManager myDisplayManager;
-  private UIBuilder myBuilder;
-  private ResourceBundle myResource;
+  private final BorderPane startMenu;
+  private final Stage myStage;
+  private final DisplayManager myDisplayManager;
+  private final UIBuilder myBuilder;
+  private final ResourceBundle myResource;
   private Scene scene;
   private UpdateProfile updateProfile;
 
@@ -43,6 +43,7 @@ public class StartMenu extends Display {
 
   /**
    * Constructor for creating a start menu screen
+   *
    * @param stage
    * @param displayManager
    * @param langResource
@@ -63,16 +64,21 @@ public class StartMenu extends Display {
    */
   private Node navigationPanel() {
     VBox result = new VBox();
-    result.getChildren().add(myBuilder.makeTextButton("Start", e -> myDisplayManager.goPlayerScreen()));
-    result.getChildren().add(myBuilder.makeTextButton("Options", e -> myDisplayManager.goOptions()));
+    result.getChildren()
+        .add(myBuilder.makeTextButton("Start", e -> myDisplayManager.goPlayerScreen()));
+    result.getChildren()
+        .add(myBuilder.makeTextButton("Options", e -> myDisplayManager.goOptions()));
     SignupProfile signup = new SignupProfile(myStage, myBuilder, myResource, myDisplayManager,
         myDisplayManager.getProfileManager());
     result.getChildren().add(myBuilder.makeTextButton("Signup", e -> {
       signup.getPopup().show(myStage);
     }));
-    LoginProfile login = new LoginProfile(myStage, myBuilder, myResource, myDisplayManager, myDisplayManager.getProfileManager());
-    result.getChildren().add(myBuilder.makeTextButton("Login", e -> login.getPopup().show(myStage)));
-    updateProfile = new UpdateProfile(myStage, myBuilder, myResource, myDisplayManager, myDisplayManager.getProfileManager());
+    LoginProfile login = new LoginProfile(myStage, myBuilder, myResource, myDisplayManager,
+        myDisplayManager.getProfileManager());
+    result.getChildren()
+        .add(myBuilder.makeTextButton("Login", e -> login.getPopup().show(myStage)));
+    updateProfile = new UpdateProfile(myStage, myBuilder, myResource, myDisplayManager,
+        myDisplayManager.getProfileManager());
     result.getChildren().add(myBuilder.makeTextButton("Update", e -> {
       notLoggedInException(updateProfile);
     }));
@@ -81,9 +87,11 @@ public class StartMenu extends Display {
 
   private void notLoggedInException(UpdateProfile update) {
     ExceptionPopUp notLoggedIn;
-    if (!myDisplayManager.checkLoggedIn())
+    if (!myDisplayManager.checkLoggedIn()) {
       notLoggedIn = new ExceptionPopUp("Not logged in", "Please login first.", myResource);
-    else update.getPopup().show(myStage);
+    } else {
+      update.getPopup().show(myStage);
+    }
   }
 
   private void makeScene() {

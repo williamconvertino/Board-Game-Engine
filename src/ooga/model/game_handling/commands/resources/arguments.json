@@ -1,45 +1,40 @@
 {
-
   "p0": {
-    "method":"getCurrentPlayer"
+    "method": "getCurrentPlayer"
   },
   "pa": {
-    "method":"getAllPlayers"
+    "method": "getAllPlayers"
   },
   "px0": {
     "method": "getAllPlayersButCurrent"
   },
-  "rollDie":{
+  "rollDie": {
     "method": "getDieRoll"
   },
-
   "rollDieX": {
     "multistep": true,
-    "method":"rollDieTimesValue",
+    "method": "rollDieTimesValue",
     "numarg": 1,
     "argtype1": "java.lang.Integer"
   },
   "numPlayersX": {
     "multistep": true,
-    "method":"numberOfPlayersTimesValue",
+    "method": "numberOfPlayersTimesValue",
     "numarg": 1,
     "argtype1": "java.lang.Integer"
   },
-
   "numHousesX": {
     "multistep": true,
-    "method":"numHousesTimesValue",
+    "method": "numHousesTimesValue",
     "numarg": 2,
-    "argtype2":"ooga.model.data.player.Player",
+    "argtype2": "ooga.model.data.player.Player",
     "argtype1": "java.lang.Integer"
   },
   "numHotelsX": {
     "multistep": true,
-    "method":"numHotelsTimesValue",
+    "method": "numHotelsTimesValue",
     "numarg": 2,
-    "argtype2":"ooga.model.data.player.Player",
+    "argtype2": "ooga.model.data.player.Player",
     "argtype1": "java.lang.Integer"
   }
-
-
 }

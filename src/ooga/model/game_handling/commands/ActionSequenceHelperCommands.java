@@ -17,16 +17,15 @@ import ooga.model.game_handling.FunctionExecutor;
  * A utility that can execute action commands formatted as strings.
  *
  * @author William Convertino
- *
  * @since 1.0.1
  */
 public class ActionSequenceHelperCommands {
 
 
-  private FunctionExecutor functionExecutor;
-  private GameData gameData;
+  private final FunctionExecutor functionExecutor;
+  private final GameData gameData;
 
-  public ActionSequenceHelperCommands (FunctionExecutor functions, GameData gameData) {
+  public ActionSequenceHelperCommands(FunctionExecutor functions, GameData gameData) {
     this.functionExecutor = functions;
     this.gameData = gameData;
   }
@@ -47,7 +46,7 @@ public class ActionSequenceHelperCommands {
   public List<Player> getAllPlayersButCurrent() {
     List<Player> allPlayers = new ArrayList<>(gameData.getPlayers());
     allPlayers.remove(gameData.getCurrentPlayer());
-    return(allPlayers);
+    return (allPlayers);
   }
 
   public Integer getDieRoll()
@@ -78,8 +77,9 @@ public class ActionSequenceHelperCommands {
     functionExecutor.movePlayerToTile(player, propertyName);
     TileModel currentTile = gameData.getBoard().getTileAtIndex(player.getLocation());
     if (currentTile instanceof PropertyTileModel) {
-      Property currentProperty = ((PropertyTileModel)currentTile).getProperty();
-      if (currentProperty.getOwner() != player && currentProperty.getOwner() != Property.NULL_OWNER) {
+      Property currentProperty = ((PropertyTileModel) currentTile).getProperty();
+      if (currentProperty.getOwner() != player
+          && currentProperty.getOwner() != Property.NULL_OWNER) {
         for (int i = 1; i < amount; i++) {
           functionExecutor.loseMoney(player, currentProperty.getRentCost());
           functionExecutor.addMoney(currentProperty.getOwner(), currentProperty.getRentCost());

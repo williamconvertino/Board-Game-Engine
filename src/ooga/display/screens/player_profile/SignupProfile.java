@@ -23,6 +23,7 @@ import ooga.util.ProfileManager;
  * This class is the sign up screen
  */
 public class SignupProfile implements Profile {
+
   private static final String DEFAULT_RESOURCE_PACKAGE =
       Display.class.getPackageName() + ".resources.";
   private static final String STYLE_PACKAGE = "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
@@ -30,12 +31,12 @@ public class SignupProfile implements Profile {
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
 
-  private DisplayManager myDisplayManager;
-  private ProfileManager myProfileManager;
-  private Stage myStage;
+  private final DisplayManager myDisplayManager;
+  private final ProfileManager myProfileManager;
+  private final Stage myStage;
   private Popup myPopup;
-  private UIBuilder myUIBuilder;
-  private ResourceBundle myResource;
+  private final UIBuilder myUIBuilder;
+  private final ResourceBundle myResource;
   private TextField myName;
   private TextField myUsername;
   private TextField myPassword;
@@ -53,7 +54,8 @@ public class SignupProfile implements Profile {
    * @param uiBuilder      the ui builder
    * @param resourceBundle the resource bundle
    */
-  public SignupProfile(Stage stage, UIBuilder uiBuilder, ResourceBundle resourceBundle, DisplayManager dm, ProfileManager pm) {
+  public SignupProfile(Stage stage, UIBuilder uiBuilder, ResourceBundle resourceBundle,
+      DisplayManager dm, ProfileManager pm) {
     myProfileManager = pm;
     myDisplayManager = dm;
     myStage = stage;
@@ -65,6 +67,7 @@ public class SignupProfile implements Profile {
 
   /**
    * The method to get the popup component
+   *
    * @return
    */
   @Override
@@ -87,35 +90,42 @@ public class SignupProfile implements Profile {
 
     ExceptionPopUp error;
 
-    if (username.equals(myResource.getString("UsernameTextFieldID")) || username.isBlank() || username.contains(" ")) {
+    if (username.equals(myResource.getString("UsernameTextFieldID")) || username.isBlank()
+        || username.contains(" ")) {
       errorLabel = "Invalid Fields";
-      errorContent = String.format("%s\n%s", errorContent, myResource.getString("PleaseEnterNewUsername"));
+      errorContent = String.format("%s\n%s", errorContent,
+          myResource.getString("PleaseEnterNewUsername"));
     }
-    if (password.equals(myResource.getString("PasswordTextFieldID")) || password.isBlank() || password.contains(" ")) {
+    if (password.equals(myResource.getString("PasswordTextFieldID")) || password.isBlank()
+        || password.contains(" ")) {
       errorLabel = "Invalid Fields";
-      errorContent = String.format("%s\n%s", errorContent, myResource.getString("PleaseEnterNewPassword"));
+      errorContent = String.format("%s\n%s", errorContent,
+          myResource.getString("PleaseEnterNewPassword"));
     }
     if (name.equals(myResource.getString("NameTextFieldID")) || name.isBlank()) {
       errorLabel = "Invalid Fields";
-      errorContent = String.format("%s\n%s", errorContent, myResource.getString("PleaseEnterNewName"));
+      errorContent = String.format("%s\n%s", errorContent,
+          myResource.getString("PleaseEnterNewName"));
     }
     if (avatar == null) {
       errorLabel = "Invalid Fields";
-      errorContent = String.format("%s\n%s", errorContent, myResource.getString("PleaseSelectAvatar"));
+      errorContent = String.format("%s\n%s", errorContent,
+          myResource.getString("PleaseSelectAvatar"));
     }
-    if (!errorLabel.isBlank()) error = new ExceptionPopUp(errorLabel, errorContent, myResource);
-    else {
+    if (!errorLabel.isBlank()) {
+      error = new ExceptionPopUp(errorLabel, errorContent, myResource);
+    } else {
       // TODO: Send info to Jordan's methods
       try {
-        String allProfiles[] = {username, password, avatar, name};
+        String[] allProfiles = {username, password, avatar, name};
         myProfileManager.createNewPlayerProfile(allProfiles, PROFILES_DIR);
-      }
-      catch (IOException e) {
-        ExceptionPopUp NoFile = new ExceptionPopUp("Player Data Storage Not Found", "Please check data/profiles/playerProfiles.csv", myResource);
+      } catch (IOException e) {
+        ExceptionPopUp NoFile = new ExceptionPopUp("Player Data Storage Not Found",
+            "Please check data/profiles/playerProfiles.csv", myResource);
         return;
-      }
-      catch (PlayerProfileException e) {
-        ExceptionPopUp PlayerProfilesNotFound = new ExceptionPopUp("Cannot Find Player", "Please Signup", myResource);
+      } catch (PlayerProfileException e) {
+        ExceptionPopUp PlayerProfilesNotFound = new ExceptionPopUp("Cannot Find Player",
+            "Please Signup", myResource);
         return;
       }
       // Then:
@@ -149,7 +159,7 @@ public class SignupProfile implements Profile {
     fileChooser.setInitialDirectory(AVATAR_DIR);
     HBox avatarBox = new HBox();
     ImageView avatarName = new ImageView();
-    Button avatarButton = myUIBuilder.makeTextButton("ChooseAvatarButton", e-> {
+    Button avatarButton = myUIBuilder.makeTextButton("ChooseAvatarButton", e -> {
       File avatarfile = fileChooser.showOpenDialog(myStage);
       if (avatarfile != null) {
         myAvatar = avatarfile.getName();

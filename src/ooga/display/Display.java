@@ -1,8 +1,7 @@
 package ooga.display;
 
-import javafx.scene.Scene;
-
 import java.util.ResourceBundle;
+import javafx.scene.Scene;
 
 /**
  * The high level display class that handles most of the front-end components
@@ -15,7 +14,8 @@ import java.util.ResourceBundle;
 public class Display {
 
   private static final String RESOURCE_DIRECTORY = Display.class.getPackageName() + ".resources.";
-  private ResourceBundle languageResource;
+  private final ResourceBundle languageResource;
+
   /**
    * Default constructor
    */
@@ -25,6 +25,7 @@ public class Display {
 
   /**
    * Default getScene method
+   *
    * @return null (a scene when overridden)
    */
   public Scene getScene() {

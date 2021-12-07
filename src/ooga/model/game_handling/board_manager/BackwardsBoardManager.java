@@ -8,7 +8,6 @@ import ooga.model.data.tilemodels.TileModel;
  * An implementation of the BoardManager class in which the players go backwards.
  *
  * @author William Convertino
- *
  * @since 1.0.1
  */
 public class BackwardsBoardManager extends OriginalBoardManager {

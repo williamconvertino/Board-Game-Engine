@@ -1,5 +1,7 @@
 package ooga.display.game_board.left;
 
+import java.util.Map;
+import java.util.ResourceBundle;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -9,8 +11,6 @@ import ooga.display.communication.EventManager;
 import ooga.display.communication.TMEvent;
 import ooga.display.ui_tools.UIBuilder;
 import ooga.model.data.gamedata.GameData;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 /**
  * This is the left display element of the game display
@@ -26,17 +26,18 @@ public class Left {
   private static final String CARDS = "Cards";
   private static final String NONE = "None";
   private static final String COLOR = "Color";
-  private VBox leftComponent;
-  private UIBuilder myUIBuilder;
-  private ResourceBundle myLangResource;
-  private GameData myGameData;
-  private Map<EventManager.EVENT_NAMES, TMEvent> myEventMap;
+  private final VBox leftComponent;
+  private final UIBuilder myUIBuilder;
+  private final ResourceBundle myLangResource;
+  private final GameData myGameData;
+  private final Map<EventManager.EVENT_NAMES, TMEvent> myEventMap;
   private static final String LOCATION = "Location";
 
   /**
    * The constructor for the left display element
    */
-  public Left(ResourceBundle language, Map<EventManager.EVENT_NAMES, TMEvent> eventMap, GameData gameData) {
+  public Left(ResourceBundle language, Map<EventManager.EVENT_NAMES, TMEvent> eventMap,
+      GameData gameData) {
     myGameData = gameData;
     myEventMap = eventMap;
     leftComponent = new VBox();

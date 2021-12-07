@@ -1,8 +1,7 @@
 package ooga.display.popup;
 
-import ooga.display.ui_tools.UIBuilder;
-
 import java.util.ResourceBundle;
+import ooga.display.ui_tools.UIBuilder;
 
 /**
  * Displays the popup for exceptions

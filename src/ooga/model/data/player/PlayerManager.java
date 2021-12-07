@@ -4,11 +4,10 @@ import java.util.List;
 import ooga.exceptions.NoRemainingPlayersException;
 
 /**
- * This class keeps track of the players in the game, and determines the order in which
- * they take their turns.
+ * This class keeps track of the players in the game, and determines the order in which they take
+ * their turns.
  *
  * @author William Convertino
- *
  * @since 0.0.1
  */
 public abstract class PlayerManager {
@@ -44,7 +43,7 @@ public abstract class PlayerManager {
   public abstract List<Player> getActivePlayers();
 
   /**
-   *  Finds if there are any players remaining in the game.
+   * Finds if there are any players remaining in the game.
    *
    * @return true if there still active players in the game, false otherwise.
    */

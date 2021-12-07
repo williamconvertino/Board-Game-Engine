@@ -1,12 +1,11 @@
 package ooga.display.game_board.top;
 
+import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import ooga.display.DisplayManager;
 import ooga.display.game_board.GameBoardDisplay;
 import ooga.display.ui_tools.UIBuilder;
-
-import java.util.ResourceBundle;
 
 /**
  * This is the top display element of the game display
@@ -17,17 +16,18 @@ import java.util.ResourceBundle;
 
 public class Top {
 
-  private HBox topComponent;
-  private GameBoardDisplay myGameBoardDisplay;
-  private DisplayManager myDisplayManager;
-  private ResourceBundle myLanguage;
-  private UIBuilder myBuilder;
+  private final HBox topComponent;
+  private final GameBoardDisplay myGameBoardDisplay;
+  private final DisplayManager myDisplayManager;
+  private final ResourceBundle myLanguage;
+  private final UIBuilder myBuilder;
 
 
   /**
    * The constructor for the top display element
    */
-  public Top(GameBoardDisplay gameBoardDisplay, DisplayManager displayManager, ResourceBundle language) {
+  public Top(GameBoardDisplay gameBoardDisplay, DisplayManager displayManager,
+      ResourceBundle language) {
     myLanguage = language;
     myBuilder = new UIBuilder(myLanguage);
     myGameBoardDisplay = gameBoardDisplay;
@@ -49,6 +49,7 @@ public class Top {
 
   /**
    * Gets the top component
+   *
    * @return topComponent
    */
   public HBox getTopComponent() {
