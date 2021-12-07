@@ -1,6 +1,5 @@
 package ooga.model.game_handling.commands;
 
-import java.io.File;
 import java.io.FileReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -42,6 +41,8 @@ public class ActionSequenceExecutor {
   //The current game's gamedata.
   private GameData gameData;
 
+  private ActionSequenceHelperCommands actionSequenceHelper;
+
   //The JSON parser of this class.
   private JSONParser myJSONParser;
 
@@ -60,6 +61,7 @@ public class ActionSequenceExecutor {
   public ActionSequenceExecutor(FunctionExecutor functions, GameData gameData, DisplayComm displayComm) {
     this.functionExecutor = functions;
     this.gameData = gameData;
+    this.actionSequenceHelper = new ActionSequenceHelperCommands(functions, gameData);
     this.myJSONParser = new JSONParser();
     try {
       myCommands = (JSONObject)myJSONParser.parse(new FileReader(String.format("%s%s", RESOURCE_DIRECTORY, COMMAND_DATA_FILENAME)));
@@ -137,7 +139,7 @@ public class ActionSequenceExecutor {
         JSONObject argumentData = (JSONObject) myArgs.get(commandElements[i]);
 
         //Find the relevant argument generation function, and generate the argument.
-        Class generatorClass = Class.forName((String)argumentData.getOrDefault("sourceclass","ooga.model.game_handling.commands.ActionSequenceExecutor"));
+        Class generatorClass = Class.forName((String)argumentData.getOrDefault("sourceclass","ooga.model.game_handling.commands.ActionSequenceHelperCommands"));
         Method argumentGeneratorMethod = generateMethodFromJSONObject(argumentData, generatorClass);
         Object[] argumentGeneratorArguments = generateArgumentArrayFromJSONObject(argumentData, generatorClass,
             Arrays.copyOfRange(commandElements, 1, commandElements.length));
@@ -167,9 +169,12 @@ public class ActionSequenceExecutor {
       return gameData;
     } else if (c.equals(functionExecutor.getClass())) {
       return functionExecutor;
-    } else {
-      return this;
+    } else if (c.equals(ActionSequenceHelperCommands.class)) {
+      return actionSequenceHelper;
+    }else {
+      return actionSequenceHelper;
     }
+
   }
 
   public String[] parseCommand(String command) {

@@ -58,20 +58,20 @@
   "loseMoneyForNumHouses": {
     "method":"loseMoneyForNumHouses",
     "numarg": 2,
-    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceExecutor",
+    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceHelperCommands",
     "argtype1":"ooga.model.data.player.Player",
     "argtype2": "java.lang.Integer"
   },
   "loseMoneyForNumHotels": {
     "method":"loseMoneyForNumHotels",
-    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceExecutor",
+    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceHelperCommands",
     "numarg": 2,
     "argtype1":"ooga.model.data.player.Player",
     "argtype2": "java.lang.Integer"
   },
   "advanceToPropertyAndPayX": {
     "method":"advanceToPropertyAndPayX",
-    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceExecutor",
+    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceHelperCommands",
     "numarg": 3,
     "argtype1":"ooga.model.data.player.Player",
     "argtype2": "java.lang.String",
@@ -79,7 +79,7 @@
   },
   "advanceToTypeAndPayX": {
     "method":"advanceToTypeAndPayX",
-    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceExecutor",
+    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceHelperCommands",
     "numarg": 3,
     "argtype1":"ooga.model.data.player.Player",
     "argtype2": "java.lang.String",
@@ -87,7 +87,7 @@
   },
   "advanceToType": {
     "method":"advanceToType",
-    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceExecutor",
+    "sourceclass": "ooga.model.game_handling.commands.ActionSequenceHelperCommands",
     "numarg": 2,
     "argtype1":"ooga.model.data.player.Player",
     "argtype2": "java.lang.String"
