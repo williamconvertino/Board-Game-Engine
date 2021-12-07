@@ -298,14 +298,13 @@ public class Property {
    * @throws MortgageException         if the house is mortgaged and therefore cannot build houses.
    */
   public void buyHouse() throws MaxHousesReachedException, MortgageException {
-    if (!isMortgaged) {
-      if (numHouses < maxHouses) {
-        numHouses++;
-      } else {
-        throw new MaxHousesReachedException();
-      }
-    } else {
+    if (isMortgaged) {
       throw new MortgageException();
+    }
+    if (numHouses < maxHouses) {
+      numHouses++;
+    } else {
+      throw new MaxHousesReachedException();
     }
   }
 
@@ -316,14 +315,13 @@ public class Property {
    * @throws MortgageException       if the house is mortgaged and therefore cannot sell houses.
    */
   public void sellHouse() throws NoHousesToSellException, MortgageException {
-    if (!isMortgaged) {
-      if (numHouses == 0) {
-        throw new NoHousesToSellException();
-      } else {
-        numHouses--;
-      }
-    } else {
+    if (isMortgaged) {
       throw new MortgageException();
+    }
+    if (numHouses == 0) {
+      numHouses--;
+    } else {
+      throw new NoHousesToSellException();
     }
   }
 

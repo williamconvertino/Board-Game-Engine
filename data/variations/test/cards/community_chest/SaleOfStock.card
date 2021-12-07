@@ -1,0 +1,3 @@
+Name=Sale Of Stock
+Description=FROM SALE OF STOCK YOU GET $50
+ActionSequence=[addMoney p0 50]
