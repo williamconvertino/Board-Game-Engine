@@ -18,7 +18,7 @@ public class ExceptionPopUp {
 
   /**
    * Default constructor
-   *
+   * This is for the situation where you want just a generic error.
    * @param langResource
    */
   public ExceptionPopUp(ResourceBundle langResource) {
@@ -27,7 +27,7 @@ public class ExceptionPopUp {
   }
 
   /**
-   * Constructor with header title and a message
+   * Constructor with header title and a message for the specific error
    *
    * @param header
    * @param message

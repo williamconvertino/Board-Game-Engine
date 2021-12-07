@@ -206,14 +206,9 @@ public class OptionsMenuTest extends DukeApplicationTest {
     assertEquals(1, dm.getCurrDisplayIndex());
   }
 
-  @Test
-  public void clickNumPlayers() {
-    Button options = lookup("#Options").query();
-    clickOn(options);
-    ComboBox numPlayers = lookup("#NumberofPlayers").query();
-    select(numPlayers, "");
-  }
-
+  /**
+   * Checks that clicking on the theme produces a
+   */
   @Test
   public void clickTheme() {
     Button options = lookup("#Options").query();
@@ -238,6 +233,16 @@ public class OptionsMenuTest extends DukeApplicationTest {
     ComboBox lang = lookup("#ChangeLanguage").query();
     select(lang, "Spanish");
     assertEquals("ooga.display.resources.Spanish", dm.getLanguageResource().getBaseBundleName());
+  }
+
+  @Test
+  public void setOriginal() {
+
+  }
+
+  @Test
+  public void setMono() {
+
   }
 
 }

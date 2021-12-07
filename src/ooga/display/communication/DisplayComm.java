@@ -26,7 +26,7 @@ public class DisplayComm {
 
   /**
    * Handles showing the exception passed in
-   * @param e
+   * @param e exception
    */
   public void showException(Exception e) {
     myExceptionHandler.showException(e);
@@ -48,6 +48,7 @@ public class DisplayComm {
    */
   public void displayCard(Card card) {
     //Todo: replace with display
+
     System.out.println(String.format("Card drawn: [%s]", card.getDescription()));
   }
 

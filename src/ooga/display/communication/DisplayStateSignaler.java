@@ -42,7 +42,10 @@ public class DisplayStateSignaler {
    * @param s
    */
   public void signalDisplay (State s) {
-    // ex: if s = buy property show buy prop button
-    // myDisplayManager.signalState(s)
+
+    if (s == State.PLAYER_WIN) {
+//      String winnerName = myDisplayManager.getGameData().getPlayers().();
+//      myDisplayManager.createPopUp(winnerName);
+    }
   }
 }
