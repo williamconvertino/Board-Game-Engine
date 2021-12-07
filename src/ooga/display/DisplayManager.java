@@ -93,7 +93,7 @@ public class DisplayManager {
    * Switches to the player name screen
    */
   public void goPlayerScreen() {
-    //myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource, selectedTheme);
+//    myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource, selectedTheme);
     currDisplay = allDisplays.get(2);
     myStage.setScene(currDisplay.getScene());
   }
@@ -179,6 +179,8 @@ public class DisplayManager {
     myStartMenu = new StartMenu(myStage, this, languageResource);
     allDisplays.add(myStartMenu);
     allDisplays.add(new OptionsMenu(myStage, this, languageResource));
+    allDisplays.add(new EnterPlayersScreen(myStage, this, languageResource, selectedTheme));
+    allDisplays.add(new GameCreatorScreen(myStage, this, languageResource));
     currDisplay = allDisplays.get(1);
     myStage.setScene(currDisplay.getScene());
   }

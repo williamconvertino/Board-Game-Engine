@@ -1,0 +1,3 @@
+Name=Elected Chairman Of The Board
+Description=YOU HAVE BEEN ELECTED CHAIRMAN OF THE BOARD - PAY EACH PLAYER $50
+ActionSequence=[loseMoney p0 numPlayersX 50],[addMoneyToMultiple pa 50]

@@ -2,10 +2,13 @@ package ooga.display.resources;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -21,31 +24,19 @@ public class Translator {
   public static void main(String[] args) throws IOException {
 
       String path = Display.class.getPackageName()+".resources." + "English";
+      String pathh = String.format("%s%s",TARGET_LANGUAGE,".txt");
       ResourceBundle initialFile = ResourceBundle.getBundle(path);
       Properties newProperties = new Properties();
       BufferedReader br = new BufferedReader(new FileReader(String.format("%s%s",TARGET_LANGUAGE,".txt")));
+      BufferedReader bm = new BufferedReader(
+          new InputStreamReader(
+              new FileInputStream(pathh), "UTF-8"));
 
-
+      FileWriter fr = new FileWriter("fr" + ".properties");
 
       for (String key: initialFile.keySet()) {
-        newProperties.put(key, br.readLine());
+        fr.write(key + "=" + bm.readLine() + "\n");
       }
-
-      FileOutputStream os = new FileOutputStream(TARGET_LANGUAGE + ".properties");
-      newProperties.store(os, String.format("%s%s",FILE_MESSAGE, TARGET_LANGUAGE));
+      fr.close();
   }
-
-
-//  public static void main(String[] args) throws FileNotFoundException {
-//    String path = Display.class.getPackageName()+".resources." + "English";
-//    ResourceBundle initialFile = ResourceBundle.getBundle(path);
-//    File myFile = new File( TARGET_LANGUAGE +".txt");
-//    PrintWriter out = new PrintWriter(myFile);
-//
-//    for (String key: initialFile.keySet()) {
-//      out.println(initialFile.getString(key));
-//    }
-//    out.close();
-//  }
-
 }

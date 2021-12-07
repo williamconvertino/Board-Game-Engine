@@ -181,7 +181,7 @@ public class EnterPlayersScreen extends Display {
   }
 
   private void makeScene() {
-    scene = new Scene(playerMenu, 800, 600);
+    scene = new Scene(playerMenu, 1000, 600);
     scene.getStylesheets().add(myStyle);
   }
 
