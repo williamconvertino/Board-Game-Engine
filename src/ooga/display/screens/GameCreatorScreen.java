@@ -44,6 +44,7 @@ public class GameCreatorScreen extends Display {
   private static final String CARDS_PATH = "/cards";
   private static final String CHANCE_PATH = "/chance";
   private static final String BOARD_PATH = "/board";
+  private static final String PROPERTIES_PATH = "/properties";
   private static final int SELECTOR_MENU_WIDTH = 400;
 
   private Scene scene;
