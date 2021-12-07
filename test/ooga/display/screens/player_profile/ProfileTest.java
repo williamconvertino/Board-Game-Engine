@@ -38,7 +38,7 @@ public class ProfileTest extends DukeApplicationTest {
   public void testSignupProcess() {
     Button signUpButton = lookup("#Signup").query();
     clickOn(signUpButton);
-    int random = (int) (Math.random() * 50);
+    int random = (int) (Math.random() * 99999);
     TextField usernameTextField = lookup("#UsernameTextFieldID").query();
     writeInputTo(usernameTextField, "fxtestuser" + random);
     TextField passwordTextField = lookup("#PasswordTextFieldID").query();
