@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
  *
  * @author Aaric Han
  * @author Henry Huynh
+ * @author Casey Goldstein
  */
 public class EnterPlayersScreen extends Display {
 
@@ -55,6 +56,10 @@ public class EnterPlayersScreen extends Display {
   private static final String SELECT_COLOR = "SelectColor";
   private static final String PLAYER_NAME = "PlayerNameLabel";
   private static final String ENTER_NAME = "EnterPlayerName";
+  private static final int DISPLAY_HEIGHT = 600;
+  private static final int DISPLAY_WIDTH = 800;
+  private static final int IMAGE_SIZE = 100;
+
   private ArrayList<Color> playerColors = new ArrayList<>();
   private Scene scene;
   private String myStyle = DEFAULT_STYLE;
@@ -81,12 +86,14 @@ public class EnterPlayersScreen extends Display {
     makeScene();
   }
 
+  //Creates all elements for player customization
   private void makePlayerCustomizer() {
     HBox playerCustomizer = new HBox();
     playerCustomizer.getChildren().addAll(makeTextAreas(), makeColorSelection(), makeRight(),makeGameSelectorBox());
     playerMenu.getChildren().add(playerCustomizer);
   }
 
+  //creates elements on right side of screen
   private Node makeRight() {
     VBox result = new VBox();
     result.getChildren().add(myBuilder.makeTextButton("Continue", e -> myDisplayManager.startGame()));
@@ -94,6 +101,7 @@ public class EnterPlayersScreen extends Display {
     return result;
   }
 
+  //creates game selector elements
   private Node makeGameSelectorBox(){
     VBox result = new VBox();
     result.getChildren().add(myBuilder.makeLabel("ChooseGame"));
@@ -104,6 +112,7 @@ public class EnterPlayersScreen extends Display {
     return result;
   }
 
+  //creates text areas for player input
   private Node makeTextAreas() {
     myTextAreaVBox = new VBox();
     for (int i = 1; i < 5; i++) {
@@ -114,6 +123,7 @@ public class EnterPlayersScreen extends Display {
     return myTextAreaVBox;
   }
 
+  //creates color selection for players
   private Node makeColorSelection() {
     myColorSelectionVBox = new VBox();
     for (int i = 0; i < 4; i++) {
@@ -180,16 +190,18 @@ public class EnterPlayersScreen extends Display {
     return colorsComboBoxes;
   }
 
+  //creates scene with given dimensions and styles
   private void makeScene() {
-    scene = new Scene(playerMenu, 800, 600);
+    scene = new Scene(playerMenu, DISPLAY_WIDTH, DISPLAY_HEIGHT);
     scene.getStylesheets().add(myStyle);
   }
 
+  //creates images for stock variations
   private Node makeVariationButtons(){
     HBox result = new HBox();
     result.setId("variationButtonBox");
     for (String image: myGameImages.keySet()){
-      result.getChildren().add(myBuilder.makeImageHoverButton("variationButton",(e -> setVariationName(image)),myGameImages.getString(image),100,100,myLangResource.getString(image + "_" + "description")));
+      result.getChildren().add(myBuilder.makeImageHoverButton("variationButton",(e -> setVariationName(image)),myGameImages.getString(image),IMAGE_SIZE,IMAGE_SIZE,myLangResource.getString(image + "_" + "description")));
       }
       return result;
     }
