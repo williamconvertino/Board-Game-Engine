@@ -70,7 +70,11 @@ public class GameCreatorScreen extends Display {
   private static final int DISPLAY_WIDTH = 800;
   private static final int SET_GAME_BUTTON_WIDTH=150;
   private static final int SET_GAME_BUTTON_HEIGHT=75;
-
+  private static final int SET_GAME_BUTTON_X=60;
+  private static final int SET_GAME_BUTTON_Y=20;
+  private static final int INSTRUCTIONS_WIDTH=260;
+  private static final int INSTRUCTIONS_HEIGHT=460;
+  private static final int INSTRUCTIONS_TEXT_WRAP_WIDTH=220;
 
   private Scene scene;
   private TextField gameName;
@@ -205,7 +209,6 @@ public class GameCreatorScreen extends Display {
     File fileFolder = new File(VARIATION_PATH + DEFAULT_VARIATION_PATH + BOARD_PATH + TILES_PATH);
     for(File file: fileFolder.listFiles()){
       tileName= file.getPath().substring(TILE_SUBSTRING_CUTOFF);
-      System.out.println(tileName);
       new File(VARIATION_PATH + gameName.getText() + BOARD_PATH + TILES_PATH + tileName).createNewFile();
       src = Paths.get(file.getPath());
       des = Paths.get(VARIATION_PATH + gameName.getText() + BOARD_PATH + TILES_PATH + tileName);
@@ -236,28 +239,26 @@ public class GameCreatorScreen extends Display {
   //creates the variation folder hierarchy and displays the rest of the selector menu
   private void createFullSelectorMenu() throws IOException {
     makeDirectories();
-    VBox rightside = new VBox();
-    rightside.setId("Right");
-    allElements.getChildren().add(rightside);
+    VBox rightElements = new VBox();
+    rightElements.setId("RightElements");
+    allElements.getChildren().add(rightElements);
 
     Button setGameButton = myBuilder.makeTextButton("SetGame", e -> setGame());
-    //setGameButton.setTranslateX(130);
-    //setGameButton.setTranslateY(505);
-    setGameButton.setTranslateX(60);
-    setGameButton.setTranslateY(20);
+    setGameButton.setTranslateX(SET_GAME_BUTTON_X);
+    setGameButton.setTranslateY(SET_GAME_BUTTON_Y);
     setGameButton.setPrefWidth(SET_GAME_BUTTON_WIDTH);
     setGameButton.setPrefHeight(SET_GAME_BUTTON_HEIGHT);
     StackPane instructions = new StackPane();
-    instructions.setMinWidth(260);
-    instructions.setMaxWidth(260);
-    instructions.setMaxHeight(460);
-    instructions.setMinHeight(460);
+    instructions.setMinWidth(INSTRUCTIONS_WIDTH);
+    instructions.setMaxWidth(INSTRUCTIONS_WIDTH);
+    instructions.setMaxHeight(INSTRUCTIONS_HEIGHT);
+    instructions.setMinHeight(INSTRUCTIONS_HEIGHT);
     instructions.setId("EditorInstructions");
-    rightside.getChildren().add(instructions);
-    rightside.getChildren().add(setGameButton);
-    Text instructionText = new Text("Welcome to the Custom Game Creator! \n \n Please start by typing in your game name and setting your rules. \n \n Then, using our creator buttons, create your monopoly board! \n \n (Note: You are only able to use one Jail and one Go To Jail tile) \n \n When you have placed 40 tiles, please hit 'Set Game'. \n \n \n Enjoy!");
+    rightElements.getChildren().add(instructions);
+    rightElements.getChildren().add(setGameButton);
+    Text instructionText = new Text(myLangResource.getString("EditorInstructions"));
     instructions.getChildren().add(instructionText);
-    instructionText.setWrappingWidth(220);
+    instructionText.setWrappingWidth(INSTRUCTIONS_TEXT_WRAP_WIDTH);
 
     selectorMenu.getChildren().add(myBuilder.makeLabel("SetRules"));
 
