@@ -119,7 +119,7 @@ public class DisplayManager {
     myScene.addEventFilter(KeyEvent.KEY_PRESSED,
         (KeyEvent e) -> {
           myEventMap.get(EVENT_NAMES.CHEAT_CODE).execute(e.getCode());
-          GameBoardDisplay gameBoardDisplay = (GameBoardDisplay) allDisplays.get(3);
+          GameBoardDisplay gameBoardDisplay = (GameBoardDisplay) allDisplays.get(4);
           gameBoardDisplay.update();
         });
   }

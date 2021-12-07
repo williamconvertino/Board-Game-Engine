@@ -56,8 +56,6 @@ public class OptionsMenu extends Display {
     VBox result = new VBox();
     List<String> placeHolder = new ArrayList<>();
     List<String> themes = new ArrayList<>(Arrays.asList("Original", "Mono", "Duke"));
-    result.getChildren().add(myBuilder.makeCombo("NumberofPlayers", placeHolder, e ->
-        myDisplayManager.changePlayerCount()));
     result.getChildren()
         .add(myBuilder.makeCombo("Theme", themes, e -> myDisplayManager.changeTheme(e)));
     myLanguageUI = new LanguageUI(myDisplayManager, myLangResource, LANGUAGES_LIST);

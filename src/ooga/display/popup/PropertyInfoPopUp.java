@@ -57,6 +57,10 @@ public class PropertyInfoPopUp {
       Label numHouses = new Label(String.format("%s %d", myResource.getString("houseLabel"), propertyTileModel.getProperty().getNumHouses()));
       popUpVBox.getChildren().add(numHouses);
 
+      // index 3
+      Label numHotels = new Label(String.format("%s %d", myResource.getString("hotelLabel"), propertyTileModel.getProperty().getNumHotels()));
+      popUpVBox.getChildren().add(numHotels);
+
       // index 4
       Label houseCost = new Label(String.format("%s %d", myResource.getString("houseCostLabel"), propertyTileModel.getProperty().getHouseCost()));
       popUpVBox.getChildren().add(houseCost);
