@@ -67,6 +67,7 @@ public class TurnManager {
     public void endTurn() {
         if (gameData.getCurrentPlayer().getBalance() < 0) {
             gameData.getCurrentPlayer().setActiveStatus(false);
+            displayComm.displayPlayerLose(gameData.getCurrentPlayer());
         }
         this.selectedTile = null;
         gameData.resetTurnData();

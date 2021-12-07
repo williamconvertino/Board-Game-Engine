@@ -5,6 +5,7 @@ import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.exceptions.PlayerWarning;
 import ooga.model.data.cards.Card;
+import ooga.model.data.player.Player;
 import ooga.model.data.tilemodels.ActionTileModel;
 import ooga.model.data.tilemodels.TileModel;
 import org.apache.logging.log4j.LogManager;
@@ -68,6 +69,15 @@ public class DisplayComm {
    */
   public void displayActionTile(ActionTileModel tile) {
     displayManager.showAlert(String.format("[%s] - %s", tile.getName(), tile.getDescription()), AlertType.INFORMATION);
+  }
+
+  /**
+   * Shows an alert that a player has lost.
+   *
+   * @param player the player who has lost.
+   */
+  public void displayPlayerLose(Player player) {
+    displayManager.showAlert(String.format("Player: %s has lost the game", player.getName()), AlertType.INFORMATION);
   }
 
 }
