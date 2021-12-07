@@ -53,6 +53,7 @@ public class TurnChoices {
    */
   private void buyHouse() {
     myTurnChoices.getChildren().add(myBuilder.makeButton("BuyHouse", e->myGameBoardDisplay.buyHouse()));
+
   }
 
   /**

@@ -106,8 +106,11 @@ public class DisplayManager {
   private void establishCheatCodes() {
     Scene myScene = myStage.getScene();
     myScene.addEventFilter(KeyEvent.KEY_PRESSED,
-        (KeyEvent e) -> myEventMap.get(EVENT_NAMES.CHEAT_CODE)
-            .execute(e.getCode()));
+        (KeyEvent e) -> {
+          myEventMap.get(EVENT_NAMES.CHEAT_CODE).execute(e.getCode());
+          GameBoardDisplay gameBoardDisplay = (GameBoardDisplay) allDisplays.get(3);
+          gameBoardDisplay.update();
+        });
   }
 
   private void setPlayerNames() {
