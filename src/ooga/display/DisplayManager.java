@@ -20,6 +20,7 @@ import ooga.display.screens.EnterPlayersScreen;
 import ooga.display.screens.GameCreatorScreen;
 import ooga.display.screens.OptionsMenu;
 import ooga.display.screens.StartMenu;
+import ooga.display.screens.endgame.LossScreen;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
 import ooga.model.game_handling.CheatCodeManager;
@@ -90,6 +91,8 @@ public class DisplayManager {
     allDisplays.add(new GameCreatorScreen(myStage, this, languageResource));
     currDisplay = allDisplays.get(0);
     myStage.setScene(currDisplay.getScene());
+
+
 
   }
 
@@ -322,5 +325,20 @@ public class DisplayManager {
       showAlert(NO_VICTOR,AlertType.ERROR);
     }
   }
+
+  public void goLossScreen() {
+    allDisplays.add(new LossScreen(this, languageResource, selectedTheme, myGameData));
+    int size = allDisplays.size();
+    currDisplay = allDisplays.get(size - 1);
+    myStage.setScene(currDisplay.getScene());
+  }
+
+  public void goToGame() {
+    if (currDisplay.getClass() == LossScreen.class) {
+      currDisplay = allDisplays.get(4);
+      myStage.setScene(currDisplay.getScene());
+    }
+  }
+
 
 }
