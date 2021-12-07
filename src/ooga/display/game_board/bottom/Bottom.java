@@ -1,6 +1,7 @@
 package ooga.display.game_board.bottom;
 
 import javafx.scene.layout.VBox;
+import ooga.display.DisplayManager;
 import ooga.display.ui_tools.UIBuilder;
 
 import java.util.ResourceBundle;
@@ -16,11 +17,13 @@ public class Bottom {
   private VBox bottomComponent;
   private UIBuilder myUIBuilder;
   private ResourceBundle myLangResource;
+  private DisplayManager myDisplayManager;
 
   /**
    * The constructor for the left display element
    */
-  public Bottom(ResourceBundle language) {
+  public Bottom(ResourceBundle language, DisplayManager displayManager) {
+    myDisplayManager = displayManager;
     bottomComponent = new VBox();
     myLangResource = language;
     myUIBuilder = new UIBuilder(myLangResource);
@@ -28,7 +31,7 @@ public class Bottom {
   }
 
   private void makeBottomComponent() {
-    bottomComponent.getChildren().add(myUIBuilder.makeLabel("Test"));
+    bottomComponent.getChildren().add(myUIBuilder.makeTextButton("LossScreen", e -> myDisplayManager.goLossScreen()));
   }
 
   /**
