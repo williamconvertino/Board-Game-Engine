@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -14,16 +16,13 @@ import ooga.GameManager;
 import ooga.display.communication.EventManager.EVENT_NAMES;
 import ooga.display.communication.TMEvent;
 import ooga.display.game_board.GameBoardDisplay;
-import ooga.display.game_board.board.GameBoard;
-import ooga.display.screens.endgame.LossScreen;
-import ooga.display.screens.endgame.VictoryScreen;
 import ooga.display.screens.EnterPlayersScreen;
 import ooga.display.screens.GameCreatorScreen;
 import ooga.display.screens.OptionsMenu;
 import ooga.display.screens.StartMenu;
 import ooga.model.data.gamedata.GameData;
-import ooga.model.data.player.OriginalPlayerManager;
 import ooga.model.data.player.Player;
+import ooga.model.game_handling.CheatCodeManager;
 import ooga.util.ProfileManager;
 
 /**
@@ -46,6 +45,8 @@ public class DisplayManager {
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
   private static final String DEFAULT_VARIATION_NAME = "original";
+  private static final String VICTORY_MESSAGE = "Congrats! %s has won the game!";
+  private static final String NO_VICTOR = "This is awkward... there was no winner!";
 
   private String selectedTheme = ORIGINAL_STYLE;
 
@@ -66,7 +67,6 @@ public class DisplayManager {
   private StartMenu myStartMenu;
   private String[] userData;
   private String variationName;
-  private OriginalPlayerManager myPlayerManager;
 
 
   /**
@@ -75,9 +75,7 @@ public class DisplayManager {
    * 1: Options Menu
    * 2: Player Screen (created later)
    * 3: Game Creator Screen (created later)
-   * 4: Game Screen (created later)
-   * 5: Loss Screen (created later)
-   * 6: Victory Screen (created later)
+   * 4: Game Screen
    */
   public DisplayManager(Stage stage) {
     myProfileManager = new ProfileManager();
@@ -90,7 +88,6 @@ public class DisplayManager {
     myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource, selectedTheme);
     allDisplays.add(myEnterPlayerScreen);
     allDisplays.add(new GameCreatorScreen(myStage, this, languageResource));
-
     currDisplay = allDisplays.get(0);
     myStage.setScene(currDisplay.getScene());
 
@@ -100,7 +97,7 @@ public class DisplayManager {
    * Switches to the player name screen
    */
   public void goPlayerScreen() {
-    //myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource, selectedTheme);
+//    myEnterPlayerScreen = new EnterPlayersScreen(myStage, this, languageResource, selectedTheme);
     currDisplay = allDisplays.get(2);
     myStage.setScene(currDisplay.getScene());
   }
@@ -186,6 +183,8 @@ public class DisplayManager {
     myStartMenu = new StartMenu(myStage, this, languageResource);
     allDisplays.add(myStartMenu);
     allDisplays.add(new OptionsMenu(myStage, this, languageResource));
+    allDisplays.add(new EnterPlayersScreen(myStage, this, languageResource, selectedTheme));
+    allDisplays.add(new GameCreatorScreen(myStage, this, languageResource));
     currDisplay = allDisplays.get(1);
     myStage.setScene(currDisplay.getScene());
   }
@@ -291,24 +290,32 @@ public class DisplayManager {
     variationName = name;
   }
 
-  public void goLossScreen() {
-    allDisplays.add(new LossScreen(this, languageResource, selectedTheme, myGameData));
-    int size = allDisplays.size();
-    currDisplay = allDisplays.get(size - 1);
-    myStage.setScene(currDisplay.getScene());
+  /**
+   * Displays an alert on the screen.
+   *
+   * @param type the type of alert to show.
+   * @param message the message displayed.
+   */
+  public void showAlert(String message, AlertType type) {
+    Alert myAlert = new Alert(type);
+    myAlert.setContentText(message);
+    myAlert.show();
   }
 
-  public void goVictoryScreen() {
-    allDisplays.add(new VictoryScreen(myStage, this, languageResource, selectedTheme, myGameData, myPlayerManager));
-    int size = allDisplays.size();
-    currDisplay = allDisplays.get(size - 1);
-    myStage.setScene(currDisplay.getScene());
-  }
-
-  public void goToGame() {
-    if (currDisplay.getClass() == LossScreen.class) {
-      currDisplay = allDisplays.get(4);
-      myStage.setScene(currDisplay.getScene());
+  /**
+   * Shows the victory screen.
+   */
+  public void showVictoryScreen() {
+    Player victor = null;
+    for (Player p: getGameData().getPlayers()) {
+      if (p.isActive()) {
+        victor = p;
+      }
+    }
+    if (victor != null) {
+      showAlert(String.format("%s%s", VICTORY_MESSAGE, victor.getName()), AlertType.INFORMATION);
+    } else {
+      showAlert(NO_VICTOR,AlertType.ERROR);
     }
   }
 

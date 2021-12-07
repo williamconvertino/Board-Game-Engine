@@ -3,8 +3,6 @@ package ooga.display.game_board.right;
 import java.util.ResourceBundle;
 import javafx.scene.layout.VBox;
 import ooga.display.game_board.GameBoardDisplay;
-import ooga.display.popup.ExceptionPopUp;
-import ooga.display.screens.player_profile.UpdateProfile;
 import ooga.display.ui_tools.UIBuilder;
 
 /**
@@ -65,5 +63,4 @@ public class TurnChoices {
   public VBox getMyTurnChoices() {
     return myTurnChoices;
   }
-
 }

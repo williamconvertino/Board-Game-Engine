@@ -17,7 +17,6 @@ public class DisplayStateSignaler {
 
     //Display prompts.
     PLAYER_WIN,
-    PLAYER_LOSS,
     GO_TO_JAIL,
     PAY_MONEY_TO_PLAYER,
 
@@ -43,11 +42,8 @@ public class DisplayStateSignaler {
    * @param s
    */
   public void signalDisplay (State s) {
-    if (s == State.PLAYER_WIN) {
-      myDisplayManager.goVictoryScreen();
-    }
-    if (s == State.PLAYER_LOSS) {
-      myDisplayManager.goLossScreen();
+    if (s.equals(State.PLAYER_WIN)) {
+      myDisplayManager.showVictoryScreen();
     }
   }
 }

@@ -1,10 +1,15 @@
 package ooga.display.communication;
 
+import javafx.scene.control.Alert.AlertType;
 import ooga.display.DisplayManager;
 import ooga.display.communication.DisplayStateSignaler.State;
+import ooga.exceptions.PlayerWarning;
 import ooga.model.data.cards.Card;
+import ooga.model.data.player.Player;
 import ooga.model.data.tilemodels.ActionTileModel;
 import ooga.model.data.tilemodels.TileModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * The display communication which shows exceptions
@@ -13,23 +18,30 @@ import ooga.model.data.tilemodels.TileModel;
  */
 public class DisplayComm {
 
-  private ExceptionHandler myExceptionHandler;
+  private static final Logger LOG = LogManager.getLogger(DisplayComm.class);
+
+  private DisplayManager displayManager;
   private DisplayStateSignaler signaler;
+
 
   /**
    * The constructor to make a exception handler in DisplayComm
    */
   public DisplayComm(DisplayManager dm) {
-    this.myExceptionHandler = new ExceptionHandler();
+    this.displayManager = dm;
     this.signaler = new DisplayStateSignaler(dm);
   }
 
   /**
    * Handles showing the exception passed in
-   * @param e exception
+   * @param e
    */
   public void showException(Exception e) {
-    myExceptionHandler.showException(e);
+    if (e instanceof PlayerWarning) {
+      displayManager.showAlert(((PlayerWarning)e).getDescription(), AlertType.ERROR);
+    } else {
+      LOG.error(String.format("%s", e.toString()));
+    }
   }
 
   /**
@@ -47,9 +59,7 @@ public class DisplayComm {
    * @param card the card to display.
    */
   public void displayCard(Card card) {
-    //Todo: replace with display
-
-    System.out.println(String.format("Card drawn: [%s]", card.getDescription()));
+    displayManager.showAlert(String.format("You have drawn the following card:\n\n %s", card.getDescription()), AlertType.INFORMATION);
   }
 
   /**
@@ -58,8 +68,16 @@ public class DisplayComm {
    * @param tile the tile to display.
    */
   public void displayActionTile(ActionTileModel tile) {
-    //Todo: replace with display
-    System.out.println(String.format("[%s] - %s", tile.getName(), tile.getDescription()));
+    displayManager.showAlert(String.format("[%s] - %s", tile.getName(), tile.getDescription()), AlertType.INFORMATION);
+  }
+
+  /**
+   * Shows an alert that a player has lost.
+   *
+   * @param player the player who has lost.
+   */
+  public void displayPlayerLose(Player player) {
+    displayManager.showAlert(String.format("Player: %s has lost the game", player.getName()), AlertType.INFORMATION);
   }
 
 }

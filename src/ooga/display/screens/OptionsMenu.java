@@ -15,13 +15,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-/**
- * @author Henry Huynh
- * The Options menu.
- */
 public class OptionsMenu extends Display {
 
-  private BorderPane optionsMenu;
+  private BorderPane startMenu;
   private Stage myStage;
   private DisplayManager myDisplayManager;
   private UIBuilder myBuilder;
@@ -47,17 +43,18 @@ public class OptionsMenu extends Display {
     myBuilder = new UIBuilder(langResource);
     myStage = stage;
     myDisplayManager = displayManager;
-    optionsMenu = new BorderPane();
-    optionsMenu.setTop(myBuilder.makeLabel("OPTIONS"));
-    optionsMenu.setLeft(optionsPanel());
+    startMenu = new BorderPane();
+    startMenu.setTop(myBuilder.makeLabel("OPTIONS"));
+    startMenu.setLeft(optionsPanel());
     makeScene();
   }
 
   /**
-   * Make the panel with options
+   * Make the panel with buttons to screens or go to settings
    */
   private Node optionsPanel() {
     VBox result = new VBox();
+    List<String> placeHolder = new ArrayList<>();
     List<String> themes = new ArrayList<>(Arrays.asList("Original", "Mono", "Duke"));
     result.getChildren()
         .add(myBuilder.makeCombo("Theme", themes, e -> myDisplayManager.changeTheme(e)));
@@ -68,7 +65,7 @@ public class OptionsMenu extends Display {
   }
 
   private void makeScene() {
-    scene = new Scene(optionsMenu, 800, 600);
+    scene = new Scene(startMenu, 800, 600);
     scene.getStylesheets().add(DEFAULT_STYLE);
   }
 
