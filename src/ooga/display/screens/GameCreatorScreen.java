@@ -98,6 +98,9 @@ public class GameCreatorScreen extends Display {
 
   private FolderFactory folderFactory;
 
+  private String dieType;
+  private String boardManagerType;
+  private String playerManagerType;
 
   /**
    * Constructor for creating a custom game
@@ -108,6 +111,9 @@ public class GameCreatorScreen extends Display {
   public GameCreatorScreen(Stage stage, DisplayManager displayManager, ResourceBundle langResource) {
     rowJumper = 0;
     colJumper = 0;
+    dieType = "OriginalDice";
+    boardManagerType="OriginalBoardManager";
+    playerManagerType="OriginalPlayerManager";
     PropertyPopUp = new Popup();
     propBox = new VBox();
     propBox.setId("propertyCreatorBox");
@@ -119,18 +125,21 @@ public class GameCreatorScreen extends Display {
     myGameImages = ResourceBundle.getBundle(IMAGE_RESOURCE);
     allElements = new HBox();
     folderFactory = new FolderFactory();
-
     selectorMenu = new VBox();
     selectorMenu.setMaxWidth(SELECTOR_MENU_WIDTH);
     selectorMenu.setMinWidth(SELECTOR_MENU_WIDTH);
     selectorMenu.getChildren().add(createInitialSelectorMenu());
-
     allElements.getChildren().add(selectorMenu);
     makeScene();
   }
 
   //Sets the proper variation name and changes back to Player Screen
-  private void setGame(){
+  private void setGame() throws IOException {
+    if (tileCounter!= 0){
+      myBuilder.makeErrorAlert("Board Incomplete","Please complete the board!").showAndWait();
+      return;
+    }
+    folderFactory.writeConfigFile(boardManagerType,playerManagerType,dieType);
     myDisplayManager.setVariationName(gameName.getText());
     myDisplayManager.goPlayerScreen();
   }
@@ -152,14 +161,17 @@ public class GameCreatorScreen extends Display {
     return result;
   }
 
-  //creates the variation folder hierarchy and displays the rest of the selector menu
-  private void createFullSelectorMenu() throws IOException {
-    folderFactory.makeDirectories(gameName.getText());
+  private VBox createRightElements(){
     VBox rightElements = new VBox();
     rightElements.setId("RightElements");
-    allElements.getChildren().add(rightElements);
-
-    Button setGameButton = myBuilder.makeTextButton("SetGame", e -> setGame());
+    rightElements.setId("RightElements");
+    Button setGameButton = myBuilder.makeTextButton("SetGame", e -> {
+      try {
+        setGame();
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+    });
     setGameButton.setTranslateX(SET_GAME_BUTTON_X);
     setGameButton.setTranslateY(SET_GAME_BUTTON_Y);
     setGameButton.setPrefWidth(SET_GAME_BUTTON_WIDTH);
@@ -175,15 +187,21 @@ public class GameCreatorScreen extends Display {
     Text instructionText = new Text(myLangResource.getString("EditorInstructions"));
     instructions.getChildren().add(instructionText);
     instructionText.setWrappingWidth(INSTRUCTIONS_TEXT_WRAP_WIDTH);
+    return rightElements;
+  }
 
+  //creates the variation folder hierarchy and displays the rest of the selector menu
+  private void createFullSelectorMenu() throws IOException {
+    folderFactory.makeDirectories(gameName.getText());
+    allElements.getChildren().add(createRightElements());
     selectorMenu.getChildren().add(myBuilder.makeLabel("SetRules"));
 
     //create Die Selector
-    List<String> dieOptions = new ArrayList<>(Arrays.asList("TwoRegularDice","OneRegularDie"));
+    List<String> dieOptions = new ArrayList<>(Arrays.asList("OriginalDice","DoublesDie"));
     selectorMenu.getChildren().add(myBuilder.makeCombo("ChooseYourDice", dieOptions, e -> setDie(e)));
 
+    //List<String> playerOptions = new ArrayList<>(Arrays.asList("Original"));
     HBox createPropertyButtons = new HBox();
-
     createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddRegularProperty",e -> createPropertyPopUp("Regular")));
     createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddRailroadProperty",e -> createPropertyPopUp("Railroad")));
     createPropertyButtons.getChildren().add(myBuilder.makeTextButton("AddUtilitiesProperty",e -> createPropertyPopUp("Utilities")));
@@ -199,7 +217,6 @@ public class GameCreatorScreen extends Display {
     counter = (Label) myBuilder.makeLabel("TileCounter");
     tileCountBox.getChildren().addAll(myBuilder.makeLabel("TilesLeft"),counter);
     selectorMenu.getChildren().add(tileCountBox);
-
 
     board = new HBox();
     selectorMenu.getChildren().add(board);
@@ -263,8 +280,8 @@ public class GameCreatorScreen extends Display {
   }
 
   //Sets the die to whatever the user chooses
-  private void setDie(String dieType){
-    //TODO: Enter this
+  private void setDie(String die){
+    dieType = die;
   }
 
   //Creates the property pop up screen for the user to input

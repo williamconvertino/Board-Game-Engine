@@ -1,3 +1,0 @@
-Name=Your Building Loan Matures
-Description=YOUR BUILDING LOAN MATURES - COLLECT $150
-ActionSequence=[addMoney p0 150]

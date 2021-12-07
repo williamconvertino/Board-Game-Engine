@@ -8,6 +8,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+/**
+ * This class helps the GameCreatorScreen create and write to the user's custom monopoly variation
+ *
+ * @author Casey Goldstein
+ */
 public class FolderFactory {
 
   private final String VARIATION_PATH = "data/variations/";
@@ -19,6 +24,9 @@ public class FolderFactory {
   private final String BOARD_PATH = "/board";
   private final String PROPERTIES_PATH = "/properties";
   private final String DEFAULT_VARIATION_PATH = "/original";
+  private final String BOARD_MANAGER_PROPERTY="BoardManager=ooga.model.game_handling.board_manager.";
+  private final String PLAYER_MANAGER_PROPERTY="PlayerManager=ooga.model.data.player.";
+  private final String DIE_PROPERTY="Die=ooga.model.die.";
 
   private File variationFolder;
   private File variationBoard;
@@ -38,7 +46,12 @@ public class FolderFactory {
   private  Path des;
 
 
-  //Creates all folders and files for the new variation, and copies all necessary information over
+  /**
+   * Creates the folder hierarchy for the variation.
+   *
+   * @param variationName
+   * @throws IOException
+   */
   public void makeDirectories(String variationName) throws IOException {
     variationFolder = new File(VARIATION_PATH + variationName.replace(" ","_"));
     variationFolder.mkdirs();
@@ -59,7 +72,6 @@ public class FolderFactory {
     variationCommunityChestCards =new File(VARIATION_PATH + variationName + CARDS_PATH  + COMMUNITY_CHEST_PATH);
     variationCommunityChestCards.mkdirs();
     copyTileFiles(variationName);
-    copyConfigFile(variationName);
     copyCardFiles(CHANCE_PATH,CHANCE_SUBSTRING_CUTOFF,variationName);
     copyCardFiles(COMMUNITY_CHEST_PATH,COMMUNITY_CHEST_SUBSTRING_CUTOFF,variationName);
   }
@@ -70,18 +82,21 @@ public class FolderFactory {
     File fileFolder = new File(VARIATION_PATH + DEFAULT_VARIATION_PATH + BOARD_PATH + TILES_PATH);
     for(File file: fileFolder.listFiles()){
       tileName= file.getPath().substring(TILE_SUBSTRING_CUTOFF);
-      new File(VARIATION_PATH + name + BOARD_PATH + TILES_PATH + tileName).createNewFile();
+      new File(VARIATION_PATH + name + BOARD_PATH + TILES_PATH + "/" + tileName).createNewFile();
       src = Paths.get(file.getPath());
-      des = Paths.get(VARIATION_PATH + name + BOARD_PATH + TILES_PATH + tileName);
+      des = Paths.get(VARIATION_PATH + name + BOARD_PATH + TILES_PATH + "/" + tileName);
       Files.copy(src, des, StandardCopyOption.REPLACE_EXISTING);
     }
   }
 
   //copies configuration file from original variation to new variation
-  private void copyConfigFile(String name) throws IOException {
-    src = Paths.get(VARIATION_PATH + DEFAULT_VARIATION_PATH + CONFIG + PROPERTIES_PATH.replace("/","."));
-    des = Paths.get(VARIATION_PATH + name + CONFIG + PROPERTIES_PATH.replace("/","."));
-    Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
+  public void writeConfigFile(String boardmanager, String playermanager, String die) throws IOException {
+    System.out.println(variationConfigFile);
+    FileWriter fw = new FileWriter(variationConfigFile,true);
+    fw.write(BOARD_MANAGER_PROPERTY + boardmanager + "\n");
+    fw.write(PLAYER_MANAGER_PROPERTY + playermanager + "\n");
+    fw.write(DIE_PROPERTY + die);
+    fw.close();
   }
 
   //copies chance and community chest cards from original variation to new variation
@@ -90,9 +105,9 @@ public class FolderFactory {
     File fileFolder = new File(VARIATION_PATH + DEFAULT_VARIATION_PATH + CARDS_PATH + cardPath);
     for(File file: fileFolder.listFiles()){
       tileName= file.getPath().substring(pathCutoff);
-      new File(VARIATION_PATH + name + CARDS_PATH + cardPath + tileName).createNewFile();
+      new File(VARIATION_PATH + name + CARDS_PATH + cardPath + "/" + tileName).createNewFile();
       src = Paths.get(file.getPath());
-      des = Paths.get(VARIATION_PATH + name+ CARDS_PATH + cardPath + tileName);
+      des = Paths.get(VARIATION_PATH + name+ CARDS_PATH + cardPath + "/" + tileName);
       Files.copy(src, des,StandardCopyOption.REPLACE_EXISTING);
     }
   }
