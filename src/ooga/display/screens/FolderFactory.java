@@ -27,6 +27,7 @@ public class FolderFactory {
   private final String BOARD_MANAGER_PROPERTY="BoardManager=ooga.model.game_handling.board_manager.";
   private final String PLAYER_MANAGER_PROPERTY="PlayerManager=ooga.model.data.player.";
   private final String DIE_PROPERTY="Die=ooga.model.die.";
+  private final String VARIATION_NAMES_FOLDER = "data/variation_names";
 
   private File variationFolder;
   private File variationBoard;
@@ -37,6 +38,7 @@ public class FolderFactory {
   private  File variationTiles;
   private  File variationChanceCards;
   private  File variationCommunityChestCards;
+  private File variationNameFile;
 
   private  final int TILE_SUBSTRING_CUTOFF = 37;
   private  final int CHANCE_SUBSTRING_CUTOFF = 38;
@@ -71,6 +73,8 @@ public class FolderFactory {
     variationChanceCards.mkdirs();
     variationCommunityChestCards =new File(VARIATION_PATH + variationName + CARDS_PATH  + COMMUNITY_CHEST_PATH);
     variationCommunityChestCards.mkdirs();
+    variationNameFile = new File(VARIATION_NAMES_FOLDER + "/" + variationName);
+    variationNameFile.createNewFile();
     copyTileFiles(variationName);
     copyCardFiles(CHANCE_PATH,CHANCE_SUBSTRING_CUTOFF,variationName);
     copyCardFiles(COMMUNITY_CHEST_PATH,COMMUNITY_CHEST_SUBSTRING_CUTOFF,variationName);
@@ -98,6 +102,8 @@ public class FolderFactory {
     fw.write(DIE_PROPERTY + die);
     fw.close();
   }
+
+
 
   //copies chance and community chest cards from original variation to new variation
   private void copyCardFiles(String cardPath, int pathCutoff, String name) throws IOException {

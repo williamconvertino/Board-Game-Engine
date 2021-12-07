@@ -290,6 +290,10 @@ public class DisplayManager {
     variationName = name;
   }
 
+  public String getVariationName(){
+    return variationName;
+  }
+
   /**
    * Displays an alert on the screen.
    *

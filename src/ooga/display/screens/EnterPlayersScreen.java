@@ -6,10 +6,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -49,6 +54,7 @@ public class EnterPlayersScreen extends Display {
   private static final String VARIATION_IMAGES = DEFAULT_RESOURCE_PACKAGE + "stock_variation_images";
   private static final String DEFAULT_DATA_PACKAGE = "data/";
   private static final String VARIATION_FOLDER_NAME = "variations/";
+  private final String VARIATION_NAMES_FOLDER = "data/variation_names";
   private static final String DUKE_STYLE = STYLE_PACKAGE + "duke.css";
   private static final String MONO_STYLE = STYLE_PACKAGE + "mono.css";
   private static final String PLAYER_CUSTOMIZER = "PlayerCustomizer";
@@ -59,11 +65,11 @@ public class EnterPlayersScreen extends Display {
   private static final int DISPLAY_HEIGHT = 600;
   private static final int DISPLAY_WIDTH = 1000;
   private static final int IMAGE_SIZE = 100;
+  private Label variationNameLabel;
 
   private ArrayList<Color> playerColors = new ArrayList<>();
   private Scene scene;
   private String myStyle = DEFAULT_STYLE;
-  private String variationName;
 
 
   /**
@@ -89,16 +95,30 @@ public class EnterPlayersScreen extends Display {
   //Creates all elements for player customization
   private void makePlayerCustomizer() {
     HBox playerCustomizer = new HBox();
-    playerCustomizer.getChildren().addAll(makeTextAreas(), makeColorSelection(), makeRight(),makeGameSelectorBox());
+    playerCustomizer.getChildren().addAll(makeTextAreas(), makeColorSelection(),makeGameSelectorBox(),makeRight());
     playerMenu.getChildren().add(playerCustomizer);
   }
 
   //creates elements on right side of screen
   private Node makeRight() {
     VBox result = new VBox();
+    result.getChildren().add(makeSelectedVariationBox());
     result.getChildren().add(myBuilder.makeTextButton("Continue", e -> myDisplayManager.startGame()));
     result.getChildren().add(myBuilder.makeTextButton("GotoHome", e -> myDisplayManager.goStartMenu()));
     return result;
+  }
+
+  //creates dynamic variation selected box label
+  private HBox makeSelectedVariationBox(){
+    HBox chosenVariationBox = new HBox();
+    Label chosenVariation = (Label) myBuilder.makeLabel("SelectedVariation");
+    chosenVariation.setTranslateX(0);
+    chosenVariation.setTranslateY(0);
+    chosenVariationBox.getChildren().add(myBuilder.makeLabel("SelectedVariation"));
+    variationNameLabel = (Label) myBuilder.makeLabel("VariationNameLabel");
+    variationNameLabel.setText(myDisplayManager.getVariationName());
+    chosenVariationBox.getChildren().add(variationNameLabel);
+    return chosenVariationBox;
   }
 
   //creates game selector elements
@@ -107,6 +127,9 @@ public class EnterPlayersScreen extends Display {
     result.getChildren().add(myBuilder.makeLabel("ChooseGame"));
     result.getChildren().add(myBuilder.makeLabel("SelectEdition"));
     result.getChildren().add(makeVariationButtons());
+    result.getChildren().add(myBuilder.makeLabel("Or"));
+    result.getChildren().add(myBuilder.makeLabel("LoadVariation"));
+    result.getChildren().add(makeLoadButton());
     result.getChildren().add(myBuilder.makeLabel("Or"));
     result.getChildren().add(myBuilder.makeTextButton("CreateYourOwn",e -> myDisplayManager.goGameCreatorScreen()));
     return result;
@@ -206,16 +229,42 @@ public class EnterPlayersScreen extends Display {
       return result;
     }
 
-  private String loadGame(){
-    FileChooser GameChooser = new FileChooser();
-    GameChooser.getExtensionFilters().add(new ExtensionFilter("SIM File", "*.sim"));
-    GameChooser.setInitialDirectory(new File("data"));
-    File simFile = GameChooser.showOpenDialog(getScene().getWindow());
-    return simFile.toString();
+  //Makes dynamic game loader folder button
+  private Button makeLoadButton() {
+    Button result = new Button();
+    ImageView folderImageView = new ImageView(
+        new Image("images/closedfolder.png"));
+    folderImageView.setFitWidth(100);
+    folderImageView.setFitHeight(100);
+    result.setGraphic(folderImageView);
+    result.setId("VariationLoader");
+    result.hoverProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue) {
+        folderImageView.setImage(new Image("images/openfolder.png"));
+      } else {
+        folderImageView.setImage(new Image("images/closedfolder.png"));
+      }
+    });
+    result.setOnAction(event -> {
+      String path = loadGame();
+      myDisplayManager.setVariationName(path.substring(path.lastIndexOf("/")+1));
+      variationNameLabel.setText(myDisplayManager.getVariationName());
+    });
+    return result;
   }
 
+  //loads file dialog for game choosing
+  private String loadGame(){
+    FileChooser GameChooser = new FileChooser();
+    GameChooser.setInitialDirectory(new File(VARIATION_NAMES_FOLDER));
+    File gameFile = GameChooser.showOpenDialog(getScene().getWindow());
+    return gameFile.toString();
+  }
+
+  //sets the
   private void setVariationName(String name){
-    variationName = name;
+    myDisplayManager.setVariationName(name);
+    variationNameLabel.setText(myDisplayManager.getVariationName());
   }
 
 

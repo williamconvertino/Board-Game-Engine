@@ -83,6 +83,9 @@ public class EnterPlayersScreenTest extends DukeApplicationTest {
     assertEquals(Color.YELLOW, dm.getGameData().getPlayers().get(0).getColor());
   }
 
+  /**
+   * This test clicks on default monopoly game
+   */
   @Test
   public void selectDefault(){
     Button options = lookup("#Start").query();
