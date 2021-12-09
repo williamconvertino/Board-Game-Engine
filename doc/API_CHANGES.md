@@ -268,3 +268,4 @@ in the program itself.
 ```
 
 Our cards previously printed all the values directly. Now they call this method, which handles the card display.
+
