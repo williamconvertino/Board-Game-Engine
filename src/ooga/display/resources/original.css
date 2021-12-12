@@ -5,12 +5,12 @@
 .root {
   -fx-font-family: "Rockwell";
   /* define variables to avoid duplicating values */
-  text_color: #F8CE87;
+  text_color: #f3a53a;
   -fx-background-color: #A23434;
 }
 
 #propertyVBox {
-  -fx-background-color: #A23434;
+  -fx-background-color: #4d7d9b;
   -fx-border-color: #000000;
   -fx-border-width: 3px;
   -fx-padding: 10px;
@@ -18,8 +18,15 @@
 
 #ProfileVBox {
   -fx-border-color: #000000;
+  -fx-background-color: #4d7d9b;
   -fx-border-width: 3px;
   -fx-padding: 10px;
+  -fx-border-radius: 2px;
+  -fx-border-width: 4px;
+  -fx-border-radius: 3px;
+  -fx-background-radius: 3px;
+  -fx-background-insets: 3px;
+
 }
 
 #propdisptilename {
@@ -57,6 +64,11 @@
 #variationButton:hover {
   -fx-padding: 0px;
   -fx-background-color: white;
+  -fx-border-width: 3px;
+  -fx-border-radius: 3px;
+  -fx-background-radius: 3px;
+  -fx-background-insets: 3px;
+  -fx-border-color: black;
 }
 
 .button:pressed {
@@ -76,7 +88,7 @@
 }
 
 .text-field {
-  -fx-text-fill: text_color;
+  -fx-text-fill: darkgray;
   -fx-background-color: floralwhite;
   -fx-min-width: 200px;
 }
@@ -136,21 +148,78 @@
   -fx-alignment: top-center;
 }
 
-#MONOPOLY{
-  -fx-text-alignment: center;
-  -fx-underline: true;
-  -fx-font-size: 200 !important;
-}
 
 #Start,#Options,#Signup,#Login,#Update{
-  -fx-background-color: white;
+  -fx-min-width: 200;
+  -fx-min-height: 100;
+  -fx-font-size:30;
+  -fx-border-color: black;
+  -fx-border-width: 4px;
+  -fx-border-radius: 3px;
+  -fx-background-radius: 3px;
+  -fx-background-insets: 3px;
+
+}
+
+#Start{
+  -fx-background-color: #daf8b4;
+}
+
+#Options{
+  -fx-background-color: #fad4ea;
+}
+
+#Signup{
+  -fx-background-color: #b4fff6;
+}
+
+#Login{
+  -fx-background-color: #ffcdb0;
+}
+
+#Update{
+  -fx-background-color: #dfe6ff;
 }
 
 #Start:hover, #Options:hover, #Signup:hover, #Login:hover, #Update:hover{
   -fx-background-color: yellow;
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 20, 0.0, 0, 1);
+  -fx-font-size: 35;
 }
+
+#Continue,#GotoHome, #CreateYourOwn{
+  -fx-border-color: black;
+  -fx-border-width: 2px;
+  -fx-border-radius: 2px;
+  -fx-background-radius: 2px;
+  -fx-background-insets: 2px;
+}
+
+#Continue:hover,#GotoHome:hover, #CreateYourOwn:hover{
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 10, 0.0, 0, 1);
+}
+
+#CreateYourOwn{
+  -fx-min-width: 100;
+  -fx-min-height: 50;
+  -fx-font-size:15;
+}
+
 
 .button:hover{
   -fx-background-color: yellow;
 }
+
+#Start:pressed, #Options:pressed, #Signup:pressed, #Login:pressed, #Update:pressed{
+  -fx-background-color: red;
+}
+
+#variationButton{
+
+}
+
+
+
+
+
 
