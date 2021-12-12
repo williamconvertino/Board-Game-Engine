@@ -1,0 +1,9 @@
+Name=Bostock Library
+Type=Regular
+Cost=160
+RentCost=12,60,180,500,700,900
+MaxHouses=4
+HouseCost=100
+Neighbors=Perkins Library, Wilkinson Building
+Mortgage=80
+Color=pink

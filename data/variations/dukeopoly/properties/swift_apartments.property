@@ -1,0 +1,9 @@
+Name=Swift Apartments
+Type=Regular
+Cost=120
+RentCost=8,40,100,300,450,600
+MaxHouses=4
+HouseCost=50
+Neighbors=Avana Apartments, Smart Home
+Mortgage=60
+Color=white

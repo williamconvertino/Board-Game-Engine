@@ -1,0 +1,9 @@
+Name=Baldwin
+Type=Regular
+Cost=260
+RentCost=22,110,330,800,975,1150
+MaxHouses=4
+HouseCost=150
+Neighbors=East Store, Marketplace
+Mortgage=130
+Color=yellow

@@ -1,0 +1,9 @@
+Name=The Hollows
+Type=Regular
+Cost=180
+RentCost=14,70,200,550,750,950
+MaxHouses=4
+HouseCost=100
+Neighbors=Craven Dorm, Crowell Dorm
+Mortgage=90
+Color=orange

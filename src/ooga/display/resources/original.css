@@ -136,4 +136,21 @@
   -fx-alignment: top-center;
 }
 
+#MONOPOLY{
+  -fx-text-alignment: center;
+  -fx-underline: true;
+  -fx-font-size: 200 !important;
+}
+
+#Start,#Options,#Signup,#Login,#Update{
+  -fx-background-color: white;
+}
+
+#Start:hover, #Options:hover, #Signup:hover, #Login:hover, #Update:hover{
+  -fx-background-color: yellow;
+}
+
+.button:hover{
+  -fx-background-color: yellow;
+}
 

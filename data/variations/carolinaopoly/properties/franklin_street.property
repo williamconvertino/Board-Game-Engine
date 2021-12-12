@@ -1,0 +1,9 @@
+Name=Franklin Street
+Type=Regular
+Cost=350
+RentCost=35,175,500,1100,1300,1500
+MaxHouses=4
+HouseCost=200
+Neighbors=The Exit
+Mortgage=175
+Color=lightblue

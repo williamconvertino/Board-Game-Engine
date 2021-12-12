@@ -148,9 +148,9 @@ public class TileParser extends FolderParser {
     String tileName = tryProperty(props, "Name");
     String tileImage = tryProperty(props, "Image");
 
-    if (tileName.equals("Community Chest")) {
+    if (tileName.equals("Community Chest") || tileName.equals("Chronicle")) {
       return new CardTileModel(tileName, myData.getDecks().getDeck("Community Chest"));
-    } else if (tileName.equals("Chance")) {
+    } else if (tileName.equals("Chance") || tileName.equals("Email")) {
       return new CardTileModel(tileName, myData.getDecks().getDeck("Chance"));
     }
 

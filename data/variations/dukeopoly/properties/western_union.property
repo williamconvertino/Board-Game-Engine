@@ -1,0 +1,9 @@
+Name=Western Union
+Type=Regular
+Cost=300
+RentCost=26,130,390,900,1100,1275
+MaxHouses=4
+HouseCost=200
+Neighbors=Cameron Stadium, Bryan Center
+Mortgage=150
+Color=green
