@@ -1,0 +1,9 @@
+Name=Kilgo Dorm
+Type=Regular
+Cost=220
+RentCost=18,90,250,700,875,1050
+MaxHouses=4
+HouseCost=150
+Neighbors=Edens Dorm, Few Dorm
+Mortgage=110
+Color=red

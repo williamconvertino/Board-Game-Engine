@@ -1,0 +1,9 @@
+Name=The Exit
+Type=Regular
+Cost=400
+RentCost=50,200,600,1400,1700,2000
+MaxHouses=4
+HouseCost=200
+Neighbors=Franklin Street
+Mortgage=200
+Color=lightblue

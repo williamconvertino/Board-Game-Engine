@@ -190,6 +190,8 @@ public class GameBoard {
     tileBox.setMaxWidth(width);
     tileBox.setMinHeight(height);
     tileBox.setMaxHeight(height);
+    System.out.println(tileIndex);
+    System.out.println(gameData.getBoard().getTileAtIndex(tileIndex).getName());
     String tileName = gameData.getBoard().getTileAtIndex(tileIndex).getName();
     String tileType = gameData.getBoard().getTileAtIndex(tileIndex).getMyType();
     Label propName = new Label(tileName);

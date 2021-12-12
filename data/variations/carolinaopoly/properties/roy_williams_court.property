@@ -1,0 +1,9 @@
+Name=Roy Williams Court
+Type=Regular
+Cost=60
+RentCost=2,10,30,90,160,250
+MaxHouses=4
+HouseCost=50
+Neighbors=MJ Statue
+Mortgage=30
+Color=white

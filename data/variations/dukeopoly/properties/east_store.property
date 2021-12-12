@@ -1,0 +1,9 @@
+Name=East Store
+Type=Regular
+Cost=280
+RentCost=24,120,360,850,1025,1200
+MaxHouses=4
+HouseCost=150
+Neighbors=Marketplace, Baldwin
+Mortgage=140
+Color=yellow

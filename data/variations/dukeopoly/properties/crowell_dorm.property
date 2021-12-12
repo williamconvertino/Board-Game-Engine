@@ -1,0 +1,9 @@
+Name=Crowell Dorm
+Type=Regular
+Cost=200
+RentCost=16,80,220,600,800,1000
+MaxHouses=4
+HouseCost=100
+Neighbors=Craven Dorm, The Hollows
+Mortgage=100
+Color=orange

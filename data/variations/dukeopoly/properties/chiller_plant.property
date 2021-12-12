@@ -1,7 +1,7 @@
-Name=Duke Energy
+Name=Chiller Plant
 Type=Utilities
 Cost=150
 RentCost=4,10
 Mortgage=75
-Neighbors= Chiller Plant
+Neighbors=Duke Energy
 Image=
