@@ -74,6 +74,40 @@
 }
 
 #tileBox {
-  -fx-background-color: White
+  -fx-background-color: #cecdcd;
+  -fx-border-color: black;
+  -fx-alignment: top-center;
 }
 
+
+#Start,#Options,#Signup,#Login,#Update{
+  -fx-background-color: #c4c4c4;
+  -fx-min-width: 200;
+  -fx-min-height: 100;
+  -fx-font-size:30;
+  -fx-border-color: black;
+  -fx-border-width: 4px;
+  -fx-border-radius: 3px;
+  -fx-background-radius: 3px;
+  -fx-background-insets: 3px;
+
+}
+
+
+#Start:hover, #Options:hover, #Signup:hover, #Login:hover, #Update:hover{
+  -fx-background-color: #8c8c8c;
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 20, 0.0, 0, 1);
+  -fx-font-size: 35;
+}
+
+#Continue,#GotoHome, #CreateYourOwn{
+  -fx-border-color: black;
+  -fx-border-width: 2px;
+  -fx-border-radius: 2px;
+  -fx-background-radius: 2px;
+  -fx-background-insets: 2px;
+}
+
+.button:hover{
+  -fx-background-color: #8c8c8c;
+}
