@@ -318,7 +318,7 @@ public class Property {
     if (isMortgaged) {
       throw new MortgageException();
     }
-    if (numHouses == 0) {
+    if (numHouses != 0) {
       numHouses--;
     } else {
       throw new NoHousesToSellException();
