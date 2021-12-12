@@ -1,16 +1,21 @@
 package ooga;
 
 import java.util.List;
+import javafx.scene.control.Alert.AlertType;
 import ooga.display.communication.DisplayComm;
 import ooga.display.communication.DisplayStateSignaler;
+import ooga.display.communication.DisplayStateSignaler.State;
 import ooga.display.communication.EventManager;
 import ooga.exceptions.CardNotFoundException;
 import ooga.exceptions.DeckNotFoundException;
+import ooga.exceptions.PlayerWarning;
 import ooga.exceptions.TileNotFoundException;
+import ooga.model.data.cards.Card;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.Player;
 import ooga.model.data.player.PlayerManager;
 import ooga.model.data.properties.Property;
+import ooga.model.data.tilemodels.ActionTileModel;
 import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.game_handling.FunctionExecutor;
 import ooga.model.game_handling.TurnManager;
@@ -47,14 +52,26 @@ public class OriginalTest {
   public void initialize() {
 
     myDisplayComm = new DisplayComm(null) {
-
       @Override
       public void showException(Exception e) {
-        //doNothing
+        //Do nothing
       }
       @Override
-      public void signalState(DisplayStateSignaler.State state) {
-        //doNothing
+      public void signalState(State state) {
+        //Do nothing
+      }
+
+      @Override
+      public void displayCard(Card card) {
+        //Do nothing
+      }
+      @Override
+      public void displayActionTile(ActionTileModel tile) {
+        //Do nothing
+      }
+      @Override
+      public void displayPlayerLose(Player player) {
+        //Do nothing
       }
     };
     try {

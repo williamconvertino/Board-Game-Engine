@@ -4,11 +4,13 @@ package ooga.model.game_handling;
 import java.util.ArrayList;
 import ooga.display.communication.DisplayComm;
 import ooga.display.communication.DisplayStateSignaler.State;
+import ooga.model.data.cards.Card;
 import ooga.model.data.gamedata.GameData;
 import ooga.model.data.player.OriginalPlayerManager;
 import ooga.model.data.player.Player;
 import ooga.model.data.player.PlayerManager;
 import ooga.model.data.properties.Property;
+import ooga.model.data.tilemodels.ActionTileModel;
 import ooga.model.data.tilemodels.EmptyTileModel;
 import ooga.model.data.tilemodels.PropertyTileModel;
 import ooga.model.data.tilemodels.TileModel;
@@ -84,8 +86,25 @@ public class GameHandlingTest {
 
     myDisplayComm = new DisplayComm(null) {
       @Override
-      public void signalState(State s) {
+      public void showException(Exception e) {
+        //Do nothing
+      }
+      @Override
+      public void signalState(State state) {
+        //Do nothing
+      }
 
+      @Override
+      public void displayCard(Card card) {
+        //Do nothing
+      }
+      @Override
+      public void displayActionTile(ActionTileModel tile) {
+        //Do nothing
+      }
+      @Override
+      public void displayPlayerLose(Player player) {
+        //Do nothing
       }
     };
 
