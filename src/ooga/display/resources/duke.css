@@ -99,3 +99,7 @@
 .bg-6 {
   -fx-background-color: #c4c4ff;
 }
+
+#tileBox {
+  -fx-background-color: #b3dbff
+}

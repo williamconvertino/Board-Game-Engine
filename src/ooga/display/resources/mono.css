@@ -73,4 +73,7 @@
   -fx-min-width: 200px;
 }
 
+#tileBox {
+  -fx-background-color: White
+}
 
