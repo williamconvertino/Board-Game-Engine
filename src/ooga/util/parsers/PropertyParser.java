@@ -84,6 +84,9 @@ public class PropertyParser extends FolderParser {
     int propertyHouseCost = Integer.parseInt(tryProperty(props, "HouseCost"));
     ArrayList<String> propertyNeighbors = new ArrayList(
         Arrays.asList(tryProperty(props, "Neighbors").split(",")));
+    for (int i = 0; i < propertyNeighbors.size();i++){
+      propertyNeighbors.set(i,propertyNeighbors.get(i).trim());
+    }
     int propertyMortgageCost = Integer.parseInt(tryProperty(props, "Mortgage"));
     String propertyColor = tryProperty(props, "Color").toLowerCase(Locale.ROOT);
 
@@ -122,6 +125,9 @@ public class PropertyParser extends FolderParser {
     int[] propertyRentCosts = StringArrayToIntArray(tryProperty(props, "RentCost").split(","));
     ArrayList<String> propertyNeighbors = new ArrayList(
         Arrays.asList(tryProperty(props, "Neighbors").split(",")));
+    for (int i = 0; i < propertyNeighbors.size();i++){
+      propertyNeighbors.set(i,propertyNeighbors.get(i).trim());
+    }
     int propertyMortgageCost = Integer.parseInt(tryProperty(props, "Mortgage"));
     String propertyImage = tryProperty(props, "Image");
     return new Property(propertyName, type, propertyCost, propertyRentCosts, propertyNeighbors,
