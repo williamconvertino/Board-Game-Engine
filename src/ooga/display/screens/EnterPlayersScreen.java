@@ -254,7 +254,7 @@ public class EnterPlayersScreen extends Display {
     });
     result.setOnAction(event -> {
       String path = loadGame();
-      myDisplayManager.setVariationName(path.substring(path.lastIndexOf("/") + 1));
+      myDisplayManager.setVariationName(path.substring(path.lastIndexOf("\\") + 1));
       variationNameLabel.setText(myDisplayManager.getVariationName());
     });
     return result;
