@@ -74,4 +74,13 @@ public class PropertyParserTest extends GameHandlingTest {
     assertEquals(true,thrown);
   }
 
+  @Test
+  void testSpacesBetweenCommasInDataFiles()
+      throws AttributeNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+    PropertyParser myParser = new PropertyParser();
+    Property testProperty = myParser.parsePropertyFile(new File("data/variations/original/properties/connecticut_avenue.property"));
+    assertEquals("Oriental Avenue",testProperty.getNeighbors().get(1));
+    //should return "Oriental Avenue", NOT " Oriental Avenue" (space at beginning)
+  }
+
 }
