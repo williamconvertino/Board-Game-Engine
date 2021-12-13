@@ -338,5 +338,9 @@ public class DisplayManager {
     }
   }
 
+  public List<Display> getAllDisplays(){
+    return allDisplays;
+  }
+
 
 }
