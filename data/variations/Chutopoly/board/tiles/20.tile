@@ -1,0 +1,6 @@
+Name=T20
+Type=Action
+Description=Slide to tile 13
+Image=
+PassThroughActionSequence=[]
+LandOnActionSequence=[moveToTile p0 T13]

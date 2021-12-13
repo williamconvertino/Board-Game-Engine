@@ -1,0 +1,6 @@
+Name=End
+Type=Action
+Description=When you get to this tile, you win the game!
+Image=
+PassThroughActionSequence=[]
+LandOnActionSequence=[loseMoneyToMultiple pa 30000],[addMoney p0 30000]

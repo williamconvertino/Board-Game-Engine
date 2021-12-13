@@ -1,0 +1,6 @@
+Name=T4
+Type=Action
+Description=Go to 15
+Image=
+PassThroughActionSequence=[]
+LandOnActionSequence=[advanceToTile p0 T15]

@@ -1,0 +1,6 @@
+Name=Go
+Type=Action
+Description=Start here.
+Image=
+PassThroughActionSequence=[advanceToTile p0 "Back 8"]
+LandOnActionSequence=[advanceToTile p0 "Back 8"]

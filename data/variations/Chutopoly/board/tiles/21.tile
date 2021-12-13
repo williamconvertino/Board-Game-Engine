@@ -1,0 +1,6 @@
+Name=T21
+Type=Action
+Description=Climb to tile 27
+Image=
+PassThroughActionSequence=[]
+LandOnActionSequence=[moveToTile p0 T27]

@@ -1,0 +1,6 @@
+Name=T33
+Type=Action
+Description=Go to 3
+Image=
+PassThroughActionSequence=[]
+LandOnActionSequence=[moveToTile p0 T3]

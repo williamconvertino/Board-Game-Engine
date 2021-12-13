@@ -1,0 +1,6 @@
+Name=T17
+Type=Action
+Description=Go to 19
+Image=
+PassThroughActionSequence=[]
+LandOnActionSequence=[advanceToTile 19]

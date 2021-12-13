@@ -1,0 +1,6 @@
+Name=T34
+Type=Action
+Description=34
+Image=
+PassThroughActionSequence=[]
+LandOnActionSequence=[]

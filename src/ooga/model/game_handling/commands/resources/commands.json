@@ -97,5 +97,11 @@
     "sourceclass": "ooga.model.game_handling.FunctionExecutor",
     "numarg": 1,
     "argtype1": "ooga.model.data.player.Player"
+  },
+  "endTurn": {
+    "method": "goToJail",
+    "sourceclass": "ooga.model.game_handling.FunctionExecutor",
+    "numarg": 1,
+    "argtype1": "ooga.model.data.player.Player"
   }
 }

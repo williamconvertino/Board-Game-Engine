@@ -1,0 +1,6 @@
+Name=Back 6
+Type=Action
+Description=Go Back 6 Spaces
+Image=
+PassThroughActionSequence=[]
+LandOnActionSequence=[moveBk p0 6]
