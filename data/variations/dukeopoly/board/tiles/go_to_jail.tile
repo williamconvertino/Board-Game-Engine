@@ -3,4 +3,4 @@ Type=Action
 Description=
 Image=
 PassThroughActionSequence=[]
-LandOnActionSequence=[]
+LandOnActionSequence=[goToJail p0]
