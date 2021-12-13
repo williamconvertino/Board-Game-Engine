@@ -110,8 +110,14 @@ public class DisplayManager {
     myEventMap = myGame.getEventMap();
     setPlayerNames();
     setPlayerColors();
-    allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData,
-        selectedTheme));
+    if(allDisplays.size()==4){
+      allDisplays.add(new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData,
+          selectedTheme));
+    }
+    else{
+      allDisplays.set(4,new GameBoardDisplay(myStage, this, languageResource, myEventMap, myGameData,
+          selectedTheme));
+    }
     currDisplay = allDisplays.get(4);
     myStage.setScene(currDisplay.getScene());
 
