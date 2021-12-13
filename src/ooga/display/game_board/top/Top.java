@@ -39,6 +39,7 @@ public class Top {
   private void makeGoHomeButton() {
     Button homeButton = new Button();
     homeButton.setText(myLanguage.getString("GotoHome"));
+    homeButton.setId("BoardGotoHome");
     homeButton.setOnAction(e -> pressedHomeButton());
     topComponent.getChildren().add(homeButton);
   }
