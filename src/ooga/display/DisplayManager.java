@@ -344,6 +344,11 @@ public class DisplayManager {
     }
   }
 
+  /**
+   * Returns the display list
+   *
+   * @return
+   */
   public List<Display> getAllDisplays(){
     return allDisplays;
   }

@@ -325,6 +325,15 @@ public class Property {
     }
   }
 
+  /**
+   * returns list of all property neighbors
+   *
+   * @return
+   */
+  public List<String> getNeighbors(){
+    return setMemberNames;
+  }
+
   public boolean isMortgaged() {
     return isMortgaged;
   }
