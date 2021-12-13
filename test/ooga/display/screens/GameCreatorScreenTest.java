@@ -1,6 +1,7 @@
 package ooga.display.screens;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.concurrent.TimeUnit;
 import javafx.scene.control.Button;
@@ -77,6 +78,11 @@ public class GameCreatorScreenTest extends DukeApplicationTest {
       creator = lookup("#SetGame").query();
       clickOn(creator);
       assertEquals(2, dm.getCurrDisplayIndex());
+
+      creator = lookup("#Continue").query();
+      clickOn(creator);
+      assertNotEquals(2, dm.getCurrDisplayIndex());
+
     }
     catch(Exception e){
       e.printStackTrace();
