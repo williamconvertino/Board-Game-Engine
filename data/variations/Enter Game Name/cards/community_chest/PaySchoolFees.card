@@ -1,0 +1,3 @@
+Name=Pay School Fees
+Description=COLLECT $50 FROM EACH PLAYER FOR OPENING NIGHT SEATS
+ActionSequence=[addMoney p0 numPlayersX 50],[loseMoney pa 50]
