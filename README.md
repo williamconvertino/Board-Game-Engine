@@ -1,47 +1,8 @@
-ooga
+Monopoly
 ====
 
-This project implements a player for multiple related games.
+This project was developed by William Convertino, Aaric Han, Casey Goldstein, Henry Huynh, and Jordan Castleman.
 
-Names:
+We've created an application that runs the classic game of Monopoly. It also comes with the ability to create and play different variations of Monopoly, including custom boards, tiles, cards, dice, and properties. These can be created through JSON files or using our built-in variation creation tool.
 
-
-### Timeline
-
-Start Date: 
-
-Finish Date: 
-
-Hours Spent:
-
-### Primary Roles
-
-
-### Resources Used
-http://www.falstad.com/monopoly.html
-
-<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-
-### Running the Program
-
-Main class:
-
-Data files needed: 
-
-Features implemented:
-
-
-
-### Notes/Assumptions
-
-Assumptions or Simplifications:
-
-Interesting data files:
-
-Known Bugs:
-
-Challenge Features:
-
-
-### Impressions
-
+All rights to Monopoly and its trademarks belong to Hasbro Incorporated, with whom we do not affiliate. This project was developed for eduational purposes, and is not intended for sale.
